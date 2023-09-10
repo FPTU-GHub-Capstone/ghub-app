@@ -8,7 +8,7 @@ function App() {
     return (
         <>
 			<Header />
-			<div style={{float: "right"}}>
+			<div>
 				<h1>Vite + React</h1>	
 				<div className="card">
 					<button onClick={() => setCount((num) => num + 1)}>
