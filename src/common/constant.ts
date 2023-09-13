@@ -1,4 +1,4 @@
-export enum AppPath {
+export const enum AppPath {
 	Login = '/login',
 	Register = '/register',
 	LandingPage = '/landingPage',
