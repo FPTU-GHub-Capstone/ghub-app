@@ -9,7 +9,6 @@ export type AxiosInitOptions = {
 const AUTHORIZATION     = 'Authorization';
 const CONTENT_TYPE      = 'Content-Type';
 const CONTENT_TYPE_JSON = 'application/json';
-const NGROK_IGNORE      = 'ngrok-skip-browser-warning';
 
 class RestService {
 	private readonly _axiosInstance: AxiosInstance;
@@ -34,7 +33,6 @@ class RestService {
 	): Record<string, string> {
 		const header: Record<string, string> = {};
 		header[CONTENT_TYPE] = CONTENT_TYPE_JSON;
-		header[NGROK_IGNORE] = 'true';
 		return { ...header, ...additionalHeaders };
 	}
 
