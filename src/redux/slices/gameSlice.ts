@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { Game } from '../common/types/game';
+import { Game } from '../../common';
 
 
 type GamesState = {
