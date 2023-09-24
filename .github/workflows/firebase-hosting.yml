@@ -26,8 +26,8 @@ jobs:
       - name: Install
         run: |
           yarn install --frozen-lockfile --network-timeout 1000000000
-      - name: lint
-        run: /
+      - name: Lint check
+        run: |
           yarn lint
       - name: Build
         run: |
