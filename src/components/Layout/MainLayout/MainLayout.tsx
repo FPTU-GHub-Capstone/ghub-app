@@ -9,7 +9,7 @@ interface IProps {
 	children: ReactElement;
 }
 
-export const Layout: React.FC<IProps> = ({ children }) => {
+export const MainLayout: React.FC<IProps> = ({ children }) => {
 	return (
 		<>
 			<Header />
