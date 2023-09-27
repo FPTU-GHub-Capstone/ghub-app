@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 
-import * as Styled from './styles'
 import Header from './Header'
+import * as Styled from './styles'
 import Nav from './Nav'
 
 
