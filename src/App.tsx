@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 
 import { store } from './redux/store.ts'
 import { AppRoutes } from './routes'
+import ThemeProvider from './theme'
 
 
 function App() {
@@ -12,9 +13,11 @@ function App() {
 		<>
 			<React.StrictMode>
 				<Provider store={store}>
-					<Router>
-						<AppRoutes />
-					</Router>
+					<ThemeProvider>
+						<Router>
+							<AppRoutes />
+						</Router>
+					</ThemeProvider>	
 				</Provider>
 			</React.StrictMode>
 		</>
