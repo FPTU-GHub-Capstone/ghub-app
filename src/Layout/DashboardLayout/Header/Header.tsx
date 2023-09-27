@@ -3,16 +3,10 @@ import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material'
 
 import { bgBlur } from '../../../utils/cssStyles'
 import Iconify from '../../../components/Iconify'
-
-//
 import AccountPopover from '../../DashboardLayout/Header/AccountPopover'
 import NotificationsPopover from '../../DashboardLayout/Header/NotificationsPopover'
 import Searchbar from '../../DashboardLayout/Header/SearchBar'
 
-import LanguagePopover from './LanguagePopover'
-
-
-// ----------------------------------------------------------------------
 
 const NAV_WIDTH = 280
 
@@ -20,13 +14,13 @@ const HEADER_MOBILE = 64
 
 const HEADER_DESKTOP = 92
 
-const StyledRoot = styled(AppBar)(({ theme }) => ({
-	...bgBlur({ color: theme.palette.background.default }),
-	boxShadow: 'none',
-	[theme.breakpoints.up('lg')]: {
-		width: `calc(100% - ${NAV_WIDTH + 1}px)`,
-	},
-}))
+// const StyledRoot = styled(AppBar)(({ theme }) => ({
+// 	...bgBlur({ color: theme.palette.background.default }),
+// 	boxShadow: 'none',
+// 	[theme.breakpoints.up('lg')]: {
+// 		width: `calc(100% - ${NAV_WIDTH + 1}px)`,
+// 	},
+// }));
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 	minHeight: HEADER_MOBILE,
@@ -38,41 +32,40 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-Header.propTypes = {
-	onOpenNav: PropTypes.func,
+type Props = {
+	onOpenNav: () => void,
 }
 
-export default function Header({ onOpenNav }) {
+export default function Header({ onOpenNav }: Props) {
 	return (
-		<StyledRoot>
-			<StyledToolbar>
-				<IconButton
-					onClick={onOpenNav}
-					sx={{
-						mr: 1,
-						color: 'text.primary',
-						display: { lg: 'none' },
-					}}
-				>
-					<Iconify icon="eva:menu-2-fill" />
-				</IconButton>
+		// <StyledRoot>
+		<StyledToolbar>
+			<IconButton
+				onClick={onOpenNav}
+				sx={{
+					mr: 1,
+					color: 'text.primary',
+					display: { lg: 'none' },
+				}}
+			>
+				<Iconify icon="eva:menu-2-fill" />
+			</IconButton>
 
-				<Searchbar />
-				<Box sx={{ flexGrow: 1 }} />
+			<Searchbar />
+			<Box sx={{ flexGrow: 1 }} />
 
-				<Stack
-					direction="row"
-					alignItems="center"
-					spacing={{
-						xs: 0.5,
-						sm: 1,
-					}}
-				>
-					<LanguagePopover />
-					<NotificationsPopover />
-					<AccountPopover />
-				</Stack>
-			</StyledToolbar>
-		</StyledRoot>
+			<Stack
+				direction="row"
+				alignItems="center"
+				spacing={{
+					xs: 0.5,
+					sm: 1,
+				}}
+			>
+				<NotificationsPopover />
+				<AccountPopover />
+			</Stack>
+		</StyledToolbar>
+		// </StyledRoot>
 	)
 }

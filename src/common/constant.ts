@@ -4,6 +4,8 @@ import { MainLayout } from '../components/Layout';
 import { Dashboard as DashboardComponent } from '../pages/Dashboard';
 import { Login as LoginComponent } from '../pages/Login';
 import { Register as RegisterComponent } from '../pages/Register';
+import DashboardLayout from '../Layout/DashboardLayout';
+import GuestLayout from '../Layout/GuestLayout';
 
 
 export const enum AppPath {
@@ -26,7 +28,7 @@ export const PrivateRouters: Route[] = [
 		path: AppPath.Dashboard,
 		component: DashboardComponent,
 		name: 'Dashboard',
-		layout: MainLayout,
+		layout: DashboardLayout,
 		props: {
 			title: 'Dashboard',
 		},
@@ -38,7 +40,7 @@ export const PublicRouters: Route[] = [
 		path: AppPath.Login,
 		component: LoginComponent,
 		name: 'Login',
-		layout: MainLayout,
+		layout: GuestLayout,
 		props: {
 			title: 'Login',
 		},
@@ -47,7 +49,7 @@ export const PublicRouters: Route[] = [
 		path: AppPath.Register,
 		component: RegisterComponent,
 		name: 'Register',
-		layout: MainLayout,
+		layout: GuestLayout,
 		props: {
 			title: 'Register',
 		},

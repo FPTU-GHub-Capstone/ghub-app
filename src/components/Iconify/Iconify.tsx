@@ -10,9 +10,9 @@ type Props = {
 	sx?: object,
 }
 
-const Iconify = ({ icon, width = 20, sx, ...other }: Props, ref: React.Ref<unknown>) => {
+const Iconify = ({ icon, width = 20, sx, ...other }: Props) => {
 	return (
-		<Box ref={ref} component={Icon} icon={icon} sx={{ width, height: width, ...sx }} {...other} />
+		<Box component={Icon} icon={icon} sx={{ width, height: width, ...sx }} {...other} />
 	)
 }
 
