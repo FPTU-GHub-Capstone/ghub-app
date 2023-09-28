@@ -1,25 +1,25 @@
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import React from 'react'
+import { Provider } from 'react-redux'
+import { BrowserRouter as Router } from 'react-router-dom'
 
-import { Login } from './pages/Login'
-import { DevNav } from './pages/DevNav'
-import { Error } from './pages/Error'
-import { Register } from './pages/Register'
+import { store } from './redux/store.ts'
+import { AppRoutes } from './routes'
+import ThemeProvider from './theme'
 
 
 function App() {
+
 	return (
 		<>
-			<BrowserRouter>
-				<Routes>
-					<Route path="/">
-						<Route index Component={DevNav} />
-						<Route path="login" Component={Login} />
-						<Route path="register" Component={Register} />
-						<Route path="error" Component={Error} />
-						<Route path="*" element={<Navigate to="/error" replace />} />
-					</Route>
-				</Routes>
-			</BrowserRouter>
+			<React.StrictMode>
+				<Provider store={store}>
+					<ThemeProvider>
+						<Router>
+							<AppRoutes />
+						</Router>
+					</ThemeProvider>	
+				</Provider>
+			</React.StrictMode>
 		</>
 	)
 }
