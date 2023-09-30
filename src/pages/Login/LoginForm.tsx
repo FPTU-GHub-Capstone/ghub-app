@@ -50,8 +50,8 @@ const PasswordTextField: React.FC<{ errors: any, register: any }> = ({ errors, r
 		{...register('password', {
 			required: 'Password is Required',
 			pattern: {
-				value: /^[A-Za-z](?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{5,19}$/,
-				message: 'Password must start with a letter, contain at least 1 uppercase letter, 1 lowercase letter. Length should be 6-20 characters.'
+				value: /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{6,20}$/,
+				message: 'Password must start with a letter, contain at least 1 uppercase letter, 1 lowercase letter, and a number. Length should be 6-20 characters.'
 			}
 		})}
 		error={!!errors.password}
