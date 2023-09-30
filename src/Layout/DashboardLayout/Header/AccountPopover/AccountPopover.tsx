@@ -81,7 +81,7 @@ export default function AccountPopover() {
 					</Typography>
 				</Box>
 
-				<Divider sx={{ borderStyle: 'dashed' }} />
+				<Divider sx={{ borderStyle: 'solid' }} />
 
 				<Stack sx={{ p: 1 }}>
 					{MENU_OPTIONS.map((option) => (
@@ -91,7 +91,7 @@ export default function AccountPopover() {
 					))}
 				</Stack>
 
-				<Divider sx={{ borderStyle: 'dashed' }} />
+				<Divider sx={{ borderStyle: 'solid' }} />
 
 				<MenuItem onClick={handleClose} sx={{ m: 1 }}>
           Logout

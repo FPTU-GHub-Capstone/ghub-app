@@ -1,6 +1,5 @@
 import { ElementType } from 'react';
 
-import { MainLayout } from '../components/Layout';
 import { Dashboard as DashboardComponent } from '../pages/Dashboard';
 import { Login as LoginComponent } from '../pages/Login';
 import { Register as RegisterComponent } from '../pages/Register';
