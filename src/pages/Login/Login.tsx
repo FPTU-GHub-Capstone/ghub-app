@@ -30,6 +30,7 @@ export const Login: React.FC = () => {
 					flexDirection: 'column',
 					flexWrap: 'wrap',
 					alignItems: 'center',
+					paddingTop: '25px'
 				}}>
 					<Typography sx={{fontWeight: '450', fontSize: '2vw'}} component="h1">
 						Welcome to GHub!
@@ -46,8 +47,11 @@ export const Login: React.FC = () => {
 
 				{DividerOr}
 
-				<Typography component="div" sx={{display: 'flex', justifyContent: 'center', fontWeight: '400'}}>
-						New on our platform?<Link style={{paddingLeft: '5px'}} to="/register">Create an account</Link>
+				<Typography component="div" sx={{display: 'flex', justifyContent: 'center', fontWeight: '400', paddingTop: '15px'}}>
+					New on our platform?
+					<Link style={{ textDecoration: 'none', color: '#DC7000', paddingLeft: '5px' }} to="/register" >
+						Create an account
+					</Link>
 				</Typography>
 			</Container>
 		</>

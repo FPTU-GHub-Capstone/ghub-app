@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
 	Box,
 	TextField,
@@ -66,6 +66,12 @@ const RememberMeCheckbox: React.FC<{ watch: any, register: any }> = ({ watch, re
 				<Checkbox
 					checked={watch('remembered')}
 					{...register('remembered')}
+					sx={{
+						color: '#222222',
+						'&.Mui-checked': {
+							color: '#111111',
+						}
+					}}
 				/>
 			}
 			label="Remember Me"
@@ -104,10 +110,12 @@ const LoginForm: React.FC = () => {
 				<RememberMeCheckbox watch={watch} register={register} />
 
 				<Typography sx={{ 
-					color: '#DC7000', fontSize: '16px', 
-					fontWeight: 400, textDecoration: 'underline', wordWrap: 'break-word'
+					fontSize: '16px', 
+					wordWrap: 'break-word'
 				}}>
-					Forgot your password?
+					<Link to='/forgot' style={{ textDecoration: 'none', color: '#DC7000' }}>
+						Forgot your password?
+					</Link>
 				</Typography>
 			</Box>
 
