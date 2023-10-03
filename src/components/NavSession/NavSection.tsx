@@ -33,7 +33,7 @@ function NavItem({ item }: {
 	item: NavItemProps,
 }) {
 	const { title, path, icon, info } = item
-	console.log('@path::')
+	console.log('@path::' + path)
 
 	return (
 		<StyledNavItem

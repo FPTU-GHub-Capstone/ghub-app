@@ -3,20 +3,25 @@ import { Outlet } from 'react-router-dom'
 
 import Header from './Header'
 import * as Styled from './styles'
-import Nav from './Nav'
+import Sidebar from './Sidebar'
 
 
-export default function DashboardLayout() {
+type Props = {
+	title: string,
+	children: JSX.Element,
+}
+export default function DashboardLayout({ children, title }: Props) {
 	const [isOpen, setIsOpen] = useState(false)
 
 	return (
 		<Styled.StyledRoot>
 			<Header onOpenNav={() => setIsOpen(true)} />
 
-			<Nav openNav={isOpen} onCloseNav={() => setIsOpen(false)} />
+			<Sidebar openNav={isOpen} onCloseNav={() => setIsOpen(false)} />
 
 			<Styled.Main>
-				<Outlet />
+				<p>{title}</p>
+				{children}
 			</Styled.Main>
 		</Styled.StyledRoot>
 	)
