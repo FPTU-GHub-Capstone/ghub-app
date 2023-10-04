@@ -30,7 +30,7 @@ const pathMap = new Map<string, string>([
 	[PageName.PAYMENT, '/dashboard/payment']
 ]);
 
-export const convertNameToPath = (pageName: PageName) => pathMap.get(pageName) as string;
+export const convertNameToPath = (pageName: PageName) => pathMap.get(pageName) ?? '/';
 
 type Route = {
 	path: string,
