@@ -8,7 +8,7 @@ import DashboardLayout from '../Layout/DashboardLayout';
 import GuestLayout from '../Layout/GuestLayout';
 
 
-export const PageName = {
+export const PageName = Object.freeze({
 	LOGIN: 'Login',
 	REGISTER: 'Register',
 	LANDING_PAGE: 'LandingPage',
@@ -17,7 +17,7 @@ export const PageName = {
 	USERS: 'Users',
 	CLIENTS: 'Client',
 	PAYMENT: 'PaymentPlan'
-};
+});
 
 export const AppPath = (pageName: string) => {
 	const path = {
