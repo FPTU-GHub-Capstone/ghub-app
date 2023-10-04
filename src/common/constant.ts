@@ -19,20 +19,18 @@ export const enum PageName {
 	PAYMENT = 'PaymentPlan'
 }
 
-export const convertNameToPath = (pageName: PageName) => {
-	const path = {
-		[PageName.LOGIN]: '/login',
-		[PageName.REGISTER]: '/register',
-		[PageName.LANDING_PAGE]: '/landingPage',
-		[PageName.DASHBOARD]: '/dashboard',
-		[PageName.GAMES]: '/dashboard/games',
-		[PageName.USERS]: '/dashboard/users',
-		[PageName.CLIENTS]: '/dashboard/clients',
-		[PageName.PAYMENT]: '/dashboard/payment'
-	};
+const pathMap = new Map<string, string>([
+	[PageName.LOGIN, '/login'],
+	[PageName.REGISTER, '/register'],
+	[PageName.LANDING_PAGE, '/landingPage'],
+	[PageName.DASHBOARD, '/dashboard'],
+	[PageName.GAMES, '/dashboard/games'],
+	[PageName.USERS, '/dashboard/users'],
+	[PageName.CLIENTS, '/dashboard/clients'],
+	[PageName.PAYMENT, '/dashboard/payment']
+]);
 
-	return path[pageName];
-};
+export const convertNameToPath = (pageName: PageName) => pathMap.get(pageName) as string;
 
 type Route = {
 	path: string,
