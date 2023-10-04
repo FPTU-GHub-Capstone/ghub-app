@@ -34,14 +34,14 @@ export function bgBlur(props?: Props) {
 				WebkitBackdropFilter: `blur(${blur}px)`,
 				backgroundColor: alpha(color, opacity),
 			},
-		};
+		} as object;
 	}
 
 	return {
 		backdropFilter: `blur(${blur}px)`,
 		WebkitBackdropFilter: `blur(${blur}px)`,
 		backgroundColor: alpha(color, opacity),
-	};
+	} as object;
 }
 
 // ----------------------------------------------------------------------
