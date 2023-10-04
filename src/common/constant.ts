@@ -8,18 +8,18 @@ import DashboardLayout from '../Layout/DashboardLayout';
 import GuestLayout from '../Layout/GuestLayout';
 
 
-export const PageName = Object.freeze({
-	LOGIN: 'Login',
-	REGISTER: 'Register',
-	LANDING_PAGE: 'LandingPage',
-	DASHBOARD: 'Dashboard',
-	GAMES: 'MyProject',
-	USERS: 'Users',
-	CLIENTS: 'Client',
-	PAYMENT: 'PaymentPlan'
-});
+export const enum PageName {
+	LOGIN = 'Login',
+	REGISTER = 'Register',
+	LANDING_PAGE = 'LandingPage',
+	DASHBOARD = 'Dashboard',
+	GAMES = 'MyProject',
+	USERS = 'Users',
+	CLIENTS = 'Client',
+	PAYMENT = 'PaymentPlan'
+}
 
-export const AppPath = (pageName: string) => {
+export const convertNameToPath = (pageName: PageName) => {
 	const path = {
 		[PageName.LOGIN]: '/login',
 		[PageName.REGISTER]: '/register',
@@ -44,7 +44,7 @@ type Route = {
 
 export const PrivateRouters: Route[] = [
 	{
-		path: AppPath(PageName.DASHBOARD),
+		path: convertNameToPath(PageName.DASHBOARD),
 		component: DashboardComponent,
 		name: PageName.DASHBOARD,
 		layout: DashboardLayout,
@@ -53,7 +53,7 @@ export const PrivateRouters: Route[] = [
 		},
 	},
 	{
-		path: AppPath(PageName.GAMES),
+		path: convertNameToPath(PageName.GAMES),
 		component: GamesComponent,
 		name: PageName.GAMES,
 		layout: DashboardLayout,
@@ -65,7 +65,7 @@ export const PrivateRouters: Route[] = [
 
 export const PublicRouters: Route[] = [
 	{
-		path: AppPath(PageName.LOGIN),
+		path: convertNameToPath(PageName.LOGIN),
 		component: LoginComponent,
 		name: PageName.LOGIN,
 		layout: GuestLayout,
@@ -74,7 +74,7 @@ export const PublicRouters: Route[] = [
 		},
 	},
 	{
-		path: AppPath(PageName.REGISTER),
+		path: convertNameToPath(PageName.REGISTER),
 		component: RegisterComponent,
 		name: PageName.REGISTER,
 		layout: GuestLayout,
