@@ -1,1 +1,1 @@
-export * from './LoginWithExternalSiteButton';
+export {default as Button} from './LoginWithExternalSiteButton';

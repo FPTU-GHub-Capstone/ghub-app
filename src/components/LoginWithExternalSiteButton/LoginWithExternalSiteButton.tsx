@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Typography } from '@mui/material'
 
 
-const LoginWithExternalSite: React.FC<{ onClick?: () => void, text: string, children: React.ReactNode }> = ({
+const LoginWithExternalSiteButton: React.FC<{ onClick?: () => void, text: string, children: React.ReactNode }> = ({
 	onClick = () => console.log('Default click action'),
 	text = 'Default button',
 	children,
@@ -26,4 +26,4 @@ const LoginWithExternalSite: React.FC<{ onClick?: () => void, text: string, chil
 	)
 }
 
-export default LoginWithExternalSite
+export default LoginWithExternalSiteButton
