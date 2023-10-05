@@ -1,10 +1,12 @@
 import { createTheme } from '@mui/material/styles';
 
+import palette from '../../theme/palette';
+
 
 export const theme = createTheme({
 	palette: {
 		primary: {
-			main: '#DC7000',
+			main: palette.orange[800]
 		},
 	},
 });

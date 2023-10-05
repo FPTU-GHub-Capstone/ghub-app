@@ -15,6 +15,20 @@ const GREY = {
 	900: '#161C24',
 };
 
+// SETUP COLORS
+const ORANGE = {
+	0: '#FFFFFF',
+	100: '#f8e0b3',
+	200: '#f4cc82',
+	300: '#f0b850',
+	400: '#eda92c',
+	500: '#ec9b0e',
+	600: '#e88f09',
+	700: '#e28004',
+	800: '#dc7200',
+	900: '#d25a00',
+};
+
 const PRIMARY = {
 	lighter: '#D1E9FC',
 	light: '#76B0F1',
@@ -78,6 +92,7 @@ const palette = {
 	warning: WARNING,
 	error: ERROR,
 	grey: GREY,
+	orange: ORANGE,
 	divider: alpha(GREY[500], 0.24),
 	text: {
 		primary: GREY[800],

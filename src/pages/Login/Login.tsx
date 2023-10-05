@@ -5,9 +5,11 @@ import Divider from '@mui/material/Divider'
 import { Link } from 'react-router-dom'
 
 
+import LoginWithExternalSite from '../../components/LoginWithExternalSiteButton/LoginWithExternalSiteButton'
+import FacebookLogo from '../../assets/FacebookLogo'
+import GoogleLogo from '../../assets/GoogleLogo'
+
 import LoginForm from './LoginForm'
-import GoogleLoginButton from './GoogleLoginButton/GoogleLoginButton'
-import FacebookLoginButton from './FacebookLoginButton/FacebookLoginButton'
 
 
 const Root = styled('div')(({ theme }) => ({
@@ -51,8 +53,12 @@ export const Login: React.FC = () => {
 				{DividerOr}
 
 				<Box component='div' sx={{display: 'flex', padding: '15px', justifyContent: 'space-around'}}>
-					<FacebookLoginButton />
-					<GoogleLoginButton />
+					<LoginWithExternalSite text='Login with Facebook'>
+						<FacebookLogo />
+					</LoginWithExternalSite>
+					<LoginWithExternalSite text='Login with Google'>
+						<GoogleLogo />
+					</LoginWithExternalSite>
 				</Box>
 				
 				<Typography component="div" sx={{display: 'flex', justifyContent: 'center', fontWeight: '400', paddingTop: '15px'}}>

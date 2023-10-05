@@ -5,7 +5,7 @@ import { ThemeProvider } from '@mui/material/styles'
 import { theme } from './styles'
 
 
-const LoginButton: React.FC = () => {
+const PublicFormButton: React.FC<{ text?: string }> = ({ text: text = ''}) => {
 	return (
 		<ThemeProvider theme={theme}>
 			<Box sx={{ display: 'flex', justifyContent: 'right' }}>
@@ -15,11 +15,11 @@ const LoginButton: React.FC = () => {
 						marginRight: '15px', marginTop: '25px', marginBottom: '25px' }} 
 					type='submit'
 				>
-					<Typography sx={{fontSize: '17px', fontWeight: '450'}}>Login</Typography>
+					<Typography sx={{fontSize: '17px', fontWeight: '450'}}> {text} </Typography>
 				</Button>
 			</Box>
 		</ThemeProvider>
 	)
 }
 
-export default LoginButton
+export default PublicFormButton

@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
 
-import LoginButton from './LoginButton/LoginButton'
+import PublicFormButton from '../../components/PublicFormButton/PublicFormButton'
 
 
 type LoginInput = {
@@ -119,7 +119,7 @@ const LoginForm: React.FC = () => {
 				</Typography>
 			</Box>
 
-			<LoginButton/>
+			<PublicFormButton text='Login'/>
 		</Box>
 		<DevTool control={control} />
 	</>)
