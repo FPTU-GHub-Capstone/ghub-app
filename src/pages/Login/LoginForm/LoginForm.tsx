@@ -56,6 +56,8 @@ const PasswordTextField: React.FC<{ errors: FieldErrors<LoginInput>, register: U
 			pattern: {
 				value: /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{6,20}$/,
 				message: 'Password must start with a letter, contain at least 1 uppercase letter, 1 lowercase letter, and a number. Length should be 6-20 characters.'
+				//FIXME: Fixing this regex bug. It can start with a number, can contain special characters.
+				
 			}
 		})}
 		error={Boolean(errors.password)}
