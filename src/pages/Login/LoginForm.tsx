@@ -8,7 +8,7 @@ import {
 	Typography,
 } from '@mui/material'
 import { Link } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
+import { UseFormRegister, UseFormWatch, useForm, FieldErrors } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
 
 import PublicFormButton from '../../components/PublicFormButton/PublicFormButton'
@@ -20,7 +20,7 @@ type LoginInput = {
 	remembered: boolean,
 }
 
-const EmailTextField: React.FC<{ errors: any, register: any }> = ({ errors, register }) => (
+const EmailTextField: React.FC<{ errors: FieldErrors<LoginInput>, register: UseFormRegister<LoginInput> }> = ({ errors, register }) => (
 	<TextField
 		id="email-input"
 		label="Email Address"
@@ -35,12 +35,12 @@ const EmailTextField: React.FC<{ errors: any, register: any }> = ({ errors, regi
 				message: 'Not a valid email address'
 			}
 		})}
-		error={!!errors.email}
+		error={Boolean(errors.email) }
 		helperText={errors.email?.message}
 	/>
 )
 
-const PasswordTextField: React.FC<{ errors: any, register: any }> = ({ errors, register }) => (
+const PasswordTextField: React.FC<{ errors: FieldErrors<LoginInput>, register: UseFormRegister<LoginInput> }> = ({ errors, register }) => (
 	<TextField
 		id="password-input"
 		label="Password"
@@ -54,12 +54,12 @@ const PasswordTextField: React.FC<{ errors: any, register: any }> = ({ errors, r
 				message: 'Password must start with a letter, contain at least 1 uppercase letter, 1 lowercase letter, and a number. Length should be 6-20 characters.'
 			}
 		})}
-		error={!!errors.password}
+		error={Boolean(errors.email)}
 		helperText={errors.password?.message}
 	/>
 )
 
-const RememberMeCheckbox: React.FC<{ watch: any, register: any }> = ({ watch, register }) => (
+const RememberMeCheckbox: React.FC<{ watch: UseFormWatch<LoginInput>, register: UseFormRegister<LoginInput> }> = ({ watch, register }) => (
 	<FormGroup>
 		<FormControlLabel
 			control={
