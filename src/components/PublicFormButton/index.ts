@@ -1,1 +1,1 @@
-export * from './PublicFormButton';
+export {default as Button} from './PublicFormButton';

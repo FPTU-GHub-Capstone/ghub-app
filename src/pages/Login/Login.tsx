@@ -8,8 +8,9 @@ import { Link } from 'react-router-dom'
 import { Button as FacebookLoginBtn, Button as GoogleLoginBtn } from '../../components/LoginWithExternalSiteButton'
 import FacebookLogo from '../../assets/FacebookLogo'
 import GoogleLogo from '../../assets/GoogleLogo'
+import palette from '../../theme/palette'
 
-import LoginForm from './LoginForm'
+import { LoginForm } from './LoginForm'
 
 
 const Root = styled('div')(({ theme }) => ({
@@ -63,7 +64,7 @@ export const Login: React.FC = () => {
 				
 				<Typography component="div" sx={{display: 'flex', justifyContent: 'center', fontWeight: '400', paddingTop: '15px'}}>
 					New on our platform?
-					<Link style={{ textDecoration: 'none', color: '#DC7000', paddingLeft: '5px' }} to="/register" >
+					<Link style={{ textDecoration: 'none', color: palette.orange[800], paddingLeft: '5px' }} to="/register" >
 						Create an account
 					</Link>
 				</Typography>
