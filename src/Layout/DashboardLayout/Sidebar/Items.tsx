@@ -1,0 +1,48 @@
+import SvgColor from '../../../components/Svg-color'
+
+
+const icon = (name: string) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />
+
+const sidebarItems = {
+	admin: [
+		{
+			title: 'dashboard',
+			path: '/dashboard',
+			icon: icon('ic_home'),
+		},
+		{
+			title: 'users',
+			path: '/dashboard/users',
+			icon: icon('ic_user'),
+		},
+		{
+			title: 'payment plan',
+			path: '/dashboard/payment',
+			icon: icon('ic_payment'),
+		},
+	],
+	gameManager: [
+		{
+			title: 'my projects',
+			path: '/dashboard/games',
+			icon: icon('ic_home'),
+		},
+		{
+			title: 'users',
+			path: '/dashboard/users',
+			icon: icon('ic_user'),
+		},
+		{
+			title: 'clients',
+			path: '/dashboard/clients',
+			icon: icon('ic_client'),
+		},
+		{
+			title: 'payment plan',
+			path: '/dashboard/payment',
+			icon: icon('ic_payment'),
+		},
+	]
+}
+
+export default sidebarItems

@@ -5,7 +5,7 @@ import { StyledRootScrollbar, StyledScrollbar } from './styles'
 
 
 type Props = {
-	children: ReactElement,
+	children: Array<ReactElement>,
 	sx?: object,
 }
 
@@ -17,7 +17,7 @@ function Scrollbar({ children, sx, ...other }: Props) {
 	if (isMobile) {
 		return (
 			<Box sx={{ overflowX: 'auto', ...sx }} {...other}>
-				{children}
+				{...children}
 			</Box>
 		)
 	}
@@ -25,7 +25,7 @@ function Scrollbar({ children, sx, ...other }: Props) {
 	return (
 		<StyledRootScrollbar>
 			<StyledScrollbar clickOnTrack={false} sx={sx} {...other}>
-				{children}
+				{...children}
 			</StyledScrollbar>
 		</StyledRootScrollbar>
 	)

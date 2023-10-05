@@ -12,7 +12,7 @@ type Props = {
 	endColor ?: string,
 }
 
-export function bgBlur(props: Props) {
+export function bgBlur(props?: Props): object {
 	const color = props?.color || '#000000';
 	const blur = props?.blur || 6;
 	const opacity = props?.opacity || 0.8;

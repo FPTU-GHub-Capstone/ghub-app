@@ -1,10 +1,13 @@
 import React from 'react'
 
 
-export const Dashboard: React.FC = () => {
+type Props = {
+	title: string,
+}
+export const Dashboard = ({ title }: Props) => {
 	return (
 		<>
-			<div>Dashboard</div>
+			<div>{title}</div>
 		</>
 	)
 }
