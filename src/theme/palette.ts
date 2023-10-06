@@ -15,23 +15,37 @@ const GREY = {
 	900: '#161C24',
 };
 
-const PRIMARY = {
+// SETUP COLORS
+const ORANGE = Object.freeze({
+	0: '#FFFFFF',
+	100: '#f8e0b3',
+	200: '#f4cc82',
+	300: '#f0b850',
+	400: '#eda92c',
+	500: '#ec9b0e',
+	600: '#e88f09',
+	700: '#e28004',
+	800: '#dc7200',
+	900: '#d25a00',
+});
+
+const PRIMARY = Object.freeze({
 	lighter: '#D1E9FC',
 	light: '#76B0F1',
 	main: '#2065D1',
 	dark: '#39289F',
 	darker: '#061B64',
 	contrastText: '#fff',
-};
+});
 
-const SECONDARY = {
-	lighter: '#D6E4FF',
-	light: '#84A9FF',
-	main: '#3366FF',
-	dark: '#1939B7',
-	darker: '#091A7A',
-	contrastText: '#fff',
-};
+const SECONDARY = Object.freeze({
+	lighter: '#f4cc82',
+	light: '#ec9b0e',
+	main: '#dc7200', // Map to ORANGE 800
+	dark: '#d25a00', // Select a shade
+	darker: '#a84800', // Select a shade
+	contrastText: '#000', // Black color for contrast text
+});
 
 const INFO = {
 	lighter: '#D0F2FF',
@@ -78,6 +92,7 @@ const palette = {
 	warning: WARNING,
 	error: ERROR,
 	grey: GREY,
+	orange: ORANGE,
 	divider: alpha(GREY[500], 0.24),
 	text: {
 		primary: GREY[800],
