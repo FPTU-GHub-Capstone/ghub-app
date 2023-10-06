@@ -52,7 +52,7 @@ export default function AccountPopover() {
 					// ...(open && ),
 				}}
 			>
-				<Avatar src={account.photoURL} alt="photoURL" />
+				<Avatar src={account.avatar} alt="photoURL" />
 			</IconButton>
 
 			<Popover
@@ -74,7 +74,7 @@ export default function AccountPopover() {
 			>
 				<Box sx={{ my: 1.5, px: 2.5 }}>
 					<Typography variant="subtitle2" noWrap>
-						{account.displayName}
+						{account.firstName + ' ' + account.lastName}
 					</Typography>
 					<Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
 						{account.email}
@@ -94,7 +94,7 @@ export default function AccountPopover() {
 				<Divider sx={{ borderStyle: 'solid' }} />
 
 				<MenuItem onClick={handleClose} sx={{ m: 1 }}>
-          Logout
+					Logout
 				</MenuItem>
 			</Popover>
 		</>

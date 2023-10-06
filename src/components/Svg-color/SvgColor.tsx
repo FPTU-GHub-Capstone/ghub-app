@@ -3,7 +3,7 @@ import { Box } from '@mui/material'
 
 type Props = {
 	src: string,
-	sx: object,
+	sx?: Record<string, unknown>,
 }
 
 const SvgColor = ({ src, sx, ...other }: Props) => {

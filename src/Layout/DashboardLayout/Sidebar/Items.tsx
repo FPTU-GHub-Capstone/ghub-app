@@ -1,9 +1,10 @@
+import { NavItem, PageName, convertNameToPath } from '../../../common'
 import SvgColor from '../../../components/Svg-color'
 
 
 const icon = (name: string) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />
 
-const sidebarItems = {
+export const sidebarItems: Record<string, NavItem[]> = {
 	admin: [
 		{
 			title: 'dashboard',
@@ -42,7 +43,12 @@ const sidebarItems = {
 			path: '/dashboard/payment',
 			icon: icon('ic_payment'),
 		},
+	],
+	other: [
+		{
+			title: 'logout',
+			path: '/',
+			icon: icon('ic_logout')
+		}
 	]
 }
-
-export default sidebarItems
