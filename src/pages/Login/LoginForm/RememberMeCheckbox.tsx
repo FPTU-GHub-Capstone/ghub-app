@@ -6,10 +6,10 @@ import {
 } from '@mui/material'
 import { UseFormRegister, UseFormWatch } from 'react-hook-form'
 
-import { LoginInput } from './LoginInput'
+import { LoginInputType } from '.'
 
 
-export const RememberMeCheckbox: React.FC<{ watch: UseFormWatch<LoginInput>, register: UseFormRegister<LoginInput> }> = ({ watch, register }) => (
+export const RememberMeCheckbox: React.FC<{ watch: UseFormWatch<LoginInputType>, register: UseFormRegister<LoginInputType> }> = ({ watch, register }) => (
 	<FormGroup>
 		<FormControlLabel
 			control={<Checkbox

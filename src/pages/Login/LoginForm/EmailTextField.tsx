@@ -2,10 +2,13 @@ import React from 'react'
 import { TextField } from '@mui/material'
 import { UseFormRegister, FieldErrors } from 'react-hook-form'
 
-import { LoginInput } from './LoginInput'
+import { LoginInputType } from './types'
 
 
-export const EmailTextField: React.FC<{ errors: FieldErrors<LoginInput>, register: UseFormRegister<LoginInput> }> = ({ errors, register }) => (
+// eslint-disable-next-line no-useless-escape
+const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+export const EmailTextField: React.FC<{ errors: FieldErrors<LoginInputType>, register: UseFormRegister<LoginInputType> }> = ({ errors, register }) => (
 	<TextField
 		id="email-input"
 		label="Email Address"
@@ -15,8 +18,7 @@ export const EmailTextField: React.FC<{ errors: FieldErrors<LoginInput>, registe
 		{...register('email', {
 			required: 'Email is Required',
 			pattern: {
-				// eslint-disable-next-line no-useless-escape
-				value: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+				value: emailRegex,
 				message: 'Not a valid email address'
 			}
 		})}

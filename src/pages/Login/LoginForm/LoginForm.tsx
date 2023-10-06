@@ -15,11 +15,12 @@ import { theme } from './styles'
 import { EmailTextField } from './EmailTextField'
 import { PasswordTextField } from './PasswordTextField'
 import { RememberMeCheckbox } from './RememberMeCheckbox'
-import { LoginInput } from './LoginInput'
-//HACK Where should I put LoginInput Type to ?
+
+import { LoginInputType } from '.'
+
 
 const LoginForm: React.FC = () => {
-	const form = useForm<LoginInput>({
+	const form = useForm<LoginInputType>({
 		mode: 'onChange',
 		defaultValues: {
 			email: '',
@@ -30,7 +31,7 @@ const LoginForm: React.FC = () => {
 	const { watch, register, handleSubmit, formState, control } = form
 	const { errors } = formState
 	
-	const onSubmit = (data: LoginInput) => {
+	const onSubmit = (data: LoginInputType) => {
 		console.log({...data})
 	}
 
