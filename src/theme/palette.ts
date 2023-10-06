@@ -29,23 +29,23 @@ const ORANGE = Object.freeze({
 	900: '#d25a00',
 });
 
-const PRIMARY = {
+const PRIMARY = Object.freeze({
 	lighter: '#D1E9FC',
 	light: '#76B0F1',
 	main: '#2065D1',
 	dark: '#103996',
 	darker: '#061B64',
 	contrastText: '#fff',
-};
+});
 
-const SECONDARY = {
+const SECONDARY = Object.freeze({
 	lighter: '#f4cc82',
 	light: '#ec9b0e',
 	main: '#dc7200', // Map to ORANGE 800
 	dark: '#d25a00', // Select a shade
 	darker: '#a84800', // Select a shade
 	contrastText: '#000', // Black color for contrast text
-};
+});
 
 const INFO = {
 	lighter: '#D0F2FF',
