@@ -19,3 +19,10 @@ export type Game = {
 	link: string,
 	[other: string | number]: unknown,
 };
+
+export type NavItem = {
+	title: string,
+	path: string,
+	icon: JSX.Element,
+	info?: string,
+}

@@ -4,7 +4,7 @@ import { Link as RouterLink } from 'react-router-dom'
 
 type Props = {
 	disabledLink?: boolean,
-	sx?: object,
+	sx?: Record<string, unknown>,
 }
 
 const Logo = ({ disabledLink = false, sx, ...other }: Props) => {

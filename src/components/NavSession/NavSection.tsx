@@ -2,19 +2,14 @@ import { NavLink as RouterLink } from 'react-router-dom'
 import { Box, List, ListItemText } from '@mui/material'
 
 
+import { NavItem as NavItemProps } from '../../common'
+
 import { StyledNavItem, StyledNavItemIcon } from './styles'
 
 
-type NavItemProps = {
-	title: string,
-	path: string,
-	icon: JSX.Element,
-	info?: string,
-}
-
 type Props = {
 	data: Array<NavItemProps>,
-	sx?: object,
+	sx?: Record<string, unknown>,
 }
 
 export default function NavSection({ data, sx, ...other }: Props) {
@@ -32,7 +27,7 @@ export default function NavSection({ data, sx, ...other }: Props) {
 function NavItem({ item, sx }: {
 	key: string, 
 	item: NavItemProps,
-	sx?: object,
+	sx?: Record<string, unknown>,
 }) {
 	const { title, path, icon, info } = item
 

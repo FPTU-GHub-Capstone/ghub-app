@@ -43,7 +43,7 @@ const renderContent = (
 
 					<Box sx={{ ml: 2 }}>
 						<Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-							{account.firstName + ' ' + account.lastName}
+							{`${account.firstName} ${account.lastName}`}
 						</Typography>
 
 						<Typography variant="body2" sx={{ color: 'text.secondary' }}>
