@@ -19,7 +19,6 @@ export default function DashboardLayout({ children, title }: Props) {
 			<Sidebar openNav={isOpen} onCloseNav={() => setIsOpen(false)} />
 
 			<Styled.Main>
-				<p>{title}</p>
 				{children}
 			</Styled.Main>
 		</Styled.StyledRoot>

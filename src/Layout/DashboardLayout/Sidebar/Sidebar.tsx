@@ -9,7 +9,7 @@ import Logo from '../../../components/Logo'
 import Scrollbar from '../../../components/Scrollbar'
 import NavSection from '../../../components/NavSession'
 
-import sidebarItems from './Items'
+import { sidebarItems } from './Items'
 
 
 const NAV_WIDTH = 280
@@ -39,11 +39,11 @@ const renderContent = (
 		<Box sx={{ mb: 5, mx: 2.5 }}>
 			<Link underline="none">
 				<StyledAccount>
-					<Avatar src={account.photoURL} alt="photoURL" />
+					<Avatar src={account.avatar} alt="photoURL" />
 
 					<Box sx={{ ml: 2 }}>
 						<Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-							{account.displayName}
+							{account.firstName + ' ' + account.lastName}
 						</Typography>
 
 						<Typography variant="body2" sx={{ color: 'text.secondary' }}>
@@ -56,12 +56,11 @@ const renderContent = (
 
 		<NavSection data={sidebarItems.gameManager} />
 
-		<Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
-			<Stack alignItems="center" spacing={3} sx={{ pt: 5, borderRadius: 2, position: 'relative' }}>
-				<Button href="/" target="_blank" variant="outlined">
-					Logout
-				</Button>
-			</Stack>
+		<Box sx={{ px: 2.5, pb: 3, mt: 15 }}>
+			<NavSection data={sidebarItems.other} sx={{ 
+				backgroundColor: 'action.active', 
+				color: 'common.white' 
+			}} />
 		</Box>
 	</Scrollbar>
 )
