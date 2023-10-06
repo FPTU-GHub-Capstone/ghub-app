@@ -16,7 +16,7 @@ const GREY = {
 };
 
 // SETUP COLORS
-const ORANGE = {
+const ORANGE = Object.freeze({
 	0: '#FFFFFF',
 	100: '#f8e0b3',
 	200: '#f4cc82',
@@ -27,7 +27,7 @@ const ORANGE = {
 	700: '#e28004',
 	800: '#dc7200',
 	900: '#d25a00',
-};
+});
 
 const PRIMARY = {
 	lighter: '#D1E9FC',
@@ -39,12 +39,12 @@ const PRIMARY = {
 };
 
 const SECONDARY = {
-	lighter: '#D6E4FF',
-	light: '#84A9FF',
-	main: '#3366FF',
-	dark: '#1939B7',
-	darker: '#091A7A',
-	contrastText: '#fff',
+	lighter: '#f4cc82',
+	light: '#ec9b0e',
+	main: '#dc7200', // Map to ORANGE 800
+	dark: '#d25a00', // Select a shade
+	darker: '#a84800', // Select a shade
+	contrastText: '#000', // Black color for contrast text
 };
 
 const INFO = {
