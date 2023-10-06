@@ -37,7 +37,7 @@ type Route = {
 	component: ElementType,
 	name: string,
 	layout: ElementType,
-	props?: any,
+	props?: Record<string, unknown>,
 }
 
 export const PrivateRouters: Route[] = [
