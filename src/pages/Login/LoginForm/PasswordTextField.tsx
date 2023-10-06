@@ -5,7 +5,7 @@ import { UseFormRegister, FieldErrors } from 'react-hook-form'
 import { LoginInputType } from '.'
 
 
-const pwdRegex = /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{6,20}$/
+const pwdRegex = /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z][A-Za-z0-9]{5,19}$/
 
 export const PasswordTextField: React.FC<{ errors: FieldErrors<LoginInputType>, register: UseFormRegister<LoginInputType> }> = ({ errors, register }) => (
 	<TextField
