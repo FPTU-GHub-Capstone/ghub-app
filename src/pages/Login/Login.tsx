@@ -6,8 +6,10 @@ import { Link } from 'react-router-dom'
 
 
 import { Button as FacebookLoginBtn, Button as GoogleLoginBtn } from '../../components/LoginWithExternalSiteButton'
-import FacebookLogo from '../../assets/FacebookLogo'
-import GoogleLogo from '../../assets/GoogleLogo'
+
+import FacebookLogo from '/assets/icons/FacebookLogo.svg'
+import GoogleLogo from '/assets/icons/GoogleLogo.svg'
+
 import palette from '../../theme/palette'
 
 import { LoginForm } from './LoginForm'
@@ -55,10 +57,10 @@ export const Login: React.FC = () => {
 
 				<Box component='div' sx={{display: 'flex', padding: '15px', justifyContent: 'space-around'}}>
 					<FacebookLoginBtn text='Login with Facebook'>
-						<FacebookLogo />
+						<img src={ FacebookLogo } alt="Facebook logo" />
 					</FacebookLoginBtn>
 					<GoogleLoginBtn text='Login with Google'>
-						<GoogleLogo />
+						<img src={ GoogleLogo } alt="Google logo" />
 					</GoogleLoginBtn>
 				</Box>
 				
