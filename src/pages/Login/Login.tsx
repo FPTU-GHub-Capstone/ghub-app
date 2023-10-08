@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Container, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import Divider from '@mui/material/Divider'
-import { Link } from 'react-router-dom'
+import { Link, NavigateFunction, useNavigate } from 'react-router-dom'
 
 
 import { Button as FacebookLoginBtn, Button as GoogleLoginBtn } from '../../components/LoginWithExternalSiteButton'
@@ -13,6 +13,7 @@ import FacebookLogo from '/assets/icons/FacebookLogo.svg'
 import GoogleLogo from '/assets/icons/GoogleLogo.svg'
 
 import palette from '../../theme/palette'
+import { PageName, convertNameToPath } from '../../common'
 
 import { LoginForm } from './LoginForm'
 import { SignInFn, SupportLoginStrategies } from './types'
@@ -37,13 +38,17 @@ function getSignInContext(strategy: SupportLoginStrategies): SignInFn {
 	}
 }
 
-function handleSignIn(strategy: SupportLoginStrategies, ...args: unknown[]) {
+function handleSignIn(strategy: SupportLoginStrategies, navigate: NavigateFunction, ...args: unknown[]) {
 	return async () => {
 		const signInFn = getSignInContext(strategy)
-		const token = await signInFn.apply(firebaseSvc, args)
-		console.log(token)
-		restSvc.setAuthorizationHeader(token)
-		await restSvc.post(import.meta.env.VITE_IDP_URL + '/authorize')
+		try {
+			const token = await signInFn.apply(firebaseSvc, args)
+			restSvc.setAuthorizationHeader(token)
+			await restSvc.post(import.meta.env.VITE_IDP_URL + '/authorize')
+			navigate(convertNameToPath(PageName.DASHBOARD))
+		} catch {
+			navigate(convertNameToPath(PageName.LOGIN))
+		}
 	}
 }
 
@@ -53,6 +58,8 @@ const DividerOr = <Root>
 </Root>
 
 export const Login: React.FC = () => {
+	const navigate = useNavigate()
+
 	return (
 		<>
 			<Container maxWidth="sm" component="section">
@@ -79,10 +86,10 @@ export const Login: React.FC = () => {
 				{DividerOr}
 
 				<Box component='div' sx={{display: 'flex', padding: '15px', justifyContent: 'space-around'}}>
-					<FacebookLoginBtn text='Login with Facebook' onClick={handleSignIn('facebook')}>
+					<FacebookLoginBtn text='Login with Facebook' onClick={handleSignIn('facebook', navigate)}>
 						<img src={ FacebookLogo } alt="Facebook logo" />
 					</FacebookLoginBtn>
-					<GoogleLoginBtn text='Login with Google' onClick={handleSignIn('google')}>
+					<GoogleLoginBtn text='Login with Google' onClick={handleSignIn('google', navigate)}>
 						<img src={ GoogleLogo } alt="Google logo" />
 					</GoogleLoginBtn>
 				</Box>

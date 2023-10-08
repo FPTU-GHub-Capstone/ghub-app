@@ -56,7 +56,7 @@ class FirebaseService {
 
 	private async _signInWithProvider(provider: AuthProvider): Promise<string> {
 		const { user } = await signInWithPopup(this._auth, provider);
-		return await user.getIdToken();
+		return user.getIdToken();
 	}
 
 	@throwFirebaseError()
