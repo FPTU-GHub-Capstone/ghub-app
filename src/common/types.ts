@@ -1,3 +1,6 @@
+import { FirebaseOptions } from 'firebase/app';
+
+
 export type User = {
 	id: string,
 	username: string,
@@ -25,4 +28,10 @@ export type NavItem = {
 	path: string,
 	icon: JSX.Element,
 	info?: string,
+}
+
+export type FireBaseConfig = FirebaseOptions
+export type AppConfig = {
+	idpUrl: string,
+	gmsUrl: string,
 }
