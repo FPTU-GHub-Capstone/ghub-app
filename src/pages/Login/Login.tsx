@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom'
 
 
 import { Button as FacebookLoginBtn, Button as GoogleLoginBtn } from '../../components/LoginWithExternalSiteButton'
+import firebaseSvc from '../../services/FirebaseService'
+import restSvc from '../../services/RestService'
 
 import FacebookLogo from '/assets/icons/FacebookLogo.svg'
 import GoogleLogo from '/assets/icons/GoogleLogo.svg'
@@ -13,6 +15,7 @@ import GoogleLogo from '/assets/icons/GoogleLogo.svg'
 import palette from '../../theme/palette'
 
 import { LoginForm } from './LoginForm'
+import { SignInFn, SupportLoginStrategies } from './types'
 
 
 const Root = styled('div')(({ theme }) => ({
@@ -23,11 +26,31 @@ const Root = styled('div')(({ theme }) => ({
 	},
 }))
 
+function getSignInContext(strategy: SupportLoginStrategies): SignInFn {
+	switch (strategy) {
+		case 'facebook':
+			return firebaseSvc.signInWithFacebook
+		case 'google':
+			return firebaseSvc.signInWithGoogle
+		case 'password':
+			return firebaseSvc.signInWithEmailAndPassword
+	}
+}
+
+function handleSignIn(strategy: SupportLoginStrategies, ...args: unknown[]) {
+	return async () => {
+		const signInFn = getSignInContext(strategy)
+		const token = await signInFn.apply(firebaseSvc, args)
+		console.log(token)
+		restSvc.setAuthorizationHeader(token)
+		await restSvc.post(import.meta.env.VITE_IDP_URL + '/authorize')
+	}
+}
+
 
 const DividerOr = <Root>
 	<Divider role="presentation">OR</Divider>
 </Root>
-
 
 export const Login: React.FC = () => {
 	return (
@@ -56,10 +79,10 @@ export const Login: React.FC = () => {
 				{DividerOr}
 
 				<Box component='div' sx={{display: 'flex', padding: '15px', justifyContent: 'space-around'}}>
-					<FacebookLoginBtn text='Login with Facebook'>
+					<FacebookLoginBtn text='Login with Facebook' onClick={handleSignIn('facebook')}>
 						<img src={ FacebookLogo } alt="Facebook logo" />
 					</FacebookLoginBtn>
-					<GoogleLoginBtn text='Login with Google'>
+					<GoogleLoginBtn text='Login with Google' onClick={handleSignIn('google')}>
 						<img src={ GoogleLogo } alt="Google logo" />
 					</GoogleLoginBtn>
 				</Box>

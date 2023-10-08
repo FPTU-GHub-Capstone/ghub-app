@@ -1,6 +1,7 @@
-import { FirebaseApp, FirebaseOptions, initializeApp } from 'firebase/app';
+import { FirebaseOptions, initializeApp } from 'firebase/app';
 import {
 	Auth,
+	AuthProvider,
 	FacebookAuthProvider,
 	GoogleAuthProvider,
 	createUserWithEmailAndPassword,
@@ -14,20 +15,19 @@ import { throwFirebaseError } from './throwFirebaseErrorDecorator';
 
 
 const firebaseConfig = Object.freeze<FirebaseOptions>({
-	apiKey: process.env.FIREBASE_API_KEY,
-	appId: process.env.FIREBASE_APP_ID,
-	projectId: process.env.FIREBASE_PROJECT_ID,
-	authDomain: `${process.env.FIREBASE_PROJECT_ID}.firebaseapp.com`,
+	apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+	appId: import.meta.env.VITE_FIREBASE_APP_ID,
+	projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+	authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
 });
 
 
 class FirebaseService {
-	private readonly _app: FirebaseApp;
 	private readonly _auth: Auth;
 
 	constructor() {
-		this._app = initializeApp(firebaseConfig);
-		this._auth = getAuth(this._app);
+		const app = initializeApp(firebaseConfig);
+		this._auth = getAuth(app);
 		this._auth.useDeviceLanguage(); // Apply the default browser preference instead of explicitly setting it.
 	}	
 
@@ -45,20 +45,21 @@ class FirebaseService {
 
 	@throwFirebaseError()
 	public async signInWithGoogle(): Promise<string> {
-		const provider = new GoogleAuthProvider();
-		const result = await signInWithPopup(this._auth, provider);
-		const credential = GoogleAuthProvider.credentialFromResult(result);
-		return credential!.accessToken as string;
+		return await this._signInWithProvider(new GoogleAuthProvider());
+
 	}
 
 	@throwFirebaseError()
 	public async signInWithFacebook(): Promise<string> {
-		const provider = new FacebookAuthProvider();
-		const result = await signInWithPopup(this._auth, provider);
-		const credential = FacebookAuthProvider.credentialFromResult(result);
-		return credential!.accessToken as string;
+		return await this._signInWithProvider( new FacebookAuthProvider());
 	}
 
+	private async _signInWithProvider(provider: AuthProvider): Promise<string> {
+		const { user } = await signInWithPopup(this._auth, provider);
+		return await user.getIdToken();
+	}
+
+	@throwFirebaseError()
 	public async signOut() {
 		await signOut(this._auth);
 	}
