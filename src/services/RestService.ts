@@ -1,4 +1,5 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 
 export type AxiosInitOptions = {
@@ -8,6 +9,7 @@ export type AxiosInitOptions = {
 
 const AUTHORIZATION     = 'Authorization';
 const CONTENT_TYPE      = 'Content-Type';
+const CORRELATION_ID    = 'x-correlationid';
 const CONTENT_TYPE_JSON = 'application/json';
 
 class RestService {
@@ -33,11 +35,12 @@ class RestService {
 	): Record<string, string> {
 		const header: Record<string, string> = {};
 		header[CONTENT_TYPE] = CONTENT_TYPE_JSON;
+		header[CORRELATION_ID] = uuidv4();
 		return { ...header, ...additionalHeaders };
 	}
 
 	private _createAuthInterceptor(token: string) {
-		return (request: AxiosRequestConfig) => {
+		return (request: InternalAxiosRequestConfig) => {
 			request.headers = request.headers ?? {};
 			request.headers[AUTHORIZATION] = `Bearer ${token}`;
 			return request;
@@ -45,9 +48,7 @@ class RestService {
 	}
 
 	public setAuthorizationHeader(token: string) {
-		this._axiosInstance.interceptors.request.use(
-			// this._createAuthInterceptor(token)
-		);
+		this._axiosInstance.interceptors.request.use(this._createAuthInterceptor(token));
 	}
 
 	public async get<TQuery = object>(

@@ -26,3 +26,4 @@ export type NavItem = {
 	icon: JSX.Element,
 	info?: string,
 }
+
