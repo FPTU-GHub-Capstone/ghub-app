@@ -24,6 +24,7 @@ export const AgreeTermsCheckbox: React.FC<{ watch: UseFormWatch<RegisterInputTyp
 				Agree to our{' '} 
 				<Link style={linkStyle} to='/'>Term Of Use</Link> and{' '}
 				<Link style={linkStyle} to='/'>Privacy Policy</Link>
-			</>} />
+			</>}
+			required />
 	</FormGroup>
 )

@@ -41,8 +41,8 @@ const RegisterForm: React.FC = () => {
 			component='form'
 			onSubmit={handleSubmit(onSubmit)}
 			>
-				<EmailTextField errors={errors} register={register} />
-				<PasswordTextField errors={errors} register={register} />
+				<EmailTextField<RegisterInputType> errors={errors} register={register} />
+				<PasswordTextField<RegisterInputType> errors={errors} register={register} />
 
 				<Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
 					<AgreeTermsCheckbox watch={watch} register={register} />
