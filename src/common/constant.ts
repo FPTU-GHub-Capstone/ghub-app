@@ -6,6 +6,7 @@ import { Register as RegisterComponent } from '../pages/Register';
 import { Games as GamesComponent } from '../pages/Games';
 import DashboardLayout from '../Layout/DashboardLayout';
 import GuestLayout from '../Layout/GuestLayout';
+import UsersGM from '../pages/UsersGM';
 
 
 export const enum PageName {
@@ -59,6 +60,15 @@ export const PrivateRouters: Route[] = [
 		layout: DashboardLayout,
 		props: {
 			title: 'My Projects',
+		},
+	},
+	{
+		path: convertNameToPath(PageName.USERS_GM),
+		component: UsersGM,
+		name: PageName.USERS_GM,
+		layout: DashboardLayout,
+		props: {
+			title: 'Users',
 		},
 	},
 ];
