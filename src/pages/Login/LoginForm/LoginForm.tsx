@@ -9,11 +9,11 @@ import { useForm } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
 
 import {Button as LoginButton} from '../../../components/PublicFormButton'
+import { EmailTextField } from '../../../components/TextFields/EmailTextField'
+import { PasswordTextField } from '../../../components/TextFields/PasswordTextField'
 import palette from '../../../theme/palette'
 
 import { theme } from './styles'
-import { EmailTextField } from './EmailTextField'
-import { PasswordTextField } from './PasswordTextField'
 import { RememberMeCheckbox } from './RememberMeCheckbox'
 
 import { LoginInputType } from '.'
@@ -44,8 +44,8 @@ const LoginForm: React.FC = () => {
 			component='form'
 			onSubmit={handleSubmit(onSubmit)}
 			>
-				<EmailTextField errors={errors} register={register} />
-				<PasswordTextField errors={errors} register={register} />
+				<EmailTextField<LoginInputType> errors={errors} register={register} />
+				<PasswordTextField<LoginInputType> errors={errors} register={register} />
 
 				<Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
 					<RememberMeCheckbox watch={watch} register={register} />

@@ -7,10 +7,10 @@ import { useForm } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
 
 import {Button as RegisterButton} from '../../../components/PublicFormButton'
+import { EmailTextField } from '../../../components/TextFields/EmailTextField'
+import { PasswordTextField } from '../../../components/TextFields/PasswordTextField'
 
 import { theme } from './styles'
-import { EmailTextField } from './EmailTextField'
-import { PasswordTextField } from './PasswordTextField'
 import { AgreeTermsCheckbox } from './AgreeTermsCheckbox'
 
 import { RegisterInputType } from '.'
