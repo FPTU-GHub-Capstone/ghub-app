@@ -14,9 +14,10 @@ export const enum PageName {
 	LANDING_PAGE = 'LandingPage',
 	DASHBOARD = 'Dashboard',
 	GAMES = 'MyProject',
-	USERS = 'Users',
+	USERS_AD = 'Users',
 	CLIENTS = 'Client',
-	PAYMENT = 'PaymentPlan'
+	PAYMENT = 'PaymentPlan',
+	USERS_GM = 'UserGM'
 }
 
 const pathMap = new Map<string, string>([
@@ -25,9 +26,10 @@ const pathMap = new Map<string, string>([
 	[PageName.LANDING_PAGE, '/landingPage'],
 	[PageName.DASHBOARD, '/dashboard'],
 	[PageName.GAMES, '/dashboard/games'],
-	[PageName.USERS, '/dashboard/users'],
+	[PageName.USERS_AD, '/dashboard/users'],
 	[PageName.CLIENTS, '/dashboard/clients'],
-	[PageName.PAYMENT, '/dashboard/payment']
+	[PageName.PAYMENT, '/dashboard/payment'],
+	[PageName.USERS_GM, '/dashboard/users']
 ]);
 
 export const convertNameToPath = (pageName: PageName) => pathMap.get(pageName) ?? '/';
