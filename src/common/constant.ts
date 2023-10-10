@@ -3,6 +3,7 @@ import { ElementType } from 'react';
 import { Dashboard as DashboardComponent } from '../pages/Dashboard';
 import { Login as LoginComponent } from '../pages/Login';
 import { Register as RegisterComponent } from '../pages/Register';
+import { Landing as LandingComponent } from '../pages/Landing';
 import { Games as GamesComponent } from '../pages/Games';
 import DashboardLayout from '../Layout/DashboardLayout';
 import GuestLayout from '../Layout/GuestLayout';
@@ -78,6 +79,15 @@ export const PublicRouters: Route[] = [
 		layout: GuestLayout,
 		props: {
 			title: 'Register',
+		},
+	},
+	{
+		path: convertNameToPath(PageName.LANDING_PAGE),
+		component: LandingComponent,
+		name: PageName.LANDING_PAGE,
+		layout: GuestLayout,
+		props: {
+			title: 'GHUB - Manage Your Game Services',
 		},
 	},
 ];
