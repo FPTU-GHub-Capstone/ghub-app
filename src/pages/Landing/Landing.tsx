@@ -2,6 +2,8 @@ import React from 'react'
 import { Box, Button, Container, Typography } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
 
+import { Contact } from './Contact'
+
 
 type ArticleType = {
 	title: string,
@@ -34,12 +36,12 @@ const Article: React.FC<ArticleType> = ({ title, content }) => (
 			backgroundColor: '#1C140F',
 			color: '#fff',
 			borderRadius: '15px',
-			padding: '20px',
+			padding: '50px',
 			margin: '10px',
 		}}
 	>
-		<Typography component="h2" mb='10px' sx={{fontSize: '25px'}}>{title}</Typography>
-		<Typography component="p"  sx={{fontSize: '15px'}}>{content}</Typography>
+		<Typography component="h2" mb='10px' sx={{fontSize: '25px', marginBottom: '40px'}}>{title}</Typography>
+		<Typography component="p"  sx={{fontSize: '15px', lineHeight: '1.8'}}>{content}</Typography>
 	</Box>
 )
 
@@ -55,35 +57,34 @@ const ButtonStyle2 = {
 export const Landing: React.FC = () => {
 	return (
 		<>
-			<div style={{ backgroundColor: '#39289F', padding: '5vw'}}>
+			<div style={{ backgroundColor: '#39289F', padding: '5vw'}} id='landing-main'>
 				<Box component='section' 
 					sx={{
 						display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'white',
-						margin: '25px'	
+						margin: '25px', marginBottom: '100px'
 					}}
 				>
 					<Typography component='h1' sx={{fontSize: '50px', fontWeight: '600', marginBottom: '10px'}}>Game Pushing System</Typography>
 					<Typography component='p'>A completely new way to manage your games</Typography>
 					<Box sx={{display: 'flex', alignContent: 'center', alignItems: 'center', justifyContent: 'center', width: '35vw', padding: '10px', margin: '25px'}}>
-						<Button component={RouterLink} to="/" variant='contained' sx={ButtonStyle1}>Sign up</Button>
-						<Button component={RouterLink} to="/" variant='contained' sx={ButtonStyle2}>Login</Button>
+						<Button component={RouterLink} to="/register" variant='contained' sx={ButtonStyle1}>Sign up</Button>
+						<Button component={RouterLink} to="/login" variant='contained' sx={ButtonStyle2}>Login</Button>
 					</Box>
-					{//Image here
-					}
 					<img src='/assets/images/banner/dashboard.png' alt='GHUB Dashboard layout' width='100%'></img>
 				</Box>
 				<Box component='section' 
+					id='landing-why-choosing-us'
 					sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'white'}}
 				>
 					<Typography component='h2' sx={{fontSize: '40px',  fontWeight: '500', marginBottom: '10px'}}>Why GHUB</Typography>
-					<Typography textAlign='center'>
+					<Typography textAlign='center' mb='25px'>
 						Lorem Ipsum is simply dummy text of the printing {' '}<br/>
 						and typesetting industry. 
 					</Typography>
 					<Box component="div"
 						sx={{
 							display: 'flex', flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap',
-							margin: '20px'
+							margin: '25px', marginBottom: '75px', 
 						}}
 					>
 						{articles.map((article, index) => (
@@ -91,8 +92,8 @@ export const Landing: React.FC = () => {
 						))}
 					</Box>
 				</Box>
-
 			</div>
+			<Contact />
 
 		</>
 	)
