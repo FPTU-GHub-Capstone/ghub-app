@@ -3,6 +3,7 @@ import { ElementType } from 'react';
 import { Dashboard as DashboardComponent } from '../pages/Dashboard';
 import { Login as LoginComponent } from '../pages/Login';
 import { Register as RegisterComponent } from '../pages/Register';
+import { Forgot as ForgotComponent } from '../pages/Forgot';
 import { Games as GamesComponent } from '../pages/Games';
 import DashboardLayout from '../Layout/DashboardLayout';
 import GuestLayout from '../Layout/GuestLayout';
@@ -11,6 +12,7 @@ import GuestLayout from '../Layout/GuestLayout';
 export const enum PageName {
 	LOGIN = 'Login',
 	REGISTER = 'Register',
+	FORGOT = 'ForgotPassword',
 	LANDING_PAGE = 'LandingPage',
 	DASHBOARD = 'Dashboard',
 	GAMES = 'MyProject',
@@ -22,6 +24,7 @@ export const enum PageName {
 const pathMap = new Map<string, string>([
 	[PageName.LOGIN, '/login'],
 	[PageName.REGISTER, '/register'],
+	[PageName.FORGOT, '/forgot'],
 	[PageName.LANDING_PAGE, '/landingPage'],
 	[PageName.DASHBOARD, '/dashboard'],
 	[PageName.GAMES, '/dashboard/games'],
@@ -78,6 +81,15 @@ export const PublicRouters: Route[] = [
 		layout: GuestLayout,
 		props: {
 			title: 'Register',
+		},
+	},
+	{
+		path: convertNameToPath(PageName.FORGOT),
+		component: ForgotComponent,
+		name: PageName.FORGOT,
+		layout: GuestLayout,
+		props: {
+			title: 'Forgot Password',
 		},
 	},
 ];
