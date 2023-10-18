@@ -2,6 +2,7 @@ import React from 'react'
 import { FieldErrors, UseFormRegister } from 'react-hook-form'
 
 import { ContactFormType } from '../types'
+import { EMAIL_REGEX } from '../../../../../common/regex'
 
 import ContactFormTextField from './ContactFormTextField'
 
@@ -10,9 +11,6 @@ type EmailTextFieldProps = {
 	errors: FieldErrors<ContactFormType>,
 	register: UseFormRegister<ContactFormType>,
 };
-
-// eslint-disable-next-line no-useless-escape
-const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 const EmailTextField: React.FC<EmailTextFieldProps> = ({ errors, register }) => (
 	<ContactFormTextField
