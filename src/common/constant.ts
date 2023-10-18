@@ -4,31 +4,37 @@ import { Dashboard as DashboardComponent } from '../pages/Dashboard';
 import { Login as LoginComponent } from '../pages/Login';
 import { Register as RegisterComponent } from '../pages/Register';
 import { Landing as LandingComponent } from '../pages/Landing';
+import { Forgot as ForgotComponent } from '../pages/Forgot';
 import { Games as GamesComponent } from '../pages/Games';
 import DashboardLayout from '../Layout/DashboardLayout';
 import GuestLayout from '../Layout/GuestLayout';
+import UsersGM from '../pages/UsersGM';
 
 
 export const enum PageName {
 	LOGIN = 'Login',
 	REGISTER = 'Register',
+	FORGOT = 'ForgotPassword',
 	LANDING_PAGE = 'LandingPage',
 	DASHBOARD = 'Dashboard',
 	GAMES = 'MyProject',
-	USERS = 'Users',
+	USERS_AD = 'Users',
 	CLIENTS = 'Client',
-	PAYMENT = 'PaymentPlan'
+	PAYMENT = 'PaymentPlan',
+	USERS_GM = 'UserGM'
 }
 
 const pathMap = new Map<string, string>([
 	[PageName.LOGIN, '/login'],
 	[PageName.REGISTER, '/register'],
+	[PageName.FORGOT, '/forgot'],
 	[PageName.LANDING_PAGE, '/landingPage'],
 	[PageName.DASHBOARD, '/dashboard'],
 	[PageName.GAMES, '/dashboard/games'],
-	[PageName.USERS, '/dashboard/users'],
+	[PageName.USERS_AD, '/dashboard/users'],
 	[PageName.CLIENTS, '/dashboard/clients'],
-	[PageName.PAYMENT, '/dashboard/payment']
+	[PageName.PAYMENT, '/dashboard/payment'],
+	[PageName.USERS_GM, '/dashboard/users']
 ]);
 
 export const convertNameToPath = (pageName: PageName) => pathMap.get(pageName) ?? '/';
@@ -60,6 +66,15 @@ export const PrivateRouters: Route[] = [
 			title: 'My Projects',
 		},
 	},
+	{
+		path: convertNameToPath(PageName.USERS_GM),
+		component: UsersGM,
+		name: PageName.USERS_GM,
+		layout: DashboardLayout,
+		props: {
+			title: 'Users',
+		},
+	},
 ];
 
 export const PublicRouters: Route[] = [
@@ -88,6 +103,15 @@ export const PublicRouters: Route[] = [
 		layout: GuestLayout,
 		props: {
 			title: 'GHUB - Manage Your Game Services',
+		},
+	},
+	{
+		path: convertNameToPath(PageName.FORGOT),
+		component: ForgotComponent,
+		name: PageName.FORGOT,
+		layout: GuestLayout,
+		props: {
+			title: 'Forgot Password',
 		},
 	},
 ];

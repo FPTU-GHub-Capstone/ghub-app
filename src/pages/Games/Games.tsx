@@ -21,7 +21,7 @@ const SORT_OPTIONS = [
 export const Games = ({ title }: Props) => {
 	return (
 		<Container>
-			<Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+			<Stack direction="row" alignItems="center" justifyContent="space-between" mb={3}>
 				<Typography variant="h4" gutterBottom>
 					{title}
 				</Typography>
