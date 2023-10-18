@@ -1,7 +1,6 @@
 import React from 'react'
-import { Box, Container, Typography } from '@mui/material'
-import { ThemeProvider, styled } from '@mui/material/styles'
-import { Link } from 'react-router-dom'
+import { Box, Typography } from '@mui/material'
+import { ThemeProvider } from '@mui/material/styles'
 
 import { ContactForm } from './ContactForm'
 import { theme } from './ContactForm/styles'
@@ -32,7 +31,6 @@ export const Contact: React.FC = () => {
 				</Box>
 
 				<ContactForm />
-
 			</article>
 		</ThemeProvider>
 	)
