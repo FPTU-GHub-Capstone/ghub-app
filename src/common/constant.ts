@@ -27,8 +27,8 @@ export const enum PageName {
 const pathMap = new Map<string, string>([
 	[PageName.LOGIN, '/login'],
 	[PageName.REGISTER, '/register'],
-	[PageName.FORGOT, '/forgot'],
-	[PageName.LANDING_PAGE, '/landingPage'],
+	[PageName.FORGOT, '/forgot-password'],
+	[PageName.LANDING_PAGE, '/'],
 	[PageName.DASHBOARD, '/dashboard'],
 	[PageName.GAMES, '/dashboard/games'],
 	[PageName.USERS_AD, '/dashboard/users'],
