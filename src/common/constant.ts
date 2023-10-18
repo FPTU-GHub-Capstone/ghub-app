@@ -48,7 +48,7 @@ type Route = {
 
 export const PrivateRouters: Route[] = [
 	{
-		path: 'dashboard',
+		path: convertNameToPath(PageName.DASHBOARD),
 		component: DashboardComponent,
 		name: PageName.DASHBOARD,
 		layout: DashboardLayout,
@@ -57,7 +57,7 @@ export const PrivateRouters: Route[] = [
 		},
 	},
 	{
-		path: 'dashboard/games',
+		path: convertNameToPath(PageName.GAMES),
 		component: GamesComponent,
 		name: PageName.GAMES,
 		layout: DashboardLayout,
