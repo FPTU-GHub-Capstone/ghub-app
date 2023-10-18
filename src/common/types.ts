@@ -7,7 +7,9 @@ export type User = {
 	email: string,
 	phone: string,
 	code: string,
-	status: string,
+	status: boolean,
+	balance: number,
+	role: string,
 }
 
 export type Game = {
@@ -15,4 +17,13 @@ export type Game = {
 	name: string,
 	logo: string,
 	link: string,
+	[other: string | number]: unknown,
 };
+
+export type NavItem = {
+	title: string,
+	path: string,
+	icon: JSX.Element,
+	info?: string,
+}
+

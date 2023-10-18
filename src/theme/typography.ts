@@ -1,3 +1,6 @@
+import { TypographyOptions } from '@mui/material/styles/createTypography';
+
+
 export function remToPx(value: string) {
 	return Math.round(parseFloat(value) * 16);
 }
@@ -29,7 +32,7 @@ export function responsiveFontSizes({ sm, md, lg }: ResFrontSizes) {
 const FONT_PRIMARY = 'Public Sans, sans-serif'; // Google Font
 // const FONT_SECONDARY = 'CircularStd, sans-serif'; // Local Font
 
-const typography = {
+const typography: TypographyOptions = {
 	fontFamily: FONT_PRIMARY,
 	fontWeightRegular: 400,
 	fontWeightMedium: 600,
@@ -102,7 +105,7 @@ const typography = {
 		fontWeight: 700,
 		lineHeight: 24 / 14,
 		fontSize: pxToRem(14),
-		textTransform: 'capitalize',
+		textTransform: 'capitalize'
 	},
 };
 

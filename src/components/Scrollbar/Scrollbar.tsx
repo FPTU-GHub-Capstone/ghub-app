@@ -6,7 +6,7 @@ import { StyledRootScrollbar, StyledScrollbar } from './styles'
 
 type Props = {
 	children: Array<ReactElement>,
-	sx?: object,
+	sx?: Record<string, unknown>,
 }
 
 function Scrollbar({ children, sx, ...other }: Props) {

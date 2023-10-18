@@ -1,48 +1,45 @@
 import { NavLink as RouterLink } from 'react-router-dom'
-import { Box, List, ListItemText , ListItemIcon, ListItemButton } from '@mui/material'
+import { Box, List, ListItemText } from '@mui/material'
 
+
+import { NavItem as NavItemProps } from '../../common'
 
 import { StyledNavItem, StyledNavItemIcon } from './styles'
 
 
-type NavItemProps = {
-	title: string,
-	path: string,
-	icon: JSX.Element,
-	info?: string,
-}
-
 type Props = {
 	data: Array<NavItemProps>,
+	sx?: Record<string, unknown>,
 }
 
-export default function NavSection({ data, ...other }: Props) {
+export default function NavSection({ data, sx, ...other }: Props) {
 	return (
 		<Box {...other}>
 			<List disablePadding sx={{ p: 1 }}>
-				{data?.map((item) => (
-					<NavItem key={item.title} item={item} />
+				{data.map((item) => (
+					<NavItem key={item.title} item={item} sx={sx} />
 				))}
 			</List>
 		</Box>
 	)
 }
 
-function NavItem({ item }: {
+function NavItem({ item, sx }: {
 	key: string, 
 	item: NavItemProps,
+	sx?: Record<string, unknown>,
 }) {
 	const { title, path, icon, info } = item
-	console.log('@path::' + path)
 
 	return (
 		<StyledNavItem
 			component={RouterLink}
 			to={path}
 			sx={{
+				...sx,
 				'&.active': {
-					color: 'text.primary',
-					bgcolor: 'action.selected',
+					color: 'common.white',
+					bgcolor: 'primary.dark',
 					fontWeight: 'fontWeightBold',
 				},
 			}}

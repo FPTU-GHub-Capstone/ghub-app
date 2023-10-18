@@ -7,7 +7,7 @@ import { Box } from '@mui/material'
 type Props = {
 	icon: IconifyIcon | string,
 	width?: number | string,
-	sx?: object,
+	sx?: Record<string, unknown>,
 }
 
 const Iconify = ({ icon, width = 20, sx, ...other }: Props) => {

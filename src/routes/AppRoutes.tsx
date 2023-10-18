@@ -16,7 +16,7 @@ export const AppRoutes: React.FC = () => {
 						path={route.path}
 						element={
 							<Layout {...route.props}>
-								<Component />
+								<Component {...route.props}/>
 							</Layout>
 						}
 					/>

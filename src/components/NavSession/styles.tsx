@@ -5,7 +5,7 @@ import { ListItemIcon, ListItemButton } from '@mui/material'
 
 type Props = {
 	children: Array<JSX.Element | any>,
-	sx?: object,
+	sx?: Record<string, unknown>,
 	component?: any,
 	to?: string,
 }
