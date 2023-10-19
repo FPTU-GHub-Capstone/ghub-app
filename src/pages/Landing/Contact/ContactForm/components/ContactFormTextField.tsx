@@ -16,7 +16,7 @@ interface IContactFormTextFieldProps extends InputBaseProps {
 	width?: string;
 }
 
-const CustomizedInputBase = styled(InputBase)(({ theme }) => ({
+const CustomizedInputBase = styled(InputBase)(() => ({
 	...textFieldCustomStyles,
 }))
 

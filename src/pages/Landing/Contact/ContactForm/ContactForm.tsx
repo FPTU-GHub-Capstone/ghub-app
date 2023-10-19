@@ -24,7 +24,7 @@ const ContactForm: React.FC = () => {
 			message: '',
 		},
 	})
-	const { handleSubmit, formState, control } = form
+	const { register, handleSubmit, formState, control } = form
 	const { errors } = formState
 
 	const onSubmit = (data: ContactFormType) => {
@@ -36,11 +36,11 @@ const ContactForm: React.FC = () => {
 			<Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'white' }}>
 				<Box sx={{ display: 'flex', flexDirection: 'column', width: '70%' }} component="form" onSubmit={handleSubmit(onSubmit)}>
 					<Box sx={{ display: 'flex', justifyContent: 'space-between', color: 'white'}}>
-						<FirstNameTextField errors={errors} register={form.register} />
-						<LastNameTextField errors={errors} register={form.register} />
+						<FirstNameTextField errors={errors} register={register} />
+						<LastNameTextField errors={errors} register={register} />
 					</Box>
-					<EmailTextField errors={errors} register={form.register} />
-					<MessageTextField errors={errors} register={form.register} />
+					<EmailTextField errors={errors} register={register} />
+					<MessageTextField errors={errors} register={register} />
 					<ContactFormBtn text="Get in touch" />
 				</Box>
 			</Container>
