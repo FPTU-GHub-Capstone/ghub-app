@@ -3,6 +3,7 @@ import { ElementType } from 'react';
 import { Dashboard as DashboardComponent } from '../pages/Dashboard';
 import { Login as LoginComponent } from '../pages/Login';
 import { Register as RegisterComponent } from '../pages/Register';
+import { Landing as LandingComponent } from '../pages/Landing';
 import { Forgot as ForgotComponent } from '../pages/Forgot';
 import { Games as GamesComponent } from '../pages/Games';
 import DashboardLayout from '../Layout/DashboardLayout';
@@ -26,8 +27,8 @@ export const enum PageName {
 const pathMap = new Map<string, string>([
 	[PageName.LOGIN, '/login'],
 	[PageName.REGISTER, '/register'],
-	[PageName.FORGOT, '/forgot'],
-	[PageName.LANDING_PAGE, '/landingPage'],
+	[PageName.FORGOT, '/forgot-password'],
+	[PageName.LANDING_PAGE, '/'],
 	[PageName.DASHBOARD, '/dashboard'],
 	[PageName.GAMES, '/dashboard/games'],
 	[PageName.USERS_AD, '/dashboard/users'],
@@ -93,6 +94,15 @@ export const PublicRouters: Route[] = [
 		layout: GuestLayout,
 		props: {
 			title: 'Register',
+		},
+	},
+	{
+		path: convertNameToPath(PageName.LANDING_PAGE),
+		component: LandingComponent,
+		name: PageName.LANDING_PAGE,
+		layout: GuestLayout,
+		props: {
+			title: 'GHUB - Manage Your Game Services',
 		},
 	},
 	{

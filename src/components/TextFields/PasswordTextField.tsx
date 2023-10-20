@@ -1,14 +1,13 @@
 import { TextField } from '@mui/material'
 import { UseFormRegister, FieldErrors, Path, FieldValues } from 'react-hook-form'
 
+import { PASSWORD_REGEX } from '../../common/regex'
+
 
 type PasswordTextFieldProps<T extends FieldValues> = {
 	errors: FieldErrors<T>,
 	register: UseFormRegister<T>,
 };
-
-
-const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z][A-Za-z0-9]{5,19}$/
 
 export const PasswordTextField = <T extends FieldValues>({ errors, register }: PasswordTextFieldProps<T>) => (
 	<TextField
