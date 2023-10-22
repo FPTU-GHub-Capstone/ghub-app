@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import Typography from '@mui/material/Typography'
-import { Link } from 'react-router-dom'
+import { Link, useMatch } from 'react-router-dom' // Import useMatch
 
 import LoginButton from './LoginButton'
 import NavItem from './NavItem'
@@ -22,6 +22,8 @@ export const Navbar: React.FC = () => {
 		document.body.style.paddingTop = navbarHeight - 1 + 'px'
 	}, [])
 
+	const isAtRoot = useMatch('/') // Check if you are at the root route
+
 	return (
 		<nav style={styles.navbarStyle}>
 			<div style={{ display: 'flex', alignItems: 'center', marginLeft: '15px' }}>
@@ -33,16 +35,18 @@ export const Navbar: React.FC = () => {
 					</Link>
 				</Typography>
 			</div>
-			<ul style={styles.ulStyle}>
-				{navigationItems.map((item, index) => (
-					<NavItem key={index} text={item.text} sectionId={item.sectionId} />
-				))}
-				<li>
-					<form>
-						<LoginButton text="Sign in" />
-					</form>
-				</li>
-			</ul>
+			{isAtRoot && (
+				<ul style={styles.ulStyle}>
+					{navigationItems.map((item, index) => (
+						<NavItem key={index} text={item.text} sectionId={item.sectionId} />
+					))}
+					<li>
+						<form>
+							<LoginButton text="Sign in" />
+						</form>
+					</li>
+				</ul>
+			)}
 		</nav>
 	)
 }
