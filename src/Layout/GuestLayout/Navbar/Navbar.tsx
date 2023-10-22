@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
 
-import { Button as LoginButton } from './PublicFormButton'
+import LoginButton from './LoginButton'
 import NavItem from './NavItem'
 
 import logo from '/assets/logo.svg'

@@ -1,17 +1,16 @@
 import React from 'react'
 import { Box, Button, Typography } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
-import { useNavigate } from 'react-router-dom' // Import useNavigate
+import { useNavigate } from 'react-router-dom' 
 
 import { theme } from './styles'
 
 
-const PublicFormButton: React.FC<{ text?: string }> = ({ text: text = '' }) => {
-	const navigate = useNavigate() // Get the navigate function
+const LoginButton: React.FC<{ text?: string }> = ({ text: text = '' }) => {
+	const navigate = useNavigate() 
 
 	const handleButtonClick = () => {
-		// Handle button click
-		navigate('/login') // Navigate to /login
+		navigate('/login') 
 	}
 
 	return (
@@ -20,7 +19,7 @@ const PublicFormButton: React.FC<{ text?: string }> = ({ text: text = '' }) => {
 				<Button
 					variant="contained"
 					sx={{
-						paddingY: '10px',  paddingX: '45px',
+						paddingY: '10px', paddingX: '45px',
 						marginRight: '15px',
 						marginLeft: '15px',
 					}}
@@ -33,4 +32,4 @@ const PublicFormButton: React.FC<{ text?: string }> = ({ text: text = '' }) => {
 	)
 }
 
-export default PublicFormButton
+export default LoginButton
