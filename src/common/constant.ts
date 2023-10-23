@@ -8,6 +8,8 @@ import { Games as GamesComponent } from '../pages/Games';
 import DashboardLayout from '../Layout/DashboardLayout';
 import GuestLayout from '../Layout/GuestLayout';
 import UsersGM from '../pages/UsersGM';
+import GameDashboardLayout from '../Layout/GameDashboardLayout';
+import Player from '../pages/Player';
 
 
 export const enum PageName {
@@ -20,7 +22,8 @@ export const enum PageName {
 	USERS_AD = 'Users',
 	CLIENTS = 'Client',
 	PAYMENT = 'PaymentPlan',
-	USERS_GM = 'UserGM'
+	USERS_GM = 'UserGM',
+	PLAYER = 'Player'
 }
 
 const pathMap = new Map<string, string>([
@@ -33,7 +36,8 @@ const pathMap = new Map<string, string>([
 	[PageName.USERS_AD, '/dashboard/users'],
 	[PageName.CLIENTS, '/dashboard/clients'],
 	[PageName.PAYMENT, '/dashboard/payment'],
-	[PageName.USERS_GM, '/dashboard/users']
+	[PageName.USERS_GM, '/dashboard/users'],
+	[PageName.PLAYER, '/dashboard/players']
 ]);
 
 export const convertNameToPath = (pageName: PageName) => pathMap.get(pageName) ?? '/';
@@ -72,6 +76,15 @@ export const PrivateRouters: Route[] = [
 		layout: DashboardLayout,
 		props: {
 			title: 'Users',
+		},
+	},
+	{
+		path: convertNameToPath(PageName.PLAYER),
+		component: Player,
+		name: PageName.PLAYER,
+		layout: GameDashboardLayout,
+		props: {
+			title: 'Players',
 		},
 	},
 ];
