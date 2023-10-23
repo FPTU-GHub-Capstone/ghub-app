@@ -1,14 +1,13 @@
 import { TextField } from '@mui/material'
 import { UseFormRegister, FieldErrors, Path, FieldValues } from 'react-hook-form'
 
+import { EMAIL_REGEX } from '../../common/regex'
+
 
 type EmailTextFieldProps<T extends FieldValues> = {
 	errors: FieldErrors<T>,
 	register: UseFormRegister<T>,
 };
-
-// eslint-disable-next-line no-useless-escape
-const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 export const EmailTextField = <T extends FieldValues>({ errors, register }: EmailTextFieldProps<T>) => (
 	<TextField
