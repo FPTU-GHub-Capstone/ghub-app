@@ -1,15 +1,10 @@
-// NavItem.tsx
 import React from 'react'
 import Typography from '@mui/material/Typography'
-import { Link } from 'react-router-dom' // Import useNavigate and useMatch
+import { Link } from 'react-router-dom'
 
+import { NavItemProps } from './types' // Import the type from the types file
 import * as styles from './styles'
 
-
-interface INavItemProps {
-	text: string;
-	sectionId: string;
-}
 
 const scrollToSection = (sectionId: string) => {
 	const section = document.getElementById(sectionId)
@@ -25,7 +20,7 @@ const scrollToSection = (sectionId: string) => {
 	}
 }
 
-const NavItem: React.FC<INavItemProps> = ({ text, sectionId }) => {
+const NavItem: React.FC<NavItemProps> = ({ text, sectionId }) => {
 	return (
 		<li style={styles.liStyle}>
 			<Typography variant="button">

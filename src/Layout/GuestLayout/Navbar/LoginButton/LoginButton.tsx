@@ -23,7 +23,7 @@ const LoginButton: React.FC<{ text?: string }> = ({ text: text = '' }) => {
 						marginRight: '15px',
 						marginLeft: '15px',
 					}}
-					onClick={handleButtonClick} // Handle the click event
+					onClick={handleButtonClick}
 				>
 					<Typography sx={{ fontSize: '17px', fontWeight: '450' }}>{text}</Typography>
 				</Button>
