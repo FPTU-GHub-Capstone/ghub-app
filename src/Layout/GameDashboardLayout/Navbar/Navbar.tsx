@@ -45,12 +45,8 @@ export default function Navbar() {
 
 	const handleChange = (event: React.SyntheticEvent, newValue: number) => {
 		// event.type can be equal to focus with selectionFollowsFocus.
-		if (
-			event.type !== 'click' ||
-		(event.type === 'click' &&
-			samePageLinkNavigation(
-				event as React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-			))
+		if (event.type !== 'click' || (event.type === 'click' && 
+		samePageLinkNavigation(event as React.MouseEvent<HTMLAnchorElement, MouseEvent>,))
 		) {
 			setValue(newValue)
 		}

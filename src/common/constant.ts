@@ -53,7 +53,7 @@ type Route = {
 
 export const PrivateRouters: Route[] = [
 	{
-		path: convertNameToPath(PageName.DASHBOARD),
+		path: '/dashboard',
 		component: DashboardComponent,
 		name: PageName.DASHBOARD,
 		layout: DashboardLayout,
@@ -62,7 +62,7 @@ export const PrivateRouters: Route[] = [
 		},
 	},
 	{
-		path: convertNameToPath(PageName.GAMES),
+		path: '/dashboard/games',
 		component: GamesComponent,
 		name: PageName.GAMES,
 		layout: DashboardLayout,
@@ -71,7 +71,7 @@ export const PrivateRouters: Route[] = [
 		},
 	},
 	{
-		path: convertNameToPath(PageName.USERS_GM),
+		path: '/dashboard/users',
 		component: UsersGM,
 		name: PageName.USERS_GM,
 		layout: DashboardLayout,
@@ -80,7 +80,7 @@ export const PrivateRouters: Route[] = [
 		},
 	},
 	{
-		path: convertNameToPath(PageName.PLAYER),
+		path: '/dashboard/players',
 		component: Player,
 		name: PageName.PLAYER,
 		layout: GameDashboardLayout,
@@ -92,7 +92,7 @@ export const PrivateRouters: Route[] = [
 
 export const PublicRouters: Route[] = [
 	{
-		path: convertNameToPath(PageName.LOGIN),
+		path: '/login',
 		component: LoginComponent,
 		name: PageName.LOGIN,
 		layout: GuestLayout,
@@ -101,7 +101,7 @@ export const PublicRouters: Route[] = [
 		},
 	},
 	{
-		path: convertNameToPath(PageName.REGISTER),
+		path: '/register',
 		component: RegisterComponent,
 		name: PageName.REGISTER,
 		layout: GuestLayout,
@@ -110,7 +110,7 @@ export const PublicRouters: Route[] = [
 		},
 	},
 	{
-		path: convertNameToPath(PageName.LANDING_PAGE),
+		path: '/',
 		component: LandingComponent,
 		name: PageName.LANDING_PAGE,
 		layout: GuestLayout,
@@ -119,7 +119,7 @@ export const PublicRouters: Route[] = [
 		},
 	},
 	{
-		path: convertNameToPath(PageName.FORGOT),
+		path: '/forgot-password',
 		component: ForgotComponent,
 		name: PageName.FORGOT,
 		layout: GuestLayout,
