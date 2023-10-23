@@ -3,7 +3,7 @@ import { SxProps } from '@mui/system';
 import { CSSProperties } from 'react';
 
 
-export const navbarStyle: CSSProperties = Object.freeze({
+export const navbarStyle = Object.freeze<CSSProperties>({
 	position: 'fixed',
 	top: 0,
 	left: 0,
@@ -16,7 +16,7 @@ export const navbarStyle: CSSProperties = Object.freeze({
 	padding: '10px',
 });
 
-export const ulStyle: CSSProperties = Object.freeze({
+export const ulStyle = Object.freeze<CSSProperties>({
 	listStyleType: 'none',
 	display: 'flex',
 	flexDirection: 'row',
@@ -25,23 +25,23 @@ export const ulStyle: CSSProperties = Object.freeze({
 	marginBottom: '8px',
 });
 
-export const liStyle: CSSProperties = Object.freeze({
+export const liStyle = Object.freeze<CSSProperties>({
 	marginLeft: '15px',
 	marginRight: '15px',
 });
 
-export const linkStyle: CSSProperties = Object.freeze({
+export const linkStyle = Object.freeze<CSSProperties>({
 	textDecoration: 'none',
 	color: 'white',
 });
 
-export const divLogoStyle: CSSProperties = Object.freeze({
+export const divLogoStyle = Object.freeze<CSSProperties>({
 	display: 'flex',
 	alignItems: 'center',
 	marginLeft: '15px',
 });
 
-export const textLogoStyle: SxProps<Theme> = Object.freeze({ 
+export const textLogoStyle = Object.freeze<SxProps<Theme>>({
 	fontWeight: 700, 
 	fontSize: '26px', 
 	color: 'white', 
