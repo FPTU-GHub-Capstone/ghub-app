@@ -9,6 +9,8 @@ import { Games as GamesComponent } from '../pages/Games';
 import DashboardLayout from '../Layout/DashboardLayout';
 import GuestLayout from '../Layout/GuestLayout';
 import UsersGM from '../pages/UsersGM';
+import GameDashboardLayout from '../Layout/GameDashboardLayout';
+import Player from '../pages/Player';
 
 
 export const enum PageName {
@@ -21,7 +23,8 @@ export const enum PageName {
 	USERS_AD = 'Users',
 	CLIENTS = 'Client',
 	PAYMENT = 'PaymentPlan',
-	USERS_GM = 'UserGM'
+	USERS_GM = 'UserGM',
+	PLAYER = 'Player'
 }
 
 const pathMap = new Map<string, string>([
@@ -34,7 +37,8 @@ const pathMap = new Map<string, string>([
 	[PageName.USERS_AD, '/dashboard/users'],
 	[PageName.CLIENTS, '/dashboard/clients'],
 	[PageName.PAYMENT, '/dashboard/payment'],
-	[PageName.USERS_GM, '/dashboard/users']
+	[PageName.USERS_GM, '/dashboard/users'],
+	[PageName.PLAYER, '/dashboard/players']
 ]);
 
 export const convertNameToPath = (pageName: PageName) => pathMap.get(pageName) ?? '/';
@@ -49,7 +53,7 @@ type Route = {
 
 export const PrivateRouters: Route[] = [
 	{
-		path: convertNameToPath(PageName.DASHBOARD),
+		path: '/dashboard',
 		component: DashboardComponent,
 		name: PageName.DASHBOARD,
 		layout: DashboardLayout,
@@ -58,7 +62,7 @@ export const PrivateRouters: Route[] = [
 		},
 	},
 	{
-		path: convertNameToPath(PageName.GAMES),
+		path: '/dashboard/games',
 		component: GamesComponent,
 		name: PageName.GAMES,
 		layout: DashboardLayout,
@@ -67,7 +71,7 @@ export const PrivateRouters: Route[] = [
 		},
 	},
 	{
-		path: convertNameToPath(PageName.USERS_GM),
+		path: '/dashboard/users',
 		component: UsersGM,
 		name: PageName.USERS_GM,
 		layout: DashboardLayout,
@@ -75,11 +79,20 @@ export const PrivateRouters: Route[] = [
 			title: 'Users',
 		},
 	},
+	{
+		path: '/dashboard/players',
+		component: Player,
+		name: PageName.PLAYER,
+		layout: GameDashboardLayout,
+		props: {
+			title: 'Players',
+		},
+	},
 ];
 
 export const PublicRouters: Route[] = [
 	{
-		path: convertNameToPath(PageName.LOGIN),
+		path: '/login',
 		component: LoginComponent,
 		name: PageName.LOGIN,
 		layout: GuestLayout,
@@ -88,7 +101,7 @@ export const PublicRouters: Route[] = [
 		},
 	},
 	{
-		path: convertNameToPath(PageName.REGISTER),
+		path: '/register',
 		component: RegisterComponent,
 		name: PageName.REGISTER,
 		layout: GuestLayout,
@@ -97,7 +110,7 @@ export const PublicRouters: Route[] = [
 		},
 	},
 	{
-		path: convertNameToPath(PageName.LANDING_PAGE),
+		path: '/',
 		component: LandingComponent,
 		name: PageName.LANDING_PAGE,
 		layout: GuestLayout,
@@ -106,7 +119,7 @@ export const PublicRouters: Route[] = [
 		},
 	},
 	{
-		path: convertNameToPath(PageName.FORGOT),
+		path: '/forgot-password',
 		component: ForgotComponent,
 		name: PageName.FORGOT,
 		layout: GuestLayout,
