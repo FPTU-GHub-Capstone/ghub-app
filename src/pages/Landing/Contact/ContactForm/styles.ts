@@ -1,4 +1,6 @@
 import { alpha, createTheme } from '@mui/material/styles';
+import { Theme } from '@mui/material/styles/createTheme';
+import { SxProps } from '@mui/system';
 
 import palette from '../../../../theme/palette';
 
@@ -18,7 +20,7 @@ themeCreate = createTheme({
 
 export const theme = themeCreate;
 
-export const textFieldCustomStyles = {
+export const textFieldCustomStyles = Object.freeze<SxProps<Theme>>({
 	'label + &': {
 		marginTop: theme.spacing(3.5)
 	},
@@ -58,4 +60,4 @@ export const textFieldCustomStyles = {
 	'& .Mui-focused': {
 		color: '#B8ADA7'
 	}
-};
+});

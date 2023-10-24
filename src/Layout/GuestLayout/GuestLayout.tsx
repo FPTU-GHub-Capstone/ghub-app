@@ -1,3 +1,6 @@
+import { Navbar } from './Navbar'
+
+
 type Props = {
 	children: JSX.Element,
 }
@@ -5,6 +8,7 @@ type Props = {
 export default function GuestLayout({ children }: Props) {
 	return (
 		<>
+			<Navbar />
 			{children}
 		</>
 	)
