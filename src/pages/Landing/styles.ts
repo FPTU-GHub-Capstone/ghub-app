@@ -1,23 +1,26 @@
 import { Box, styled } from '@mui/material';
+import { Theme } from '@mui/material/styles/createTheme';
+import { SxProps } from '@mui/system';
+import { CSSProperties } from 'react';
 
 
-export const buttonCommonStyle = {
+export const buttonCommonStyle = Object.freeze<SxProps<Theme>>({
 	width: 'calc(45% - 20px)',
 	padding: '10px',
 	margin: '10px',
 	borderRadius: '25px',
 	height: '50px',
-};
+});
 
-export const BtnLogin = {
+export const BtnLogin = Object.freeze<SxProps<Theme>>({
 	...buttonCommonStyle,
 	backgroundImage: 'linear-gradient(135deg, #FA2705, #FB9E3C)',
-};
+});
 
-export const BtnRegister = {
+export const BtnRegister = Object.freeze<SxProps<Theme>>({
 	...buttonCommonStyle,
 	backgroundImage: 'linear-gradient(135deg, #7F23F5, #2824F5)',
-};
+});
 
 export const LandingHeaderSection = styled(Box)({
 	display: 'flex',
@@ -38,13 +41,13 @@ export const BtnLayout = styled(Box)({
 	margin: '25px',
 });
 
-export const landingHeading = { 
+export const landingHeading = Object.freeze<SxProps<Theme>>({ 
 	fontSize: '50px', 
 	fontWeight: '600', 
 	marginBottom: '10px' 
-};
+});
 
-export const landingPageStyle = { 
+export const landingPageStyle = Object.freeze<CSSProperties>({ 
 	backgroundColor: '#39289F', 
 	padding: '5vw' 
-};
+});
