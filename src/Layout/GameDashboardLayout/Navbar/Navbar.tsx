@@ -7,17 +7,14 @@ import { Games as GamesComponent } from '../../../pages/Games'
 function samePageLinkNavigation(
 	event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
 ) {
-	if (
+	return !(
 		event.defaultPrevented ||
 		event.button !== 0 || // ignore everything but left-click
 		event.metaKey ||
 		event.ctrlKey ||
 		event.altKey ||
 		event.shiftKey
-	) {
-		return false
-	}
-	return true
+	)
 }
   
 type LinkTabProps = {
