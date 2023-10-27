@@ -96,7 +96,7 @@ export const PrivateRouters: Route[] = [
 		path: '/dashboard/logging',
 		component: Logging,
 		name: PageName.LOGGINGPROTO,
-		layout: EmptyLayout,
+		layout: GuestLayout,
 		props: {
 			title: 'Logging',
 		},
