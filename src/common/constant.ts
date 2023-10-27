@@ -6,8 +6,10 @@ import { Register as RegisterComponent } from '../pages/Register';
 import { Landing as LandingComponent } from '../pages/Landing';
 import { Forgot as ForgotComponent } from '../pages/Forgot';
 import { Games as GamesComponent } from '../pages/Games';
+import { Logging } from '../pages/Logging';
 import DashboardLayout from '../Layout/DashboardLayout';
 import GuestLayout from '../Layout/GuestLayout';
+import EmptyLayout from '../Layout/EmptyLayout';
 import UsersGM from '../pages/UsersGM';
 import GameDashboardLayout from '../Layout/GameDashboardLayout';
 import Player from '../pages/Player';
@@ -24,7 +26,8 @@ export const enum PageName {
 	CLIENTS = 'Client',
 	PAYMENT = 'PaymentPlan',
 	USERS_GM = 'UserGM',
-	PLAYER = 'Player'
+	PLAYER = 'Player',
+	LOGGINGPROTO = 'Logging'
 }
 
 const pathMap = new Map<string, string>([
@@ -38,7 +41,8 @@ const pathMap = new Map<string, string>([
 	[PageName.CLIENTS, '/dashboard/clients'],
 	[PageName.PAYMENT, '/dashboard/payment'],
 	[PageName.USERS_GM, '/dashboard/users'],
-	[PageName.PLAYER, '/dashboard/players']
+	[PageName.PLAYER, '/dashboard/players'],
+	[PageName.LOGGINGPROTO, '/dashboard/logging']
 ]);
 
 export const convertNameToPath = (pageName: PageName) => pathMap.get(pageName) ?? '/';
@@ -86,6 +90,15 @@ export const PrivateRouters: Route[] = [
 		layout: GameDashboardLayout,
 		props: {
 			title: 'Players',
+		},
+	},
+	{
+		path: '/dashboard/logging',
+		component: Logging,
+		name: PageName.LOGGINGPROTO,
+		layout: EmptyLayout,
+		props: {
+			title: 'Logging',
 		},
 	},
 ];
