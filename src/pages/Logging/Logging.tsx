@@ -7,6 +7,7 @@ import config from '../../config'
 
 import LogTable from './LogTable'
 import { LogEntry } from './types'
+import { logData } from './data'
 
 
 const TerminalQuery = () => {
@@ -26,16 +27,35 @@ const Chart = () => {
 }
 
 export const Logging: React.FC = () => {
-	const [logs, setLogs] = useState<LogEntry[]>([])
+	const [logs, setLogs] = useState<LogEntry[]>(logData)
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		pusherSvc.bindEvent(config.BIND_INSERTED_EVENT, (log: unknown) => {
-			setLogs(logs.concat(log as LogEntry))
-		})
-		
-		return () => {
-			pusherSvc.unbindEvent(config.BIND_INSERTED_EVENT)
+		const mode: string = 'THUAN_DEV'
+		if (mode != 'THUAN_DEV') {
+			pusherSvc.bindEvent(config.BIND_INSERTED_EVENT, (log: unknown) => {
+				setLogs(logs.concat(log as LogEntry))
+			})
+			
+			return () => {
+				pusherSvc.unbindEvent(config.BIND_INSERTED_EVENT)
+			}
+		} else {
+			const interval = setInterval(() => {
+				const lastElement = logs[logs.length - 1]
+				const currentTimestamp = new Date() 
+	
+				const newEntry = {
+					...lastElement,
+					UtcTimeStamp: currentTimestamp.toISOString(),
+					_id: (Number(lastElement._id) + 1).toString(), 
+				}
+				const newData = logs.concat(newEntry)
+				setLogs(newData)
+			}, 5000) 
+			return () => {
+				clearInterval(interval)
+			}
 		}
 	}, [logs])
 

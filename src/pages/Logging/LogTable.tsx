@@ -11,12 +11,27 @@ import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import Typography from '@mui/material/Typography'
+
+import { formatDateToCustomString } from '../../utils'
 
 import { LogEntry } from './types'
 
 
 const Row: React.FC<{ rowData: LogEntry }> = ({ rowData }) => {
 	const [isOpen, setIsOpen] = React.useState(false)
+
+	const logLevelStyles = {
+		information: { renderedtext: 'INFO', color: '#00bb00' },
+		warning: { renderedtext: 'WARN', color: '#ff9900' },
+		error: { renderedtext: 'ERROR', color: '#ff0000' },
+		fatal: { renderedtext: 'FATAL', color: '#990000' },
+	}
+	
+	const outputLevel = logLevelStyles[rowData.Level.toLowerCase()] || {
+		renderedtext: 'UNKNOWN',
+		color: '#000',
+	}
 
 	return (
 		<React.Fragment>
@@ -30,11 +45,16 @@ const Row: React.FC<{ rowData: LogEntry }> = ({ rowData }) => {
 						{isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
 					</IconButton>
 				</TableCell>
+				<TableCell>
+					<Typography sx={{color: outputLevel.color, fontWeight: 600}}>
+						{ outputLevel.renderedtext } 
+					</Typography>
+				</TableCell>
 				<TableCell> 
-					{rowData.UtcTimeStamp}
+					{formatDateToCustomString(new Date(rowData.UtcTimeStamp))}
 				</TableCell>
 				<TableCell>
-					{rowData.RenderedMessage}
+					{ rowData.RenderedMessage }
 				</TableCell>
 			</TableRow>
 			<TableRow>
@@ -74,7 +94,8 @@ const LogTable: React.FC<{ data: LogEntry[] }> = ({ data }) => {
 					<TableHead>
 						<TableRow>
 							<TableCell />
-							<TableCell>Time Stamp</TableCell>
+							<TableCell>Level</TableCell>
+							<TableCell>Time</TableCell>
 							<TableCell>Message</TableCell>
 						</TableRow>
 					</TableHead>
