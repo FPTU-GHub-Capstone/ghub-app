@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { Box } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
-import { logData } from './data.ts'
+import pusherSvc from '../../services/PusherService'
+import config from '../../config'
+
 import LogTable from './LogTable'
-import { LogEntry } from './types.ts'
+import { LogEntry } from './types'
 
 
 const TerminalQuery = () => {
@@ -24,32 +26,18 @@ const Chart = () => {
 }
 
 export const Logging: React.FC = () => {
-	const [data, setData] = useState<LogEntry[]>(logData)
+	const [logs, setLogs] = useState<LogEntry[]>([])
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		const interval = setInterval(() => {
-			const firstElement = data[0]
-			const currentTimestamp = new Date() 
-
-			const newEntry = {
-				...firstElement,
-				UtcTimeStamp: currentTimestamp.toISOString(),
-				_id: firstElement._id + 1, 
-			}
-
-			const newData = data.concat(newEntry)
-			// if (newData.length > 30) {
-			// setData(newData.slice(0, 30))
-			// } else {
-			setData(newData)
-			// }
-		}, 500) 
-
+		pusherSvc.bindEvent(config.BIND_INSERTED_EVENT, (log: unknown) => {
+			setLogs(logs.concat(log as LogEntry))
+		})
+		
 		return () => {
-			clearInterval(interval)
+			pusherSvc.unbindEvent(config.BIND_INSERTED_EVENT)
 		}
-	}, [data])
+	}, [logs])
 
 
 	return (
@@ -60,7 +48,7 @@ export const Logging: React.FC = () => {
 				<TerminalQuery />
 				<Box sx={{padding: '15px', margin: '15px'}}>
 					<Chart />
-					<LogTable data={data} />
+					<LogTable data={logs} />
 				</Box>
 			</Box>
 		</>
