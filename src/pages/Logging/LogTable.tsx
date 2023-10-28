@@ -64,13 +64,6 @@ const LogLevelMap = new Map<LogLevel, FormattedLogLevel>([
 const Row: React.FC<{ rowData: LogEntry }> = ({ rowData }) => {
 	const [isOpen, setIsOpen] = React.useState(false)
 
-	// const logLevelStyles = {
-	// 	information: { renderedtext: 'INFO', color: '#00bb00' },
-	// 	warning: { renderedtext: 'WARN', color: '#ff9900' },
-	// 	error: { renderedtext: 'ERROR', color: '#ff0000' },
-	// 	fatal: { renderedtext: 'FATAL', color: '#990000' },
-	// }
-
 	const formattedLogLevel: FormattedLogLevel = LogLevelMap.get(rowData.Level as LogLevel) || {
 		renderedText: 'UNKNOWN',
 		color: '#000',
@@ -93,13 +86,15 @@ const Row: React.FC<{ rowData: LogEntry }> = ({ rowData }) => {
 						{formattedLogLevel.renderedText}
 					</Typography>
 				</TableCell>
-				<TableCell>
+				<TableCell sx={{ overflowX: 'auto', whiteSpace: 'nowrap',  maxWidth: '100px'}}> 
 					{formatDateToCustomString(new Date(rowData.UtcTimeStamp))}
 				</TableCell>
-				<TableCell>{rowData.RenderedMessage}</TableCell>
+				<TableCell sx={{ overflowX: 'auto', whiteSpace: 'nowrap',  maxWidth: '300px' }}>
+					{ rowData.RenderedMessage }
+				</TableCell>
 			</TableRow>
 			<TableRow>
-				<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+				<TableCell style={{ paddingBottom: 0, paddingTop: 0,  overflowX: 'auto', whiteSpace: 'nowrap', maxWidth: '500px' }} colSpan={6}>
 					<Collapse in={isOpen} timeout="auto" unmountOnExit>
 						<Box sx={{ margin: 1 }}>
 							<Table size="small" aria-label="purchases">
