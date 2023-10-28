@@ -27,7 +27,7 @@ const Chart = () => {
 }
 
 export const Logging: React.FC = () => {
-	const [logs, setLogs] = useState<LogEntry[]>(logData)
+	const [logs, setLogs] = useState<LogEntry[]>([])
 	const navigate = useNavigate()
 
 	useEffect(() => {

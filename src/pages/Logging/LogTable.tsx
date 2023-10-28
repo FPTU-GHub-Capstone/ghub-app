@@ -18,18 +18,61 @@ import { formatDateToCustomString } from '../../utils'
 import { LogEntry } from './types'
 
 
+type FormattedLogLevel = {
+	renderedText: string,
+	color: string,
+};
+
+enum LogLevel {
+	INFO = 'Information',
+	WARN = 'Warning',
+	ERR = 'Error',
+	FTL = 'Fatal',
+}
+
+const LogLevelMap = new Map<LogLevel, FormattedLogLevel>([
+	[
+		LogLevel.INFO,
+		{
+			renderedText: 'INFO',
+			color: '#00bb00',
+		},
+	],
+	[
+		LogLevel.WARN,
+		{
+			renderedText: 'WARN',
+			color: '#ff9900',
+		},
+	],
+	[
+		LogLevel.ERR,
+		{
+			renderedText: 'ERR',
+			color: '#ff0000',
+		},
+	],
+	[
+		LogLevel.FTL,
+		{
+			renderedText: 'FTL',
+			color: '#990000',
+		},
+	],
+])
+
 const Row: React.FC<{ rowData: LogEntry }> = ({ rowData }) => {
 	const [isOpen, setIsOpen] = React.useState(false)
 
-	const logLevelStyles = {
-		information: { renderedtext: 'INFO', color: '#00bb00' },
-		warning: { renderedtext: 'WARN', color: '#ff9900' },
-		error: { renderedtext: 'ERROR', color: '#ff0000' },
-		fatal: { renderedtext: 'FATAL', color: '#990000' },
-	}
-	
-	const outputLevel = logLevelStyles[rowData.Level.toLowerCase()] || {
-		renderedtext: 'UNKNOWN',
+	// const logLevelStyles = {
+	// 	information: { renderedtext: 'INFO', color: '#00bb00' },
+	// 	warning: { renderedtext: 'WARN', color: '#ff9900' },
+	// 	error: { renderedtext: 'ERROR', color: '#ff0000' },
+	// 	fatal: { renderedtext: 'FATAL', color: '#990000' },
+	// }
+
+	const formattedLogLevel: FormattedLogLevel = LogLevelMap.get(rowData.Level as LogLevel) || {
+		renderedText: 'UNKNOWN',
 		color: '#000',
 	}
 
@@ -46,16 +89,14 @@ const Row: React.FC<{ rowData: LogEntry }> = ({ rowData }) => {
 					</IconButton>
 				</TableCell>
 				<TableCell>
-					<Typography sx={{color: outputLevel.color, fontWeight: 600}}>
-						{ outputLevel.renderedtext } 
+					<Typography sx={{ color: formattedLogLevel.color, fontWeight: 600 }}>
+						{formattedLogLevel.renderedText}
 					</Typography>
 				</TableCell>
-				<TableCell> 
+				<TableCell>
 					{formatDateToCustomString(new Date(rowData.UtcTimeStamp))}
 				</TableCell>
-				<TableCell>
-					{ rowData.RenderedMessage }
-				</TableCell>
+				<TableCell>{rowData.RenderedMessage}</TableCell>
 			</TableRow>
 			<TableRow>
 				<TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -80,17 +121,19 @@ const Row: React.FC<{ rowData: LogEntry }> = ({ rowData }) => {
 }
 
 function renderExpandableProp(value: unknown) {
-	if (typeof value === 'string') 
-		return value
+	if (typeof value === 'string') return value
 	return JSON.stringify(value)
 }
 
-// eslint-disable-next-line react/prop-types
 const LogTable: React.FC<{ data: LogEntry[] }> = ({ data }) => {
 	return (
 		<>
 			<TableContainer component={Paper} sx={{ maxHeight: 440, width: '100%' }}>
-				<Table stickyHeader size="small"  aria-label="sticky table collapsible table">
+				<Table
+					stickyHeader
+					size="small"
+					aria-label="sticky table collapsible table"
+				>
 					<TableHead>
 						<TableRow>
 							<TableCell />
