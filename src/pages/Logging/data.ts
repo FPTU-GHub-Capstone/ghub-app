@@ -1,9 +1,9 @@
-import { ILogEntry } from './types';
+import { LogEntry } from './types';
 
 
-export const logData: ILogEntry[] = [
+export const logData: LogEntry[] = [
 	{
-		'_id': 5,
+		'_id': '5',
 		'Level': 'Information',
 		'UtcTimeStamp': '2023-10-27T13:53:37.408Z',
 		'MessageTemplate': {
@@ -28,7 +28,7 @@ export const logData: ILogEntry[] = [
 		}
 	},
 	{
-		'_id': 4,
+		'_id': '4',
 		'Level': 'Information',
 		'UtcTimeStamp': '2023-10-27T13:53:37.408Z',
 		'MessageTemplate': {
@@ -53,7 +53,7 @@ export const logData: ILogEntry[] = [
 		}
 	},
 	{
-		'_id': 3,
+		'_id': '3',
 		'Level': 'Information',
 		'UtcTimeStamp': '2023-10-27T13:53:37.408Z',
 		'MessageTemplate': {
@@ -78,7 +78,7 @@ export const logData: ILogEntry[] = [
 		}
 	},
 	{
-		'_id': 2,
+		'_id': '2',
 		'Level': 'Information',
 		'UtcTimeStamp': '2023-10-27T13:53:37.408Z',
 		'MessageTemplate': {
@@ -103,7 +103,7 @@ export const logData: ILogEntry[] = [
 		}
 	},
 	{
-		'_id': 1,
+		'_id': '1',
 		'Level': 'Information',
 		'UtcTimeStamp': '2023-10-27T13:53:37.408Z',
 		'MessageTemplate': {
@@ -128,7 +128,7 @@ export const logData: ILogEntry[] = [
 		}
 	},
 	{
-		'_id': 0,
+		'_id': '0',
 		'Level': 'Information',
 		'UtcTimeStamp': '2023-10-27T13:53:37.408Z',
 		'MessageTemplate': {

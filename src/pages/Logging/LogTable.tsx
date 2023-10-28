@@ -12,10 +12,10 @@ import Paper from '@mui/material/Paper'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
-import { ILogEntry } from './types'
+import { LogEntry } from './types'
 
 
-const Row: React.FC<{ rowData: ILogEntry }> = ({ rowData }) => {
+const Row: React.FC<{ rowData: LogEntry }> = ({ rowData }) => {
 	const [isOpen, setIsOpen] = React.useState(false)
 
 	return (
@@ -43,10 +43,10 @@ const Row: React.FC<{ rowData: ILogEntry }> = ({ rowData }) => {
 						<Box sx={{ margin: 1 }}>
 							<Table size="small" aria-label="purchases">
 								<TableBody>
-									{Object.keys(rowData).map((propertyName) => (
-										<TableRow key={propertyName}>
-											<TableCell>{propertyName}</TableCell>
-											<TableCell>{renderExpandableProp(rowData[propertyName])}</TableCell>
+									{Object.entries(rowData).map(([key, value]) => (
+										<TableRow key={key}>
+											<TableCell>{key}</TableCell>
+											<TableCell>{renderExpandableProp(value)}</TableCell>
 										</TableRow>
 									))}
 								</TableBody>
@@ -66,7 +66,7 @@ function renderExpandableProp(value: unknown) {
 }
 
 // eslint-disable-next-line react/prop-types
-const LogTable: React.FC<{ data: ILogEntry[] }> = ({ data }) => {
+const LogTable: React.FC<{ data: LogEntry[] }> = ({ data }) => {
 	return (
 		<>
 			<TableContainer component={Paper} sx={{ maxHeight: 440, width: '100%' }}>

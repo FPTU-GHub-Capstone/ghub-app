@@ -27,6 +27,7 @@
     "firebase": "~10.4.0",
     "lodash": "~4.17.21",
     "numeral": "~2.0.6",
+    "pusher-js": "~8.3.0",
     "react": "~18.2.0",
     "react-dom": "~18.2.0",
     "react-hook-form": "~7.46.2",
@@ -52,6 +53,7 @@
     "eslint-plugin-react": "~7.33.2",
     "eslint-plugin-react-hooks": "~4.6.0",
     "eslint-plugin-react-refresh": "~0.4.3",
+    "turbo": "~1.10.15",
     "typescript": "~5.0.2",
     "turbo": "~1.10.15",
     "vite": "~4.4.5"

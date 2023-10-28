@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { logData } from './data.ts'
 import LogTable from './LogTable'
-import { ILogEntry } from './types.ts'
+import { LogEntry } from './types.ts'
 
 
 const TerminalQuery = () => {
@@ -24,7 +24,7 @@ const Chart = () => {
 }
 
 export const Logging: React.FC = () => {
-	const [data, setData] = useState<ILogEntry[]>(logData)
+	const [data, setData] = useState<LogEntry[]>(logData)
 	const navigate = useNavigate()
 
 	useEffect(() => {
@@ -38,13 +38,13 @@ export const Logging: React.FC = () => {
 				_id: firstElement._id + 1, 
 			}
 
-			const newData = [newEntry, ...data]
-			if (newData.length > 30) {
-				setData(newData.slice(0, 30))
-			} else {
-				setData(newData)
-			}
-		}, 10000) 
+			const newData = data.concat(newEntry)
+			// if (newData.length > 30) {
+			// setData(newData.slice(0, 30))
+			// } else {
+			setData(newData)
+			// }
+		}, 500) 
 
 		return () => {
 			clearInterval(interval)

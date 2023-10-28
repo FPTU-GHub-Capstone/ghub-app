@@ -5,10 +5,11 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { store } from './redux/store.ts'
 import { AppRoutes } from './routes'
 import ThemeProvider from './theme'
+import pusherService from './services/PusherService.ts'
 
 
 function App() {
-
+	pusherService.bindEvents()
 	return (
 		<>
 			<React.StrictMode>
