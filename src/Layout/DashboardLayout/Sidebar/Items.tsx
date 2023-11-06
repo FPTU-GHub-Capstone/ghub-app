@@ -13,7 +13,7 @@ export const sidebarItems: Record<string, NavItem[]> = {
 		},
 		{
 			title: 'users',
-			path: '/dashboard/users',
+			path: '/users',
 			icon: icon('ic_user'),
 		},
 		{
@@ -25,22 +25,17 @@ export const sidebarItems: Record<string, NavItem[]> = {
 	gameManager: [
 		{
 			title: 'my projects',
-			path: '/dashboard/games',
+			path: '/games',
 			icon: icon('ic_home'),
 		},
 		{
 			title: 'users',
-			path: '/dashboard/users',
+			path: '/users',
 			icon: icon('ic_user'),
 		},
 		{
-			title: 'clients',
-			path: '/clients',
-			icon: icon('ic_client'),
-		},
-		{
 			title: 'payment plan',
-			path: '/dashboard/payment',
+			path: 'payment',
 			icon: icon('ic_payment'),
 		},
 	],

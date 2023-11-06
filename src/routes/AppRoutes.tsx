@@ -51,7 +51,7 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 		},
 	},
 	[PageNames.GAMES]: {
-		path: '/dashboard/games',
+		path: '/games',
 		component: GamesComponent,
 		layout: DashboardLayout,
 		isPrivate: true,
@@ -60,7 +60,7 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 		},
 	},
 	[PageNames.USERS_GM]: {
-		path: '/dashboard/users',
+		path: '/users',
 		component: UsersGM,
 		layout: DashboardLayout,
 		isPrivate: true,
@@ -69,7 +69,7 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 		},
 	},
 	[PageNames.PLAYER]: {
-		path: '/game/players',
+		path: '/games/:gameId/players',
 		component: Player,
 		layout: GameDashboardLayout,
 		isPrivate: true,
@@ -78,7 +78,7 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 		},
 	},
 	[PageNames.CLIENTS]: {
-		path: '/clients',
+		path: '/games/:gameId/clients',
 		component: Clients,
 		layout: DashboardLayout,
 		isPrivate: true,
@@ -87,7 +87,7 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 		},
 	},
 	[PageNames.LOGGING]: {
-		path: '/dashboard/logging',
+		path: '/games/:gameId/logging',
 		component: Logging,
 		layout: GuestLayout,
 		isPrivate: true,

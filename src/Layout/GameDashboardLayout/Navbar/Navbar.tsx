@@ -29,7 +29,14 @@ export default function Navbar() {
 				<NavSection
 					data={navbarItems}
 					isOpen={true}
-					sx={{ paddingRight: 3 }}
+					sx={{ 
+						paddingRight: 3, 
+						'&.active': {
+							color: 'common.white',
+							bgcolor: 'primary.dark',
+							fontWeight: 'fontWeightBold',
+						},
+					}}
 				/>
 			</Box>
 

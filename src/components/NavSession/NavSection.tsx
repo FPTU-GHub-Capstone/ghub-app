@@ -39,11 +39,7 @@ function NavItem({ item, sx, isOpen }: {
 			to={path}
 			sx={{
 				...sx,
-				'&.active': {
-					color: 'common.white',
-					bgcolor: 'primary.dark',
-					fontWeight: 'fontWeightBold',
-				},
+				
 			}}
 		>
 			<StyledNavItemIcon>{icon && icon}</StyledNavItemIcon>

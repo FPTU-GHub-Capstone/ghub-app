@@ -126,7 +126,12 @@ export default function Sidebar({isOpen, setIsOpen} : {
 				<NavSection 
 					data={sidebarItems.gameManager} 
 					isOpen={isOpen} 
-					sx={{justifyContent: isOpen ? 'initial' : 'center',}} 
+					sx={{
+						justifyContent: isOpen ? 'initial' : 'center',
+						'&.active': {
+							bgcolor: 'action.selected',
+						},
+					}} 
 				/>
 				
 				<Divider />
