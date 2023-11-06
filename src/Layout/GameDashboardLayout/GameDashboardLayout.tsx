@@ -1,10 +1,7 @@
 import { useState } from 'react'
-import Divider from '@mui/material/Divider'
 
 import Header from '../DashboardLayout/Header'
 import Sidebar from '../DashboardLayout/Sidebar'
-import NavSection from '../../components/NavSession'
-import { sidebarItems } from '../DashboardLayout/Sidebar/Items'
 
 import * as Styled from './styles'
 import Navbar from './Navbar'

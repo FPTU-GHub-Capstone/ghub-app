@@ -13,7 +13,7 @@ import GuestLayout from '../Layout/GuestLayout'
 import UsersGM from '../pages/UsersGM'
 import GameDashboardLayout from '../Layout/GameDashboardLayout'
 import Player from '../pages/Player'
-import { Clients } from '../pages/Clients'
+import { Permission } from '../pages/Permission'
 
 
 type AppRoute = {
@@ -32,7 +32,7 @@ export const enum PageNames {
 	DASHBOARD = 'dashboard',
 	GAMES = 'myProject',
 	USERS_AD = 'users',
-	CLIENTS = 'client',
+	PERMISSION = 'permission',
 	PAYMENT = 'paymentPlan',
 	USERS_GM = 'userGM',
 	PLAYER = 'player',
@@ -77,13 +77,13 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 			title: 'Players',
 		},
 	},
-	[PageNames.CLIENTS]: {
-		path: '/games/:gameId/clients',
-		component: Clients,
-		layout: DashboardLayout,
+	[PageNames.PERMISSION]: {
+		path: '/games/:gameId/permission',
+		component: Permission,
+		layout: GameDashboardLayout,
 		isPrivate: true,
 		props: {
-			title: 'Clients',
+			title: 'Permission',
 		},
 	},
 	[PageNames.LOGGING]: {
