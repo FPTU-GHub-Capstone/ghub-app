@@ -31,8 +31,8 @@ export const Logging: React.FC = () => {
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		const mode: string = 'THUAN_DEV'
-		if (mode != 'THUAN_DEV') {
+		const mode: string = 'THUAN_DEV  '
+		if (mode != 'THUAN_DEV ') {
 			pusherSvc.bindEvent(config.BIND_INSERTED_EVENT, (log: unknown) => {
 				setLogs(logs.concat(log as LogEntry))
 			})
