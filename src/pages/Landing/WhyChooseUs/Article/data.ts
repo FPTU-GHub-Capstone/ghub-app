@@ -1,5 +1,3 @@
-// data.ts
-
 import { ArticleType } from '.';
 
 

@@ -1,5 +1,8 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
+
+import config from '../config';
+import { ACCESS_TOKEN, RequestHeaders } from '../common';
 
 
 export type AxiosInitOptions = {
@@ -7,24 +10,21 @@ export type AxiosInitOptions = {
 	options?: AxiosRequestConfig,
 };
 
-const AUTHORIZATION     = 'Authorization';
-const CONTENT_TYPE      = 'Content-Type';
-const CORRELATION_ID    = 'x-correlationid';
-const CONTENT_TYPE_JSON = 'application/json';
+const CONTENT_TYPE_JSON = 'application/json'; 
 
 class RestService {
 	private readonly _axiosInstance: AxiosInstance;
+	private _requestAuthInterceptorId: number;
 
 	constructor() {
-		this._axiosInstance = this._initializeAxios({});
+		this._axiosInstance = this._initializeAxios();
 	}
 
-	private _initializeAxios(initOptions: AxiosInitOptions): AxiosInstance {
+	private _initializeAxios(initOptions: AxiosInitOptions = {}): AxiosInstance {
 		const { header, options } = initOptions;
 		const axiosInstance = axios.create({
-			timeout: 60000,
+			timeout: config.REST_TIMEOUT,
 			headers: this._prepareHeader(header),
-			withCredentials: true,
 			...options,
 		});
 		return axiosInstance;
@@ -33,56 +33,87 @@ class RestService {
 	private _prepareHeader(
 		additionalHeaders?: Record<string, string>
 	): Record<string, string> {
-		const header: Record<string, string> = {};
-		header[CONTENT_TYPE] = CONTENT_TYPE_JSON;
-		header[CORRELATION_ID] = uuidv4();
-		return { ...header, ...additionalHeaders };
-	}
-
-	private _createAuthInterceptor(token: string) {
-		return (request: InternalAxiosRequestConfig) => {
-			request.headers = request.headers ?? {};
-			request.headers[AUTHORIZATION] = `Bearer ${token}`;
-			return request;
+		const headers: Record<string, string> = {
+			[RequestHeaders.CONTENT_TYPE]: CONTENT_TYPE_JSON,
 		};
+		return { ...headers, ...additionalHeaders };
 	}
 
-	public setAuthorizationHeader(token: string) {
-		this._axiosInstance.interceptors.request.use(this._createAuthInterceptor(token));
+	private async _createAuthInterceptor(
+		request: InternalAxiosRequestConfig
+	): Promise<InternalAxiosRequestConfig> {
+		const accessToken = await this._getToken();
+		request.headers = request.headers ?? <AxiosRequestHeaders>{};
+		request.headers[RequestHeaders.CORRELATION_ID] = uuidv4();
+		request.headers[RequestHeaders.AUTHORIZATION] = `Bearer ${accessToken}`;
+		return request;
 	}
 
-	public async get<TQuery = object>(
+	private async _getToken(): Promise<string> {
+		const accessToken = localStorage.getItem(ACCESS_TOKEN);
+		if (! accessToken) {
+			// if (! accessToken or token expired) implement call idp to get token
+		}
+		return accessToken;
+	}
+	
+	public useAuthInterceptor() {
+		this._requestAuthInterceptorId =
+      this._axiosInstance.interceptors.request.use(this._createAuthInterceptor.bind(this));
+	}
+
+	public ejectAuthInterceptor() {
+		this._axiosInstance.interceptors.request.eject(this._requestAuthInterceptorId);
+	}
+
+	public async get<
+		TDownstreamResponse = any,
+		TReturn = AxiosResponse<TDownstreamResponse>,
+		TQuery = any,
+	>(
 		url: string,
 		payload?: TQuery,
-		options?: AxiosRequestConfig
-	): Promise<AxiosResponse> {
+		options?: AxiosRequestConfig<TQuery>,
+	): Promise<TReturn> {
 		return this._axiosInstance.get(url, {
 			params: payload,
 			...options,
 		});
 	}
 
-	public async post<TBody = object>(
+	public async post<
+		TDownstreamResponse = any,
+		TReturn = AxiosResponse<TDownstreamResponse>,
+		TBody = any,
+	>(
 		url: string,
 		payload?: TBody,
-		options?: AxiosRequestConfig
-	): Promise<AxiosResponse> {
+		options?: AxiosRequestConfig<TBody>,
+	): Promise<TReturn> {
 		return this._axiosInstance.post(url, payload, options);
 	}
 
-	public async put<TBody = object>(
+	public async put<
+		TDownstreamResponse = any,
+		TReturn = AxiosResponse<TDownstreamResponse>,
+		TBody = any
+	>(
 		url: string,
 		payload?: TBody,
-		options?: AxiosRequestConfig
-	): Promise<AxiosResponse> {
+		options?: AxiosRequestConfig<TBody>
+	): Promise<TReturn> {
 		return this._axiosInstance.put(url, payload, options);
 	}
 
-	public async delete<TQuery = object>(
+	public async delete<
+		TDownstreamResponse = any,
+		TReturn = AxiosResponse<TDownstreamResponse>,
+		TQuery = any,
+	>(
 		url: string,
 		payload?: TQuery,
 		options?: AxiosRequestConfig
-	): Promise<AxiosResponse> {
+	): Promise<TReturn> {
 		return this._axiosInstance.delete(url, {
 			params: payload,
 			...options,
