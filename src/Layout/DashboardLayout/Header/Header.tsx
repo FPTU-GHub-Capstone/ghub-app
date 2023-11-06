@@ -1,5 +1,6 @@
 import { styled } from '@mui/material/styles'
 import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material'
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 
 import { bgBlur } from '../../../utils/cssStyles'
 import Iconify from '../../../components/Iconify'
@@ -8,18 +9,37 @@ import NotificationsPopover from '../../DashboardLayout/Header/NotificationsPopo
 import Searchbar from '../../DashboardLayout/Header/SearchBar'
 
 
-const NAV_WIDTH = 280
+const NAV_WIDTH = 230
 
 const HEADER_MOBILE = 64
 
 const HEADER_DESKTOP = 92
 
-const StyledRoot = styled(AppBar)(({ theme }) => ({
+interface IAppBarProps extends MuiAppBarProps {
+	open?: boolean;
+	isOpenGameDashboard?: boolean;
+}
+
+const StyledRoot = styled(MuiAppBar, {
+	shouldForwardProp: (prop) => prop !== 'open' && prop !== 'isOpenGameDashboard',
+})<IAppBarProps>(({ theme, open, isOpenGameDashboard }) => ({
 	...bgBlur({ color: theme.palette.background.default }),
 	boxShadow: 'none',
-	[theme.breakpoints.up('lg')]: {
-		width: `calc(100% - ${NAV_WIDTH + 1}px)`,
-	},
+	...(isOpenGameDashboard && {
+		marginLeft: NAV_WIDTH,
+		width: `calc(100% - ${NAV_WIDTH + 50 }px)`
+	}),
+	...(open && {
+		marginLeft: isOpenGameDashboard ? NAV_WIDTH * 2 : NAV_WIDTH,
+		width: `calc(100% - ${isOpenGameDashboard ? NAV_WIDTH * 2 + 1 : NAV_WIDTH + 1}px)`,
+		transition: theme.transitions.create(['width', 'margin'], {
+			easing: theme.transitions.easing.sharp,
+			duration: theme.transitions.duration.enteringScreen,
+		}),
+	}),
+	// [theme.breakpoints.up('lg')]: {
+	// 	width: `calc(100% - ${NAV_WIDTH + 1}px)`,
+	// },
 }))
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
@@ -30,26 +50,14 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 	},
 }))
 
-// ----------------------------------------------------------------------
 
-type Props = {
-	onOpenNav: () => void,
-}
-
-export default function Header({ onOpenNav }: Props) {
+export default function Header({ isOpen, isOpenGameDashboard }: {
+	isOpen: boolean, 
+	isOpenGameDashboard?: boolean,
+}) {
 	return (
-		<StyledRoot>
+		<StyledRoot open={isOpen} isOpenGameDashboard={isOpenGameDashboard}>
 			<StyledToolbar>
-				<IconButton
-					onClick={onOpenNav}
-					sx={{
-						mr: 1,
-						color: 'text.primary',
-						display: { lg: 'none' },
-					}}
-				>
-					<Iconify icon="eva:menu-2-fill" />
-				</IconButton>
 
 				<Searchbar />
 				<Box sx={{ flexGrow: 1 }} />

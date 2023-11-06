@@ -9,24 +9,26 @@ import { StyledNavItem, StyledNavItemIcon } from './styles'
 
 type Props = {
 	data: Array<NavItemProps>,
+	isOpen: boolean,
 	sx?: Record<string, unknown>,
 }
 
-export default function NavSection({ data, sx, ...other }: Props) {
+export default function NavSection({ data, sx, isOpen, ...other }: Props) {
 	return (
 		<Box {...other}>
 			<List disablePadding sx={{ p: 1 }}>
 				{data.map((item) => (
-					<NavItem key={item.title} item={item} sx={sx} />
+					<NavItem key={item.title} item={item} sx={sx} isOpen={isOpen} />
 				))}
 			</List>
 		</Box>
 	)
 }
 
-function NavItem({ item, sx }: {
+function NavItem({ item, sx, isOpen }: {
 	key: string, 
 	item: NavItemProps,
+	isOpen: boolean,
 	sx?: Record<string, unknown>,
 }) {
 	const { title, path, icon, info } = item
@@ -46,7 +48,7 @@ function NavItem({ item, sx }: {
 		>
 			<StyledNavItemIcon>{icon && icon}</StyledNavItemIcon>
 
-			<ListItemText disableTypography primary={title} />
+			<ListItemText disableTypography primary={title} sx={{ opacity: isOpen ? 1 : 0 }} />
 
 			{info && info}
 		</StyledNavItem>
