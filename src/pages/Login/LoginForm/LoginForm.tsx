@@ -54,7 +54,7 @@ const LoginForm: React.FC = () => {
 						fontSize: '16px', 
 						wordWrap: 'break-word'
 					}}>
-						<Link to='/forgot' style={{ textDecoration: 'none', color: palette.orange[800] }}>
+						<Link to='/forgot-password' style={{ textDecoration: 'none', color: palette.orange[800] }}>
 							Forgot your password?
 						</Link>
 					</Typography>

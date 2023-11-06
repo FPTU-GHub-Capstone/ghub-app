@@ -1,12 +1,10 @@
 {
 	"$schema": "https://turbo.build/schema.json",
 	"pipeline": {
-		"build": {
+		"build-base": {
 			"outputs": [
 				"dist/**"
 			]
-		},
-		"compile": {},
-		"lint": {}
+		}
 	}
 }
