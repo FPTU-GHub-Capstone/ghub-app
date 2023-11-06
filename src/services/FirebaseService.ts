@@ -11,14 +11,16 @@ import {
 	signOut,
 } from 'firebase/auth';
 
+import config from '../config';
+
 import { throwFirebaseError } from './throwFirebaseErrorDecorator';
 
 
 const firebaseConfig = Object.freeze<FirebaseOptions>({
-	apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-	appId: import.meta.env.VITE_FIREBASE_APP_ID,
-	projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-	authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+	apiKey: config.FIREBASE_API_KEY,
+	appId: config.FIREBASE_APP_ID,
+	projectId: config.FIREBASE_PROJECT_ID,
+	authDomain: config.FIREBASE_AUTH_DOMAIN,
 });
 
 
