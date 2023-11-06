@@ -1,8 +1,9 @@
 import { SxProps } from '@mui/system';
 import { Theme } from '@mui/material/styles/createTheme';
+import { CSSProperties } from 'react';
 
 
-export const containerStyle = Object.freeze<SxProps<Theme>>({
+export const containerStyle = Object.freeze<CSSProperties>({
 	backgroundImage: 'url(\'/assets/images/banner/bg_forgot.png\')',
 	backgroundSize: '100% 100vh',
 	backgroundRepeat: 'no-repeat',
