@@ -6,6 +6,8 @@ import { Games as GamesComponent } from '../../../pages/Games'
 import NavSection from '../../../components/NavSession'
 import { sidebarItems } from '../../DashboardLayout/Sidebar/Items'
 
+import { navbarItems } from './Items'
+
 
 export default function Navbar() {
 
@@ -25,7 +27,7 @@ export default function Navbar() {
 				<Divider />
 
 				<NavSection
-					data={sidebarItems.gameManager}
+					data={navbarItems}
 					isOpen={true}
 					sx={{ paddingRight: 3 }}
 				/>

@@ -1,9 +1,8 @@
 import { styled } from '@mui/material/styles'
-import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material'
+import { Box, Stack, Toolbar } from '@mui/material'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 
 import { bgBlur } from '../../../utils/cssStyles'
-import Iconify from '../../../components/Iconify'
 import AccountPopover from '../../DashboardLayout/Header/AccountPopover'
 import NotificationsPopover from '../../DashboardLayout/Header/NotificationsPopover'
 import Searchbar from '../../DashboardLayout/Header/SearchBar'
@@ -28,6 +27,9 @@ const StyledRoot = styled(MuiAppBar, {
 	...(isOpenGameDashboard && {
 		marginLeft: NAV_WIDTH,
 		width: `calc(100% - ${NAV_WIDTH + 50 }px)`
+	}),
+	...(!open && !isOpenGameDashboard && {
+		width: `calc(100% - ${50}px)`
 	}),
 	...(open && {
 		marginLeft: isOpenGameDashboard ? NAV_WIDTH * 2 : NAV_WIDTH,

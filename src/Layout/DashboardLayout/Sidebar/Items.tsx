@@ -35,7 +35,7 @@ export const sidebarItems: Record<string, NavItem[]> = {
 		},
 		{
 			title: 'clients',
-			path: '/dashboard/clients',
+			path: '/clients',
 			icon: icon('ic_client'),
 		},
 		{

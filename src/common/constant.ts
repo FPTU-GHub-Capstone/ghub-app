@@ -11,6 +11,7 @@ import GuestLayout from '../Layout/GuestLayout';
 import UsersGM from '../pages/UsersGM';
 import GameDashboardLayout from '../Layout/GameDashboardLayout';
 import Player from '../pages/Player';
+import { Clients } from '../pages/Clients';
 
 
 export const enum PageName {
@@ -80,7 +81,16 @@ export const PrivateRouters: Route[] = [
 		},
 	},
 	{
-		path: '/dashboard/players',
+		path: '/clients',
+		component: Clients,
+		name: PageName.USERS_GM, //need to be edit
+		layout: DashboardLayout,
+		props: {
+			title: 'Clients',
+		},
+	},
+	{
+		path: '/game/players',
 		component: Player,
 		name: PageName.PLAYER,
 		layout: GameDashboardLayout,
