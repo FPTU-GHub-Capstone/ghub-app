@@ -5,3 +5,12 @@ export enum RequestHeaders {
 }
 
 export const ACCESS_TOKEN = 'access_token';
+
+export const enum EntityName {
+	GAME = 'game',
+	GAME_SERVER = 'gameServer',
+	CHARACTER = 'character',
+	ASSET = 'asset',
+	ACTIVITY = 'activity',
+	WALLET = 'wallet',
+}

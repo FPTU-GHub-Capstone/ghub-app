@@ -47,7 +47,7 @@ export default function ServerError() {
 				</BoxWrapper>
 				<Img height='300' alt='error-illustration' src='/assets/images/pages/500.png' />
 				<Link href='/'>
-					<Button component='a' variant='contained' sx={{ px: 5.5 }}>
+					<Button component='a' variant='contained' sx={{ px: 5.5, backgroundColor: 'primary.dark' }}>
 						Back to Landing Page
 					</Button>
 				</Link>
