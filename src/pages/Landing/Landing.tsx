@@ -25,7 +25,7 @@ export const Landing: React.FC = () => {
 							Sign up
 						</Button>
 						<Button component={RouterLink} to="/login" variant="contained" sx={BtnRegister}>
-							Login
+							Sign In
 						</Button>
 					</BtnLayout>
 					<img
