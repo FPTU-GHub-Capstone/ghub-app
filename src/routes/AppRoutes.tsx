@@ -14,6 +14,8 @@ import UsersGM from '../pages/UsersGM'
 import GameDashboardLayout from '../Layout/GameDashboardLayout'
 import Player from '../pages/Player'
 import { Permission } from '../pages/Permission'
+import NotFound from '../pages/Error/NotFound'
+import ServerError from '../pages/Error/ServerError'
 
 
 type AppRoute = {
@@ -37,10 +39,13 @@ export const enum PageNames {
 	USERS_GM = 'userGM',
 	PLAYER = 'player',
 	LOGGING = 'logging',
+	NOT_FOUND = 'notFound',
+	SERVER_ERROR = 'serverError',
 }
 
 
 export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
+	// Private Route
 	[PageNames.DASHBOARD]: {
 		path: '/dashboard',
 		component: DashboardComponent,
@@ -95,6 +100,8 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 			title: 'Logging',
 		},
 	},
+
+	// Public Route
 	[PageNames.LOGIN]: {
 		path: '/login',
 		component: LoginComponent,
@@ -129,6 +136,24 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 		isPrivate: false,
 		props: {
 			title: 'Forgot Password',
+		},
+	},
+	[PageNames.NOT_FOUND]: {
+		path: '/*',
+		component: NotFound,
+		layout: null,
+		isPrivate: false,
+		props: {
+			title: 'Not Found',
+		},
+	},
+	[PageNames.SERVER_ERROR]: {
+		path: '/serverError',
+		component: ServerError,
+		layout: null,
+		isPrivate: false,
+		props: {
+			title: 'Server Error',
 		},
 	},
 }
