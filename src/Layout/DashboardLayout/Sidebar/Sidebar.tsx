@@ -1,18 +1,70 @@
-import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
-import { styled, alpha } from '@mui/material/styles'
-import { Box, Link, Button, Drawer, Typography, Avatar, Stack } from '@mui/material'
+import * as React from 'react'
+import { styled, Theme, CSSObject , alpha } from '@mui/material/styles'
+import Box from '@mui/material/Box'
+import MuiDrawer from '@mui/material/Drawer'
+import CssBaseline from '@mui/material/CssBaseline'
+import Typography from '@mui/material/Typography'
+import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import { Link, Avatar } from '@mui/material'
 
-import { account } from '../../../mock/account'
-import useResponsive from '../../../hooks/useResponsive'
 import Logo from '../../../components/Logo'
-import Scrollbar from '../../../components/Scrollbar'
+import { account } from '../../../mock/account'
 import NavSection from '../../../components/NavSession'
 
 import { sidebarItems } from './Items'
 
 
-const NAV_WIDTH = 280
+const drawerWidth = 230
+
+const openedMixin = (theme: Theme): CSSObject => ({
+	width: drawerWidth,
+	transition: theme.transitions.create('width', {
+		easing: theme.transitions.easing.sharp,
+		duration: theme.transitions.duration.enteringScreen,
+	}),
+	overflowX: 'hidden',
+})
+
+const closedMixin = (theme: Theme): CSSObject => ({
+	transition: theme.transitions.create('width', {
+		easing: theme.transitions.easing.sharp,
+		duration: theme.transitions.duration.leavingScreen,
+	}),
+	overflowX: 'hidden',
+	width: `calc(${theme.spacing(7)} + 1px)`,
+	[theme.breakpoints.up('sm')]: {
+		width: `calc(${theme.spacing(8)} + 1px)`,
+	},
+})
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'flex-end',
+	padding: theme.spacing(0, 1),
+	// necessary for content to be below app bar
+	...theme.mixins.toolbar,
+}))
+
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+	({ theme, open }) => ({
+		width: drawerWidth,
+		flexShrink: 0,
+		whiteSpace: 'nowrap',
+		boxSizing: 'border-box',
+		...(open && {
+			...openedMixin(theme),
+			'& .MuiDrawer-paper': openedMixin(theme),
+		}),
+		...(!open && {
+			...closedMixin(theme),
+			'& .MuiDrawer-paper': closedMixin(theme),
+		}),
+	}),
+)
 
 const StyledAccount = styled('div')(({ theme }) => ({
 	display: 'flex',
@@ -22,102 +74,81 @@ const StyledAccount = styled('div')(({ theme }) => ({
 	backgroundColor: alpha(theme.palette.grey[500], 0.12),
 }))
 
-const renderContent = (
-	<Scrollbar
-		sx={{
-			height: 'auto',
-			'& .simplebar-content': { height: 1, display: 'flex', flexDirection: 'column' },
-		}}
-	>
-		<Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
-			<Logo />
-			<Typography variant='h4' sx={{ color: 'text.secondary', ml: 2 }}>
-				GHub
-			</Typography>
-		</Box>
+export default function Sidebar({isOpen, setIsOpen} : {
+	isOpen: boolean,
+	setIsOpen: (open) => void,
+}) {
 
-		<Box sx={{ mb: 5, mx: 2.5 }}>
-			<Link underline="none">
-				<StyledAccount>
-					<Avatar src={account.avatar} alt="photoURL" />
+	const handleDrawerOpen = () => {
+		setIsOpen(true)
+	}
 
-					<Box sx={{ ml: 2 }}>
-						<Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-							{`${account.firstName} ${account.lastName}`}
-						</Typography>
-
-						<Typography variant="body2" sx={{ color: 'text.secondary' }}>
-							{account.role}
-						</Typography>
-					</Box>
-				</StyledAccount>
-			</Link>
-		</Box>
-
-		<NavSection data={sidebarItems.gameManager} />
-
-		<Box sx={{ px: 2.5, pb: 3, mt: 15 }}>
-			<NavSection data={sidebarItems.other} sx={{ 
-				backgroundColor: 'action.active', 
-				color: 'common.white' 
-			}} />
-		</Box>
-	</Scrollbar>
-)
-
-type Props = {
-	openNav: boolean,
-	onCloseNav: () => void,
-}
-
-export default function Sidebar({ openNav, onCloseNav }: Props) {
-	const { pathname } = useLocation()
-
-	const isDesktop = useResponsive('up', 'lg')
-
-	useEffect(() => {
-		if (openNav) {
-			onCloseNav()
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [pathname])
+	const handleDrawerClose = () => {
+		setIsOpen(false)
+	}
 
 	return (
-		<Box
-			component="nav"
-			sx={{
-				flexShrink: { lg: 0 },
-				width: { lg: NAV_WIDTH },
-			}}
-		>
-			{isDesktop ? (
-				<Drawer
-					open
-					variant="permanent"
-					PaperProps={{
-						sx: {
-							width: NAV_WIDTH,
-							bgcolor: 'background.default',
-							borderRightStyle: 'solid',
+		<Box sx={{ display: 'flex', flexGrow: 1 }}>
+			<CssBaseline />
+
+			<Drawer variant="permanent" open={isOpen}>
+				<DrawerHeader>
+					<IconButton onClick={isOpen ? handleDrawerClose : handleDrawerOpen}>
+						{isOpen ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+					</IconButton>
+				</DrawerHeader>
+				<Box sx={{ px: isOpen ? 2.5 : 1.5, pb: 3, display: 'inline-flex' }}>
+					<Logo />
+					<Typography variant='h4' sx={{ color: 'text.secondary', ml: 2, display: isOpen ? 'block' : 'none' }}>
+						GHub
+					</Typography>
+				</Box>
+
+				<Box sx={{ mb: 5, mx: 2.5, display: isOpen ? 'block' : 'none' }}>
+					<Link underline="none">
+						<StyledAccount>
+							<Avatar src={account.avatar} alt="photoURL" />
+
+							<Box sx={{ ml: 2 }}>
+								<Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
+									{`${account.firstName} ${account.lastName}`}
+								</Typography>
+
+								<Typography variant="body2" sx={{ color: 'text.secondary' }}>
+									{account.role}
+								</Typography>
+							</Box>
+						</StyledAccount>
+					</Link>
+				</Box>
+				<Divider />
+
+				<NavSection 
+					data={sidebarItems.gameManager} 
+					isOpen={isOpen} 
+					sx={{
+						justifyContent: isOpen ? 'initial' : 'center',
+						'&.active': {
+							bgcolor: 'action.selected',
 						},
-					}}
-				>
-					{renderContent}
-				</Drawer>
-			) : (
-				<Drawer
-					open={openNav}
-					onClose={onCloseNav}
-					ModalProps={{
-						keepMounted: true,
-					}}
-					PaperProps={{
-						sx: { width: NAV_WIDTH },
-					}}
-				>
-					{renderContent}
-				</Drawer>
-			)}
+					}} 
+				/>
+				
+				<Divider />
+				<Box sx={{ position: 'absolute', bottom: 0, width: '100%', pb: 3,}}>
+					<NavSection 
+						data={sidebarItems.other} 
+						isOpen={isOpen} 
+						sx={{ 
+							backgroundColor: 'action.active', 
+							color: 'common.white',
+							justifyContent: isOpen ? 'initial' : 'center',
+						}} />
+				</Box>
+			</Drawer>
+
+			
+			
 		</Box>
 	)
 }

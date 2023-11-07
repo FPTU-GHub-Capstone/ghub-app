@@ -13,6 +13,9 @@ import GuestLayout from '../Layout/GuestLayout'
 import UsersGM from '../pages/UsersGM'
 import GameDashboardLayout from '../Layout/GameDashboardLayout'
 import Player from '../pages/Player'
+import { Permission } from '../pages/Permission'
+import NotFound from '../pages/Error/NotFound'
+import ServerError from '../pages/Error/ServerError'
 
 
 type AppRoute = {
@@ -31,15 +34,18 @@ export const enum PageNames {
 	DASHBOARD = 'dashboard',
 	GAMES = 'myProject',
 	USERS_AD = 'users',
-	CLIENTS = 'client',
+	PERMISSION = 'permission',
 	PAYMENT = 'paymentPlan',
 	USERS_GM = 'userGM',
 	PLAYER = 'player',
-	LOGGING = 'logging'
+	LOGGING = 'logging',
+	NOT_FOUND = 'notFound',
+	SERVER_ERROR = 'serverError',
 }
 
 
 export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
+	// Private Route
 	[PageNames.DASHBOARD]: {
 		path: '/dashboard',
 		component: DashboardComponent,
@@ -50,7 +56,7 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 		},
 	},
 	[PageNames.GAMES]: {
-		path: '/dashboard/games',
+		path: '/games',
 		component: GamesComponent,
 		layout: DashboardLayout,
 		isPrivate: true,
@@ -59,7 +65,7 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 		},
 	},
 	[PageNames.USERS_GM]: {
-		path: '/dashboard/users',
+		path: '/users',
 		component: UsersGM,
 		layout: DashboardLayout,
 		isPrivate: true,
@@ -68,7 +74,7 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 		},
 	},
 	[PageNames.PLAYER]: {
-		path: '/dashboard/players',
+		path: '/games/:gameId/players',
 		component: Player,
 		layout: GameDashboardLayout,
 		isPrivate: true,
@@ -76,8 +82,17 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 			title: 'Players',
 		},
 	},
+	[PageNames.PERMISSION]: {
+		path: '/games/:gameId/permission',
+		component: Permission,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Permission',
+		},
+	},
 	[PageNames.LOGGING]: {
-		path: '/dashboard/logging',
+		path: '/games/:gameId/logging',
 		component: Logging,
 		layout: GuestLayout,
 		isPrivate: true,
@@ -85,6 +100,8 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 			title: 'Logging',
 		},
 	},
+
+	// Public Route
 	[PageNames.LOGIN]: {
 		path: '/login',
 		component: LoginComponent,
@@ -119,6 +136,24 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 		isPrivate: false,
 		props: {
 			title: 'Forgot Password',
+		},
+	},
+	[PageNames.NOT_FOUND]: {
+		path: '/*',
+		component: NotFound,
+		layout: null,
+		isPrivate: false,
+		props: {
+			title: 'Not Found',
+		},
+	},
+	[PageNames.SERVER_ERROR]: {
+		path: '/serverError',
+		component: ServerError,
+		layout: null,
+		isPrivate: false,
+		props: {
+			title: 'Server Error',
 		},
 	},
 }

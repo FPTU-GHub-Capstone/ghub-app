@@ -16,12 +16,14 @@ export default function DashboardLayout({ children, title }: Props) {
 
 	return (
 		<Styled.StyledRoot>
-			<Header onOpenNav={() => setIsOpen(true)} />
+			<Header isOpen={isOpen} isOpenGameDashboard={true} />
 
-			<Sidebar openNav={isOpen} onCloseNav={() => setIsOpen(false)} />
+			<Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+			
+			<Navbar />
 
 			<Styled.Main>
-				<Navbar />
+				
 				{children}
 			</Styled.Main>
 		</Styled.StyledRoot>
