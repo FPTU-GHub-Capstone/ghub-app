@@ -4,6 +4,7 @@ import React from 'react'
 import GamesSearch from '../Games/GamesSearch'
 
 import PermissionList from './PermissionList/PermissionList'
+import PermissionForm from './RightDrawer/PermissionForm/PermissionForm'
 
 
 export const Permission = ({title} : {title: string}) => {
@@ -32,6 +33,9 @@ export const Permission = ({title} : {title: string}) => {
 			</Stack>
 			
 			<PermissionList />
+
+			<PermissionForm />
+			
 		</Container>
 	)
 }
