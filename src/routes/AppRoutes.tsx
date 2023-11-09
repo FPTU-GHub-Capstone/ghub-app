@@ -169,7 +169,7 @@ export const AppRoutes: React.FC = () => {
 						key={name}
 						path={route.path}
 						element={
-							<Layout {...route.props}>
+							<Layout>
 								<Component {...route.props} />
 							</Layout>
 						}
