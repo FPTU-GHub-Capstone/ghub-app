@@ -2,7 +2,7 @@ import { styled } from '@mui/material/styles'
 import { Autocomplete, InputAdornment, Popper, TextField } from '@mui/material'
 
 import Iconify from '../../../components/Iconify'
-import { Game } from '../../../common'
+import { Game } from '../types'
 
 
 const StyledPopper = styled((props) => <Popper open placement="bottom-start" {...props} />)({
@@ -23,6 +23,9 @@ export default function GameSearch({ games }: Props) {
 			options={games}
 			getOptionLabel={(game) => game.name}
 			isOptionEqualToValue={(option, value) => option.id === value.id}
+			renderOption={(props, option) => (
+				<li {...props} key={option.id}>{option.name}</li>
+			)}
 			renderInput={(params) => (
 				<TextField
 					{...params}

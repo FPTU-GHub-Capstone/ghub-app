@@ -1,11 +1,13 @@
 import { Button, Container, Grid, Stack, Typography } from '@mui/material'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
 
 import Iconify from '../../components/Iconify'
-import GAMES from '../../mock/game'
 
 import GamesSearch from './GamesSearch'
 import GamesSort from './GamesSort'
 import GameCard from './GameCard'
+import { Game } from './types'
 
 
 type Props = {
@@ -19,6 +21,20 @@ const SORT_OPTIONS = [
 ]
 
 export const Games = ({ title }: Props) => {
+	const [games, setGames] = useState<Game[]>([])
+
+	useEffect(() => {
+		axios.get('http://localhost:8080/v1/gms/games')
+			.then((response) => {
+				const gameData = response.data.result
+				setGames(gameData)
+				console.log(gameData)
+			})
+			.catch((error) => {
+				console.error('Error fetching game data:', error)
+			})
+	}, [])
+	
 	return (
 		<Container>
 			<Stack direction="row" alignItems="center" justifyContent="space-between" mb={3}>
@@ -31,12 +47,12 @@ export const Games = ({ title }: Props) => {
 			</Stack>
 
 			<Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
-				<GamesSearch games={GAMES} />
+				<GamesSearch games={games} />
 				<GamesSort options={SORT_OPTIONS} />
 			</Stack>
 
 			<Grid container spacing={3}>
-				{GAMES.map((game, index) => (
+				{games.map((game, index) => (
 					<GameCard key={game.id} game={game} index={index} />
 				))}
 			</Grid>
