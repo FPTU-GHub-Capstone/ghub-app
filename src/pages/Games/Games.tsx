@@ -1,8 +1,8 @@
 import { Button, Container, Grid, Stack, Typography } from '@mui/material'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 
 import Iconify from '../../components/Iconify'
+import RestService from '../../services/RestService'
 
 import GamesSearch from './GamesSearch'
 import GamesSort from './GamesSort'
@@ -20,19 +20,27 @@ const SORT_OPTIONS = [
 	{ value: 'oldest', label: 'Oldest' },
 ]
 
+type GameResponse = {
+	isError: boolean,
+	message: string,
+	result: Game[],
+}
+
 export const Games = ({ title }: Props) => {
 	const [games, setGames] = useState<Game[]>([])
 
+	
 	useEffect(() => {
-		axios.get('http://localhost:8080/v1/gms/games')
-			.then((response) => {
-				const gameData = response.data.result
-				setGames(gameData)
-				console.log(gameData)
-			})
-			.catch((error) => {
+		const fetchData = async () => {
+			try {
+				const response = await RestService.get<GameResponse>('http://localhost:8080/v1/gms/games')
+				console.log(response.data.result)
+				setGames(response.data.result)
+			} catch (error) {
 				console.error('Error fetching game data:', error)
-			})
+			}
+		}
+		fetchData()
 	}, [])
 	
 	return (
