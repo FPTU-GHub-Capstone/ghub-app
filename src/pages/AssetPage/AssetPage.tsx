@@ -1,36 +1,76 @@
 import { useState, useEffect } from 'react'
-import { Box, Button, Container, Stack, Typography } from '@mui/material'
-import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
+import { Button, Container, Stack, Typography } from '@mui/material'
+import { useLocation } from 'react-router-dom'
 
 import RestService from '../../services/RestService'
 
-import { Asset, AssetType } from './types' 
-import AssetList from './AssetList'
+import { Asset, AssetType } from './types'
+import { AssetList } from './AssetList'
 
 
 type AssetResponse = {
 	isError: boolean,
 	message: string,
 	result: Asset[],
+};
+
+type AssetTypeResponse = {
+	isError: boolean,
+	message: string,
+	result: AssetType[],
+};
+
+const AssetAddBtn = () => {
+	return (
+		<Button
+			variant="contained" 
+			size="large"
+			sx={{ 
+				backgroundColor: 'secondary.light',
+				'&:hover': {
+					backgroundColor: 'secondary.main',
+				},
+			}}
+		>
+		Add an Asset
+		</Button>
+	)
 }
 
-
-export const AssetPage = ({title} : {title: string}) => {
+export const AssetPage = ({ title }: { title: string }) => {
 	const [assets, setAssets] = useState<Asset[]>([])
+	const [gameId, setGameId] = useState<string | null>(null)
+	const location = useLocation()
 
 	useEffect(() => {
-		const fetchAssets = async () => {
+		const pathSegments = location.pathname.split('/')
+		const extractedGameId = pathSegments[pathSegments.indexOf('games') + 1]
+		setGameId(extractedGameId)
+	}, [location.pathname])
+
+	useEffect(() => {
+		const fetchAsset = async () => {
 			try {
-				const response = await RestService.get<AssetResponse>('http://localhost:8080/v1/gms/assets')
-				console.log(response.data.result)
-				setAssets(response.data.result)
+				const assetTypeResponse = await RestService.get<AssetTypeResponse>('http://localhost:8080/v1/gms/asset-types')
+				const assetResponse = await RestService.get<AssetResponse>('http://localhost:8080/v1/gms/assets')
+				
+				const assetResult = assetResponse.data.result
+				const assetTypeResult = assetTypeResponse.data.result
+
+				const filteredAssets = assetResult.filter((asset) => {
+					return (
+						asset.assetTypeId &&
+						assetTypeResult.some((assetType) => assetType.gameId === gameId && assetType.id === asset.assetTypeId)
+					)
+				})
+
+				setAssets(filteredAssets)
 			} catch (error) {
-				console.error('Error fetching asset data:', error)
+				console.error('Error fetching asset type data:', error)
 			}
 		}
-
-		fetchAssets()
-	}, []) // Empty dependency array means this effect runs once when the component mounts
+		fetchAsset()
+	}, [ gameId ])
 
 	return (
 		<>
@@ -42,26 +82,11 @@ export const AssetPage = ({title} : {title: string}) => {
 				</Stack>
 
 				<Stack mb={5} direction="row" alignItems="center" justifyContent="flex-end">
-					<Button
-						variant="contained" 
-						size="large"
-						sx={{ 
-							backgroundColor: 'secondary.light',
-							'&:hover': {
-								backgroundColor: 'secondary.main',
-							}
-						}} 
-					>
-					Asset Management
-					</Button>
+					<AssetAddBtn />
 				</Stack>
 
 				<AssetList assets={assets} />
 			</Container>
-
-			
 		</>
-
 	)
-
 }

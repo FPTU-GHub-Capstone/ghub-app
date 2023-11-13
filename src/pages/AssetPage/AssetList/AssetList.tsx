@@ -1,32 +1,25 @@
 import { Box } from '@mui/material'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 
-import { Asset } from './types'
+import { Asset } from '../types'
+
+import { ActionButtons } from './ColumnComponent/ActionButtons'
 
 
-const columns: GridColDef[] = [
-	{ field: 'name', headerName: 'Name', flex: 2 },
-	{ field: 'image', headerName: 'Image', flex: 2 },
-	{ field: 'type', headerName: 'Type', flex: 2 },
-	{ field: 'description', headerName: 'Description', flex: 6 },
+const columns: GridColDef<Asset, Asset>[] = [
+	{ field: 'name', headerName: 'Name', flex: 3, },
+	{ field: 'description', headerName: 'Description', flex: 7 },
 	{
 		field: 'actions',
 		headerName: 'Actions',
-		flex: 3,
+		flex: 2,
+		sortable: false,
+		filterable: false,
 		renderCell: (params: GridRenderCellParams<any>) => (
 			<ActionButtons />
 		)
 	},
-	// Add more columns as needed
 ]
-
-
-const ActionButtons = () => {
-	return(
-		<Box>
-		</Box>
-	)
-}
 
 const rowHeight = 50
 
@@ -59,3 +52,5 @@ const AssetList = ({ assets } : AssetTypeProp ) => {
 }
 
 export default AssetList
+
+
