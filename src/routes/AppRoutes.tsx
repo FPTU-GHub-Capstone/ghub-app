@@ -16,6 +16,7 @@ import Player from '../pages/Player'
 import { Permission } from '../pages/Permission'
 import NotFound from '../pages/Error/NotFound'
 import ServerError from '../pages/Error/ServerError'
+import { AssetPage } from '../pages/AssetPage'
 
 
 type AppRoute = {
@@ -35,6 +36,7 @@ export const enum PageNames {
 	GAMES = 'myProject',
 	USERS_AD = 'users',
 	PERMISSION = 'permission',
+	ASSETS = 'assetPage',
 	PAYMENT = 'paymentPlan',
 	USERS_GM = 'userGM',
 	PLAYER = 'player',
@@ -89,6 +91,15 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 		isPrivate: true,
 		props: {
 			title: 'Permission',
+		},
+	},
+	[PageNames.ASSETS]: {
+		path: '/games/:gameId/assets',
+		component: AssetPage,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Asset Page',
 		},
 	},
 	[PageNames.LOGGING]: {
