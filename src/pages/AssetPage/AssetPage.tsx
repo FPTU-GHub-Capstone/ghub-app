@@ -3,8 +3,10 @@ import { Button, Container, Stack, Typography } from '@mui/material'
 import { useLocation } from 'react-router-dom'
 
 import RestService from '../../services/RestService'
+import { Asset , AssetType } from '../../common/types'
 
-import { Asset, AssetType } from './types'
+
+
 import { AssetList } from './AssetList'
 
 

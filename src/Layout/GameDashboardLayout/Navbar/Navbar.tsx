@@ -1,15 +1,18 @@
 import * as React from 'react'
 import { Box, Typography, AppBar, Toolbar, IconButton, Tabs, Tab } from '@mui/material'
 import Divider from '@mui/material/Divider'
+import { useParams } from 'react-router'
 
 import { Games as GamesComponent } from '../../../pages/Games'
 import NavSection from '../../../components/NavSession'
 import { sidebarItems } from '../../DashboardLayout/Sidebar/Items'
 
-import { navbarItems } from './Items'
+import { NavbarItems } from './Items'
 
 
 export default function Navbar() {
+	const { gameId } = useParams<{ gameId: string }>()
+	const navbarItem = NavbarItems(gameId)
 
 	return (
 		<>
@@ -27,7 +30,7 @@ export default function Navbar() {
 				<Divider />
 
 				<NavSection
-					data={navbarItems}
+					data={navbarItem}
 					isOpen={true}
 					sx={{ 
 						paddingRight: 3, 

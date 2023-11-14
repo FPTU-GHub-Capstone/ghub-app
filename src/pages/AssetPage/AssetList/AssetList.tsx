@@ -3,7 +3,7 @@ import { Box } from '@mui/material'
 import { DataGrid, GridColDef, GridEventListener, GridRowEditStopReasons, GridRowId, GridRowModel, GridRowModes, GridRowModesModel, GridRowParams } from '@mui/x-data-grid'
 import PropTypes from 'prop-types'
 
-import { Asset } from '../types'
+import { Asset } from '../../../common/types'
 
 import GridAction from './ColumnComponent/GridAction'
 

@@ -6,7 +6,7 @@ import { GridActionsCellItem, GridRowId, GridRowModes, GridRowModesModel } from 
 import { Edit, Delete, Visibility, Cancel, Save } from '@mui/icons-material'
 import { useLocation, useNavigate } from 'react-router'
 
-import { Asset } from '../../types'
+import { Asset } from '../../../../common/types'
 
 
 interface IGridActionProps {
