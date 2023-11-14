@@ -39,6 +39,7 @@ const AssetAddBtn = () => {
 
 export const AssetPage = ({ title }: { title: string }) => {
 	const [assets, setAssets] = useState<Asset[]>([])
+	const [originalAssets, setOriginalAssets] = useState<Asset[]>([])
 	const [gameId, setGameId] = useState<string | null>(null)
 	const location = useLocation()
 
@@ -65,12 +66,20 @@ export const AssetPage = ({ title }: { title: string }) => {
 				})
 
 				setAssets(filteredAssets)
+				if (originalAssets.length === 0) {
+					setOriginalAssets(filteredAssets)
+				}
+				console.log(originalAssets)
 			} catch (error) {
 				console.error('Error fetching asset type data:', error)
 			}
 		}
 		fetchAsset()
-	}, [ gameId ])
+	}, [ gameId, originalAssets ])
+
+	const handleChangeAsset = ( newAsset: Asset[] ) => { 
+		setAssets(newAsset) 
+	}
 
 	return (
 		<>
@@ -85,7 +94,7 @@ export const AssetPage = ({ title }: { title: string }) => {
 					<AssetAddBtn />
 				</Stack>
 
-				<AssetList assets={assets} />
+				<AssetList assets={assets} setAssets={handleChangeAsset} />
 			</Container>
 		</>
 	)
