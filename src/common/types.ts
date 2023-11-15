@@ -32,6 +32,7 @@ export type Asset = {
 	image: string,
 	description: string,
 	assetTypeId: string,
+	assetType: AssetType,
 	id: string,
 	createdAt: string,
 	modifiedAt: string,
@@ -41,6 +42,33 @@ export type Asset = {
 export type AssetType = {
 	name: string,
 	gameId: string,
+	id: string,
+	createdAt: string,
+	modifiedAt: string,
+	deletedAt: string | null,
+};
+
+export type Activity = {
+	name: string,
+	status: number,
+	activityTypeId: string,
+	activityType: ActivityType, // You might want to replace 'any' with the actual type
+	transactionId: string,
+	transaction: any, // Replace 'any' with the actual type
+	characterId: string,
+	character: any, // Replace 'any' with the actual type
+	id: string,
+	createdAt: string,
+	modifiedAt: string,
+	deletedAt: string | null,
+};
+
+export type ActivityType = {
+	name: string,
+	gameId: string,
+	game: any, // Replace 'any' with the actual type
+	characterId: string,
+	character: any, // Replace 'any' with the actual type
 	id: string,
 	createdAt: string,
 	modifiedAt: string,
