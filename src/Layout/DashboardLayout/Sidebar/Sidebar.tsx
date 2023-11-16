@@ -88,7 +88,7 @@ export default function Sidebar({isOpen, setIsOpen} : {
 	}
 
 	return (
-		<Box sx={{ display: 'flex', flexGrow: 1 }}>
+		<Box sx={{ display: 'flex' }}>
 			<CssBaseline />
 
 			<Drawer variant="permanent" open={isOpen}>
