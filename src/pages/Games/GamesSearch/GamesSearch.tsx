@@ -10,7 +10,7 @@ const StyledPopper = styled((props) => <Popper open placement="bottom-start" {..
 })
 
 type Props = {
-	games: Array<Game>,
+	games?: Array<Game>,
 }
 
 export default function GameSearch({ games }: Props) {
@@ -20,7 +20,7 @@ export default function GameSearch({ games }: Props) {
 			autoHighlight
 			popupIcon={null}
 			PopperComponent={StyledPopper}
-			options={games}
+			options={games ?? []}
 			getOptionLabel={(game) => game.name}
 			isOptionEqualToValue={(option, value) => option.id === value.id}
 			renderOption={(props, option) => (

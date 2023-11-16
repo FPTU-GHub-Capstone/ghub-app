@@ -17,7 +17,7 @@ export const sidebarItems: Record<string, NavItem[]> = {
 			icon: icon('ic_user'),
 		},
 		{
-			title: 'payment plan',
+			title: 'subscription plan',
 			path: '/dashboard/payment',
 			icon: icon('ic_payment'),
 		},
@@ -34,7 +34,7 @@ export const sidebarItems: Record<string, NavItem[]> = {
 			icon: icon('ic_user'),
 		},
 		{
-			title: 'payment plan',
+			title: 'subscription plan',
 			path: 'payment',
 			icon: icon('ic_payment'),
 		},
