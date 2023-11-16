@@ -2,12 +2,15 @@ import { Button, Container, Stack, Typography } from '@mui/material'
 import React from 'react'
 
 import GamesSearch from '../Games/GamesSearch'
+import { useDialog } from '../../hooks/useDialog'
 
 import PermissionList from './PermissionList/PermissionList'
-import PermissionForm from './RightDrawer/PermissionForm/PermissionForm'
+import CreateClient from './PermissionDialogs/CreateClient'
 
 
 export const Permission = ({title} : {title: string}) => {
+	const [isOpenAssign, handleOpenAssign, handleCloseAssign] = useDialog()
+
 	return (
 		<Container>
 			<Stack direction="row" alignItems="center" justifyContent="space-between" mb={3}>
@@ -27,14 +30,20 @@ export const Permission = ({title} : {title: string}) => {
 							backgroundColor: 'secondary.main',
 						}
 					}} 
+					onClick={handleOpenAssign}
 				>
-					Assign Permission
+					Create Client
 				</Button>
 			</Stack>
 			
 			<PermissionList />
 
-			<PermissionForm />
+			{isOpenAssign && 
+				<CreateClient 
+					isOpenAssignDialog={isOpenAssign}
+					handleCloseAssignDialog={handleCloseAssign} 
+				/>
+			}
 			
 		</Container>
 	)

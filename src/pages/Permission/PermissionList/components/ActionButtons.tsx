@@ -2,21 +2,22 @@ import { Box, IconButton, Tooltip } from '@mui/material'
 import React from 'react'
 import { Edit, Delete } from '@mui/icons-material'
 
+import { useDialog } from '../../../../hooks/useDialog'
+import UpdatePermission from '../../PermissionDialogs/UpdateClient'
+
 
 export default function ActionButtons() {
+	const [isOpenUpdate, handleOpenUpdate, handleCloseUpdate] = useDialog()
+
 	return (
 		<Box
-			pt={3}
 			sx={{
-				width: '11rem',
 				alignItems: 'center',
 				justifyContent: 'space-around',
-				flexGrow: 1,
-				height: '100%',
 			}}
 		>
 			<Box sx={{display: 'flex'}}>
-				<IconButton>
+				<IconButton onClick={handleOpenUpdate}>
 					<Tooltip title="Edit" placement="bottom">
 						<Edit sx={{ fontSize: '1.3rem' }} />
 					</Tooltip>
@@ -27,6 +28,13 @@ export default function ActionButtons() {
 					</Tooltip>
 				</IconButton>
 			</Box>
+
+			{isOpenUpdate && 
+				<UpdatePermission 
+					isOpenUpdate={isOpenUpdate}
+					handleCloseUpdate={handleCloseUpdate}
+				/>
+			}
 			
 		</Box>
 	)

@@ -6,32 +6,43 @@ import { EntityName } from '../common';
 
 export type PermissionBody = {
 	id: string,
-	email: string,
-	avatarUrl: string,
-	scopes: Record<string, Array<string>>,
+	clientId: string,
+	clientSecret: string,
+	scopes: string[],
+	gameId: string,
 }
 
-const permissionList = [...Array(24)].map((_) => {
-	const numOfCharacter = faker.number.int({min: 3, max: 10});
-	const entity1 = sample([EntityName.ACTIVITY, EntityName.ASSET, EntityName.CHARACTER, EntityName.GAME_SERVER, EntityName.WALLET]);
-	const entity2 = sample([EntityName.ACTIVITY, EntityName.ASSET, EntityName.CHARACTER, EntityName.GAME_SERVER, EntityName.WALLET]);
+export const permissionList = [...Array(24)].map((_) => {
+	const numOfScope = faker.number.int({ min: 3, max: 20 });
 
 	return ({
 		id: faker.string.uuid(),
-		email: faker.internet.email(),
-		avatarUrl: `/assets/images/avatars/avatar_${faker.number.int({min: 1, max: 24})}.jpg`,
-		scopes: {
-			[EntityName.GAME]: [
-				`${EntityName.GAME}:${faker.string.uuid()}:get`,
-			],
-			[entity1]: [...Array(numOfCharacter)].map(() =>
-				`${entity1}:${faker.string.uuid()}:${sample(['get', 'create', 'update', 'delete'])}`,
-			),
-			[entity2]: [...Array(numOfCharacter)].map(() =>
-				`${entity2}:${faker.string.uuid()}:${sample(['get', 'create', 'update', 'delete'])}`,
-			),
-		}
+		clientId: faker.string.uuid(),
+		clientSecret: faker.string.uuid(),
+		scopes: [...Array(numOfScope)].map(() => `${sample([
+			'user',
+			'gameServer',
+			'characterType',
+			'character',
+			'assetType',
+			'asset',
+			'characterAsset',
+			'activityType',
+			'activity',
+			'walletCategory',
+			'wallet',
+			'transaction',
+			'payment',
+			'level',
+			'levelProgress',
+			'attributeGroup',
+			'characterAttribute',
+			'assetAttribute',
+		])}:${sample(['read', 'create', 'update', 'delete'])}`),
+		gameId: faker.string.uuid(),
 	}) as PermissionBody;
 });
 
-export default permissionList;
+export const initScopes = () => ({
+
+});

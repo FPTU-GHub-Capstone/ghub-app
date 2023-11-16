@@ -19,7 +19,7 @@ export const navbarItems: NavItem[] = [
 		icon: <EngineeringIcon />,
 	},
 	{
-		title: 'logging',
+		title: 'monitor',
 		path: '/games/:gameId/logging',
 		icon: <QueryStatsIcon />,
 	},
