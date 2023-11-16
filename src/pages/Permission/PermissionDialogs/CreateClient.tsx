@@ -18,7 +18,7 @@ export default function CreateClient({ isOpenAssignDialog, handleCloseAssignDial
 			onClose={handleCloseAssignDialog}
 			sx={{
 				// display: { xs: 'block', sm: 'none' },
-				'& .MuiDrawer-paper': { boxSizing: 'border-box', width: '40vw' },
+				'& .MuiDrawer-paper': { boxSizing: 'border-box', width: '45vw' },
 			}}
 		>
 			<Header titleDialog='Create Client' titleBtn='Save' handleCloseDialog={handleCloseAssignDialog} />

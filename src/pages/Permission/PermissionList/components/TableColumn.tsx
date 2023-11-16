@@ -1,18 +1,8 @@
 import { GridColDef, GridRenderCellParams, GridValueGetterParams } from '@mui/x-data-grid'
-import { sentenceCase } from 'change-case'
 import { Stack, Avatar, Typography, ListItemText, Box } from '@mui/material'
-
-import Label from '../../../../components/Label'
-import { PermissionBody } from '../../../../mock/permissions'
 
 import ActionButtons from './ActionButtons'
 
-
-const Scopes = ({ rowData }) => {
-
-	
-
-}
 
 export const columns: GridColDef[] = [
 	{

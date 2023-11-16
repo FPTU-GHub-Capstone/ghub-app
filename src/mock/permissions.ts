@@ -12,6 +12,10 @@ export type PermissionBody = {
 	gameId: string,
 }
 
+type Scopes = {
+	[key in keyof typeof EntityName]?: [boolean, boolean, boolean, boolean]
+}
+
 export const permissionList = [...Array(24)].map((_) => {
 	const numOfScope = faker.number.int({ min: 3, max: 20 });
 
@@ -43,6 +47,24 @@ export const permissionList = [...Array(24)].map((_) => {
 	}) as PermissionBody;
 });
 
-export const initScopes = () => ({
-
-});
+export const initScopes: Scopes = {
+	[EntityName.game]: [false, false, false, false],
+	[EntityName.user]:  [false, false, false, false],
+	[EntityName.gameServer]: [false, false, false, false],
+	[EntityName.characterType]: [false, false, false, false],
+	[EntityName.character]: [false, false, false, false],
+	[EntityName.assetType]: [false, false, false, false],
+	[EntityName.asset]: [false, false, false, false],
+	[EntityName.characterAsset]: [false, false, false, false],
+	[EntityName.activityType]: [false, false, false, false],
+	[EntityName.activity]: [false, false, false, false],
+	[EntityName.walletCategory]: [false, false, false, false],
+	[EntityName.wallet]: [false, false, false, false],
+	[EntityName.transaction]: [false, false, false, false],
+	[EntityName.payment]: [false, false, false, false],
+	[EntityName.level]: [false, false, false, false],
+	[EntityName.levelProgress]: [false, false, false, false],
+	[EntityName.attributeGroup]: [false, false, false, false],
+	[EntityName.characterAttribute]: [false, false, false, false],
+	[EntityName.assetAttribute]: [false, false, false, false],
+};
