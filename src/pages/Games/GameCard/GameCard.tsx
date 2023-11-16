@@ -1,11 +1,13 @@
 import { alpha } from '@mui/material/styles'
 import { Box, Card, Grid, Typography, CardContent } from '@mui/material'
+import { faker } from '@faker-js/faker'
+import { useNavigate } from 'react-router-dom'
 
 import { fDate } from '../../../utils/formatTime'
 import { fShortenNumber } from '../../../utils/formatNumber'
-import { Game } from '../../../common'
 import SvgColor from '../../../components/Svg-color'
 import Iconify from '../../../components/Iconify'
+import { Game } from '../types'
 
 import * as Styled from './styles'
 
@@ -17,19 +19,21 @@ type Props = {
 
 // eslint-disable-next-line max-lines-per-function
 export default function GameCard({ game, index }: Props) {
-	const { link, name, view, comment, share, logo, createdAt } = game
+	const { id, link, name, logo, createdAt } = game
 	const isLatestGameLarge = index === 0
 	const isLatestGame = index === 1 || index === 2
-
+	const navigate = useNavigate()
+	
 	const GAME_INFO = [
-		{ number: comment, icon: 'eva:message-circle-fill' },
-		{ number: view, icon: 'eva:eye-fill' },
-		{ number: share, icon: 'eva:share-fill' },
+		{ number: faker.number.int({ min: 0, max: 100000 }), icon: 'eva:message-circle-fill' },
+		{ number:  faker.number.int({ min: 0, max: 100000000 }), icon: 'eva:eye-fill' },
+		{ number: faker.number.int({ min: 0, max: 100000 }), icon: 'eva:share-fill' },
 	]
 
 	return (
 		<Grid item xs={12} sm={isLatestGameLarge ? 12 : 6} md={isLatestGameLarge ? 6 : 3}>
-			<Card sx={{ position: 'relative' }}>
+			<Card sx={{ position: 'relative' }} onClick={() => {navigate(`/games/${id}/players`)}}
+			>
 				<Styled.CardMedia
 					sx={{
 						...((isLatestGameLarge || isLatestGame) && {
@@ -77,7 +81,7 @@ export default function GameCard({ game, index }: Props) {
 						}}
 					/>
 
-					<Styled.Cover alt={name} src={link} />
+					<Styled.Cover alt={name} src={`/assets/images/covers/cover_${index + 1}.jpg` || link} />
 				</Styled.CardMedia>
 
 				<CardContent
@@ -91,7 +95,7 @@ export default function GameCard({ game, index }: Props) {
 					}}
 				>
 					<Typography gutterBottom variant="caption" sx={{ color: 'text.disabled', display: 'block' }}>
-						{fDate(createdAt as Date)}
+						{fDate(new Date(createdAt))}
 					</Typography>
 
 					<Styled.Title

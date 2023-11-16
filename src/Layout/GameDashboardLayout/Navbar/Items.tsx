@@ -12,40 +12,40 @@ import SvgColor from '../../../components/Svg-color'
 
 const icon = (name: string) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />
 
-export const navbarItems: NavItem[] = [
+export const NavbarItems: (gameId: string) => NavItem[] = (gameId) => [
 	{
 		title: 'permission',
-		path: '/games/:gameId/permission',
+		path: `/games/${gameId}/permission`,
 		icon: <EngineeringIcon />,
 	},
 	{
-		title: 'monitor',
-		path: '/games/:gameId/logging',
+		title: 'logging',
+		path: `/games/${gameId}/logging`,
 		icon: <QueryStatsIcon />,
 	},
 	{
 		title: 'servers',
-		path: '/games/:gameId/servers',
+		path: `/games/${gameId}/servers`,
 		icon: <StorageIcon />,
 	},
 	{
 		title: 'players',
-		path: '/games/:gameId/players',
+		path: `/games/${gameId}/players`,
 		icon: <PersonIcon />,
 	},
 	{
 		title: 'characters',
-		path: '/games/:gameId/characters',
+		path: `/games/${gameId}/characters`,
 		icon: <ParaglidingIcon />,
 	},
 	{
 		title: 'assets',
-		path: '/games/:gameId/assets',
+		path: `/games/${gameId}/assets`,
 		icon: <CategoryIcon />,
 	},
 	{
 		title: 'activities',
-		path: '/games/:gameId/activities',
+		path: `/games/${gameId}/activities`,
 		icon: <DirectionsRunIcon />,
 	},
 ]
