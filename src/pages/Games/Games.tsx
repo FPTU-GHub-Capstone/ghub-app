@@ -1,5 +1,6 @@
 import { Button, Container, Grid, Stack, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import Iconify from '../../components/Iconify'
 import RestService from '../../services/RestService'
@@ -28,7 +29,7 @@ type GameResponse = {
 
 export const Games = ({ title }: Props) => {
 	const [games, setGames] = useState<Game[]>([])
-
+	const navigate = useNavigate()
 	
 	useEffect(() => {
 		const fetchData = async () => {
@@ -49,7 +50,9 @@ export const Games = ({ title }: Props) => {
 				<Typography variant="h4" gutterBottom>
 					{title}
 				</Typography>
-				<Button variant="contained" sx={{ backgroundColor: 'primary.dark'}} startIcon={<Iconify icon="eva:plus-fill" />}>
+				<Button variant="contained" sx={{ backgroundColor: 'primary.dark'}} startIcon={<Iconify icon="eva:plus-fill" />}
+					onClick={() => {navigate('/games/create')}}
+				>
 					New Game
 				</Button>
 			</Stack>
