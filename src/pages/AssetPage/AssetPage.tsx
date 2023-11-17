@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { Button, Container, Stack, Typography } from '@mui/material'
 import { useLocation } from 'react-router-dom'
 
+import config from '../../config'
 import RestService from '../../services/RestService'
 import { Asset , AssetType } from '../../common/types'
 import ConfirmDialog from '../../components/ConfirmDialog'
@@ -76,8 +77,8 @@ export const AssetPage = ({ title }: { title: string }) => {
 
 	const fetchAsset = async (inputGameId : string) => {
 		try {
-			const assetTypeResponse = await RestService.get<AssetTypeResponse>('http://localhost:8080/v1/gms/asset-types')
-			const assetResponse = await RestService.get<AssetResponse>('http://localhost:8080/v1/gms/assets')
+			const assetTypeResponse = await RestService.get<AssetTypeResponse>(`${config.GMS_URL}/asset-types`)
+			const assetResponse = await RestService.get<AssetResponse>(`${config.GMS_URL}/assets`)
 			
 			const assetResult = assetResponse.data.result
 			const assetTypeResult = assetTypeResponse.data.result

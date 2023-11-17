@@ -2,6 +2,7 @@ import { Button, Container, Grid, Stack, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import config from '../../config'
 import Iconify from '../../components/Iconify'
 import RestService from '../../services/RestService'
 
@@ -34,7 +35,7 @@ export const Games = ({ title }: Props) => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await RestService.get<GameResponse>('http://localhost:8080/v1/gms/games')
+				const response = await RestService.get<GameResponse>(`${config.GMS_URL}/games`)
 				console.log(response.data.result)
 				setGames(response.data.result)
 			} catch (error) {

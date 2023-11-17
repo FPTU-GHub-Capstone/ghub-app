@@ -1,6 +1,7 @@
 import { Container, Stack, Typography } from '@mui/material'
 import React, { useState } from 'react'
 
+import config from '../../config'
 import { Game } from '../../common'
 import RestService from '../../services/RestService'
 import { useDialog } from '../../hooks/useDialog'
@@ -24,7 +25,7 @@ export const GameCreate = ({ title }: {title: string}) => {
 	const postData = async () => {
 		let isError = false
 		try {
-			await RestService.post('http://localhost:8080/v1/gms/games', game)
+			await RestService.post(`${config.GMS_URL}/games`, game)
 		} catch (error) {
 			console.error('Error posting Game with: ', error)
 			isError = true
