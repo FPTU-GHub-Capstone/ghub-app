@@ -1,6 +1,7 @@
 export default {
 	REST_TIMEOUT: 60000,
 	IDP_URL: import.meta.env.VITE_IDP_URL,
+	GMS_URL: import.meta.env.VITE_GMS_URL,
 
 	FIREBASE_API_KEY: import.meta.env.VITE_FIREBASE_API_KEY,
 	FIREBASE_APP_ID: import.meta.env.VITE_FIREBASE_APP_ID,
@@ -11,6 +12,4 @@ export default {
 	PUSHER_CLUSTER: import.meta.env.VITE_PUSHER_CLUSTER,
 	PUSHER_CHANNEL: import.meta.env.VITE_PUSHER_CHANNEL,
 	BIND_INSERTED_EVENT: import.meta.env.VITE_PUSHER_BIND_INSERTED_EVENT,
-
-	GMS_URL: import.meta.env.GMS_URL,
 };
