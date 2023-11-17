@@ -19,6 +19,7 @@ import ServerError from '../pages/Error/ServerError'
 import { AssetPage } from '../pages/AssetPage'
 import { AssetDetail } from '../pages/AssetDetail'
 import { ActivityListPage } from '../pages/ActivityList'
+import { ActivityDetail } from '../pages/ActivityDetail'
 
 
 type AppRoute = {
@@ -28,6 +29,8 @@ type AppRoute = {
 	isPrivate: boolean,
 	props?: Record<string, unknown>,
 };
+
+
 
 
 export const enum PageNames {
@@ -47,7 +50,8 @@ export const enum PageNames {
 	NOT_FOUND = 'notFound',
 	SERVER_ERROR = 'serverError',
 	ASSETS_DETAILS = 'assetDetails',
-	ACTIVITY = 'activities'
+	ACTIVITY = 'activities',
+	ACTIVITY_DETAILS = 'ACTIVITY_DETAILS'
 }
 
 
@@ -123,6 +127,15 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 		isPrivate: true,
 		props: {
 			title: 'Activities Page',
+		},
+	},
+	[PageNames.ACTIVITY_DETAILS]: {
+		path: '/games/:gameId/activities/:activityId',
+		component: ActivityDetail,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Activity Details',
 		},
 	},
 	[PageNames.LOGGING]: {
