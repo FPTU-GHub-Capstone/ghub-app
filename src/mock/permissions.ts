@@ -6,6 +6,7 @@ import { EntityName } from '../common';
 
 export type PermissionBody = {
 	id: string,
+	clientName: string,
 	clientId: string,
 	clientSecret: string,
 	scopes: string[],
@@ -21,6 +22,7 @@ export const permissionList = [...Array(24)].map((_) => {
 
 	return ({
 		id: faker.string.uuid(),
+		clientName: faker.internet.userName(),
 		clientId: faker.string.uuid(),
 		clientSecret: faker.string.uuid(),
 		scopes: [...Array(numOfScope)].map(() => `${sample([

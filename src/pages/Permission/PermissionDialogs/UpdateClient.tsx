@@ -1,7 +1,8 @@
-import { Dialog, Slide } from '@mui/material'
+import { Dialog, Drawer, Slide } from '@mui/material'
 import React from 'react'
 
 import Header from './components/Header'
+import ClientForm from './components/ClientForm'
 
 
 type Props = {
@@ -26,7 +27,9 @@ export default function UpdateClient({isOpenUpdate, handleCloseUpdate}: Props) {
 			onClose={handleCloseUpdate}
 			TransitionComponent={Transition}
 		>
-			<Header titleDialog='Update Permission' titleBtn='Save' handleCloseDialog={handleCloseUpdate} />
+			<Header titleDialog='Update Client' titleBtn='Save' handleCloseDialog={handleCloseUpdate} />
+
+			<ClientForm />
 
 		</Dialog>
 	)

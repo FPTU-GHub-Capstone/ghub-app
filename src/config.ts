@@ -11,4 +11,6 @@ export default {
 	PUSHER_CLUSTER: import.meta.env.VITE_PUSHER_CLUSTER,
 	PUSHER_CHANNEL: import.meta.env.VITE_PUSHER_CHANNEL,
 	BIND_INSERTED_EVENT: import.meta.env.VITE_PUSHER_BIND_INSERTED_EVENT,
+
+	GMS_URL: import.meta.env.GMS_URL,
 };

@@ -5,7 +5,6 @@ import React from 'react'
 import { permissionList } from '../../../mock/permissions'
 
 import { columns } from './components/TableColumn'
-import Scopes from './components/Scopes'
 
 
 export default function PermissionList() {

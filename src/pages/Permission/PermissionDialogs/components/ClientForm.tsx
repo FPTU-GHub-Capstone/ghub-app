@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
-import { Box, Table, TableBody, TableCell, TableHead, TableRow, FormControlLabel, Checkbox } from '@mui/material'
+/* eslint-disable max-lines-per-function */
+import React, { useState, useEffect } from 'react'
+import { Box, Table, TableBody, TableCell, TableHead, TableRow, FormControlLabel, Checkbox, InputAdornment, IconButton, Grid, TableContainer } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import { faker } from '@faker-js/faker'
+import { LoopOutlined } from '@mui/icons-material'
 
 import InputField from '../../../../components/TextFields/InputField'
 import { initScopes } from '../../../../mock/permissions'
 import { EntityName, convertEntityNameToLabel } from '../../../../common'
+import { generateClientId, generateClientSecret } from '../../../../utils/generator'
 
 
 type ClientFormType = {
@@ -20,39 +22,42 @@ const TablePermission = ({ permissionList, handleSelectAction }: {
 	handleSelectAction: (event: React.ChangeEvent<HTMLInputElement>) => void,
 }) => {
 	return (
-		<Table>
-			<TableHead>
-				<TableRow>
-					<TableCell>Entity</TableCell>
-					<TableCell>Read</TableCell>
-					<TableCell>Create</TableCell>
-					<TableCell>Update</TableCell>
-					<TableCell>Delete</TableCell>
-				</TableRow>
-			</TableHead>
-			<TableBody>
-				{Object.entries(permissionList).map(([entityName, actions], index) => (
-					<TableRow key={index}>
-						<TableCell>{convertEntityNameToLabel(entityName)}</TableCell>
-						{actions.map((action, i) => (
-							<TableCell key={i}>
-								<FormControlLabel
-									control={
-										<Checkbox
-											size="small"
-											checked={action}
-											onChange={(event) => handleSelectAction(event)}
-											name={`${entityName}-${i}`}
-										/>
-									}
-									label=''
-								/>
-							</TableCell>
-						))}
+		<TableContainer sx={{ maxHeight: '35vw', borderColor: 'gray'}}>
+			<Table stickyHeader >
+				<TableHead>
+					<TableRow>
+						<TableCell>Entity</TableCell>
+						<TableCell>Read</TableCell>
+						<TableCell>Create</TableCell>
+						<TableCell>Update</TableCell>
+						<TableCell>Delete</TableCell>
 					</TableRow>
-				))}
-			</TableBody>
-		</Table>
+				</TableHead>
+				<TableBody>
+					{Object.entries(permissionList).map(([entityName, actions], index) => (
+						<TableRow key={index}>
+							<TableCell>{convertEntityNameToLabel(entityName)}</TableCell>
+							{actions.map((action, i) => (
+								<TableCell key={i}>
+									<FormControlLabel
+										control={
+											<Checkbox
+												size="small"
+												checked={action}
+												onChange={(event) => handleSelectAction(event)}
+												name={`${entityName}-${i}`}
+											/>
+										}
+										label=''
+									/>
+								</TableCell>
+							))}
+						</TableRow>
+					))}
+				</TableBody>
+			</Table>
+		</TableContainer>
+		
 	)
 }
 
@@ -60,12 +65,11 @@ export default function ClientForm() {
 	const form = useForm<ClientFormType>({
 		mode: 'onChange',
 		defaultValues: {
-			gameId: faker.string.uuid(),
-			clientId: faker.string.uuid(),
-			clientSecret: ''
+			clientId: generateClientId(),
+			clientSecret: generateClientSecret(),
 		}
 	})
-	const { watch, register, handleSubmit, formState: { errors }, control } = form
+	const { watch, register, handleSubmit, formState: { errors }, control, setValue } = form
 	const [permissionList, setPermissionList] = useState(initScopes)
 
 	const handleSelectAction = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,49 +86,82 @@ export default function ClientForm() {
 		setPermissionList(list)
 	}
 
+	const handleChangeClientId = () => {
+		setValue('clientId', generateClientId())
+	}
+
+	const handleChangeClientSecret = () => {
+		setValue('clientSecret', generateClientSecret())
+	}
+
 	const onSubmit = (data: ClientFormType) => {
 		console.log({ ...data })
 	}
+
 	return (
-		<Box sx={{
-			display: 'flex',
-			flexDirection: 'column',
-			margin: 5
-		}}
-		component='form'
-		onSubmit={handleSubmit(onSubmit)}
-		>
-			<InputField
-				disabled
-				errors={errors}
-				register={register}
-				name='gameId'
-				label='Game ID'
-				size='small'
-			/>
+		<Grid container>
+			<Grid item xs={4} sx={{margin: 5}}>
+				<Box sx={{
+					display: 'flex',
+					flexDirection: 'column',
+				}}
+				component='form'
+				onSubmit={handleSubmit(onSubmit)}
+				>
+					<InputField
+						errors={errors}
+						register={register}
+						name='clientName'
+						label='Client Name'
+						size='small'
+					/>
 
-			<InputField
-				disabled
-				errors={errors}
-				register={register}
-				name='clientId'
-				label='Client ID'
-				size='small'
-			/>
+					<InputField
+						disabled
+						errors={errors}
+						register={register}
+						name='clientId'
+						label='Client ID'
+						size='small'
+						endAdornment={
+							<InputAdornment position="end">
+								<IconButton
+									onClick={handleChangeClientId}
+									edge="end"
+								>
+									<LoopOutlined />
+								</IconButton>
+							</InputAdornment>
+						}
+					/>
 
-			<InputField
-				errors={errors}
-				register={register}
-				name='clientSecret'
-				label='Client Secret'
-				size='small'
-			/>
-
-			<TablePermission 
-				permissionList={permissionList} 
-				handleSelectAction={(event) => handleSelectAction(event)} 
-			/>
-
-		</Box>
+					<InputField
+						disabled
+						errors={errors}
+						register={register}
+						name='clientSecret'
+						label='Client Secret'
+						size='small'
+						endAdornment={
+							<InputAdornment position="end">
+								<IconButton
+									onClick={handleChangeClientSecret}
+									edge="end"
+								>
+									<LoopOutlined />
+								</IconButton>
+							</InputAdornment>
+						}
+					/>
+				</Box>
+			</Grid>
+			<Grid item xs={6} sx={{margin: 5}}>
+				<TablePermission 
+					permissionList={permissionList} 
+					handleSelectAction={(event) => handleSelectAction(event)} 
+				/>
+			</Grid>
+		</Grid>
+		
 	)
 }

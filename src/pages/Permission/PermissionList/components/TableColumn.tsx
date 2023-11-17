@@ -6,9 +6,9 @@ import ActionButtons from './ActionButtons'
 
 export const columns: GridColDef[] = [
 	{
-		field: 'clientId',
-		headerName: 'Client ID',
-		flex: 2,
+		field: 'clientName',
+		headerName: 'Client Name',
+		flex: 1.5,
 	},
 	{
 		field: 'scopes',

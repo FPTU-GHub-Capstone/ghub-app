@@ -18,7 +18,7 @@ export default function ActionButtons() {
 		>
 			<Box sx={{display: 'flex'}}>
 				<IconButton onClick={handleOpenUpdate}>
-					<Tooltip title="Edit" placement="bottom">
+					<Tooltip title="Detail / Edit" placement="bottom">
 						<Edit sx={{ fontSize: '1.3rem' }} />
 					</Tooltip>
 				</IconButton>
