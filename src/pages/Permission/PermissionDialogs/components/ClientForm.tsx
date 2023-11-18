@@ -1,20 +1,24 @@
 /* eslint-disable max-lines-per-function */
 import React, { useState, useEffect } from 'react'
-import { Box, Table, TableBody, TableCell, TableHead, TableRow, FormControlLabel, Checkbox, InputAdornment, IconButton, Grid, TableContainer } from '@mui/material'
-import { useForm } from 'react-hook-form'
+import { Box, Table, TableBody, TableCell, TableHead, TableRow, FormControlLabel, Checkbox, InputAdornment, IconButton, Grid, TableContainer, Button } from '@mui/material'
+import { FieldErrors, UseFormHandleSubmit, UseFormRegister, UseFormSetValue, useForm } from 'react-hook-form'
 import { LoopOutlined } from '@mui/icons-material'
 
 import InputField from '../../../../components/TextFields/InputField'
 import { initScopes } from '../../../../mock/permissions'
-import { EntityName, convertEntityNameToLabel } from '../../../../common'
+import { ACCESS_TOKEN, Client, EntityName, RequestHeaders, convertEntityNameToLabel } from '../../../../common'
 import { generateClientId, generateClientSecret } from '../../../../utils/generator'
 
 
+
 type ClientFormType = {
-	gameId: string,
-	clientId: string,
-	clientSecret: string,
-	scopes: string,
+	errors: FieldErrors<Client>,
+	register: UseFormRegister<Client>,
+	setValue: UseFormSetValue<Client>,
+	onSubmit: (data: Client) => void,
+	handleSubmit: UseFormHandleSubmit<Client, undefined>,
+	permissionList: Record<string, boolean[]>,
+	setPermissionList: React.Dispatch<React.SetStateAction<any>>,
 }
 
 const TablePermission = ({ permissionList, handleSelectAction }: {
@@ -61,17 +65,16 @@ const TablePermission = ({ permissionList, handleSelectAction }: {
 	)
 }
 
-export default function ClientForm() {
-	const form = useForm<ClientFormType>({
-		mode: 'onChange',
-		defaultValues: {
-			clientId: generateClientId(),
-			clientSecret: generateClientSecret(),
-		}
-	})
-	const { watch, register, handleSubmit, formState: { errors }, control, setValue } = form
-	const [permissionList, setPermissionList] = useState(initScopes)
-
+export default function ClientForm({
+	errors, 
+	register, 
+	setValue, 
+	onSubmit, 
+	handleSubmit, 
+	permissionList, 
+	setPermissionList
+}: ClientFormType) {
+	
 	const handleSelectAction = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const entity = event.target.name.split('-')
 		const entityName = entity[0] as EntityName
@@ -79,10 +82,6 @@ export default function ClientForm() {
 		const list = {...permissionList}
 
 		list[entityName][actionIndex] = event.target.checked
-		// console.log(`@permission:: ${JSON.stringify(list)}`)
-		// console.log(`@permission:: ${entityName} - ${actionIndex}`)
-		
-
 		setPermissionList(list)
 	}
 
@@ -94,10 +93,6 @@ export default function ClientForm() {
 		setValue('clientSecret', generateClientSecret())
 	}
 
-	const onSubmit = (data: ClientFormType) => {
-		console.log({ ...data })
-	}
-
 	return (
 		<Grid container>
 			<Grid item xs={4} sx={{margin: 5}}>
@@ -105,13 +100,12 @@ export default function ClientForm() {
 					display: 'flex',
 					flexDirection: 'column',
 				}}
-				component='form'
-				onSubmit={handleSubmit(onSubmit)}
+				component='form' onSubmit={handleSubmit(onSubmit)}
 				>
 					<InputField
 						errors={errors}
 						register={register}
-						name='clientName'
+						name='name'
 						label='Client Name'
 						size='small'
 					/>

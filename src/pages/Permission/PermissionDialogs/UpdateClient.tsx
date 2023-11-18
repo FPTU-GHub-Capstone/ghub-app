@@ -27,9 +27,9 @@ export default function UpdateClient({isOpenUpdate, handleCloseUpdate}: Props) {
 			onClose={handleCloseUpdate}
 			TransitionComponent={Transition}
 		>
-			<Header titleDialog='Update Client' titleBtn='Save' handleCloseDialog={handleCloseUpdate} />
+			{/* <Header titleDialog='Update Client' titleBtn='Save' handleCloseDialog={handleCloseUpdate} />
 
-			<ClientForm />
+			<ClientForm /> */}
 
 		</Dialog>
 	)

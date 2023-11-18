@@ -52,3 +52,11 @@ export type HttpResponse = {
 	isError: boolean,
 	result: Array<any> | any,
 }
+
+export type Client = {
+	name: string,
+	gameId: string,
+	clientId: string,
+	clientSecret: string,
+	scope: string[],
+}
