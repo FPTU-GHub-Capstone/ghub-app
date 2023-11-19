@@ -3,12 +3,12 @@ import { Dialog, Slide } from '@mui/material'
 import React, { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-import { ACCESS_TOKEN, Client, RequestHeaders } from '../../../common'
-import RestService from '../../../services/RestService'
-import config from '../../../config'
+import { Client } from '../../../common'
 import { generateClientId, generateClientSecret } from '../../../utils/generator'
 import { convertToArrayScope, createClient } from '../../../services/ClientService'
 import { initScopes } from '../../../mock/permissions'
+import { useAppSelector } from '../../../redux/hook'
+import { getCurrentGame } from '../../../redux/slices/gameSlice'
 
 import ClientForm from './components/ClientForm'
 import Header from './components/Header'
@@ -32,7 +32,7 @@ export default function CreateClient({ isOpenAssignDialog, handleCloseAssignDial
 	const form = useForm<Client>({
 		mode: 'onChange',
 		defaultValues: {
-			gameId: 'cece31d1-7fd0-4fd6-2896-08dbe098747f',
+			gameId: useAppSelector(getCurrentGame).id,
 			clientId: generateClientId(),
 			clientSecret: generateClientSecret(),
 		}

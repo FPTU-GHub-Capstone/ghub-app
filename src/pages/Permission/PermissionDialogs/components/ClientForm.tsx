@@ -49,7 +49,7 @@ const TablePermission = ({ permissionList, handleSelectAction }: {
 												size="small"
 												checked={action}
 												onChange={(event) => handleSelectAction(event)}
-												name={`${entityName}-${i}`}
+												name={`${entityName}:${i}`}
 											/>
 										}
 										label=''
@@ -74,9 +74,9 @@ export default function ClientForm({
 	permissionList, 
 	setPermissionList
 }: ClientFormType) {
-	
+
 	const handleSelectAction = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const entity = event.target.name.split('-')
+		const entity = event.target.name.split(':')
 		const entityName = entity[0] as EntityName
 		const actionIndex = entity[1]
 		const list = {...permissionList}
