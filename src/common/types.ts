@@ -47,3 +47,11 @@ export type AssetType = {
 	deletedAt: string | null,
 };
 
+export type Level = {
+	id: string,
+	name: string,
+	levelUpPoint: number,
+	gameId: string,
+	game: Game,
+	[other: string | number]: unknown,
+};
