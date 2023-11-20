@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import { useState, useEffect } from 'react'
-import { Button, Container, Stack, Typography } from '@mui/material'
-import { useLocation } from 'react-router-dom'
+import { Container, Stack, Typography } from '@mui/material'
+import { useLocation, useParams } from 'react-router-dom'
 
 
 import config from '../../config'
@@ -14,48 +14,9 @@ import { GameLevelList } from './GameLevelList'
 
 type GameLevelResponse = {
 	isError: boolean,
-	message: string,
+	message?: string,
 	result: Level[],
 };
-
-
-const LevelAddBtn = () => {
-	return (
-		<Button
-			variant="contained" 
-			size="large"
-			sx={{ 
-				backgroundColor: 'primary.light',
-				'&:hover': {
-					backgroundColor: 'primary.main',
-				},
-			}}
-		>
-		Add an Level Progress
-		</Button>
-	)
-}
-
-
-const LevelSaveBtn = ({handleOnClick, isDataChanged} : {handleOnClick: () => void, isDataChanged: boolean}) => {
-	return (
-		<Button
-			variant="contained" 
-			size="large"
-			sx={{ 
-				backgroundColor: 'secondary.light',
-				'&:hover': {
-					backgroundColor: 'secondary.main',
-				},
-				marginLeft: '10px'
-			}}
-			onClick={handleOnClick}
-			disabled={Boolean(!isDataChanged)}
-		>
-		Save Current State
-		</Button>
-	)
-}
 
 export const GameLevelPage = ({ title }: { title: string }) => {
 	const [gameLevels, setGameLevels] = useState<Level[]>([])
@@ -109,6 +70,16 @@ export const GameLevelPage = ({ title }: { title: string }) => {
 				}
 			}
 		}
+
+		const newLevels = gameLevels.filter((level) => !originalGameLevels.some((origLevel) => origLevel.id === level.id))
+		for (const newLevel of newLevels) {
+			try {
+				await RestService.post(`${config.GMS_URL}/levels`, newLevel)
+			} catch (error) {
+				console.error('Error adding new game Level:', error)
+			}
+		}
+
 		fetchGameLevels(gameId)
 	}
 
@@ -126,12 +97,10 @@ export const GameLevelPage = ({ title }: { title: string }) => {
 					</Typography>
 				</Stack>
 
-				<Stack mb={5} direction="row" alignItems="center" justifyContent="flex-end">
-					<LevelAddBtn />
-					<LevelSaveBtn handleOnClick={() => setConfirmOpen(true)} isDataChanged={isDataChanged}/>
-				</Stack>
-
-				<GameLevelList gameLevels={gameLevels} setGameLevels={handleChangeGameLevel} />
+				<GameLevelList 
+					gameLevels={gameLevels} setGameLevels={handleChangeGameLevel} 
+					setConfirmOpen={setConfirmOpen} isDataChanged={isDataChanged} 
+				/>
 
 				<ConfirmDialog
 					open={isConfirmOpen}

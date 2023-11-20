@@ -1,21 +1,25 @@
 import { useState, useEffect } from 'react'
-import { Box } from '@mui/material'
+import { Box, Stack } from '@mui/material'
 import { DataGrid, GridColDef, GridEventListener, GridRowEditStopReasons, GridRowId, GridRowModel, GridRowModes, GridRowModesModel, GridRowParams } from '@mui/x-data-grid'
 import PropTypes from 'prop-types'
 
 import { Level } from '../../../common/types'
 
 import GridAction from './ColumnComponent/GridAction'
+import { LevelAddBtn } from './components/LevelAddBtn'
+import { LevelSaveBtn } from './components/LevelSaveBtn'
 
 
 interface IGameLevelListProps {
 	gameLevels: Level[];
 	setGameLevels: (newGameLevel: Level[]) => void;
+	setConfirmOpen: React.Dispatch<React.SetStateAction<boolean>> ;
+	isDataChanged: boolean;
 }
 
 const rowHeight = 50
 
-const GameLevelList: React.FC<IGameLevelListProps> = ({ gameLevels, setGameLevels }) => {
+const GameLevelList: React.FC<IGameLevelListProps> = ({ gameLevels, setGameLevels, setConfirmOpen, isDataChanged }) => {
 	const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({})
 	const [newRowIds, setNewRowIds] = useState<Set<GridRowId>>(new Set())
 
@@ -65,7 +69,16 @@ const GameLevelList: React.FC<IGameLevelListProps> = ({ gameLevels, setGameLevel
 		},
 	]
 
-	return (
+	return ( <>
+		<Stack mb={5} direction="row" alignItems="center" justifyContent="flex-end">
+			<LevelAddBtn
+				rows={gameLevels} setRows={setGameLevels}
+				setRowModesModel={setRowModesModel}
+				newRowIds={newRowIds} setNewRowIds={setNewRowIds}
+			/>
+			<LevelSaveBtn handleOnClick={() => setConfirmOpen(true)} isDataChanged={isDataChanged} />
+		</Stack>
+
 		<Box sx={{ minWidth: '100%', height: 400, mt: 2 }}>
 			<DataGrid
 				rows={gameLevels} columns={columns} editMode="row" rowHeight={rowHeight}
@@ -83,12 +96,14 @@ const GameLevelList: React.FC<IGameLevelListProps> = ({ gameLevels, setGameLevel
 				processRowUpdate={processRowUpdate}
 			/>
 		</Box>
-	)
+	</>)
 }
 
 GameLevelList.propTypes = {
 	gameLevels: PropTypes.array.isRequired,
 	setGameLevels: PropTypes.func.isRequired,
+	setConfirmOpen: PropTypes.func.isRequired,
+	isDataChanged: PropTypes.bool.isRequired,
 }
 
 export default GameLevelList

@@ -3,8 +3,7 @@
 
 import React from 'react'
 import { GridActionsCellItem, GridRowId, GridRowModes, GridRowModesModel } from '@mui/x-data-grid'
-import { Edit, Delete, Visibility, Cancel, Save } from '@mui/icons-material'
-import { useLocation, useNavigate } from 'react-router'
+import { Edit, Delete, Cancel, Save } from '@mui/icons-material'
 
 import { Level } from '../../../../common/types'
 
@@ -30,8 +29,6 @@ const GridAction: React.FC<IGridActionProps> = ({
 	newRowIds,
 	setNewRowIds,
 }) => {
-	const location = useLocation()
-	const navigate = useNavigate()
 
 	const handleEditClick = () => {
 		setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } })
@@ -57,10 +54,6 @@ const GridAction: React.FC<IGridActionProps> = ({
 		}
 	}
 
-	const handleVisibilityClick = () => {
-		const levelDetailsUrl = `${location.pathname}/${id}`
-		navigate(levelDetailsUrl)
-	}
 
 	return (
 		<>
@@ -84,14 +77,6 @@ const GridAction: React.FC<IGridActionProps> = ({
 				</>
 			) : (
 				<>
-					<GridActionsCellItem
-						key="view"
-						icon={<Visibility />}
-						label="View"
-						className="textPrimary"
-						onClick={handleVisibilityClick}
-						color="inherit"
-					/>
 					<GridActionsCellItem
 						key="edit"
 						icon={<Edit />}
