@@ -15,8 +15,6 @@ type ClientFormType = {
 	errors: FieldErrors<Client>,
 	register: UseFormRegister<Client>,
 	setValue: UseFormSetValue<Client>,
-	onSubmit: (data: Client) => void,
-	handleSubmit: UseFormHandleSubmit<Client, undefined>,
 	permissionList: Record<string, boolean[]>,
 	setPermissionList: React.Dispatch<React.SetStateAction<any>>,
 }
@@ -69,8 +67,6 @@ export default function ClientForm({
 	errors, 
 	register, 
 	setValue, 
-	onSubmit, 
-	handleSubmit, 
 	permissionList, 
 	setPermissionList
 }: ClientFormType) {
@@ -95,12 +91,12 @@ export default function ClientForm({
 
 	return (
 		<Grid container>
-			<Grid item xs={4} sx={{margin: 5}}>
+			<Grid item xs={4} padding={5}>
 				<Box sx={{
 					display: 'flex',
 					flexDirection: 'column',
 				}}
-				component='form' onSubmit={handleSubmit(onSubmit)}
+				component='form' 
 				>
 					<InputField
 						errors={errors}
@@ -149,7 +145,7 @@ export default function ClientForm({
 					/>
 				</Box>
 			</Grid>
-			<Grid item xs={6} sx={{margin: 5}}>
+			<Grid item xs={8} padding={5}>
 				<TablePermission 
 					permissionList={permissionList} 
 					handleSelectAction={(event) => handleSelectAction(event)} 

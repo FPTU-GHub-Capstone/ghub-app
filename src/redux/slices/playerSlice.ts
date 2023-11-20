@@ -15,7 +15,8 @@ const initialState: PlayerState = {
 export const playersFetch = createAsyncThunk(
 	'player/playersFetch',
 	async () => {
-		const { data } = await RestService.get(config.GMS_URL + '/users');
+		const currentGameId = localStorage.getItem('gameId');
+		const { data } = await RestService.get(config.GMS_URL + `/games/${currentGameId}/users`);
 		return data;
 	}
 );

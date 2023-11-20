@@ -3,25 +3,36 @@ import {
 	Box,
 } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
+import React, { useEffect, useState } from 'react'
 
 import USERLIST from '../../mock/user'
+import { useAppDispatch, useAppSelector } from '../../redux/hook'
+import { playersFetch } from '../../redux/slices/playerSlice'
 
-import { columns } from './TableColumn'
+import { columns } from './components/TableColumn'
 
 
 export default function Player() {
 
+	const dispatch = useAppDispatch()
+
+	const players = useAppSelector(({ player }) => player.playerList)
+	useEffect(() => {
+		dispatch(playersFetch())
+		// console.log(`@player:: ${players}`)
+	}, [dispatch])
+
 	return (
 		<>
 			<Container>
-				<Box sx={{ minWidth: 800, height: 400, mt: 2 }}>
+				<Box sx={{ minWidth: 800, height: 600, mt: 2 }}>
 					<DataGrid
-						rows={USERLIST}
+						rows={players}
 						columns={columns}
 						initialState={{
 							pagination: {
 								paginationModel: {
-									pageSize: 5,
+									pageSize: 10,
 								},
 							},
 						}}

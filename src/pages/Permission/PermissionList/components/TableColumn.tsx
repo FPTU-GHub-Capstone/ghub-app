@@ -1,29 +1,34 @@
-import { GridColDef, GridRenderCellParams, GridValueGetterParams } from '@mui/x-data-grid'
+import { GridColDef, GridRenderCellParams, GridRowId, GridRowParams, GridValueGetterParams } from '@mui/x-data-grid'
 import { Stack, Avatar, Typography, ListItemText, Box } from '@mui/material'
 
-import ActionButtons from './ActionButtons'
+import ActionButtons from './GridAction'
+import GridAction from './GridAction'
 
 
 export const columns: GridColDef[] = [
 	{
-		field: 'clientName',
+		field: 'name',
 		headerName: 'Client Name',
 		flex: 1.5,
 	},
 	{
-		field: 'scopes',
+		field: 'scope',
 		headerName: 'Scopes',
 		flex: 4,
 		renderCell: (params: GridRenderCellParams<any>) => (
-			<Typography>{params?.row.scopes.join(' ')}</Typography>
+			<Typography>{params?.row.scope}</Typography>
 		),
 	},
 	{
 		field: 'actions',
 		headerName: 'Actions',
-		flex: 1,
-		renderCell: (params: GridRenderCellParams<any>) => (
-			<ActionButtons />
-		),
+		flex: 1.5,
+		type: 'actions',
+		getActions: (params: GridRowParams) => {
+			const id = params.id as GridRowId
+			return [
+				<GridAction key={id} />,
+			]
+		},
 	},
 ]

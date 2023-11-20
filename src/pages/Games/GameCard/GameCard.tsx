@@ -37,6 +37,7 @@ export default function GameCard({ game, index }: Props) {
 		<Grid item xs={12} sm={isLatestGameLarge ? 12 : 6} md={isLatestGameLarge ? 6 : 3}>
 			<Card sx={{ position: 'relative' }} onClick={() => {
 				dispatch(setCurrentGame(game))
+				localStorage.setItem('gameId', id)
 				navigate(`/games/${id}/players`)
 			}}
 			>

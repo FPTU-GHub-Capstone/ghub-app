@@ -32,20 +32,17 @@ export default function CreateClient({ isOpenAssignDialog, handleCloseAssignDial
 	const form = useForm<Client>({
 		mode: 'onChange',
 		defaultValues: {
-			gameId: useAppSelector(getCurrentGame).id,
+			gameId: localStorage.getItem('gameId'),
 			clientId: generateClientId(),
 			clientSecret: generateClientSecret(),
 		}
 	})
 	const { watch, register, handleSubmit, formState: { errors }, control, setValue } = form
-	const [requestBody, setRequestBody] = useState<Client>()
 	const [permissionList, setPermissionList] = useState(initScopes)
 
 	const onSubmit: SubmitHandler<Client> = (data) => {
-		const body: Client = ({...data, scope: convertToArrayScope(permissionList)})
-		setRequestBody(body)
-
-		console.log(requestBody)
+		const requestBody: Client = ({...data, scope: convertToArrayScope(permissionList)})
+		// console.log(`@reqBody:: ${requestBody}`)
 		createClient(requestBody)
 	}
 
@@ -69,8 +66,6 @@ export default function CreateClient({ isOpenAssignDialog, handleCloseAssignDial
 				errors={errors} 
 				register={register} 
 				setValue={setValue} 
-				handleSubmit={handleSubmit} 
-				onSubmit={onSubmit} 
 				permissionList={permissionList}
 				setPermissionList={setPermissionList}
 			/>
