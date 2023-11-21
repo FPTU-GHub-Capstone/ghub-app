@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import { useState, useEffect } from 'react'
 import { Container, Stack, Typography } from '@mui/material'
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 
 import config from '../../config'
@@ -31,6 +31,8 @@ export const GameLevelPage = ({ title }: { title: string }) => {
 		setGameId(extractedGameId)
 		fetchGameLevels(extractedGameId)
 	}, [location.pathname])
+
+
 
 	const fetchGameLevels = async (inputGameId : string) => {
 		try {

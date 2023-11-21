@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import { useState, useEffect } from 'react'
 import { Box, Stack } from '@mui/material'
 import { DataGrid, GridColDef, GridEventListener, GridRowEditStopReasons, GridRowId, GridRowModel, GridRowModes, GridRowModesModel, GridRowParams } from '@mui/x-data-grid'
@@ -22,10 +23,19 @@ const rowHeight = 50
 const GameLevelList: React.FC<IGameLevelListProps> = ({ gameLevels, setGameLevels, setConfirmOpen, isDataChanged }) => {
 	const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({})
 	const [newRowIds, setNewRowIds] = useState<Set<GridRowId>>(new Set())
+	const [isInitialized, setInitialized] = useState(false)
 
 	useEffect(() => {
-		setNewRowIds(new Set())
-	}, [gameLevels])
+		console.log('Updated newRowIds:', newRowIds)
+	}, [newRowIds])
+	
+	useEffect(() => {
+		if (!isInitialized) {
+			setInitialized(true)
+			setNewRowIds(new Set())
+			console.log('Initialized')
+		}
+	}, [gameLevels, isInitialized])
 
 	const handleRowModesModelChange = (newRowModesModel: GridRowModesModel) => {
 		setRowModesModel(newRowModesModel)
@@ -38,6 +48,7 @@ const GameLevelList: React.FC<IGameLevelListProps> = ({ gameLevels, setGameLevel
 	}
 
 	const processRowUpdate = (newRow: GridRowModel<Level>) => {
+		console.log('processRowUpdate run')
 		const updatedRow = { ...newRow }
 		const updatedLevels = gameLevels.map((row) => (row.id === newRow.id ? updatedRow : row))
 		if (newRowIds.has(newRow.id)) {
