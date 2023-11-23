@@ -53,3 +53,25 @@ export const convertEntityNameToLabel = (entityName: string) => {
 
 	return entityLabel[entityName];
 };
+
+export const enum HttpStatusCode {
+	SUCCESS = 200,
+	CREATED = 201,
+	NO_CONTENT = 204,
+	BAD_REQUEST = 400,
+	UNAUTHORIZED = 401,
+	FORBIDDEN = 403,
+	NOT_FOUND = 404,
+	SERVER_ERROR = 500,
+}
+
+export const httpStatusMsg = {
+	[HttpStatusCode.SUCCESS]: 'The request succeeded.',
+	[HttpStatusCode.CREATED]: 'New resource is created.',
+	[HttpStatusCode.NO_CONTENT]: 'Deleted successfully.',
+	[HttpStatusCode.BAD_REQUEST]: 'Bad request.',
+	[HttpStatusCode.UNAUTHORIZED]: 'Unauthorized! Please log in.',
+	[HttpStatusCode.FORBIDDEN]: 'Forbidden! You do not have permission.',
+	[HttpStatusCode.NOT_FOUND]: 'Resource not found!',
+	[HttpStatusCode.SERVER_ERROR]: 'Internal server error!',
+};

@@ -75,10 +75,9 @@ export default function ClientForm({
 		const entity = event.target.name.split(':')
 		const entityName = entity[0] as EntityName
 		const actionIndex = entity[1]
-		const list = {...permissionList}
 
-		list[entityName][actionIndex] = event.target.checked
-		setPermissionList(list)
+		permissionList[entityName][actionIndex] = event.target.checked
+		setPermissionList({...permissionList})
 	}
 
 	const handleChangeClientId = () => {

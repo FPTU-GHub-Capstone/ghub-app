@@ -1,6 +1,8 @@
 import { GridColDef, GridRenderCellParams, GridRowId, GridRowParams, GridValueGetterParams } from '@mui/x-data-grid'
 import { Stack, Avatar, Typography, ListItemText, Box } from '@mui/material'
 
+import { Client } from '../../../../common'
+
 import ActionButtons from './GridAction'
 import GridAction from './GridAction'
 
@@ -27,7 +29,7 @@ export const columns: GridColDef[] = [
 		getActions: (params: GridRowParams) => {
 			const id = params.id as GridRowId
 			return [
-				<GridAction key={id} />,
+				<GridAction key={id} rowData={params.row} />,
 			]
 		},
 	},

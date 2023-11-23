@@ -58,5 +58,11 @@ export type Client = {
 	gameId: string,
 	clientId: string,
 	clientSecret: string,
-	scope: string[],
+	scope: string[] | string,
+	[x: string | number | symbol]: any,
+}
+
+export type FailureResponse = {
+	message: string,
+	responseException: Record<string, string>,
 }

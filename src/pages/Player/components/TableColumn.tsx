@@ -35,6 +35,11 @@ export const columns: GridColDef[] = [
 		flex: 2,
 	},
 	{
+		field: 'phone',
+		headerName: 'Phone',
+		flex: 2,
+	},
+	{
 		field: 'status',
 		headerName: 'Status',
 		flex: 1,

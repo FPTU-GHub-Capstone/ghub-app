@@ -38,7 +38,7 @@ export default function Player() {
 						}}
 						pageSizeOptions={[5, 10, 25]}
 						checkboxSelection
-						disableRowSelectionOnClick
+						// disableRowSelectionOnClick
 					/>
 				</Box>
 			</Container>
