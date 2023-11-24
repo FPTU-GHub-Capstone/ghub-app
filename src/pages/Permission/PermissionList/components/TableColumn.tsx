@@ -1,5 +1,5 @@
 import { GridColDef, GridRenderCellParams, GridRowId, GridRowParams } from '@mui/x-data-grid'
-import { Typography } from '@mui/material'
+import { Typography, Box } from '@mui/material'
 
 import GridAction from './GridAction'
 
@@ -14,9 +14,14 @@ export const columns: GridColDef[] = [
 		field: 'scope',
 		headerName: 'Scopes',
 		flex: 4,
-		renderCell: (params: GridRenderCellParams<any>) => (
-			<Typography>{params?.row.scope}</Typography>
-		),
+		renderCell: (params: GridRenderCellParams<any>) => {
+			const scopeArr = (params?.row.scope as string).split(' ')
+			return (
+				<Box height='100%' width='100%' overflow='auto' alignItems='center' justifyItems='center' style={{ whiteSpace: 'normal' }}>
+					{scopeArr.map((item, index) => <Typography key={index}>{item}</Typography>)}
+				</Box>
+			)
+		},
 	},
 	{
 		field: 'actions',

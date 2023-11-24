@@ -33,7 +33,7 @@ export default function PermissionList() {
 				pageSizeOptions={[5, 10, 25]}
 				// checkboxSelection
 				disableRowSelectionOnClick
-				// rowHeight={200}
+				rowHeight={200}
 			/>
 		</Box>
 	)
