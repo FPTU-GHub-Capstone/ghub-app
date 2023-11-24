@@ -1,6 +1,7 @@
 export default {
 	REST_TIMEOUT: 60000,
 	IDP_URL: import.meta.env.VITE_IDP_URL,
+	GMS_URL: import.meta.env.VITE_GMS_URL,
 
 	FIREBASE_API_KEY: import.meta.env.VITE_FIREBASE_API_KEY,
 	FIREBASE_APP_ID: import.meta.env.VITE_FIREBASE_APP_ID,

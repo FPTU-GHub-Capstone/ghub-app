@@ -7,7 +7,7 @@ export type User = {
 	email: string,
 	phone: string,
 	code: string,
-	status: boolean,
+	status: number,
 	balance: number,
 	role: string,
 }
@@ -47,3 +47,22 @@ export type AssetType = {
 	deletedAt: string | null,
 };
 
+export type HttpResponse = {
+	message: string,
+	isError: boolean,
+	result: Array<any> | any,
+}
+
+export type Client = {
+	name: string,
+	gameId: string,
+	clientId: string,
+	clientSecret: string,
+	scope: string[] | string,
+	[x: string | number | symbol]: any,
+}
+
+export type FailureResponse = {
+	message: string,
+	responseException: Record<string, string>,
+}

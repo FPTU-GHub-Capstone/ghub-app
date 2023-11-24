@@ -1,19 +1,28 @@
 import { Box } from '@mui/material'
-import { DataGrid, GridRowHeightParams } from '@mui/x-data-grid'
-import React from 'react'
+import { DataGrid } from '@mui/x-data-grid'
+import React, { useEffect } from 'react'
 
-import { permissionList } from '../../../mock/permissions'
+import { useAppDispatch, useAppSelector } from '../../../redux/hook'
+import { clientsFetch } from '../../../redux/slices/clientSlice'
 
 import { columns } from './components/TableColumn'
-import Scopes from './components/Scopes'
 
 
 export default function PermissionList() {
+	const dispatch = useAppDispatch()
+	const clientList = useAppSelector(({ client }) => client.clientList)
+	
+	useEffect(() => {
+		dispatch(clientsFetch())
+		// console.log(`@list:: ${clientList}`)
+	}, [dispatch])
+	
 	return (
 		<Box sx={{ minWidth: 800, height: 700, mt: 2 }}>
 			<DataGrid
-				rows={permissionList}
+				rows={clientList}
 				columns={columns}
+				getRowId={(row) => row._id}
 				initialState={{
 					pagination: {
 						paginationModel: {
@@ -24,7 +33,7 @@ export default function PermissionList() {
 				pageSizeOptions={[5, 10, 25]}
 				// checkboxSelection
 				disableRowSelectionOnClick
-				// rowHeight={200}
+				rowHeight={200}
 			/>
 		</Box>
 	)

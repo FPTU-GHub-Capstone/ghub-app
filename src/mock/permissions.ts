@@ -6,21 +6,21 @@ import { EntityName } from '../common';
 
 export type PermissionBody = {
 	id: string,
+	clientName: string,
 	clientId: string,
 	clientSecret: string,
 	scopes: string[],
 	gameId: string,
 }
 
-type Scopes = {
-	[key in keyof typeof EntityName]?: [boolean, boolean, boolean, boolean]
-}
+type Scopes = Record<EntityName, [boolean, boolean, boolean, boolean]>;
 
 export const permissionList = [...Array(24)].map((_) => {
 	const numOfScope = faker.number.int({ min: 3, max: 20 });
 
 	return ({
 		id: faker.string.uuid(),
+		clientName: faker.internet.userName(),
 		clientId: faker.string.uuid(),
 		clientSecret: faker.string.uuid(),
 		scopes: [...Array(numOfScope)].map(() => `${sample([

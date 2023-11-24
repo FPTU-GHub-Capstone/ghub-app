@@ -7,7 +7,6 @@ import config from '../../config'
 
 import LogTable from './LogTable'
 import { LogEntry } from './types'
-import { logData } from './data'
 
 
 const TerminalQuery = () => {

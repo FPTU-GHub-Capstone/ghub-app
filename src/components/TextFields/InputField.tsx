@@ -28,7 +28,7 @@ const InputField = <T extends FieldValues>({
 	startAdornment,
 	endAdornment,
 	inputProps,
-	width = 300,
+	// width = 300,
 	...others
 }: TextFieldProps<T>) => {
 	return (

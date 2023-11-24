@@ -8,6 +8,8 @@ import { fShortenNumber } from '../../../utils/formatNumber'
 import SvgColor from '../../../components/Svg-color'
 import Iconify from '../../../components/Iconify'
 import { Game } from '../types'
+import { useAppDispatch } from '../../../redux/hook'
+import { setCurrentGame } from '../../../redux/slices/gameSlice'
 
 import * as Styled from './styles'
 
@@ -23,6 +25,7 @@ export default function GameCard({ game, index }: Props) {
 	const isLatestGameLarge = index === 0
 	const isLatestGame = index === 1 || index === 2
 	const navigate = useNavigate()
+	const dispatch = useAppDispatch()
 	
 	const GAME_INFO = [
 		{ number: faker.number.int({ min: 0, max: 100000 }), icon: 'eva:message-circle-fill' },
@@ -32,7 +35,11 @@ export default function GameCard({ game, index }: Props) {
 
 	return (
 		<Grid item xs={12} sm={isLatestGameLarge ? 12 : 6} md={isLatestGameLarge ? 6 : 3}>
-			<Card sx={{ position: 'relative' }} onClick={() => {navigate(`/games/${id}/players`)}}
+			<Card sx={{ position: 'relative' }} onClick={() => {
+				dispatch(setCurrentGame(game))
+				localStorage.setItem('gameId', id)
+				navigate(`/games/${id}/players`)
+			}}
 			>
 				<Styled.CardMedia
 					sx={{
