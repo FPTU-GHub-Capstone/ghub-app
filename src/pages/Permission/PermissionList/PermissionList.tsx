@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
-import { DataGrid, GridRowHeightParams } from '@mui/x-data-grid'
-import React, { useEffect, useState } from 'react'
+import { DataGrid } from '@mui/x-data-grid'
+import React, { useEffect } from 'react'
 
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
 import { clientsFetch } from '../../../redux/slices/clientSlice'

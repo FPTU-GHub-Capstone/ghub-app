@@ -1,4 +1,4 @@
-import { DataGrid, GridColDef, GridRenderCellParams, GridRowId, GridRowParams, GridValueGetterParams } from '@mui/x-data-grid'
+import { GridColDef, GridRenderCellParams, GridRowId, GridRowParams, GridValueGetterParams } from '@mui/x-data-grid'
 import { sentenceCase } from 'change-case'
 import { Stack, Avatar, Typography } from '@mui/material'
 

@@ -1,15 +1,13 @@
-/* eslint-disable max-lines-per-function */
 import { Dialog, Slide } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import _ from 'lodash'
 
-import { Client, FailureResponse, HttpStatusCode } from '../../../common'
+import { Client, HttpStatusCode } from '../../../common'
 import { generateClientId, generateClientSecret } from '../../../utils/generator'
 import { convertToArrayScope, createClient } from '../../../services/ClientService'
 import { initScopes } from '../../../mock/permissions'
-import { useAppDispatch, useAppSelector } from '../../../redux/hook'
-import { getCurrentGame } from '../../../redux/slices/gameSlice'
+import { useAppDispatch } from '../../../redux/hook'
 import { clientsFetch } from '../../../redux/slices/clientSlice'
 import { showError } from '../../../utils/toast'
 
@@ -40,7 +38,7 @@ export default function CreateClient({ isOpenAssignDialog, handleCloseAssignDial
 			clientSecret: generateClientSecret(),
 		}
 	})
-	const { watch, register, handleSubmit, formState: { errors }, control, setValue } = form
+	const { register, handleSubmit, formState: { errors }, setValue } = form
 	const [permissionList, setPermissionList] = useState(_.cloneDeep(initScopes))
 	const dispatch = useAppDispatch()
 

@@ -1,12 +1,12 @@
 /* eslint-disable max-lines-per-function */
-import React, { useState, useEffect } from 'react'
-import { Box, Table, TableBody, TableCell, TableHead, TableRow, FormControlLabel, Checkbox, InputAdornment, IconButton, Grid, TableContainer, Button } from '@mui/material'
-import { FieldErrors, UseFormHandleSubmit, UseFormRegister, UseFormSetValue, useForm } from 'react-hook-form'
+import React from 'react'
+import { Box, Table, TableBody, TableCell, TableHead, TableRow, 
+	FormControlLabel, Checkbox, InputAdornment, IconButton, Grid, TableContainer } from '@mui/material'
+import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { LoopOutlined } from '@mui/icons-material'
 
 import InputField from '../../../../components/TextFields/InputField'
-import { initScopes } from '../../../../mock/permissions'
-import { ACCESS_TOKEN, Client, EntityName, RequestHeaders, convertEntityNameToLabel } from '../../../../common'
+import { Client, EntityName, convertEntityNameToLabel } from '../../../../common'
 import { generateClientId, generateClientSecret } from '../../../../utils/generator'
 
 

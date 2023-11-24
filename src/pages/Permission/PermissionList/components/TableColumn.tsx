@@ -1,9 +1,6 @@
-import { GridColDef, GridRenderCellParams, GridRowId, GridRowParams, GridValueGetterParams } from '@mui/x-data-grid'
-import { Stack, Avatar, Typography, ListItemText, Box } from '@mui/material'
+import { GridColDef, GridRenderCellParams, GridRowId, GridRowParams } from '@mui/x-data-grid'
+import { Typography } from '@mui/material'
 
-import { Client } from '../../../../common'
-
-import ActionButtons from './GridAction'
 import GridAction from './GridAction'
 
 

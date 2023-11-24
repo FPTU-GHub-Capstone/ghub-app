@@ -11,7 +11,7 @@ type Props = {
 	title: string,
 	children: JSX.Element,
 }
-export default function DashboardLayout({ children, title }: Props) {
+export default function DashboardLayout({ children }: Props) {
 	const [isOpen, setIsOpen] = useState(false)
 
 	return (

@@ -19,7 +19,6 @@ import {
 
 import { fToNow } from '../../../../utils/formatTime'
 import Iconify from '../../../../components/Iconify'
-import Scrollbar from '../../../../components/Scrollbar'
 
 import { NOTIFICATIONS } from './mock'
 

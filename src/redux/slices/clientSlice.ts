@@ -1,11 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { Client, HttpResponse, User } from '../../common';
+import { Client } from '../../common';
 import RestService from '../../services/RestService';
 import config from '../../config';
-import { useAppSelector } from '../hook';
-
-import { getCurrentGame } from './gameSlice';
 
 
 type ClientState = {

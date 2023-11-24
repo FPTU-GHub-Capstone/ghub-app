@@ -1,4 +1,4 @@
-import { Dialog, Drawer, Slide } from '@mui/material'
+import { Dialog, Slide } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import _ from 'lodash'
@@ -40,7 +40,7 @@ export default function UpdateClient({isOpenUpdate, handleCloseUpdate, data}: Pr
 			clientSecret: data.clientSecret,
 		}
 	})
-	const { watch, register, handleSubmit, formState: { errors }, control, setValue } = form
+	const { register, handleSubmit, formState: { errors }, setValue } = form
 	const list = convertArrayToRecordScope(scopes)
 	const [permissionList, setPermissionList] = useState(_.cloneDeep(list))
 	const dispatch = useAppDispatch()

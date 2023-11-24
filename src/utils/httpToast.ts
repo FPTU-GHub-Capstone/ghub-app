@@ -1,5 +1,4 @@
 import { toast, ToastOptions } from 'react-toastify';
-import { head } from 'lodash';
 
 import { httpStatusMsg } from '../common';
 

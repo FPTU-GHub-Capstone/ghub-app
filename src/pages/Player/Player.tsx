@@ -3,9 +3,8 @@ import {
 	Box,
 } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
-import USERLIST from '../../mock/user'
 import { useAppDispatch, useAppSelector } from '../../redux/hook'
 import { playersFetch } from '../../redux/slices/playerSlice'
 
