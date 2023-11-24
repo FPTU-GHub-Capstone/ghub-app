@@ -72,7 +72,7 @@ export default function UpdateClient({isOpenUpdate, handleCloseUpdate, data}: Pr
 			TransitionComponent={Transition}
 		>
 			<Header 
-				titleDialog='Create Client' 
+				titleDialog='Update Client' 
 				titleBtn='Save' 
 				handleCloseDialog={handleCloseUpdate} 
 				handleSubmit={handleSubmit} 
