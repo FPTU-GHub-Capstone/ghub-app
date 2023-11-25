@@ -5,7 +5,7 @@ import React from 'react'
 import { GridActionsCellItem, GridRowId, GridRowModes, GridRowModesModel } from '@mui/x-data-grid'
 import { Edit, Delete, Cancel, Save } from '@mui/icons-material'
 
-import { Level } from '../../../../common/types'
+import { Level } from '../../../common/types'
 
 
 interface IGridActionProps {

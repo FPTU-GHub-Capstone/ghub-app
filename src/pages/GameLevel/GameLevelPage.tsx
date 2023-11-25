@@ -7,9 +7,11 @@ import { useLocation } from 'react-router-dom'
 import config from '../../config'
 import RestService from '../../services/RestService'
 import { Level } from '../../common/types'
-import ConfirmDialog from '../../components/ConfirmDialog'
+import { useDialog } from '../../hooks/useDialog'
 
 import { GameLevelList } from './GameLevelList'
+import { LevelAddBtn } from './components/LevelAddBtn'
+import CreateLevelDialog from './CreateLevelDialog'
 
 
 type GameLevelResponse = {
@@ -22,15 +24,22 @@ export const GameLevelPage = ({ title }: { title: string }) => {
 	const [gameLevels, setGameLevels] = useState<Level[]>([])
 	const [originalGameLevels, setOriginalGameLevels] = useState<Level[]>([])
 	const [gameId, setGameId] = useState<string | null>(null)
-	const [isConfirmOpen, setConfirmOpen] = useState(false)
+	const [isLevelAddFormOpen, handleOpenLevelAddForm, handleCloseLevelAddForm] = useDialog()
+	const [isAdded, setAdded] = useState<boolean>(false)
 	const location = useLocation()
 
 	useEffect(() => {
 		const pathSegments = location.pathname.split('/')
 		const extractedGameId = pathSegments[pathSegments.indexOf('games') + 1]
 		setGameId(extractedGameId)
+		localStorage.setItem('gameId', extractedGameId) // Set the gameId in localStorage
 		fetchGameLevels(extractedGameId)
 	}, [location.pathname])
+
+	useEffect(() => {
+		console.log('isAdded is toggled')
+		fetchGameLevels(gameId)
+	}, [isAdded, gameId])
 
 
 
@@ -49,7 +58,7 @@ export const GameLevelPage = ({ title }: { title: string }) => {
 	}
 
 	const handleConfirm = async () => {
-		setConfirmOpen(false)
+		handleCloseLevelAddForm()
 		
 		for (const originalLevel of originalGameLevels) {
 			const gameLevelId = originalLevel.id
@@ -73,22 +82,12 @@ export const GameLevelPage = ({ title }: { title: string }) => {
 			}
 		}
 
-		const newLevels = gameLevels.filter((level) => !originalGameLevels.some((origLevel) => origLevel.id === level.id))
-		for (const newLevel of newLevels) {
-			try {
-				await RestService.post(`${config.GMS_URL}/levels`, newLevel)
-			} catch (error) {
-				console.error('Error adding new game Level:', error)
-			}
-		}
-
 		fetchGameLevels(gameId)
 	}
 
 	const handleChangeGameLevel = ( newGameLevel: Level[] ) => { 
 		setGameLevels(newGameLevel) 
 	}
-	const isDataChanged = (JSON.stringify(gameLevels) !== JSON.stringify(originalGameLevels)) ? true : false 
 
 	return (
 		<>
@@ -99,18 +98,21 @@ export const GameLevelPage = ({ title }: { title: string }) => {
 					</Typography>
 				</Stack>
 
+				<Stack mb={5} direction="row" alignItems="center" justifyContent="flex-end">
+					<LevelAddBtn handleOnClick={handleOpenLevelAddForm}/>
+				</Stack>
+
 				<GameLevelList 
 					gameLevels={gameLevels} setGameLevels={handleChangeGameLevel} 
-					setConfirmOpen={setConfirmOpen} isDataChanged={isDataChanged} 
 				/>
 
-				<ConfirmDialog
-					open={isConfirmOpen}
-					title="Confirm Save Data"
-					message="Are you sure you want to save current state of Game Levels ?"
-					onCancel={() => setConfirmOpen(false)}
-					onConfirm={handleConfirm}
-				/>
+				{isLevelAddFormOpen &&
+					<CreateLevelDialog
+						isOpenCreateLevelDialog={isLevelAddFormOpen}
+						handleCloseCreateLevelDialog={handleCloseLevelAddForm}
+						toggleAdded={() => setAdded(!isAdded)}
+					/>
+				}
 			</Container>
 		</>
 	)
