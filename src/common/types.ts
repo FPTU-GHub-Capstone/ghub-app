@@ -1,3 +1,6 @@
+import { description } from './../pages/Landing/Contact/styles';
+
+
 export type User = {
 	id: string,
 	username: string,
@@ -65,4 +68,12 @@ export type Client = {
 export type FailureResponse = {
 	message: string,
 	responseException: Record<string, string>,
+}
+
+export type CharacterType = {
+	id: string,
+	name: string,
+	description: string,
+	baseProperties: string,
+	[x: string | number | symbol]: any,
 }

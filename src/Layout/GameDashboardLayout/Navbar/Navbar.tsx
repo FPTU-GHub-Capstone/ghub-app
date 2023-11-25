@@ -14,7 +14,7 @@ export default function Navbar() {
 
 	return (
 		<>
-			<Box sx={{display: 'flex', flexDirection: 'column', width: 200, height: '100vh'}}>
+			<Box sx={{display: 'flex', flexDirection: 'column', width: 230, height: '100vh'}}>
 				<Box sx={{px: 2.5, pt: 5, pb: 2, textAlign: 'center'}}>
 					<Box
 						component='img'

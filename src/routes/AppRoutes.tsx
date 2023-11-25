@@ -18,6 +18,7 @@ import NotFound from '../pages/Error/NotFound'
 import ServerError from '../pages/Error/ServerError'
 import { AssetPage } from '../pages/AssetPage'
 import { AssetDetail } from '../pages/AssetDetail'
+import CharacterType from '../pages/CharacterType/CharacterType'
 
 
 type AppRoute = {
@@ -45,7 +46,8 @@ export const enum PageNames {
 	LOGGING = 'logging',
 	NOT_FOUND = 'notFound',
 	SERVER_ERROR = 'serverError',
-	ASSETS_DETAILS = 'assetDetails'
+	ASSETS_DETAILS = 'assetDetails',
+	CHARACTER_TYPE = 'characterType',
 }
 
 
@@ -121,6 +123,15 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 		isPrivate: true,
 		props: {
 			title: 'Logging',
+		},
+	},
+	[PageNames.CHARACTER_TYPE]: {
+		path: '/games/:gameId/character-types',
+		component: CharacterType,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Character Type',
 		},
 	},
 

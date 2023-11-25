@@ -18,7 +18,7 @@ export const NavbarItems: (gameId: string) => NavItem[] = (gameId) => [
 		icon: <EngineeringIcon />,
 	},
 	{
-		title: 'logging',
+		title: 'monitor',
 		path: `/games/${gameId}/logging`,
 		icon: <QueryStatsIcon />,
 	},
@@ -33,8 +33,8 @@ export const NavbarItems: (gameId: string) => NavItem[] = (gameId) => [
 		icon: <PersonIcon />,
 	},
 	{
-		title: 'characters',
-		path: `/games/${gameId}/characters`,
+		title: 'characters type',
+		path: `/games/${gameId}/character-types`,
 		icon: <ParaglidingIcon />,
 	},
 	{
