@@ -1,9 +1,9 @@
-import { Box, Fab, IconButton } from '@mui/material'
+import { Box, Fab, IconButton, Stack, TextField } from '@mui/material'
 import { Delete, Add } from '@mui/icons-material'
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form'
 
 import InputField from '../../../components/TextFields/InputField'
-import { Level } from '../../../common'
+import { Game, Level } from '../../../common'
 
 
 type Props<T extends FieldValues> = {
@@ -12,7 +12,11 @@ type Props<T extends FieldValues> = {
 	register: UseFormRegister<T>,
 	removeLevel: (index: number) => void,
 	addLevel: () => void,
+	currentLevelCap: number,
 };
+
+const getLocalGame = localStorage.getItem('currentGame')
+const localGame: Game | null = getLocalGame ? JSON.parse(getLocalGame) : null
 
 
 const LevelAddForm = <T extends FieldValues>({ 
@@ -21,25 +25,33 @@ const LevelAddForm = <T extends FieldValues>({
 	register,
 	removeLevel,
 	addLevel,
+	currentLevelCap
 }: Props<T>) => {
 	return (
 		<Box sx={{ margin: '10px' }}>
-			<InputField<T>
-				errors={errors}
-				register={register}
-				name={'levels[0].gameId'}
-				label={'Game Id for Levels'}
-				type="text"
-				disabled
-				sx={{ width: 700, marginRight: '15px' }}
-			/>
+			<Stack sx={{ marginY: '20px' }}>
+				<TextField
+					name={'Non-func game name'} value={localGame.name}
+					label={'Game Name'}
+					type="text" disabled
+					sx={{ width: 700, marginRight: '15px' }}
+				/>
+				<TextField
+					name={'Non-func game ID'} value={localGame.id}
+					label={'Game Id'}
+					type="text" disabled
+					sx={{ width: 700, marginRight: '15px', marginTop: '15px' }}
+				/>
+			</Stack>
+
+
 			{levels.map((level, index) => (
 				<Box key={level.id + index} sx={{ display: 'flex', alignItems: 'center' }}>
 					<InputField<T>
 						errors={errors}
 						register={register}
 						name={`levels[${index}].levelUpPoint`}
-						label={`No.${index + 1} - Level Up Points`}
+						label={`No.${index + 1 + currentLevelCap} - Level Up Points`}
 						type="number"
 						requiredMsg="Cannot be empty"
 						sx={{ width: 300, marginRight: '15px' }}
@@ -47,8 +59,8 @@ const LevelAddForm = <T extends FieldValues>({
 					<InputField<T>
 						errors={errors}
 						register={register}
-						name={`levels[${index}].name`}
-						label={`No.${index + 1} -  Description`}
+						name={`levels[${index}].description`}
+						label={`No.${index + 1 + currentLevelCap} -  Description`}
 						type="text"
 						sx={{ width: 300, marginRight: '15px' }}
 					/>

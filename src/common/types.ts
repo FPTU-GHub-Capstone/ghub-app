@@ -49,7 +49,8 @@ export type AssetType = {
 
 export type Level = {
 	id: string,
-	name: string,
+	description: string,
+	levelNo: number,
 	levelUpPoint: number,
 	gameId: string,
 	game: Game,

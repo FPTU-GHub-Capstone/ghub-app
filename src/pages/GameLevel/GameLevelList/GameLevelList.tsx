@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
-import { useState, useEffect } from 'react'
-import { Box } from '@mui/material'
-import { DataGrid, GridColDef, GridEventListener, GridRowEditStopReasons, GridRowId, GridRowModel, GridRowModes, GridRowModesModel, GridRowParams } from '@mui/x-data-grid'
+import { useState } from 'react'
+import { Box, Typography } from '@mui/material'
+import { DataGrid, GridColDef, GridEventListener, GridRenderCellParams, GridRowEditStopReasons, GridRowId, GridRowModel, GridRowModes, GridRowModesModel, GridRowParams } from '@mui/x-data-grid'
 import PropTypes from 'prop-types'
 
 import { Level } from '../../../common/types'
@@ -12,26 +12,13 @@ import GridAction from './GridAction'
 interface IGameLevelListProps {
 	gameLevels: Level[];
 	setGameLevels: (newGameLevel: Level[]) => void;
+	onRowUpdateCompleted: () => void;
 }
 
 const rowHeight = 50
 
-const GameLevelList: React.FC<IGameLevelListProps> = ({ gameLevels, setGameLevels }) => {
+const GameLevelList: React.FC<IGameLevelListProps> = ({ gameLevels, setGameLevels, onRowUpdateCompleted }) => {
 	const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({})
-	const [newRowIds, setNewRowIds] = useState<Set<GridRowId>>(new Set())
-	const [isInitialized, setInitialized] = useState(false)
-
-	useEffect(() => {
-		console.log('Updated newRowIds:', newRowIds)
-	}, [newRowIds])
-	
-	useEffect(() => {
-		if (!isInitialized) {
-			setInitialized(true)
-			setNewRowIds(new Set())
-			console.log('Initialized')
-		}
-	}, [gameLevels, isInitialized])
 
 	const handleRowModesModelChange = (newRowModesModel: GridRowModesModel) => {
 		setRowModesModel(newRowModesModel)
@@ -44,19 +31,24 @@ const GameLevelList: React.FC<IGameLevelListProps> = ({ gameLevels, setGameLevel
 	}
 
 	const processRowUpdate = (newRow: GridRowModel<Level>) => {
+		console.log('==================================')
 		console.log('processRowUpdate run')
 		const updatedRow = { ...newRow }
 		const updatedLevels = gameLevels.map((row) => (row.id === newRow.id ? updatedRow : row))
-		if (newRowIds.has(newRow.id)) {
-			setNewRowIds((prev) => new Set([...prev].filter((prevId) => prevId !== newRow.id)))
-		}
+		onRowUpdateCompleted()
 		setGameLevels(updatedLevels)
 		return updatedRow
 	}
 
 	const columns: GridColDef<Level, Level>[] = [
+		{ 
+			field: 'levelNo', headerName: 'Level', flex: 2, editable: false,
+			renderCell: (params: GridRenderCellParams<Level, Level>) => (
+				<Typography>Lv. {params ? params.row.levelNo : 'UNKNOWN'}</Typography>
+			)
+		},
 		{ field: 'levelUpPoint', headerName: 'Level Up Points', flex: 3, editable: true },
-		{ field: 'name', headerName: 'Description', flex: 7, editable: true },
+		{ field: 'description', headerName: 'Description', flex: 7, editable: true },
 		{
 			field: 'actions', headerName: 'Actions', flex: 2, sortable: false, filterable: false,
 			type: 'actions',
@@ -69,8 +61,7 @@ const GameLevelList: React.FC<IGameLevelListProps> = ({ gameLevels, setGameLevel
 						key="save" id={id} isInEditMode={isInEditMode}
 						gameLevels={gameLevels} setGameLevels={setGameLevels}
 						rowModesModel={rowModesModel} setRowModesModel={setRowModesModel}
-						newRowIds={newRowIds} setNewRowIds={setNewRowIds}
-					/>,
+					/>
 				]
 			},
 		},
@@ -100,6 +91,7 @@ const GameLevelList: React.FC<IGameLevelListProps> = ({ gameLevels, setGameLevel
 GameLevelList.propTypes = {
 	gameLevels: PropTypes.array.isRequired,
 	setGameLevels: PropTypes.func.isRequired,
+	onRowUpdateCompleted: PropTypes.func.isRequired,
 }
 
 export default GameLevelList

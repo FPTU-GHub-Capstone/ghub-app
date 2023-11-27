@@ -3,7 +3,7 @@
 
 import React from 'react'
 import { GridActionsCellItem, GridRowId, GridRowModes, GridRowModesModel } from '@mui/x-data-grid'
-import { Edit, Delete, Cancel, Save } from '@mui/icons-material'
+import { Edit, Cancel, Save } from '@mui/icons-material'
 
 import { Level } from '../../../common/types'
 
@@ -15,8 +15,6 @@ interface IGridActionProps {
 	setGameLevels: (newGameLevel: Level[]) => void;
 	rowModesModel: GridRowModesModel;
 	setRowModesModel: React.Dispatch<React.SetStateAction<GridRowModesModel>>;
-	newRowIds: Set<GridRowId>;
-	setNewRowIds: React.Dispatch<React.SetStateAction<Set<GridRowId>>>;
 }
 
 const GridAction: React.FC<IGridActionProps> = ({
@@ -26,8 +24,6 @@ const GridAction: React.FC<IGridActionProps> = ({
 	setGameLevels,
 	rowModesModel,
 	setRowModesModel,
-	newRowIds,
-	setNewRowIds,
 }) => {
 
 	const handleEditClick = () => {
@@ -38,9 +34,6 @@ const GridAction: React.FC<IGridActionProps> = ({
 		setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } })
 	}
 
-	const handleDeleteClick = () => {
-		setGameLevels(gameLevels.filter((row) => row.id !== id))
-	}
 
 	const handleCancelClick = () => {
 		setRowModesModel({
@@ -48,10 +41,7 @@ const GridAction: React.FC<IGridActionProps> = ({
 			[id]: { mode: GridRowModes.View, ignoreModifications: true },
 		})
 
-		if (newRowIds.has(id)) {
-			setGameLevels(gameLevels.filter((row) => row.id !== id))
-			setNewRowIds((prev) => new Set([...prev].filter((prevId) => prevId !== id)))
-		}
+
 	}
 
 
@@ -83,13 +73,6 @@ const GridAction: React.FC<IGridActionProps> = ({
 						label="Edit"
 						className="textPrimary"
 						onClick={handleEditClick}
-						color="inherit"
-					/>
-					<GridActionsCellItem
-						key="delete"
-						icon={<Delete />}
-						label="Delete"
-						onClick={handleDeleteClick}
 						color="inherit"
 					/>
 				</>

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import DialogHeader from '../../components/DialogHeader'
-import { Level } from '../../common'
+import { Game, Level } from '../../common'
 import RestService from '../../services/RestService'
 import config from '../../config'
 
@@ -13,7 +13,8 @@ import LevelAddForm from './components/LevelAddForm'
 type Props = {
 	isOpenCreateLevelDialog: boolean,
 	handleCloseCreateLevelDialog: () => void,
-	toggleAdded: () => void,
+	toggleChanged: () => void,
+	currentLevelCap: number,
 }
 
 function generateRandomId(): string {
@@ -23,11 +24,15 @@ function generateRandomId(): string {
 	return `${timestamp}-${randomStr}`
 }
 
+const getLocalGame = localStorage.getItem('currentGame')
+const localGame: Game | null = getLocalGame ? JSON.parse(getLocalGame) : null
+
 const defaultLevel: Level = {
 	id: generateRandomId(),
-	name: '',
+	levelNo: 0,
+	description: '',
 	levelUpPoint: 0,
-	gameId: localStorage.getItem('gameId') || '',
+	gameId: localGame.id,
 	game: null,
 }
 
@@ -35,7 +40,7 @@ export type CreateLevelInputType = {
 	levels: Level[],
 }
 
-export default function CreateLevelDialog({ isOpenCreateLevelDialog, handleCloseCreateLevelDialog, toggleAdded }: Props) {
+export default function CreateLevelDialog({ isOpenCreateLevelDialog, handleCloseCreateLevelDialog, toggleChanged, currentLevelCap }: Props) {
 	const [levels, setLevels] = useState<Level[]>([defaultLevel])
 	
 	const form = useForm<CreateLevelInputType>({
@@ -58,7 +63,7 @@ export default function CreateLevelDialog({ isOpenCreateLevelDialog, handleClose
 	const onSubmit = (data: CreateLevelInputType) => {
 		console.log({...data.levels})
 		handlePostData(data.levels)
-		toggleAdded()
+		toggleChanged()
 		handleCloseCreateLevelDialog()
 	}
 	
@@ -95,6 +100,7 @@ export default function CreateLevelDialog({ isOpenCreateLevelDialog, handleClose
 				<LevelAddForm<CreateLevelInputType>
 					levels={levels} addLevel={addLevel} removeLevel={removeLevel}
 					errors={errors} register={register}
+					currentLevelCap={currentLevelCap}
 				/>
 			</Box>
 		</Drawer>

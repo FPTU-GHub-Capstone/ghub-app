@@ -14,7 +14,7 @@ export function LevelAddBtn({ handleOnClick }: { handleOnClick: () => void }) {
 			}}
 			onClick={handleOnClick}
 		>
-			Add a Level Progress
+			Add a Level
 		</Button>
 	)
 }
