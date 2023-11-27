@@ -8,10 +8,9 @@ import DirectionsRunIcon from '@mui/icons-material/DirectionsRun'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 
 import { NavItem } from '../../../common'
-import SvgColor from '../../../components/Svg-color'
 
 
-const icon = (name: string) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />
+// const icon = (name: string) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />
 
 export const NavbarItems: (gameId: string) => NavItem[] = (gameId) => [
 	{
