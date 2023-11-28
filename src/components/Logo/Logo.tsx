@@ -13,6 +13,7 @@ const Logo = ({ disabledLink = false, sx, ...other }: Props) => {
 			component='img'
 			src='/assets/logo.svg'
 			sx={{ width: 40, height: 40, cursor: 'pointer', ...sx }}
+			{...other}
 		/>
 	)
 

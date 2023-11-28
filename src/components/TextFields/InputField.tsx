@@ -1,4 +1,4 @@
-import { TextField } from '@mui/material'
+import { SxProps, TextField, Theme } from '@mui/material'
 import { UseFormRegister, FieldErrors, Path, FieldValues, ValidationRule } from 'react-hook-form'
 
 
@@ -13,6 +13,7 @@ type TextFieldProps<T extends FieldValues> = {
 	endAdornment?: any,
 	inputProps?: Record<string, any>,
 	width?: number,
+	sx?: SxProps<Theme>,
 	pattern?: ValidationRule<RegExp>,
 	[x: string | number | symbol]: unknown,
 };
@@ -28,7 +29,7 @@ const InputField = <T extends FieldValues>({
 	startAdornment,
 	endAdornment,
 	inputProps,
-	width = 300,
+	sx,
 	...others
 }: TextFieldProps<T>) => {
 	return (
@@ -50,6 +51,7 @@ const InputField = <T extends FieldValues>({
 				endAdornment: endAdornment,
 			}}
 			inputProps={inputProps || { min: 0 }}
+			sx={sx}
 			{...others}
 		/>
 	)

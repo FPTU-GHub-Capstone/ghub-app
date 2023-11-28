@@ -1,11 +1,9 @@
 import * as React from 'react'
-import { Box, Typography, AppBar, Toolbar, IconButton, Tabs, Tab } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import Divider from '@mui/material/Divider'
 import { useParams } from 'react-router'
 
-import { Games as GamesComponent } from '../../../pages/Games'
 import NavSection from '../../../components/NavSession'
-import { sidebarItems } from '../../DashboardLayout/Sidebar/Items'
 
 import { NavbarItems } from './Items'
 

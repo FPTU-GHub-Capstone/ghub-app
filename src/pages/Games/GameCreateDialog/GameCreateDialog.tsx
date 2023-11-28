@@ -64,8 +64,9 @@ export default function CreateGameDialog({ isOpenCreateGameDialog, handleCloseCr
 		>
 			<Box component='form' onSubmit={handleSubmit(onSubmit)}>
 				<DialogHeader
-					titleDialog='Create Level' 
+					titleDialog='Create a Game' 
 					titleBtn='Save'
+					enableBtn={false}
 					handleCloseDialog={handleCloseCreateGameDialog}
 				/>
 				

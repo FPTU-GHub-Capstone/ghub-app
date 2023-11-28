@@ -1,8 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { sample } from 'lodash';
 
-import { User } from '../common';
-
 
 const users = [...Array(24)].map((_, index) => ({
 	id: faker.string.uuid(),
