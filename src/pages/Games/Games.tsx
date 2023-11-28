@@ -1,15 +1,17 @@
 import { Button, Container, Grid, Stack, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import config from '../../config'
 import Iconify from '../../components/Iconify'
 import RestService from '../../services/RestService'
+import { useDialog } from '../../hooks/useDialog'
+import SnackStatus from '../../components/SnackStatus'
 
 import GamesSearch from './GamesSearch'
 import GamesSort from './GamesSort'
 import GameCard from './GameCard'
 import { Game } from './types'
+import CreateGameDialog from './GameCreateDialog/GameCreateDialog'
 
 
 type Props = {
@@ -30,8 +32,9 @@ type GameResponse = {
 
 export const Games = ({ title }: Props) => {
 	const [games, setGames] = useState<Game[]>([])
-	const navigate = useNavigate()
-	
+	const [isOpenCreate, handleOpenCreate, handleCloseCreate] = useDialog()
+	const [isSuccessSnackOpen, handleOpenSuccessSnack, handleCloseSuccessSnack] = useDialog()
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -52,7 +55,7 @@ export const Games = ({ title }: Props) => {
 					{title}
 				</Typography>
 				<Button variant="contained" sx={{ backgroundColor: 'primary.dark'}} startIcon={<Iconify icon="eva:plus-fill" />}
-					onClick={() => {navigate('/games/create')}}
+					onClick={() =>  handleOpenCreate()}
 				>
 					New Game
 				</Button>
@@ -68,6 +71,23 @@ export const Games = ({ title }: Props) => {
 					<GameCard key={game.id} game={game} index={index} />
 				))}
 			</Grid>
+
+			{isOpenCreate &&
+				<CreateGameDialog
+					isOpenCreateGameDialog={isOpenCreate} handleCloseCreateGameDialog={() => handleCloseCreate()}
+					handleSuccess={() => {
+						handleCloseCreate()
+						handleOpenSuccessSnack()
+					}}
+				/> 
+			}
+
+			<SnackStatus
+				title="Game created successfully."
+				severity="success"
+				openSnack={isSuccessSnackOpen}
+				handleClose={handleCloseSuccessSnack}
+			/>
 		</Container>
 	)
 }

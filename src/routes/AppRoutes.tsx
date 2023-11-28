@@ -18,7 +18,6 @@ import NotFound from '../pages/Error/NotFound'
 import ServerError from '../pages/Error/ServerError'
 import { AssetPage } from '../pages/AssetPage'
 import { AssetDetail } from '../pages/AssetDetail'
-import { GameCreate } from '../pages/GameCreate'
 
 
 type AppRoute = {
@@ -49,7 +48,6 @@ export const enum PageNames {
 	NOT_FOUND = 'notFound',
 	SERVER_ERROR = 'serverError',
 	ASSETS_DETAILS = 'assetDetails',
-	GAMES_CREATE = 'createGame'
 }
 
 
@@ -71,15 +69,6 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 		isPrivate: true,
 		props: {
 			title: 'My Projects',
-		},
-	},
-	[PageNames.GAMES_CREATE]: {
-		path: '/games/create',
-		component: GameCreate,
-		layout: DashboardLayout,
-		isPrivate: true,
-		props: {
-			title: 'Create your Game',
 		},
 	},
 	[PageNames.USERS_GM]: {

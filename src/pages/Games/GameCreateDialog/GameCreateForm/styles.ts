@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 
-import palette from '../../../theme/palette';
+import palette from '../../../../theme/palette';
 
 
 let themeCreate = createTheme({
