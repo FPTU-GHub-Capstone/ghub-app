@@ -39,7 +39,7 @@ const PRIMARY = Object.freeze({
 });
 
 const SECONDARY = Object.freeze({
-	lighter: '#f4cc82',
+	lighter: '#f8e0b3',
 	light: '#ec9b0e',
 	main: '#dc7200', // Map to ORANGE 800
 	dark: '#d25a00', // Select a shade

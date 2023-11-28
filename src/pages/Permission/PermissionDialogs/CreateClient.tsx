@@ -12,7 +12,7 @@ import { clientsFetch } from '../../../redux/slices/clientSlice'
 import { showError } from '../../../utils/toast'
 
 import ClientForm from './components/ClientForm'
-import Header from './components/Header'
+import Header from './components/DialogHeader'
 
 
 type Props = {

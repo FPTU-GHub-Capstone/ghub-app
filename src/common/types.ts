@@ -71,7 +71,7 @@ export type FailureResponse = {
 }
 
 export type CharacterType = {
-	id: string,
+	id?: string,
 	name: string,
 	description: string,
 	baseProperties: string,

@@ -9,6 +9,7 @@ import {
 import { useDialog } from '../../hooks/useDialog'
 
 import CharacterTypeList from './CharacterTypeList/CharacterTypeList'
+import CreateCharacterType from './CharacterTypeDialogs/CreateCharacterType'
 
 
 export default function CharacterType({title}: {title: string}) {
@@ -40,6 +41,8 @@ export default function CharacterType({title}: {title: string}) {
 			</Stack>
 
 			<CharacterTypeList />
+
+			<CreateCharacterType isOpenCreate={isOpenCreate} handleCloseCreate={handleCloseCreate} />
 		</Container>
 	)
 }

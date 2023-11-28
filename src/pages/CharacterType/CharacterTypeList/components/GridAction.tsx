@@ -45,7 +45,7 @@ export default function GridAction({rowData}: {rowData: Client}) {
 			<ConfirmDialog 
 				open={isOpenDelete}
 				title="Delete Client"
-				message="Are you sure? Do yo really want to delete this client. This
+				message="Are you sure? Do yo really want to delete this character type. This
 				process can not be undone."
 				onCancel={handleCloseDelete}
 				onConfirm={handleDeleteClient}
