@@ -66,3 +66,11 @@ export type FailureResponse = {
 	message: string,
 	responseException: Record<string, string>,
 }
+
+export type PricingPlan = {
+	image?: string,
+	name: string,
+	description: string,
+	price: number,
+	numOfRequest: number,
+}
