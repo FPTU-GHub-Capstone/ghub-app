@@ -50,7 +50,7 @@ export const enum PageNames {
 	NOT_FOUND = 'notFound',
 	SERVER_ERROR = 'serverError',
 	ASSETS_DETAILS = 'assetDetails',
-	GAME_LEVELS = 'GAME_LEVELS'
+	GAME_LEVELS = 'gameLevels'
 }
 
 
