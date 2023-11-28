@@ -18,6 +18,7 @@ import NotFound from '../pages/Error/NotFound'
 import ServerError from '../pages/Error/ServerError'
 import { AssetPage } from '../pages/AssetPage'
 import { AssetDetail } from '../pages/AssetDetail'
+import PricingPlan from '../pages/PricingPlan/PricingPlan'
 import { GameLevelPage } from '../pages/GameLevel'
 
 
@@ -42,7 +43,7 @@ export const enum PageNames {
 	USERS_AD = 'users',
 	PERMISSION = 'permission',
 	ASSETS = 'assetListPage',
-	PAYMENT = 'paymentPlan',
+	PAYMENT = 'pricingPlan',
 	USERS_GM = 'userGM',
 	PLAYER = 'player',
 	LOGGING = 'logging',
@@ -134,6 +135,15 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 		isPrivate: true,
 		props: {
 			title: 'Game Levels',
+		},
+	},
+	[PageNames.PAYMENT]: {
+		path: '/pricingPlan',
+		component: PricingPlan,
+		layout: DashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Subscription Plan',
 		},
 	},
 
