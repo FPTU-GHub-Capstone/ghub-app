@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import { useState } from 'react'
 import { Box, Typography } from '@mui/material'
 import { DataGrid, GridColDef, GridEventListener, GridRenderCellParams, GridRowEditStopReasons, GridRowId, GridRowModel, GridRowModes, GridRowModesModel, GridRowParams } from '@mui/x-data-grid'
@@ -31,8 +30,6 @@ const GameLevelList: React.FC<IGameLevelListProps> = ({ gameLevels, setGameLevel
 	}
 
 	const processRowUpdate = (newRow: GridRowModel<Level>) => {
-		console.log('==================================')
-		console.log('processRowUpdate run')
 		const updatedRow = { ...newRow }
 		const updatedLevels = gameLevels.map((row) => (row.id === newRow.id ? updatedRow : row))
 		onRowUpdateCompleted()
@@ -59,7 +56,6 @@ const GameLevelList: React.FC<IGameLevelListProps> = ({ gameLevels, setGameLevel
 				return [
 					<GridAction
 						key="save" id={id} isInEditMode={isInEditMode}
-						gameLevels={gameLevels} setGameLevels={setGameLevels}
 						rowModesModel={rowModesModel} setRowModesModel={setRowModesModel}
 					/>
 				]

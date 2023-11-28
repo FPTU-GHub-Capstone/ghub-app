@@ -5,14 +5,11 @@ import React from 'react'
 import { GridActionsCellItem, GridRowId, GridRowModes, GridRowModesModel } from '@mui/x-data-grid'
 import { Edit, Cancel, Save } from '@mui/icons-material'
 
-import { Level } from '../../../common/types'
 
 
 interface IGridActionProps {
 	id: GridRowId;
 	isInEditMode: boolean;
-	gameLevels: Level[];
-	setGameLevels: (newGameLevel: Level[]) => void;
 	rowModesModel: GridRowModesModel;
 	setRowModesModel: React.Dispatch<React.SetStateAction<GridRowModesModel>>;
 }
@@ -20,8 +17,6 @@ interface IGridActionProps {
 const GridAction: React.FC<IGridActionProps> = ({
 	id,
 	isInEditMode,
-	gameLevels,
-	setGameLevels,
 	rowModesModel,
 	setRowModesModel,
 }) => {

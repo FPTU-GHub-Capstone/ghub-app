@@ -45,12 +45,8 @@ export const GameLevelPage = ({ title }: { title: string }) => {
 
 	useEffect(() => {
 		if (isChanged > 0) {
-			console.log('isChanged is toggled',isChanged)
 			fetchGameLevels(gameId)
-		} else {
-			console.log('isChanged is init, wont run fetchGameLevels')
 		}
-		isChanged > 0 ? fetchGameLevels(gameId) : ''
 	}, [isChanged, gameId])
 
 	const fetchGameLevels = async (inputGameId : string) => {
@@ -76,22 +72,16 @@ export const GameLevelPage = ({ title }: { title: string }) => {
 	}
 
 	const updateGameLevels = useCallback(async () => {
-		console.log('update levels run')
 		for (const originalLevel of originalGameLevels) {
 			const gameLevelId = originalLevel.id
 			const updatedGameLevel = gameLevels.find(level => level.id === gameLevelId)
 
 			if (updatedGameLevel) {
 				if (JSON.stringify(updatedGameLevel) !== JSON.stringify(originalLevel)) {
-					console.log('Changed at: ', updatedGameLevel)
-					console.log('original: ', originalLevel)
-					console.log('game Id to be changed: ',gameLevelId)
 					const payload = {
 						'description': updatedGameLevel.description,
 						'levelUpPoint': updatedGameLevel.levelUpPoint
-					}
-					console.log(payload)
-					
+					}					
 					try {
 						await RestService.put(`${config.GMS_URL}/levels/${gameLevelId}`, payload)
 					} catch (error) {
@@ -107,7 +97,6 @@ export const GameLevelPage = ({ title }: { title: string }) => {
 
 	useEffect(() => {
 		if (isUpdateRequired) {
-			console.log('PUT request triggered')
 			updateGameLevels()
 			setUpdateRequired(false)
 		}

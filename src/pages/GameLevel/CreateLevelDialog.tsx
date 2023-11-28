@@ -61,7 +61,6 @@ export default function CreateLevelDialog({ isOpenCreateLevelDialog, handleClose
 	}
 
 	const onSubmit = (data: CreateLevelInputType) => {
-		console.log({...data.levels})
 		handlePostData(data.levels)
 		toggleChanged()
 		handleCloseCreateLevelDialog()
