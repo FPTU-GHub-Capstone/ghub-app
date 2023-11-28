@@ -47,6 +47,15 @@ export type AssetType = {
 	deletedAt: string | null,
 };
 
+export type Level = {
+	id: string,
+	description: string,
+	levelNo: number,
+	levelUpPoint: number,
+	gameId: string,
+	game: Game,
+	[other: string | number]: unknown,
+};
 export type HttpResponse = {
 	message: string,
 	isError: boolean,

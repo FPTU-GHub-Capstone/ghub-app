@@ -5,6 +5,7 @@ import CategoryIcon from '@mui/icons-material/Category'
 import QueryStatsIcon from '@mui/icons-material/QueryStats'
 import EngineeringIcon from '@mui/icons-material/Engineering'
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun'
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 
 import { NavItem } from '../../../common'
 
@@ -46,5 +47,10 @@ export const NavbarItems: (gameId: string) => NavItem[] = (gameId) => [
 		title: 'activities',
 		path: `/games/${gameId}/activities`,
 		icon: <DirectionsRunIcon />,
+	},
+	{
+		title: 'Game Levels',
+		path: `/games/${gameId}/levels`,
+		icon: <ArrowUpwardIcon />,
 	},
 ]

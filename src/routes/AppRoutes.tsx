@@ -19,6 +19,7 @@ import ServerError from '../pages/Error/ServerError'
 import { AssetPage } from '../pages/AssetPage'
 import { AssetDetail } from '../pages/AssetDetail'
 import PricingPlan from '../pages/PricingPlan/PricingPlan'
+import { GameLevelPage } from '../pages/GameLevel'
 
 
 type AppRoute = {
@@ -28,6 +29,8 @@ type AppRoute = {
 	isPrivate: boolean,
 	props?: Record<string, unknown>,
 };
+
+
 
 
 export const enum PageNames {
@@ -46,7 +49,8 @@ export const enum PageNames {
 	LOGGING = 'logging',
 	NOT_FOUND = 'notFound',
 	SERVER_ERROR = 'serverError',
-	ASSETS_DETAILS = 'assetDetails'
+	ASSETS_DETAILS = 'assetDetails',
+	GAME_LEVELS = 'gameLevels'
 }
 
 
@@ -122,6 +126,15 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 		isPrivate: true,
 		props: {
 			title: 'Logging',
+		},
+	},
+	[PageNames.GAME_LEVELS]: {
+		path: '/games/:gameId/levels',
+		component: GameLevelPage,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Game Levels',
 		},
 	},
 	[PageNames.PAYMENT]: {
