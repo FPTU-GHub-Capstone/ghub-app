@@ -1,7 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { toast, ToastOptions } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 
 import config from '../config';
 import { ACCESS_TOKEN, HttpStatusCode, RequestHeaders, httpStatusMsg } from '../common';
