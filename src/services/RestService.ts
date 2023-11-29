@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { toast, ToastOptions } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 import config from '../config';
 import { ACCESS_TOKEN, HttpStatusCode, RequestHeaders, httpStatusMsg } from '../common';
@@ -20,6 +21,13 @@ const toastConfig: ToastOptions = {
 	closeOnClick: true,
 	draggable: true,
 	progress: undefined,
+};
+
+const CheckUnauthorized = (statusCode: number) => {
+	const navigate = useNavigate();
+	if(statusCode == HttpStatusCode.UNAUTHORIZED) {
+		navigate('/login');
+	}
 };
 
 class RestService {
@@ -49,6 +57,7 @@ class RestService {
 			},
 			(error) => {
 				const { status, data } = error.response;
+				CheckUnauthorized(status);
 				toast.error(
 					(data.message ?? data.responseException?.exceptionMessage) 
 						?? `An error occurred! Status code: ${status}`, 

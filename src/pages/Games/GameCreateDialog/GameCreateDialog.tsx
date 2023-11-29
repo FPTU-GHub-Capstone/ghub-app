@@ -57,7 +57,7 @@ export default function CreateGameDialog({ isOpenCreateGameDialog, handleCloseCr
 
 	return (
 		<Dialog
-			fullWidth={true} maxWidth={'lg'}
+			fullWidth={true} maxWidth={'sm'}
 			open={isOpenCreateGameDialog} onClose={handleCloseCreateGameDialog}
 		>
 			<Box component='form' onSubmit={handleSubmit(onSubmit)} sx={{height: '80vh'}}>
