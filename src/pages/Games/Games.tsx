@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 
 import Iconify from '../../components/Iconify'
 import RestService from '../../services/RestService'
+import config from '../../config'
 
 import GamesSearch from './GamesSearch'
 import GamesSort from './GamesSort'
@@ -33,7 +34,7 @@ export const Games = ({ title }: Props) => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await RestService.get<GameResponse>('http://localhost:8080/v1/gms/games')
+				const response = await RestService.get<GameResponse>(`${config.GMS_URL}/games`)
 				console.log(response.data.result)
 				setGames(response.data.result)
 			} catch (error) {

@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom'
 import RestService from '../../services/RestService'
 import { Asset , AssetType } from '../../common/types'
 import ConfirmDialog from '../../components/ConfirmDialog'
+import config from '../../config'
 
 import { AssetList } from './AssetList'
 
@@ -76,8 +77,8 @@ export const AssetPage = ({ title }: { title: string }) => {
 
 	const fetchAsset = async (inputGameId : string) => {
 		try {
-			const assetTypeResponse = await RestService.get<AssetTypeResponse>('http://localhost:8080/v1/gms/asset-types')
-			const assetResponse = await RestService.get<AssetResponse>('http://localhost:8080/v1/gms/assets')
+			const assetTypeResponse = await RestService.get<AssetTypeResponse>(`${config.GMS_URL}/asset-types`)
+			const assetResponse = await RestService.get<AssetResponse>(`${config.GMS_URL}/assets`)
 			
 			const assetResult = assetResponse.data.result
 			const assetTypeResult = assetTypeResponse.data.result
@@ -107,14 +108,14 @@ export const AssetPage = ({ title }: { title: string }) => {
 			if (updatedAsset) {
 				if ((JSON.stringify(updatedAsset) !== JSON.stringify(originalAsset))) {
 					try {
-						await RestService.put(`http://localhost:8080/v1/gms/assets/${assetId}`, updatedAsset)
+						await RestService.put(`${config.GMS_URL}/assets/${assetId}`, updatedAsset)
 					} catch (error) {
 						console.error(`Error updating asset with id ${assetId}:`, error)
 					}
 				}
 			} else {
 				try {
-					await RestService.delete(`http://localhost:8080/v1/gms/assets/${assetId}`)
+					await RestService.delete(`${config.GMS_URL}/assets/${assetId}`)
 				} catch (error) {
 					console.error(`Error deleting asset with id ${assetId}:`, error)
 				}
