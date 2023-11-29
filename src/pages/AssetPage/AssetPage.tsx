@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react'
 import { Button, Container, Stack, Typography } from '@mui/material'
 import { useLocation } from 'react-router-dom'
 
+import config from '../../config'
 import RestService from '../../services/RestService'
 import { Asset , AssetType } from '../../common/types'
 import ConfirmDialog from '../../components/ConfirmDialog'
-import config from '../../config'
 
 import { AssetList } from './AssetList'
 

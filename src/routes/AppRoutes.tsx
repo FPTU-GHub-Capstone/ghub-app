@@ -1,5 +1,5 @@
 import React, { ElementType } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { Dashboard as DashboardComponent } from '../pages/Dashboard'
 import { Login as LoginComponent } from '../pages/Login'
@@ -20,6 +20,7 @@ import { AssetPage } from '../pages/AssetPage'
 import { AssetDetail } from '../pages/AssetDetail'
 import PricingPlan from '../pages/PricingPlan/PricingPlan'
 import { GameLevelPage } from '../pages/GameLevel'
+import LoggingLayout from '../Layout/LoggingLayout'
 
 
 type AppRoute = {
@@ -29,9 +30,6 @@ type AppRoute = {
 	isPrivate: boolean,
 	props?: Record<string, unknown>,
 };
-
-
-
 
 export const enum PageNames {
 	LOGIN = 'login',
@@ -122,7 +120,7 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 	[PageNames.LOGGING]: {
 		path: '/games/:gameId/logging',
 		component: Logging,
-		layout: GuestLayout,
+		layout: LoggingLayout,
 		isPrivate: true,
 		props: {
 			title: 'Logging',
@@ -205,19 +203,33 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 }
 
 export const AppRoutes: React.FC = () => {
+
 	return (
 		<Routes>
 			{Object.entries(APPLICATION_ROUTES).map(([name, route]) => {
-				const Layout = route.layout ?? React.Fragment
-				const Component = route.component
+				let Layout = route.layout ?? React.Fragment
+				let Component = route.component
+				const isAuthenticated = localStorage.getItem('isAuthenticated') != 'true' && route.isPrivate
+
+				if(route.isPrivate) {
+					if(localStorage.getItem('isAuthenticated') != 'true') {
+						Layout = GuestLayout
+						Component = LoginComponent
+					}
+				}
 				return (
 					<Route
 						key={name}
 						path={route.path}
 						element={
-							<Layout>
-								<Component {...route.props} />
-							</Layout>
+							isAuthenticated ? (
+								<Navigate to={`/login?redirect=${name}`} />
+							) : (
+								<Layout>
+									<Component {...route.props} />
+								</Layout>
+							)
+							
 						}
 					/>
 				)

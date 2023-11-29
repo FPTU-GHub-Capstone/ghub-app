@@ -49,6 +49,7 @@ class RestService {
 			},
 			(error) => {
 				const { status, data } = error.response;
+				if(status == HttpStatusCode.UNAUTHORIZED) localStorage.setItem('isAuthenticated', 'false');
 				toast.error(
 					(data.message ?? data.responseException?.exceptionMessage) 
 						?? `An error occurred! Status code: ${status}`, 

@@ -15,10 +15,6 @@ type Props<T extends FieldValues> = {
 	currentLevelCap: number,
 };
 
-const getLocalGame = localStorage.getItem('currentGame')
-const localGame: Game | null = getLocalGame ? JSON.parse(getLocalGame) : null
-
-
 const LevelAddForm = <T extends FieldValues>({ 
 	levels,
 	errors,
@@ -27,6 +23,9 @@ const LevelAddForm = <T extends FieldValues>({
 	addLevel,
 	currentLevelCap
 }: Props<T>) => {
+	const getLocalGame = localStorage.getItem('currentGame')
+	const localGame: Game | null = getLocalGame ? JSON.parse(getLocalGame) : null
+
 	return (
 		<Box sx={{ margin: '10px' }}>
 			<Stack sx={{ marginY: '20px' }}>

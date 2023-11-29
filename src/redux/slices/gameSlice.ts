@@ -1,7 +1,9 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { Game } from '../../common';
 import { AppState } from '../store';
+import config from '../../config';
+import RestService from '../../services/RestService';
 
 
 type GamesState = {
@@ -13,6 +15,16 @@ const initialState: GamesState = {
 	currentGame: {} as Game,
 };
 
+export const gamesFetch = createAsyncThunk(
+	'game/gamesFetch',
+	async () => {
+		const { data } = await RestService.get(
+			`${config.GMS_URL}/games`
+		);
+		return data;
+	}
+);
+
 const gameSlice = createSlice({
 	name: 'game',
 	initialState,
@@ -23,6 +35,12 @@ const gameSlice = createSlice({
 		) => {
 			state.currentGame = actions.payload;
 		},
+	},
+	extraReducers: (builder) => {
+		builder
+			.addCase(gamesFetch.fulfilled, (state, action) => {
+				state.gameList = action.payload.result;
+			});
 	},
 });
 

@@ -7,9 +7,9 @@ import { fDate } from '../../../utils/formatTime'
 import { fShortenNumber } from '../../../utils/formatNumber'
 import SvgColor from '../../../components/Svg-color'
 import Iconify from '../../../components/Iconify'
-import { Game } from '../types'
 import { useAppDispatch } from '../../../redux/hook'
 import { setCurrentGame } from '../../../redux/slices/gameSlice'
+import { Game } from '../../../common'
 
 import * as Styled from './styles'
 
@@ -88,7 +88,7 @@ export default function GameCard({ game, index }: Props) {
 						}}
 					/>
 
-					<Styled.Cover alt={name} src={`/assets/images/covers/cover_${index + 1}.jpg` || link} />
+					<Styled.Cover alt={name} src={`/assets/images/covers/cover_${(index % 23) + 1 }.jpg` || link} />
 				</Styled.CardMedia>
 
 				<CardContent
