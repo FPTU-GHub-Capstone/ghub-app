@@ -7,9 +7,9 @@ import { fDate } from '../../../utils/formatTime'
 import { fShortenNumber } from '../../../utils/formatNumber'
 import SvgColor from '../../../components/Svg-color'
 import Iconify from '../../../components/Iconify'
-import { Game } from '../types'
 import { useAppDispatch } from '../../../redux/hook'
 import { setCurrentGame } from '../../../redux/slices/gameSlice'
+import { Game } from '../../../common'
 
 import * as Styled from './styles'
 

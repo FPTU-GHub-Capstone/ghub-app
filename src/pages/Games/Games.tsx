@@ -5,6 +5,8 @@ import config from '../../config'
 import Iconify from '../../components/Iconify'
 import RestService from '../../services/RestService'
 import { useDialog } from '../../hooks/useDialog'
+import { useAppDispatch, useAppSelector } from '../../redux/hook'
+import { gamesFetch } from '../../redux/slices/gameSlice'
 
 import GamesSearch from './GamesSearch'
 import GamesSort from './GamesSort'
@@ -30,24 +32,20 @@ type GameResponse = {
 }
 
 export const Games = ({ title }: Props) => {
-	const [games, setGames] = useState<Game[]>([])
+	// const [games, setGames] = useState<Game[]>([])
 	const [isOpenCreate, handleOpenCreate, handleCloseCreate] = useDialog()
 
+	const dispatch = useAppDispatch()
+
+	const games = useAppSelector(({ game }) => game.gameList)
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const response = await RestService.get<GameResponse>(`${config.GMS_URL}/games`)
-				console.log(response.data.result)
-				setGames(response.data.result)
-			} catch (error) {
-				console.error('Error fetching game data:', error)
-			}
-		}
-		fetchData()
-	}, [])
+		dispatch(gamesFetch())
+		// console.log(`@player:: ${players}`)
+	}, [dispatch])
 	
 	const handleSuccess = () => {
 		handleCloseCreate()
+		dispatch(gamesFetch())
 	}
 
 	return (

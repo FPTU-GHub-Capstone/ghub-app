@@ -2,7 +2,7 @@ import { styled } from '@mui/material/styles'
 import { Autocomplete, InputAdornment, Popper, TextField } from '@mui/material'
 
 import Iconify from '../../../components/Iconify'
-import { Game } from '../types'
+import { Game } from '../../../common'
 
 
 const StyledPopper = styled((props) => <Popper open placement="bottom-start" {...props} />)({
