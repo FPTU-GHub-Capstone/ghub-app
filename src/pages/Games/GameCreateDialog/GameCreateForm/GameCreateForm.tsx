@@ -7,6 +7,7 @@ import { DevTool } from '@hookform/devtools'
 
 import {Button as CreateButton} from '../../../../components/PublicFormButton'
 import InputField from '../../../../components/TextFields/InputField'
+import { NOT_EMPTY_REGEX, URL_REGEX } from '../../../../common'
 
 import { theme } from './styles'
 
@@ -37,18 +38,24 @@ export const GameCreateForm = <T extends FieldValues>({
 					register={register}
 					name='name'
 					label='Name'
+					requiredMsg='Name must not empty'
+					pattern={NOT_EMPTY_REGEX}
 				/>
 				<InputField<T>
 					errors={errors}
 					register={register}
 					name='link'
 					label='Image of your Game'
+					requiredMsg='URL is required or your URL is not valid'
+					pattern={URL_REGEX}
 				/>
 				<InputField<T>
 					errors={errors}
 					register={register}
 					name='logo'
 					label='Game Logo'
+					requiredMsg='URL is required or your URL is not valid'
+					pattern={URL_REGEX}
 				/>
 				<CreateButton text='Create'/>
 			</Box>
