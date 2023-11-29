@@ -1,5 +1,5 @@
 import React, { ElementType } from 'react'
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { Dashboard as DashboardComponent } from '../pages/Dashboard'
 import { Login as LoginComponent } from '../pages/Login'
@@ -20,6 +20,7 @@ import { AssetPage } from '../pages/AssetPage'
 import { AssetDetail } from '../pages/AssetDetail'
 import PricingPlan from '../pages/PricingPlan/PricingPlan'
 import { GameLevelPage } from '../pages/GameLevel'
+import LoggingLayout from '../Layout/LoggingLayout'
 
 
 type AppRoute = {
@@ -119,7 +120,7 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 	[PageNames.LOGGING]: {
 		path: '/games/:gameId/logging',
 		component: Logging,
-		layout: GuestLayout,
+		layout: LoggingLayout,
 		isPrivate: true,
 		props: {
 			title: 'Logging',
@@ -202,7 +203,6 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 }
 
 export const AppRoutes: React.FC = () => {
-	const navigate = useNavigate() 
 
 	return (
 		<Routes>
