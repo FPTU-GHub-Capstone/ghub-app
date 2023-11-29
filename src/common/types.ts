@@ -7,7 +7,7 @@ export type User = {
 	email: string,
 	phone: string,
 	code: string,
-	status: number,
+	status: boolean,
 	balance: number,
 	role: string,
 }
@@ -81,5 +81,5 @@ export type PricingPlan = {
 	name: string,
 	description: string,
 	price: number,
-	numOfRequest: number,
+	numOfRecords: number,
 }
