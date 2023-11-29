@@ -1,5 +1,5 @@
 import React, { ElementType } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom'
 
 import { Dashboard as DashboardComponent } from '../pages/Dashboard'
 import { Login as LoginComponent } from '../pages/Login'
@@ -29,11 +29,6 @@ type AppRoute = {
 	isPrivate: boolean,
 	props?: Record<string, unknown>,
 };
-
-
-
-
-
 
 export const enum PageNames {
 	LOGIN = 'login',
@@ -207,19 +202,34 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 }
 
 export const AppRoutes: React.FC = () => {
+	const navigate = useNavigate() 
+
 	return (
 		<Routes>
 			{Object.entries(APPLICATION_ROUTES).map(([name, route]) => {
-				const Layout = route.layout ?? React.Fragment
-				const Component = route.component
+				let Layout = route.layout ?? React.Fragment
+				let Component = route.component
+				const isAuthenticated = localStorage.getItem('isAuthenticated') != 'true' && route.isPrivate
+
+				if(route.isPrivate) {
+					if(localStorage.getItem('isAuthenticated') != 'true') {
+						Layout = GuestLayout
+						Component = LoginComponent
+					}
+				}
 				return (
 					<Route
 						key={name}
 						path={route.path}
 						element={
-							<Layout>
-								<Component {...route.props} />
-							</Layout>
+							isAuthenticated ? (
+								<Navigate to={`/login?redirect=${name}`} />
+							) : (
+								<Layout>
+									<Component {...route.props} />
+								</Layout>
+							)
+							
 						}
 					/>
 				)

@@ -23,13 +23,6 @@ const toastConfig: ToastOptions = {
 	progress: undefined,
 };
 
-const CheckUnauthorized = (statusCode: number) => {
-	const navigate = useNavigate();
-	if(statusCode == HttpStatusCode.UNAUTHORIZED) {
-		navigate('/login');
-	}
-};
-
 class RestService {
 	private readonly _axiosInstance: AxiosInstance;
 	private _requestAuthInterceptorId: number;
@@ -57,7 +50,7 @@ class RestService {
 			},
 			(error) => {
 				const { status, data } = error.response;
-				CheckUnauthorized(status);
+				if(status == HttpStatusCode.UNAUTHORIZED) localStorage.setItem('isAuthenticated', 'false');
 				toast.error(
 					(data.message ?? data.responseException?.exceptionMessage) 
 						?? `An error occurred! Status code: ${status}`, 

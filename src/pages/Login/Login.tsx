@@ -83,6 +83,7 @@ function handleSignIn(
 		try {
 			await wrapCallAuthorizeApi(callAuthorizeApi(signInFn, args))
 			navigate(APPLICATION_ROUTES[PageNames.DASHBOARD].path)
+			localStorage.setItem('isAuthenticated', 'true')
 		} catch (err) {
 			console.error(err)
 			navigate(APPLICATION_ROUTES[PageNames.LOGIN].path)
