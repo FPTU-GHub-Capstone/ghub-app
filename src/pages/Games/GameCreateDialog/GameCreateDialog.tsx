@@ -8,7 +8,6 @@ import { Game } from '../../../common'
 import RestService from '../../../services/RestService'
 import DialogHeader from '../../../components/DialogHeader'
 import { useDialog } from '../../../hooks/useDialog'
-import SnackStatus from '../../../components/SnackStatus'
 
 import { GameCreateForm } from './GameCreateForm'
 import { GameCreateInputType } from './GameCreateForm/types'
@@ -23,6 +22,7 @@ type Props = {
 
 
 export default function CreateGameDialog({ isOpenCreateGameDialog, handleCloseCreateGameDialog, handleSuccess }: Props) {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [isErrorSnackOpen, handleOpenErrorSnack, handleCloseErrorSnack] = useDialog()
 
 	const form = useForm<GameCreateInputType>({
@@ -50,19 +50,17 @@ export default function CreateGameDialog({ isOpenCreateGameDialog, handleCloseCr
 			console.error('Error posting Game with: ', error)
 			isError = true
 		}
-		if (isError) {
-			handleOpenErrorSnack()
-		} else {
+		if (!isError) {
 			handleSuccess()
 		}
 	}
 
 	return (
 		<Dialog
-			fullScreen
+			fullWidth={true} maxWidth={'lg'}
 			open={isOpenCreateGameDialog} onClose={handleCloseCreateGameDialog}
 		>
-			<Box component='form' onSubmit={handleSubmit(onSubmit)}>
+			<Box component='form' onSubmit={handleSubmit(onSubmit)} sx={{height: '80vh'}}>
 				<DialogHeader
 					titleDialog='Create a Game' 
 					titleBtn='Save'
@@ -76,13 +74,6 @@ export default function CreateGameDialog({ isOpenCreateGameDialog, handleCloseCr
 					control={control}
 				/>
 				<DevTool control={control} />
-
-				<SnackStatus
-					title="Error posting game. Please try again."
-					severity="error"
-					openSnack={isErrorSnackOpen}
-					handleClose={handleCloseErrorSnack}
-				/>
 			</Box>
 		</Dialog>
 	)

@@ -1,9 +1,10 @@
 import { Box, Drawer } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useParams } from 'react-router'
 
 import DialogHeader from '../../components/DialogHeader'
-import { Game, Level } from '../../common'
+import { Level } from '../../common'
 import RestService from '../../services/RestService'
 import config from '../../config'
 
@@ -24,15 +25,12 @@ function generateRandomId(): string {
 	return `${timestamp}-${randomStr}`
 }
 
-const getLocalGame = localStorage.getItem('currentGame')
-const localGame: Game | null = getLocalGame ? JSON.parse(getLocalGame) : null
-
 const defaultLevel: Level = {
 	id: generateRandomId(),
 	levelNo: 0,
 	description: '',
 	levelUpPoint: 0,
-	gameId: localGame.id,
+	gameId: '',
 	game: null,
 }
 
@@ -41,12 +39,13 @@ export type CreateLevelInputType = {
 }
 
 export default function CreateLevelDialog({ isOpenCreateLevelDialog, handleCloseCreateLevelDialog, toggleChanged, currentLevelCap }: Props) {
-	const [levels, setLevels] = useState<Level[]>([defaultLevel])
+	const { gameId } = useParams()
+	const [levels, setLevels] = useState<Level[]>([{...defaultLevel, gameId: gameId}])
 	
 	const form = useForm<CreateLevelInputType>({
 		mode: 'onChange',
 		defaultValues: {
-			levels: [defaultLevel]
+			levels: [{...defaultLevel, gameId: gameId}]
 		}
 	})
 	const { register, handleSubmit, formState, setValue, getValues } = form
@@ -67,7 +66,7 @@ export default function CreateLevelDialog({ isOpenCreateLevelDialog, handleClose
 	}
 	
 	const addLevel = () => {
-		const updatedLevels = [...getValues('levels'), {...defaultLevel}]
+		const updatedLevels = [...getValues('levels'), {...defaultLevel, gameId: gameId}]
 		setLevels(updatedLevels)
 		setValue('levels', updatedLevels)
 	}

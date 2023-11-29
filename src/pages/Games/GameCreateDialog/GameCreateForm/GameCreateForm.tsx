@@ -29,7 +29,7 @@ export const GameCreateForm = <T extends FieldValues>({
 				display: 'flex',
 				flexDirection: 'column',
 				width: '80%',
-				margin: '20px'
+				margin: '40px'
 			}}
 			>
 				<InputField<T>

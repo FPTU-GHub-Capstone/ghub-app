@@ -108,14 +108,14 @@ export const AssetPage = ({ title }: { title: string }) => {
 			if (updatedAsset) {
 				if ((JSON.stringify(updatedAsset) !== JSON.stringify(originalAsset))) {
 					try {
-						await RestService.put(`http://localhost:8080/v1/gms/assets/${assetId}`, updatedAsset)
+						await RestService.put(`${config.GMS_URL}/assets/${assetId}`, updatedAsset)
 					} catch (error) {
 						console.error(`Error updating asset with id ${assetId}:`, error)
 					}
 				}
 			} else {
 				try {
-					await RestService.delete(`http://localhost:8080/v1/gms/assets/${assetId}`)
+					await RestService.delete(`${config.GMS_URL}/assets/${assetId}`)
 				} catch (error) {
 					console.error(`Error deleting asset with id ${assetId}:`, error)
 				}

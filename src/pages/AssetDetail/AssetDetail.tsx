@@ -5,6 +5,7 @@ import { useLocation } from 'react-router'
 import RestService from '../../services/RestService'
 import { Asset, AssetType } from '../../common'
 import { Game } from '../Games/types'
+import config from '../../config'
 
 
 type AssetResponse = {
@@ -36,10 +37,10 @@ export const AssetDetail = () => {
 		const fetchData = async () => {
 			try {
 				const [,,gameId,,assetId] = location.pathname.split('/')
-				const assetResponse = await RestService.get<AssetResponse>(`http://localhost:8080/v1/gms/assets/${assetId}`)
-				const gameResponse = await RestService.get<GameResponse>(`http://localhost:8080/v1/gms/games/${gameId}`)
+				const assetResponse = await RestService.get<AssetResponse>(`${config.GMS_URL}/assets/${assetId}`)
+				const gameResponse = await RestService.get<GameResponse>(`${config.GMS_URL}/games/${gameId}`)
 				const assetTypeId = assetResponse.data.result.assetTypeId
-				const assetTypeResponse = await RestService.get<AssetTypeResponse>(`http://localhost:8080/v1/gms/asset-types/${assetTypeId}`)
+				const assetTypeResponse = await RestService.get<AssetTypeResponse>(`${config.GMS_URL}/asset-types/${assetTypeId}`)
 
 				setAsset(assetResponse.data.result)
 				setAssetType(assetTypeResponse.data.result)

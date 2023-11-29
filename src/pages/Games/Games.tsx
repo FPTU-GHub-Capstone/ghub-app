@@ -5,7 +5,6 @@ import config from '../../config'
 import Iconify from '../../components/Iconify'
 import RestService from '../../services/RestService'
 import { useDialog } from '../../hooks/useDialog'
-import SnackStatus from '../../components/SnackStatus'
 
 import GamesSearch from './GamesSearch'
 import GamesSort from './GamesSort'
@@ -33,7 +32,6 @@ type GameResponse = {
 export const Games = ({ title }: Props) => {
 	const [games, setGames] = useState<Game[]>([])
 	const [isOpenCreate, handleOpenCreate, handleCloseCreate] = useDialog()
-	const [isSuccessSnackOpen, handleOpenSuccessSnack, handleCloseSuccessSnack] = useDialog()
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -48,6 +46,10 @@ export const Games = ({ title }: Props) => {
 		fetchData()
 	}, [])
 	
+	const handleSuccess = () => {
+		handleCloseCreate()
+	}
+
 	return (
 		<Container>
 			<Stack direction="row" alignItems="center" justifyContent="space-between" mb={3}>
@@ -75,19 +77,9 @@ export const Games = ({ title }: Props) => {
 			{isOpenCreate &&
 				<CreateGameDialog
 					isOpenCreateGameDialog={isOpenCreate} handleCloseCreateGameDialog={() => handleCloseCreate()}
-					handleSuccess={() => {
-						handleCloseCreate()
-						handleOpenSuccessSnack()
-					}}
+					handleSuccess={handleSuccess}
 				/> 
 			}
-
-			<SnackStatus
-				title="Game created successfully."
-				severity="success"
-				openSnack={isSuccessSnackOpen}
-				handleClose={handleCloseSuccessSnack}
-			/>
 		</Container>
 	)
 }
