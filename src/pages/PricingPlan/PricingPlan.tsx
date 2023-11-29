@@ -54,7 +54,7 @@ const PlanCard = ({ plan }: PlanCardType) => {
 					<span style={{ fontSize: '15px', color: 'text.secondary' }}>/month</span>
 				</Typography>
 				<Typography variant="body2" color="text.secondary" marginBottom={3}>
-					{plan.numOfRequest} request a month
+					{plan.numOfRecords} DB records
 				</Typography>
 
 				{plan.price == 0 &&
