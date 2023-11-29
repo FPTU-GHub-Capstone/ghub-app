@@ -32,7 +32,7 @@ const defaultLevel: Level = {
 	levelNo: 0,
 	description: '',
 	levelUpPoint: 0,
-	gameId: localGame.id,
+	gameId: localGame?.id,
 	game: null,
 }
 
