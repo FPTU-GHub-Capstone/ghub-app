@@ -21,6 +21,7 @@ import { AssetDetail } from '../pages/AssetDetail'
 import PricingPlan from '../pages/PricingPlan/PricingPlan'
 import { GameLevelPage } from '../pages/GameLevel'
 import LoggingLayout from '../Layout/LoggingLayout'
+import { GameServerPage } from '../pages/GameServers'
 
 
 type AppRoute = {
@@ -40,6 +41,7 @@ export const enum PageNames {
 	GAMES = 'myProject',
 	USERS_AD = 'users',
 	PERMISSION = 'permission',
+	GAME_SERVER = 'gameServerPage',
 	ASSETS = 'assetListPage',
 	PAYMENT = 'pricingPlan',
 	USERS_GM = 'userGM',
@@ -97,6 +99,15 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 		isPrivate: true,
 		props: {
 			title: 'Permission',
+		},
+	},
+	[PageNames.GAME_SERVER]: {
+		path: '/games/:gameId/servers',
+		component: GameServerPage,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Game Servers',
 		},
 	},
 	[PageNames.ASSETS]: {

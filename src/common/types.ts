@@ -27,6 +27,17 @@ export type NavItem = {
 	info?: string,
 }
 
+export type GameServer = {
+	id: string,
+	name: string,
+	location: string,
+	artifactUrl: string,
+	gameId: string,
+	createdAt: string,
+	modifiedAt: string,
+	deletedAt: string | null,
+};
+
 export type Asset = {
 	name: string,
 	image: string,
