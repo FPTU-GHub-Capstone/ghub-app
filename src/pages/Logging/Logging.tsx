@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Box } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
 
 import pusherSvc from '../../services/PusherService'
 import config from '../../config'
 
 import LogTable from './LogTable'
 import { LogEntry } from './types'
-import { logData } from './data'
 
 
 const TerminalQuery = () => {
@@ -18,17 +16,8 @@ const TerminalQuery = () => {
 	)
 }
 
-const Chart = () => {
-	return (
-		<div style={{marginBottom: '30px', padding: '10px'}}>
-			<p>Calls data in chart</p>
-		</div>
-	)
-}
-
 export const Logging: React.FC = () => {
 	const [logs, setLogs] = useState<LogEntry[]>([])
-	const navigate = useNavigate()
 
 	useEffect(() => {
 		const mode: string = 'THUAN_DEV  '
@@ -63,11 +52,8 @@ export const Logging: React.FC = () => {
 	return (
 		<>
 			<Box sx={{padding: '15px'}}>
-				<button onClick={() => navigate(-1)}>Go back to previous page</button>
-
 				<TerminalQuery />
 				<Box sx={{padding: '15px', margin: '15px'}}>
-					<Chart />
 					<LogTable data={logs} />
 				</Box>
 			</Box>

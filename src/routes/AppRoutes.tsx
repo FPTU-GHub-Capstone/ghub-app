@@ -1,5 +1,6 @@
+/* eslint-disable max-lines */
 import React, { ElementType } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { Dashboard as DashboardComponent } from '../pages/Dashboard'
 import { Login as LoginComponent } from '../pages/Login'
@@ -20,6 +21,9 @@ import { AssetPage } from '../pages/AssetPage'
 import { AssetDetail } from '../pages/AssetDetail'
 import { ActivityListPage } from '../pages/ActivityList'
 import { ActivityDetail } from '../pages/ActivityDetail'
+import PricingPlan from '../pages/PricingPlan/PricingPlan'
+import { GameLevelPage } from '../pages/GameLevel'
+import LoggingLayout from '../Layout/LoggingLayout'
 
 
 type AppRoute = {
@@ -43,7 +47,7 @@ export const enum PageNames {
 	USERS_AD = 'users',
 	PERMISSION = 'permission',
 	ASSETS = 'assetListPage',
-	PAYMENT = 'paymentPlan',
+	PAYMENT = 'pricingPlan',
 	USERS_GM = 'userGM',
 	PLAYER = 'player',
 	LOGGING = 'logging',
@@ -51,7 +55,8 @@ export const enum PageNames {
 	SERVER_ERROR = 'serverError',
 	ASSETS_DETAILS = 'assetDetails',
 	ACTIVITY = 'activities',
-	ACTIVITY_DETAILS = 'ACTIVITY_DETAILS'
+	ACTIVITY_DETAILS = 'ACTIVITY_DETAILS',
+	GAME_LEVELS = 'gameLevels'
 }
 
 
@@ -141,10 +146,28 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 	[PageNames.LOGGING]: {
 		path: '/games/:gameId/logging',
 		component: Logging,
-		layout: GuestLayout,
+		layout: LoggingLayout,
 		isPrivate: true,
 		props: {
 			title: 'Logging',
+		},
+	},
+	[PageNames.GAME_LEVELS]: {
+		path: '/games/:gameId/levels',
+		component: GameLevelPage,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Game Levels',
+		},
+	},
+	[PageNames.PAYMENT]: {
+		path: '/pricingPlan',
+		component: PricingPlan,
+		layout: DashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Subscription Plan',
 		},
 	},
 
@@ -206,19 +229,33 @@ export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
 }
 
 export const AppRoutes: React.FC = () => {
+
 	return (
 		<Routes>
 			{Object.entries(APPLICATION_ROUTES).map(([name, route]) => {
-				const Layout = route.layout ?? React.Fragment
-				const Component = route.component
+				let Layout = route.layout ?? React.Fragment
+				let Component = route.component
+				const isAuthenticated = localStorage.getItem('isAuthenticated') != 'true' && route.isPrivate
+
+				if(route.isPrivate) {
+					if(localStorage.getItem('isAuthenticated') != 'true') {
+						Layout = GuestLayout
+						Component = LoginComponent
+					}
+				}
 				return (
 					<Route
 						key={name}
 						path={route.path}
 						element={
-							<Layout>
-								<Component {...route.props} />
-							</Layout>
+							isAuthenticated ? (
+								<Navigate to={`/login?redirect=${name}`} />
+							) : (
+								<Layout>
+									<Component {...route.props} />
+								</Layout>
+							)
+							
 						}
 					/>
 				)

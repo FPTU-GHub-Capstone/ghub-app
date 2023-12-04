@@ -1,8 +1,9 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
+import { toast, ToastOptions } from 'react-toastify';
 
 import config from '../config';
-import { ACCESS_TOKEN, RequestHeaders } from '../common';
+import { ACCESS_TOKEN, HttpStatusCode, RequestHeaders, httpStatusMsg } from '../common';
 
 
 export type AxiosInitOptions = {
@@ -10,7 +11,16 @@ export type AxiosInitOptions = {
 	options?: AxiosRequestConfig,
 };
 
-const CONTENT_TYPE_JSON = 'application/json'; 
+const CONTENT_TYPE_JSON = 'application/json';
+
+const toastConfig: ToastOptions = {
+	position: 'bottom-left',
+	autoClose: 2000,
+	hideProgressBar: false,
+	closeOnClick: true,
+	draggable: true,
+	progress: undefined,
+};
 
 class RestService {
 	private readonly _axiosInstance: AxiosInstance;
@@ -27,6 +37,27 @@ class RestService {
 			headers: this._prepareHeader(header),
 			...options,
 		});
+
+		axiosInstance.interceptors.response.use(
+			(response) => {
+				const { status } = response;
+				if(status != HttpStatusCode.SUCCESS) {
+					toast.success(httpStatusMsg[status], toastConfig);
+				}
+				
+				return response;
+			},
+			(error) => {
+				const { status, data } = error.response;
+				if(status == HttpStatusCode.UNAUTHORIZED) localStorage.setItem('isAuthenticated', 'false');
+				toast.error(
+					(data.message ?? data.responseException?.exceptionMessage) 
+						?? `An error occurred! Status code: ${status}`, 
+					toastConfig);
+
+				return Promise.reject(error);
+			}
+		);
 		return axiosInstance;
 	}
 
@@ -51,15 +82,15 @@ class RestService {
 
 	private async _getToken(): Promise<string> {
 		const accessToken = localStorage.getItem(ACCESS_TOKEN);
-		if (! accessToken) {
+		if (!accessToken) {
 			// if (! accessToken or token expired) implement call idp to get token
 		}
 		return accessToken;
 	}
-	
+
 	public useAuthInterceptor() {
 		this._requestAuthInterceptorId =
-      this._axiosInstance.interceptors.request.use(this._createAuthInterceptor.bind(this));
+			this._axiosInstance.interceptors.request.use(this._createAuthInterceptor.bind(this));
 	}
 
 	public ejectAuthInterceptor() {

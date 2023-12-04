@@ -32,7 +32,6 @@ export type Asset = {
 	image: string,
 	description: string,
 	assetTypeId: string,
-	assetType: AssetType,
 	id: string,
 	createdAt: string,
 	modifiedAt: string,
@@ -75,3 +74,39 @@ export type ActivityType = {
 	deletedAt: string | null,
 };
 
+export type Level = {
+	id: string,
+	description: string,
+	levelNo: number,
+	levelUpPoint: number,
+	gameId: string,
+	game: Game,
+	[other: string | number]: unknown,
+};
+export type HttpResponse = {
+	message: string,
+	isError: boolean,
+	result: Array<any> | any,
+}
+
+export type Client = {
+	name: string,
+	gameId: string,
+	clientId: string,
+	clientSecret: string,
+	scope: string[] | string,
+	[x: string | number | symbol]: any,
+}
+
+export type FailureResponse = {
+	message: string,
+	responseException: Record<string, string>,
+}
+
+export type PricingPlan = {
+	image?: string,
+	name: string,
+	description: string,
+	price: number,
+	numOfRecords: number,
+}

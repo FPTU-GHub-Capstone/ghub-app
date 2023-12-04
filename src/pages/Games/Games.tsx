@@ -1,13 +1,18 @@
 import { Button, Container, Grid, Stack, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 
+import config from '../../config'
 import Iconify from '../../components/Iconify'
 import RestService from '../../services/RestService'
+import { useDialog } from '../../hooks/useDialog'
+import { useAppDispatch, useAppSelector } from '../../redux/hook'
+import { gamesFetch } from '../../redux/slices/gameSlice'
 
 import GamesSearch from './GamesSearch'
 import GamesSort from './GamesSort'
 import GameCard from './GameCard'
 import { Game } from './types'
+import CreateGameDialog from './GameCreateDialog/GameCreateDialog'
 
 
 type Props = {
@@ -27,29 +32,31 @@ type GameResponse = {
 }
 
 export const Games = ({ title }: Props) => {
-	const [games, setGames] = useState<Game[]>([])
+	// const [games, setGames] = useState<Game[]>([])
+	const [isOpenCreate, handleOpenCreate, handleCloseCreate] = useDialog()
 
-	
+	const dispatch = useAppDispatch()
+
+	const games = useAppSelector(({ game }) => game.gameList)
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const response = await RestService.get<GameResponse>('http://localhost:8080/v1/gms/games')
-				console.log(response.data.result)
-				setGames(response.data.result)
-			} catch (error) {
-				console.error('Error fetching game data:', error)
-			}
-		}
-		fetchData()
-	}, [])
+		dispatch(gamesFetch())
+		// console.log(`@player:: ${players}`)
+	}, [dispatch])
 	
+	const handleSuccess = () => {
+		handleCloseCreate()
+		dispatch(gamesFetch())
+	}
+
 	return (
 		<Container>
 			<Stack direction="row" alignItems="center" justifyContent="space-between" mb={3}>
 				<Typography variant="h4" gutterBottom>
 					{title}
 				</Typography>
-				<Button variant="contained" sx={{ backgroundColor: 'primary.dark'}} startIcon={<Iconify icon="eva:plus-fill" />}>
+				<Button variant="contained" sx={{ backgroundColor: 'primary.dark'}} startIcon={<Iconify icon="eva:plus-fill" />}
+					onClick={() =>  handleOpenCreate()}
+				>
 					New Game
 				</Button>
 			</Stack>
@@ -64,6 +71,13 @@ export const Games = ({ title }: Props) => {
 					<GameCard key={game.id} game={game} index={index} />
 				))}
 			</Grid>
+
+			{isOpenCreate &&
+				<CreateGameDialog
+					isOpenCreateGameDialog={isOpenCreate} handleCloseCreateGameDialog={() => handleCloseCreate()}
+					handleSuccess={handleSuccess}
+				/> 
+			}
 		</Container>
 	)
 }
