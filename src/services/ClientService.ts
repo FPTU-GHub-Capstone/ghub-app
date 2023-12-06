@@ -33,7 +33,7 @@ export const createClient = async (requestBody: Client) => {
 			},
 		},
 	);
-	console.log(`@statusCode:CreateClientAPI:: ${response.status}`);
+	console.log(`@statusCode:CreateClientAPI:: ${response}`);
 	return response;
 };
 

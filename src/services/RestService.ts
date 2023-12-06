@@ -1,9 +1,11 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig , CreateAxiosDefaults } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import { toast, ToastOptions } from 'react-toastify';
+import { ToastOptions } from 'react-toastify';
 
-import config from '../config';
+import appConfig from '../config';
 import { ACCESS_TOKEN, HttpStatusCode, RequestHeaders, httpStatusMsg } from '../common';
+import { HttpToast, defaultHttpToastConfig } from '../utils/httpToast';
+
 
 
 export type AxiosInitOptions = {
@@ -33,29 +35,49 @@ class RestService {
 	private _initializeAxios(initOptions: AxiosInitOptions = {}): AxiosInstance {
 		const { header, options } = initOptions;
 		const axiosInstance = axios.create({
-			timeout: config.REST_TIMEOUT,
+			timeout: appConfig.REST_TIMEOUT,
 			headers: this._prepareHeader(header),
+			toast: {
+				...defaultHttpToastConfig,
+			},
 			...options,
 		});
 
 		axiosInstance.interceptors.response.use(
 			(response) => {
-				const { status } = response;
-				if(status != HttpStatusCode.SUCCESS) {
-					toast.success(httpStatusMsg[status], toastConfig);
-				}
+
+				const { config } = response;
+				const { toast } = config;
+				const isShow = toast?.success?.isShow;
+				const message = toast?.success?.message;
+				if (isShow)
+					HttpToast.success(
+						config?.toast?.id ?? '',
+						message ?? 'Successfully'
+					);
 				
 				return response;
 			},
 			(error) => {
-				const { status, data } = error.response;
-				if(status == HttpStatusCode.UNAUTHORIZED) localStorage.setItem('isAuthenticated', 'false');
-				toast.error(
-					(data.message ?? data.responseException?.exceptionMessage) 
-						?? `An error occurred! Status code: ${status}`, 
-					toastConfig);
+				const { status, config, data } = error.response;
+				if(status == HttpStatusCode.UNAUTHORIZED) localStorage.removeItem(ACCESS_TOKEN);
+				// toast.error(
+				// 	(data.message ?? data.responseException?.exceptionMessage) 
+				// 		?? `An error occurred! Status code: ${status}`, 
+				// 	toastConfig);
+
+				const { toast } = config;
+				const show = toast?.error?.show;
+				if (!show) return;
+
+				console.log(config);
+				console.log(data);
+			
+				const id = config?.toast?.id ?? '';
+				HttpToast.error(id, 400);
 
 				return Promise.reject(error);
+				
 			}
 		);
 		return axiosInstance;
