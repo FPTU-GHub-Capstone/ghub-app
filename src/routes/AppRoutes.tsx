@@ -51,8 +51,11 @@ export const enum PageNames {
 	GAME_LEVELS = 'gameLevels'
 }
 
+type ApplicationRoutes = {
+	[key in PageNames]?: AppRoute
+}
 
-export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
+export const APPLICATION_ROUTES: ApplicationRoutes  = {
 	// Private Route
 	[PageNames.DASHBOARD]: {
 		path: '/dashboard',

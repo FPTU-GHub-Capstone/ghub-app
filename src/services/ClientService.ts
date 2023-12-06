@@ -65,11 +65,11 @@ export const deleteClient = async (clientId: string) => {
 	return response;
 };
 
-export const convertToArrayScope = (list: Record<EntityName, [boolean, boolean, boolean, boolean]>) => {
+export const convertToArrayScope = (gameId: string, list: Record<EntityName, [boolean, boolean, boolean, boolean]>) => {
 	const scopes: string[] = [];
 	Object.entries(list).map(([entityName, actions]) => {
 		actions.map((action, index) => {
-			if(action) scopes.push(`${entityName}:${actionMapping[index]}`);
+			if(action) scopes.push(`${entityName}:${gameId}:${actionMapping[index]}`);
 		});
 	});
 
