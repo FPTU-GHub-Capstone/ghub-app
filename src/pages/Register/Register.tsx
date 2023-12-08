@@ -4,9 +4,8 @@ import { styled } from '@mui/material/styles'
 import Divider from '@mui/material/Divider'
 import { Link } from 'react-router-dom'
 
-import { Button as FacebookSignupBtn, Button as GoogleSignupBtn } from '../../components/LoginWithExternalSiteButton'
+import { Button as GoogleSignupBtn } from '../../components/LoginWithExternalSiteButton'
 
-import FacebookLogo from '/assets/icons/FacebookLogo.svg'
 import GoogleLogo from '/assets/icons/GoogleLogo.svg'
 
 import { RegisterForm } from './RegisterForm'
@@ -45,9 +44,6 @@ export const Register: React.FC = () => {
 				{DividerOr}
 
 				<Box component='div' sx={styles.externalSignUpBox}>
-					<FacebookSignupBtn text='Signup with Facebook'>
-						<img src={ FacebookLogo } alt="Facebook logo" />
-					</FacebookSignupBtn>
 					<GoogleSignupBtn text='Signup with Google'>
 						<img src={ GoogleLogo } alt="Google logo" />
 					</GoogleSignupBtn>

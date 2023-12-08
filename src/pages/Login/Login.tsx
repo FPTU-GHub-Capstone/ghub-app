@@ -6,13 +6,11 @@ import { Link, NavigateFunction, useNavigate } from 'react-router-dom'
 
 import config from '../../config'
 import {
-	Button as FacebookLoginBtn,
 	Button as GoogleLoginBtn,
 } from '../../components/LoginWithExternalSiteButton'
 import firebaseSvc from '../../services/FirebaseService'
 import restSvc from '../../services/RestService'
 
-import FacebookLogo from '/assets/icons/FacebookLogo.svg'
 import GoogleLogo from '/assets/icons/GoogleLogo.svg'
 
 import { APPLICATION_ROUTES, PageNames } from '../../routes'
@@ -105,11 +103,11 @@ export const Login: React.FC = () => {
 			<Container maxWidth="sm" component="section">
 				<Box sx={styles.headingBox}>
 					<Typography sx={styles.headingLogin} component="h1">
-            Welcome to GHub!
+						Welcome to GHub!
 					</Typography>
 					<Box>
 						<Typography my={2} sx={styles.descriptionLogin} component="p">
-              Please sign-in to your account and start the adventure
+							Please sign-in to your account and start the adventure
 						</Typography>
 					</Box>
 				</Box>
@@ -119,12 +117,6 @@ export const Login: React.FC = () => {
 				{DividerOr}
 
 				<Box component="div" sx={styles.externalLoginBox}>
-					<FacebookLoginBtn
-						text="Login with Facebook"
-						onClick={handleSignIn('facebook', navigate)}
-					>
-						<img src={FacebookLogo} alt="Facebook logo" />
-					</FacebookLoginBtn>
 					<GoogleLoginBtn
 						text="Login with Google"
 						onClick={handleSignIn('google', navigate)}
@@ -134,9 +126,9 @@ export const Login: React.FC = () => {
 				</Box>
 
 				<Typography component="div" sx={styles.newAccText}>
-          New on our platform?
+					New on our platform?
 					<Link style={styles.createAccLink} to="/register">
-            Create an account
+						Create an account
 					</Link>
 				</Typography>
 			</Container>

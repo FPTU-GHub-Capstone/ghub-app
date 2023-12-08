@@ -2,7 +2,7 @@ import { Box, Stack, TextField } from '@mui/material'
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form'
 
 import InputField from '../../../components/TextFields/InputField'
-import { Game } from '../../../common'
+import { Game, URL_REGEX } from '../../../common'
 
 
 type Props<T extends FieldValues> = {
@@ -35,30 +35,34 @@ const ServerAddForm = <T extends FieldValues>({ errors, register }: Props<T>) =>
 			<InputField<T>
 				errors={errors}
 				register={register}
-				name={'server.name'}
+				name={'name'}
 				label={'Name'}
 				type="text"
 				requiredMsg="Name cannot be empty"
-				sx={{ width: 300, marginRight: '15px' }}
-			/>
+				sx={{ width: 700, marginRight: '15px' }}
+			/> <br />
 			<InputField<T>
 				errors={errors}
 				register={register}
-				name={'server.location'}
+				name={'location'}
 				label={'Location'}
 				type="text"
 				requiredMsg="Location cannot be empty"
-				sx={{ width: 300, marginRight: '15px' }}
-			/>
+				sx={{ width: 700, marginRight: '15px' }}
+			/> <br />
 			<InputField<T>
 				errors={errors}
 				register={register}
-				name={'server.artifactUrl'}
+				name={'artifactUrl'}
 				label={'Artifact URL'}
 				type="text"
 				requiredMsg="Artifact URL cannot be empty"
-				sx={{ width: 300, marginRight: '15px' }}
-			/>
+				pattern={{
+					value: URL_REGEX,
+					message: 'This is not a valid URL - And / Or it should starts with HTTP / HTTPS',
+				}}
+				sx={{ width: 700, marginRight: '15px' }}
+			/> <br />
 		</Box>
 	)
 }

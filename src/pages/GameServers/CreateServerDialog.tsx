@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router'
 
 import DialogHeader from '../../components/DialogHeader'
-import { GameServer } from '../../common/types'
 import RestService from '../../services/RestService'
 import config from '../../config'
 
@@ -16,26 +15,11 @@ type Props = {
 	toggleChanged: () => void,
 };
 
-function generateRandomId(): string {
-	const timestamp = new Date().toString()
-	const randomStr = Math.random().toString()
-
-	return `${timestamp}-${randomStr}`
-}
-
-const defaultServer: GameServer = {
-	name: '',
-	location: '',
-	artifactUrl: '',
-	gameId: '',
-	id: generateRandomId(),
-	createdAt: '',
-	modifiedAt: '',
-	deletedAt: ''
-}
-
 export type CreateServerInputType = {
-	server: GameServer,
+	name: string,
+	location: string,
+	artifactUrl: string,
+	gameId: string,
 };
 
 export default function CreateServerDialog({
@@ -48,13 +32,16 @@ export default function CreateServerDialog({
 	const form = useForm<CreateServerInputType>({
 		mode: 'onChange',
 		defaultValues: {
-			server: { ...defaultServer, gameId: gameId },
+			name: '',
+			location: '',
+			artifactUrl: '',
+			gameId: gameId,
 		},
 	})
 	const { register, handleSubmit, formState } = form
 	const { errors } = formState
 
-	const handlePostData = async (data: GameServer) => {
+	const handlePostData = async (data: CreateServerInputType) => {
 		try {
 			await RestService.post(`${config.GMS_URL}/game-servers`, data)
 		} catch (error) {
@@ -63,7 +50,7 @@ export default function CreateServerDialog({
 	}
 
 	const onSubmit = (data: CreateServerInputType) => {
-		handlePostData(data.server)
+		handlePostData(data)
 		toggleChanged()
 		handleCloseCreateServerDialog()
 	}
