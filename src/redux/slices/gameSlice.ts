@@ -18,6 +18,7 @@ const initialState: GamesState = {
 export const gamesFetch = createAsyncThunk(
 	'game/gamesFetch',
 	async () => {
+		RestService.useAuthInterceptor();
 		const { data } = await RestService.get(
 			`${config.GMS_URL}/games`
 		);

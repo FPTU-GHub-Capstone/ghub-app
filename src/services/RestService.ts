@@ -59,25 +59,17 @@ class RestService {
 				return response;
 			},
 			(error) => {
-				const { status, config, data } = error.response;
+				const { status, config } = error.response;
 				if(status == HttpStatusCode.UNAUTHORIZED) localStorage.removeItem(ACCESS_TOKEN);
-				// toast.error(
-				// 	(data.message ?? data.responseException?.exceptionMessage) 
-				// 		?? `An error occurred! Status code: ${status}`, 
-				// 	toastConfig);
 
 				const { toast } = config;
-				const show = toast?.error?.show;
-				if (!show) return;
-
-				console.log(config);
-				console.log(data);
+				const isShow = toast?.error?.isShow;
+				if (!isShow) return;
 			
 				const id = config?.toast?.id ?? '';
-				HttpToast.error(id, 400);
+				HttpToast.error(id, status);
 
 				return Promise.reject(error);
-				
 			}
 		);
 		return axiosInstance;
