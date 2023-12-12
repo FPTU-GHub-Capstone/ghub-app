@@ -7,6 +7,7 @@ import { isArray } from 'lodash';
 import appConfig from '../config';
 import { ACCESS_TOKEN, HttpStatusCode, RequestHeaders } from '../common';
 import { HttpToast, defaultHttpToastConfig } from '../utils/httpToast';
+import { store } from '../redux/store';
 
 
 export type AxiosInitOptions = {
