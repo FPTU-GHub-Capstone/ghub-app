@@ -3,9 +3,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { ToastOptions } from 'react-toastify';
 
 import appConfig from '../config';
-import { ACCESS_TOKEN, HttpStatusCode, RequestHeaders, httpStatusMsg } from '../common';
+import { ACCESS_TOKEN, HttpStatusCode, RequestHeaders } from '../common';
 import { HttpToast, defaultHttpToastConfig } from '../utils/httpToast';
-import { store } from '../redux/store';
 
 
 export type AxiosInitOptions = {
@@ -80,9 +79,12 @@ export class RestService {
 	}
 
 	private _createHandleErrorResponseInterceptor() {
+		// eslint-disable-next-line react-hooks/rules-of-hooks
 		return (error: AxiosError) => {
 			const { status, config } = error.response;
-			// if(status == HttpStatusCode.UNAUTHORIZED) {};
+			if(status == HttpStatusCode.UNAUTHORIZED) {
+				window.location.href = '/login';
+			}
 			const { toast } = config;
 			const isShow = toast?.error?.isShow;
 			if (!isShow) return;

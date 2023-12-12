@@ -16,7 +16,7 @@ function App() {
 		const startup = async () => {
 			await getProfile()
 		}
-		if(localStorage.getItem(ACCESS_TOKEN)) startup()
+		if(localStorage.getItem(ACCESS_TOKEN) && window.location.pathname !== '/login') startup()
 	}, [])
 	return (
 		<>
