@@ -1,37 +1,34 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { User } from '../../common';
-import RestService from '../../services/RestService';
+import { RestService } from '../../services/RestService';
 import config from '../../config';
 
 
 type AuthState = {
 	isAuthenticated: boolean,
 	currentUser?: User,
-}
+};
 const initialState: AuthState = {
-	isAuthenticated: false
+	isAuthenticated: false,
 };
 
 export const clientsFetch = createAsyncThunk(
 	'client/clientsFetch',
 	async () => {
 		const currentGameId = localStorage.getItem('gameId');
-		const { data } = await RestService.get(
-			config.IDP_URL + `/games/${currentGameId}/clients`
+		const { data } = await RestService.getInstance().get(
+			config.IDP_URL + `/games/${currentGameId}/clients`,
 		);
 		return data;
-	}
+	},
 );
 
 const authSlice = createSlice({
 	name: 'auth',
 	initialState,
 	reducers: {
-		setCurrentUser: (
-			state: AuthState,
-			actions: PayloadAction<User>
-		) => {
+		setCurrentUser: (state: AuthState, actions: PayloadAction<User>) => {
 			state.currentUser = actions.payload;
 			state.isAuthenticated = true;
 		},

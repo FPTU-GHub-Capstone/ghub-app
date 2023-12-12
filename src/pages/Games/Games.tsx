@@ -1,9 +1,7 @@
 import { Button, Container, Grid, Stack, Typography } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
-import config from '../../config'
 import Iconify from '../../components/Iconify'
-import RestService from '../../services/RestService'
 import { useDialog } from '../../hooks/useDialog'
 import { useAppDispatch, useAppSelector } from '../../redux/hook'
 import { gamesFetch } from '../../redux/slices/gameSlice'

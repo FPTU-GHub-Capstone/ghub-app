@@ -24,12 +24,17 @@ const toastConfig: ToastOptions = {
 	progress: undefined,
 };
 
-class RestService {
+export class RestService {
 	private readonly _axiosInstance: AxiosInstance;
 	private _requestAuthInterceptorId: number;
 
 	constructor() {
 		this._axiosInstance = this._initializeAxios();
+		this.useAuthInterceptor();
+	}
+
+	public static getInstance() {
+		return new RestService();
 	}
 
 	private _initializeAxios(initOptions: AxiosInitOptions = {}): AxiosInstance {
@@ -166,4 +171,3 @@ class RestService {
 	}
 }
 
-export default new RestService();

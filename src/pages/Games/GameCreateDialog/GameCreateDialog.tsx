@@ -3,9 +3,7 @@ import { useForm } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
 
 
-import config from '../../../config'
 import { Game, HttpStatusCode } from '../../../common'
-import RestService from '../../../services/RestService'
 import DialogHeader from '../../../components/DialogHeader'
 import { useDialog } from '../../../hooks/useDialog'
 import { createGame } from '../../../services/GameService'
@@ -13,7 +11,6 @@ import { useAppDispatch } from '../../../redux/hook'
 import { exchangeToken } from '../../../services/AuthService'
 import { gamesFetch } from '../../../redux/slices/gameSlice'
 
-import { GameCreateInputType } from './GameCreateForm/types'
 import { GameCreateForm } from './GameCreateForm'
 
 

@@ -10,7 +10,7 @@ import {
 	Button as GoogleLoginBtn,
 } from '../../components/LoginWithExternalSiteButton'
 import firebaseSvc from '../../services/FirebaseService'
-import restSvc from '../../services/RestService'
+import { RestService } from '../../services/RestService'
 
 import FacebookLogo from '/assets/icons/FacebookLogo.svg'
 import GoogleLogo from '/assets/icons/GoogleLogo.svg'
@@ -52,27 +52,22 @@ function getSignInContext(strategy: SupportLoginStrategies): SignInFn {
 	}
 }
 
-async function wrapCallAuthorizeApi(callback: Fn) {
+async function callAuthorizeApi(signInFn: SignInFn, args: unknown[]) {
+	const restSvc = RestService.getInstance()
 	restSvc.ejectAuthInterceptor()
-	await callback()
-	restSvc.useAuthInterceptor()
-}
-
-function callAuthorizeApi(signInFn: SignInFn, args: unknown[]) {
-	return async () => {
-		const token = await signInFn.apply(firebaseSvc, args)
-		const result = await restSvc.post<LoginResponse>(
-			config.IDP_URL + '/authorize',
-			undefined,
-			{
-				headers: {
-					[RequestHeaders.AUTHORIZATION]: `Bearer ${token}`
-				},
+	const token = await signInFn.apply(firebaseSvc, args)
+	const result = await restSvc.post<LoginResponse>(
+		config.IDP_URL + '/authorize',
+		undefined,
+		{
+			headers: {
+				[RequestHeaders.AUTHORIZATION]: `Bearer ${token}`
 			},
-		)
-		localStorage.setItem(ACCESS_TOKEN, result.data.access_token)
-		await getProfile()
-	}
+		},
+	)
+	localStorage.setItem(ACCESS_TOKEN, result.data.access_token)
+	restSvc.useAuthInterceptor()
+	await getProfile()
 }
 
 function handleSignIn(
@@ -83,7 +78,7 @@ function handleSignIn(
 	return async () => {
 		const signInFn = getSignInContext(strategy)
 		try {
-			await wrapCallAuthorizeApi(callAuthorizeApi(signInFn, args))
+			await callAuthorizeApi(signInFn, args)
 			navigate(APPLICATION_ROUTES[PageNames.GAMES].path)
 		} catch (err) {
 			console.error(err)
