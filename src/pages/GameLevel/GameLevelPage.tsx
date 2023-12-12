@@ -51,6 +51,7 @@ export const GameLevelPage = ({ title }: { title: string }) => {
 		}
 	}, [isChanged, gameId])
 
+	const restSvc = RestService.getInstance()
 	const fetchGameLevels = async (inputGameId : string) => {
 		try {
 			const gameLevelResponse = await restSvc.get<GameLevelResponse>(`${config.GMS_URL}/games/${inputGameId}/levels`)

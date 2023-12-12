@@ -97,7 +97,7 @@ export const AssetPage = ({ title }: { title: string }) => {
 			const filteredAssets = assetResult.filter((asset) => {
 				return (
 					asset.assetTypeId &&
-					assetTypeResult.some((assetType) => assetType.gameId === inputGameId && assetType.id === asset.assetTypeId)
+          assetTypeResult.some((assetType) => assetType.gameId === inputGameId && assetType.id === asset.assetTypeId)
 				)
 			})
 
