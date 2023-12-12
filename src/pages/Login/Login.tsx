@@ -17,6 +17,7 @@ import GoogleLogo from '/assets/icons/GoogleLogo.svg'
 
 import { APPLICATION_ROUTES, PageNames } from '../../routes'
 import { ACCESS_TOKEN, RequestHeaders } from '../../common'
+import { getProfile } from '../../services/AuthService'
 
 import { LoginForm } from './LoginForm'
 import * as styles from './styles'
@@ -70,6 +71,7 @@ function callAuthorizeApi(signInFn: SignInFn, args: unknown[]) {
 			},
 		)
 		localStorage.setItem(ACCESS_TOKEN, result.data.access_token)
+		await getProfile()
 	}
 }
 

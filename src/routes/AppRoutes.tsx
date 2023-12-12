@@ -222,12 +222,13 @@ export const AppRoutes: React.FC = () => {
 				// 	Layout = route.layout ?? React.Fragment
 				// 	Component = route.component
 				// }
+
 				return (
 					<Route
 						key={name}
 						path={route.path}
 						element={
-							(!isAuthenticated && route.isPrivate) ? (
+							(!localStorage.getItem(ACCESS_TOKEN) && route.isPrivate) ? (
 								<Navigate to={`${APPLICATION_ROUTES[PageNames.LOGIN].path}?redirect=${name}`} />
 							) : (
 								<Layout>

@@ -11,7 +11,6 @@ import { gamesFetch } from '../../redux/slices/gameSlice'
 import GamesSearch from './GamesSearch'
 import GamesSort from './GamesSort'
 import GameCard from './GameCard'
-import { Game } from './types'
 import CreateGameDialog from './GameCreateDialog/GameCreateDialog'
 
 
@@ -24,12 +23,6 @@ const SORT_OPTIONS = [
 	{ value: 'popular', label: 'Popular' },
 	{ value: 'oldest', label: 'Oldest' },
 ]
-
-type GameResponse = {
-	isError: boolean,
-	message: string,
-	result: Game[],
-}
 
 export const Games = ({ title }: Props) => {
 	// const [games, setGames] = useState<Game[]>([])

@@ -5,7 +5,7 @@ import { ToastOptions } from 'react-toastify';
 import appConfig from '../config';
 import { ACCESS_TOKEN, HttpStatusCode, RequestHeaders, httpStatusMsg } from '../common';
 import { HttpToast, defaultHttpToastConfig } from '../utils/httpToast';
-
+import { store } from '../redux/store';
 
 
 export type AxiosInitOptions = {
@@ -60,7 +60,7 @@ class RestService {
 			},
 			(error) => {
 				const { status, config } = error.response;
-				if(status == HttpStatusCode.UNAUTHORIZED) localStorage.removeItem(ACCESS_TOKEN);
+				// if(status == HttpStatusCode.UNAUTHORIZED) {};
 
 				const { toast } = config;
 				const isShow = toast?.error?.isShow;

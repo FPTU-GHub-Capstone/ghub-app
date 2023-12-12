@@ -1,4 +1,4 @@
-export type User = {
+export type Player = {
 	id: string,
 	username: string,
 	firstName: string,
@@ -15,8 +15,9 @@ export type User = {
 export type Game = {
 	id: string,
 	name: string,
-	logo: string,
-	link: string,
+	logo?: string,
+	link?: string,
+	banner?: string,
 	[other: string | number]: unknown,
 };
 
@@ -82,4 +83,22 @@ export type PricingPlan = {
 	description: string,
 	price: number,
 	numOfRecords: number,
+}
+
+export type User = {
+	_id: string,
+	email: string,
+	picture: string,
+	uid: string,
+	scope: string,
+	name?: string,
+	username?: string,
+	[x: string | number | symbol]: any,
+}
+
+export type ExchangeToken = {
+	access_token: string,
+	token_type: string,
+	expires_in: number,
+	scope: string,
 }
