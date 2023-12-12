@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig , CreateAxiosDefaults } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig , CreateAxiosDefaults, AxiosError } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { ToastOptions } from 'react-toastify';
 
@@ -47,35 +47,9 @@ export class RestService {
 			},
 			...options,
 		});
-
 		axiosInstance.interceptors.response.use(
-			(response) => {
-
-				const { config } = response;
-				const { toast } = config;
-				const isShow = toast?.success?.isShow;
-				const message = toast?.success?.message;
-				if (isShow)
-					HttpToast.success(
-						config?.toast?.id ?? '',
-						message ?? 'Successfully'
-					);
-				
-				return response;
-			},
-			(error) => {
-				const { status, config } = error.response;
-				// if(status == HttpStatusCode.UNAUTHORIZED) {};
-
-				const { toast } = config;
-				const isShow = toast?.error?.isShow;
-				if (!isShow) return;
-			
-				const id = config?.toast?.id ?? '';
-				HttpToast.error(id, status);
-
-				return Promise.reject(error);
-			}
+			this._createResponseInterceptor(),
+			this._createHandleErrorResponseInterceptor()
 		);
 		return axiosInstance;
 	}
@@ -87,6 +61,37 @@ export class RestService {
 			[RequestHeaders.CONTENT_TYPE]: CONTENT_TYPE_JSON,
 		};
 		return { ...headers, ...additionalHeaders };
+	}
+
+	private _createResponseInterceptor() {
+		return (response: AxiosResponse) => {
+			const { config } = response;
+			const { toast } = config;
+			const isShow = toast?.success?.isShow;
+			const message = toast?.success?.message;
+			if (isShow)
+				HttpToast.success(
+					config?.toast?.id ?? '',
+					message ?? 'Successfully'
+				);
+				
+			return response;
+		};
+	}
+
+	private _createHandleErrorResponseInterceptor() {
+		return (error: AxiosError) => {
+			const { status, config } = error.response;
+			// if(status == HttpStatusCode.UNAUTHORIZED) {};
+			const { toast } = config;
+			const isShow = toast?.error?.isShow;
+			if (!isShow) return;
+		
+			const id = config?.toast?.id ?? '';
+			HttpToast.error(id, status);
+
+			return Promise.reject(error);
+		};
 	}
 
 	private async _createAuthInterceptor(
