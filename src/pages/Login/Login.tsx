@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import React from 'react'
 import { Box, Container, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
