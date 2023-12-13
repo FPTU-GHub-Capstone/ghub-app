@@ -21,7 +21,7 @@ type Props = {
 
 // eslint-disable-next-line max-lines-per-function
 export default function GameCard({ game, index }: Props) {
-	const { id, link, name, logo, createdAt } = game
+	const { id, link, banner, name, logo, createdAt } = game
 	const isLatestGameLarge = index === 0
 	const isLatestGame = index === 1 || index === 2
 	const navigate = useNavigate()
@@ -88,7 +88,7 @@ export default function GameCard({ game, index }: Props) {
 						}}
 					/>
 
-					<Styled.Cover alt={name} src={`/assets/images/covers/cover_${(index % 23) + 1 }.jpg` || link} />
+					<Styled.Cover alt={name} src={banner || `/assets/images/covers/cover_${(index % 23) + 1 }.jpg`} />
 				</Styled.CardMedia>
 
 				<CardContent

@@ -21,6 +21,7 @@ import { AssetDetail } from '../pages/AssetDetail'
 import PricingPlan from '../pages/PricingPlan/PricingPlan'
 import { GameLevelPage } from '../pages/GameLevel'
 import LoggingLayout from '../Layout/LoggingLayout'
+import { ACCESS_TOKEN } from '../common'
 import { GameServerPage } from '../pages/GameServers'
 
 
@@ -53,8 +54,11 @@ export const enum PageNames {
 	GAME_LEVELS = 'gameLevels'
 }
 
+type ApplicationRoutes = {
+	[key in PageNames]?: AppRoute
+}
 
-export const APPLICATION_ROUTES: Record<string, AppRoute>  = {
+export const APPLICATION_ROUTES: ApplicationRoutes  = {
 	// Private Route
 	[PageNames.DASHBOARD]: {
 		path: '/dashboard',
@@ -218,29 +222,31 @@ export const AppRoutes: React.FC = () => {
 	return (
 		<Routes>
 			{Object.entries(APPLICATION_ROUTES).map(([name, route]) => {
-				let Layout = route.layout ?? React.Fragment
-				let Component = route.component
-				const isAuthenticated = localStorage.getItem('isAuthenticated') != 'true' && route.isPrivate
+				const Layout: React.ElementType = route.layout ?? React.Fragment
+				const Component: React.ElementType = route.component
+				const isAuthenticated = localStorage.getItem(ACCESS_TOKEN) ? true : false
 
-				if(route.isPrivate) {
-					if(localStorage.getItem('isAuthenticated') != 'true') {
-						Layout = GuestLayout
-						Component = LoginComponent
-					}
-				}
+				// if (!isAuthenticated && route.isPrivate) {
+				// 	Layout = APPLICATION_ROUTES[PageNames.LOGIN].layout
+				// 	Component = APPLICATION_ROUTES[PageNames.LOGIN].component
+				// } else {
+				// 	Layout = route.layout ?? React.Fragment
+				// 	Component = route.component
+				// }
+
 				return (
 					<Route
 						key={name}
 						path={route.path}
 						element={
-							isAuthenticated ? (
-								<Navigate to={`/login?redirect=${name}`} />
+							(!localStorage.getItem(ACCESS_TOKEN) && route.isPrivate) ? (
+								<Navigate to={`${APPLICATION_ROUTES[PageNames.LOGIN].path}?redirect=${name}`} />
 							) : (
 								<Layout>
 									<Component {...route.props} />
 								</Layout>
 							)
-							
+
 						}
 					/>
 				)

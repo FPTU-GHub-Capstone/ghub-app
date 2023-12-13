@@ -4,7 +4,7 @@ import { httpStatusMsg } from '../common';
 
 
 const config: ToastOptions = {
-	position: 'bottom-right',
+	position: 'bottom-left',
 	autoClose: 2000,
 	hideProgressBar: false,
 	closeOnClick: true,
@@ -15,15 +15,15 @@ const config: ToastOptions = {
 export type HttpToastConfig = {
 	id?: string,
 	loading: {
-		show?: boolean,
+		isShow?: boolean,
 		message?: string,
 	},
 	success: {
-		show?: boolean,
+		isShow?: boolean,
 		message?: string,
 	},
 	error: {
-		show?: boolean,
+		isShow?: boolean,
 		message?: string,
 	},
 }
@@ -31,13 +31,13 @@ export type HttpToastConfigPartial = Partial<HttpToastConfig>
 
 export const defaultHttpToastConfig: HttpToastConfig = {
 	loading: {
-		show: false,
+		isShow: false,
 	},
 	success: {
-		show: false,
+		isShow: false,
 	},
 	error: {
-		show: true,
+		isShow: true,
 	},
 };
 

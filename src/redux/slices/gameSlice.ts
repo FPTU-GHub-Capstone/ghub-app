@@ -3,7 +3,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Game } from '../../common';
 import { AppState } from '../store';
 import config from '../../config';
-import RestService from '../../services/RestService';
+import {RestService} from '../../services/RestService';
 
 
 type GamesState = {
@@ -18,7 +18,7 @@ const initialState: GamesState = {
 export const gamesFetch = createAsyncThunk(
 	'game/gamesFetch',
 	async () => {
-		const { data } = await RestService.get(
+		const { data } = await RestService.getInstance().get(
 			`${config.GMS_URL}/games`
 		);
 		return data;

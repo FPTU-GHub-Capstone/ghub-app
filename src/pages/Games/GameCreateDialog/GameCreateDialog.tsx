@@ -3,14 +3,15 @@ import { useForm } from 'react-hook-form'
 import { DevTool } from '@hookform/devtools'
 
 
-import config from '../../../config'
-import { Game } from '../../../common'
-import RestService from '../../../services/RestService'
+import { Game, HttpStatusCode } from '../../../common'
 import DialogHeader from '../../../components/DialogHeader'
 import { useDialog } from '../../../hooks/useDialog'
+import { createGame } from '../../../services/GameService'
+import { useAppDispatch } from '../../../redux/hook'
+import { exchangeToken } from '../../../services/AuthService'
+import { gamesFetch } from '../../../redux/slices/gameSlice'
 
 import { GameCreateForm } from './GameCreateForm'
-import { GameCreateInputType } from './GameCreateForm/types'
 
 
 
@@ -25,33 +26,27 @@ export default function CreateGameDialog({ isOpenCreateGameDialog, handleCloseCr
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [isErrorSnackOpen, handleOpenErrorSnack, handleCloseErrorSnack] = useDialog()
 
-	const form = useForm<GameCreateInputType>({
+	const form = useForm<Game>({
 		mode: 'onChange',
 		defaultValues: {
 			name: '',
 			logo: '',
 			link: '',
+			banner: ''
 		}
 	})
 	const { register, handleSubmit, formState, control } = form
 	const { errors } = formState
-	
+	const dispatch = useAppDispatch()
 
-	const onSubmit = (data: GameCreateInputType) => {
-		const gameData: Game = ({id: 'a', ...data})
-		postData(gameData)
-	}
+	const onSubmit = async (data: Game) => {
+		const gameData: Game = ({...data})
+		const response = await createGame(gameData)
 
-	const postData = async (gameData: Game) => {
-		let isError = false
-		try {
-			await RestService.post(`${config.GMS_URL}/games`, gameData)
-		} catch (error) {
-			console.error('Error posting Game with: ', error)
-			isError = true
-		}
-		if (!isError) {
-			handleSuccess()
+		if(response.status == HttpStatusCode.CREATED) {
+			await exchangeToken()
+			dispatch(gamesFetch())
+			handleCloseCreateGameDialog()
 		}
 	}
 

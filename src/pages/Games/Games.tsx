@@ -1,9 +1,7 @@
 import { Button, Container, Grid, Stack, Typography } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
-import config from '../../config'
 import Iconify from '../../components/Iconify'
-import RestService from '../../services/RestService'
 import { useDialog } from '../../hooks/useDialog'
 import { useAppDispatch, useAppSelector } from '../../redux/hook'
 import { gamesFetch } from '../../redux/slices/gameSlice'
@@ -11,7 +9,6 @@ import { gamesFetch } from '../../redux/slices/gameSlice'
 import GamesSearch from './GamesSearch'
 import GamesSort from './GamesSort'
 import GameCard from './GameCard'
-import { Game } from './types'
 import CreateGameDialog from './GameCreateDialog/GameCreateDialog'
 
 
@@ -24,12 +21,6 @@ const SORT_OPTIONS = [
 	{ value: 'popular', label: 'Popular' },
 	{ value: 'oldest', label: 'Oldest' },
 ]
-
-type GameResponse = {
-	isError: boolean,
-	message: string,
-	result: Game[],
-}
 
 export const Games = ({ title }: Props) => {
 	// const [games, setGames] = useState<Game[]>([])

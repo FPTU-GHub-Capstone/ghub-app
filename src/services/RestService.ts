@@ -1,9 +1,10 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig , CreateAxiosDefaults, AxiosError } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import { toast, ToastOptions } from 'react-toastify';
+import { ToastOptions } from 'react-toastify';
 
-import config from '../config';
-import { ACCESS_TOKEN, HttpStatusCode, RequestHeaders, httpStatusMsg } from '../common';
+import appConfig from '../config';
+import { ACCESS_TOKEN, HttpStatusCode, RequestHeaders } from '../common';
+import { HttpToast, defaultHttpToastConfig } from '../utils/httpToast';
 
 
 export type AxiosInitOptions = {
@@ -22,41 +23,32 @@ const toastConfig: ToastOptions = {
 	progress: undefined,
 };
 
-class RestService {
+export class RestService {
 	private readonly _axiosInstance: AxiosInstance;
 	private _requestAuthInterceptorId: number;
 
 	constructor() {
 		this._axiosInstance = this._initializeAxios();
+		this.useAuthInterceptor();
+	}
+
+	public static getInstance() {
+		return new RestService();
 	}
 
 	private _initializeAxios(initOptions: AxiosInitOptions = {}): AxiosInstance {
 		const { header, options } = initOptions;
 		const axiosInstance = axios.create({
-			timeout: config.REST_TIMEOUT,
+			timeout: appConfig.REST_TIMEOUT,
 			headers: this._prepareHeader(header),
+			toast: {
+				...defaultHttpToastConfig,
+			},
 			...options,
 		});
-
 		axiosInstance.interceptors.response.use(
-			(response) => {
-				const { status } = response;
-				if(status != HttpStatusCode.SUCCESS) {
-					toast.success(httpStatusMsg[status], toastConfig);
-				}
-				
-				return response;
-			},
-			(error) => {
-				const { status, data } = error.response;
-				if(status == HttpStatusCode.UNAUTHORIZED) localStorage.setItem('isAuthenticated', 'false');
-				toast.error(
-					(data.message ?? data.responseException?.exceptionMessage) 
-						?? `An error occurred! Status code: ${status}`, 
-					toastConfig);
-
-				return Promise.reject(error);
-			}
+			this._createResponseInterceptor(),
+			this._createHandleErrorResponseInterceptor()
 		);
 		return axiosInstance;
 	}
@@ -68,6 +60,40 @@ class RestService {
 			[RequestHeaders.CONTENT_TYPE]: CONTENT_TYPE_JSON,
 		};
 		return { ...headers, ...additionalHeaders };
+	}
+
+	private _createResponseInterceptor() {
+		return (response: AxiosResponse) => {
+			const { config } = response;
+			const { toast } = config;
+			const isShow = toast?.success?.isShow;
+			const message = toast?.success?.message;
+			if (isShow)
+				HttpToast.success(
+					config?.toast?.id ?? '',
+					message ?? 'Successfully'
+				);
+				
+			return response;
+		};
+	}
+
+	private _createHandleErrorResponseInterceptor() {
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		return (error: AxiosError) => {
+			const { status, config } = error.response;
+			if(status == HttpStatusCode.UNAUTHORIZED) {
+				window.location.href = '/login';
+			}
+			const { toast } = config;
+			const isShow = toast?.error?.isShow;
+			if (!isShow) return;
+		
+			const id = config?.toast?.id ?? '';
+			HttpToast.error(id, status);
+
+			return Promise.reject(error);
+		};
 	}
 
 	private async _createAuthInterceptor(
@@ -152,4 +178,3 @@ class RestService {
 	}
 }
 
-export default new RestService();

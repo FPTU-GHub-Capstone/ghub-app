@@ -43,7 +43,13 @@ export default function CreateClient({ isOpenAssignDialog, handleCloseAssignDial
 	const dispatch = useAppDispatch()
 
 	const onSubmit: SubmitHandler<Client> = async(data) => {
-		const requestBody: Client = ({...data, scope: convertToArrayScope(permissionList)})
+		const requestBody: Client = {
+			...data,
+			scope: convertToArrayScope(
+				localStorage.getItem('gameId'),
+				permissionList,
+			),
+		}
 		if(requestBody.scope.length == 0) {
 			showError('Scope is required!')
 			return

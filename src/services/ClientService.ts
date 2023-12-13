@@ -4,7 +4,7 @@ import { ACCESS_TOKEN, Client, EntityName, FailureResponse, RequestHeaders } fro
 import config from '../config';
 import { initScopes } from '../mock/permissions';
 
-import RestService from './RestService';
+import {RestService} from './RestService';
 
 
 const actionMapping = {
@@ -22,9 +22,10 @@ const reverseActionMapping = {
 };
 
 const token = localStorage.getItem(ACCESS_TOKEN);
+const restSvc = RestService.getInstance();
 
 export const createClient = async (requestBody: Client) => {
-	const response = await RestService.post<Client | FailureResponse>(
+	const response = await restSvc.post<Client | FailureResponse>(
 		config.IDP_URL + '/clients',
 		requestBody,
 		{
@@ -33,12 +34,12 @@ export const createClient = async (requestBody: Client) => {
 			},
 		},
 	);
-	console.log(`@statusCode:CreateClientAPI:: ${response.status}`);
+	console.log(`@statusCode:CreateClientAPI:: ${response}`);
 	return response;
 };
 
 export const updateClient = async (requestBody: Client, clientId: string) => {
-	const response = await RestService.put<Client>(
+	const response = await restSvc.put<Client>(
 		config.IDP_URL + `/clients/${clientId}`,
 		requestBody,
 		{
@@ -52,7 +53,7 @@ export const updateClient = async (requestBody: Client, clientId: string) => {
 };
 
 export const deleteClient = async (clientId: string) => {
-	const response = await RestService.delete(
+	const response = await restSvc.delete(
 		config.IDP_URL + `/clients/${clientId}`,
 		null,
 		{
@@ -65,11 +66,11 @@ export const deleteClient = async (clientId: string) => {
 	return response;
 };
 
-export const convertToArrayScope = (list: Record<EntityName, [boolean, boolean, boolean, boolean]>) => {
+export const convertToArrayScope = (gameId: string, list: Record<EntityName, [boolean, boolean, boolean, boolean]>) => {
 	const scopes: string[] = [];
 	Object.entries(list).map(([entityName, actions]) => {
 		actions.map((action, index) => {
-			if(action) scopes.push(`${entityName}:${actionMapping[index]}`);
+			if(action) scopes.push(`${entityName}:${gameId}:${actionMapping[index]}`);
 		});
 	});
 
