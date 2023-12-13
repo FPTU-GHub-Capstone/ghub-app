@@ -1,6 +1,5 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { DevTool } from '@hookform/devtools'
 import { Container, Box, ThemeProvider } from '@mui/material'
 
 import { Button as ContactFormBtn } from '../../../../components/PublicFormButton'
@@ -24,7 +23,7 @@ const ContactForm: React.FC = () => {
 			message: '',
 		},
 	})
-	const { register, handleSubmit, formState, control } = form
+	const { register, handleSubmit, formState } = form
 	const { errors } = formState
 
 	const onSubmit = (data: ContactFormType) => {
@@ -44,7 +43,6 @@ const ContactForm: React.FC = () => {
 					<ContactFormBtn text="Get in touch" />
 				</Box>
 			</Container>
-			<DevTool control={control} />
 		</ThemeProvider>
 	)
 }
