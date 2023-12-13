@@ -4,7 +4,7 @@ import { Container, Stack, Typography } from '@mui/material'
 import { useLocation } from 'react-router-dom'
 
 import config from '../../config'
-import RestService from '../../services/RestService'
+import { RestService } from '../../services/RestService'
 import { Game, GameServer } from '../../common/types'
 import { useDialog } from '../../hooks/useDialog'
 
@@ -25,6 +25,8 @@ type GameResponse = {
 	result: Game,
 };
 
+const restSvc = RestService.getInstance()
+
 export const GameServerPage = ({ title }: { title: string }) => {
 	const [gameServers, setGameServers] = useState<GameServer[]>([])
 	const [originalGameServers, setOriginalGameServers] = useState<GameServer[]>([])
@@ -43,16 +45,14 @@ export const GameServerPage = ({ title }: { title: string }) => {
 	}, [location.pathname])
 
 	useEffect(() => {
-		console.log(isChanged)
 		if (isChanged > 0) {
-			console.log('Doing fetch')
 			fetchGameServers(gameId)
 		}
 	}, [isChanged, gameId])
 
 	const fetchGameServers = async (inputGameId: string) => {
 		try {
-			const gameServerResponse = await RestService.get<GameServerResponse>(
+			const gameServerResponse = await restSvc.get<GameServerResponse>(
 				`${config.GMS_URL}/games/${inputGameId}/game-servers`
 			)
 			const gameServerResult = gameServerResponse.data.result
@@ -65,7 +65,7 @@ export const GameServerPage = ({ title }: { title: string }) => {
 
 	const fetchGame = async (inputGameId: string) => {
 		try {
-			const gameResponse = await RestService.get<GameResponse>(`${config.GMS_URL}/games/${inputGameId}`)
+			const gameResponse = await restSvc.get<GameResponse>(`${config.GMS_URL}/games/${inputGameId}`)
 			const gameResult: Game = gameResponse.data.result
 			localStorage.setItem('currentGame', JSON.stringify(gameResult))
 		} catch (error) {
@@ -81,10 +81,16 @@ export const GameServerPage = ({ title }: { title: string }) => {
 			if (updatedGameServer) {
 				if (JSON.stringify(updatedGameServer) !== JSON.stringify(originalServer)) {
 					try {
-						await RestService.put(`${config.GMS_URL}/game-servers/${serverId}`, updatedGameServer)
+						await restSvc.put(`${config.GMS_URL}/game-servers/${serverId}`, updatedGameServer)
 					} catch (error) {
 						console.error(`Error updating game server with id ${serverId}:`, error)
 					}
+				}
+			} else {
+				try {
+					await restSvc.delete(`${config.GMS_URL}/game-servers/${serverId}`)
+				} catch (error) {
+					console.error(`Error deleting asset with id ${serverId}:`, error)
 				}
 			}
 		}

@@ -22,6 +22,7 @@ type Props = {
 }
 
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function CreateGameDialog({ isOpenCreateGameDialog, handleCloseCreateGameDialog, handleSuccess }: Props) {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [isErrorSnackOpen, handleOpenErrorSnack, handleCloseErrorSnack] = useDialog()

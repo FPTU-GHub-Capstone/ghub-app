@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig , CreateAxiosDefaults, AxiosError } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { ToastOptions } from 'react-toastify';
@@ -14,6 +15,7 @@ export type AxiosInitOptions = {
 
 const CONTENT_TYPE_JSON = 'application/json';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const toastConfig: ToastOptions = {
 	position: 'bottom-left',
 	autoClose: 2000,
@@ -79,7 +81,6 @@ export class RestService {
 	}
 
 	private _createHandleErrorResponseInterceptor() {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
 		return (error: AxiosError) => {
 			const { status, config } = error.response;
 			if(status == HttpStatusCode.UNAUTHORIZED) {

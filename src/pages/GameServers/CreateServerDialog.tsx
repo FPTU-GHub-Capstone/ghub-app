@@ -3,11 +3,13 @@ import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router'
 
 import DialogHeader from '../../components/DialogHeader'
-import RestService from '../../services/RestService'
+import { RestService }from '../../services/RestService'
 import config from '../../config'
 
 import ServerAddForm from './components/ServerAddForm'
 
+
+const restSvc = RestService.getInstance()
 
 type Props = {
 	isOpenCreateServerDialog: boolean,
@@ -43,17 +45,23 @@ export default function CreateServerDialog({
 
 	const handlePostData = async (data: CreateServerInputType) => {
 		try {
-			await RestService.post(`${config.GMS_URL}/game-servers`, data)
+			await restSvc.post(`${config.GMS_URL}/game-servers`, data)
+			console.log('submit data',data)
 		} catch (error) {
 			console.error('Error adding new server:', error)
 		}
 	}
 
-	const onSubmit = (data: CreateServerInputType) => {
-		handlePostData(data)
-		toggleChanged()
-		handleCloseCreateServerDialog()
+	const onSubmit = async (data: CreateServerInputType) => {
+		try {
+			await handlePostData(data)
+			toggleChanged()
+			handleCloseCreateServerDialog()
+		} catch (error) {
+			console.error('Error submitting:', error)
+		}
 	}
+	
 
 	return (
 		<Drawer anchor='right' open={isOpenCreateServerDialog} onClose={handleCloseCreateServerDialog}>

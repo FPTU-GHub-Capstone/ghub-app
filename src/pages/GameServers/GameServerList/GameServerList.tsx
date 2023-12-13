@@ -37,6 +37,7 @@ const GameServerList: React.FC<IGameServerListProps> = ({
 	const processRowUpdate = (newRow: GridRowModel<GameServer>) => {
 		const updatedRow = { ...newRow }
 		const updatedServers = gameServers.map((row) => (row.id === newRow.id ? updatedRow : row))
+		console.log('processrowupdate run')
 		onRowUpdateCompleted()
 		setGameServers(updatedServers)
 		return updatedRow
@@ -70,8 +71,10 @@ const GameServerList: React.FC<IGameServerListProps> = ({
 						key="save"
 						id={id}
 						isInEditMode={isInEditMode}
-						rowModesModel={rowModesModel}
-						setRowModesModel={setRowModesModel}
+						rowModesModel={rowModesModel} setRowModesModel={setRowModesModel}
+						gameServers={gameServers} setGameServers={setGameServers}
+						onRowUpdateCompleted={onRowUpdateCompleted}
+
 					/>,
 				]
 			},

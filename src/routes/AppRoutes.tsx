@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React, { ElementType } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
@@ -224,7 +225,7 @@ export const AppRoutes: React.FC = () => {
 			{Object.entries(APPLICATION_ROUTES).map(([name, route]) => {
 				const Layout: React.ElementType = route.layout ?? React.Fragment
 				const Component: React.ElementType = route.component
-				const isAuthenticated = localStorage.getItem(ACCESS_TOKEN) ? true : false
+				//const isAuthenticated = localStorage.getItem(ACCESS_TOKEN) ? true : false
 
 				// if (!isAuthenticated && route.isPrivate) {
 				// 	Layout = APPLICATION_ROUTES[PageNames.LOGIN].layout
