@@ -23,11 +23,11 @@ export const NavbarItems: (gameId: string) => NavItem[] = (gameId) => [
 		path: `/games/${gameId}/logging`,
 		icon: <QueryStatsIcon />,
 	},
-	{
-		title: 'servers',
-		path: `/games/${gameId}/servers`,
-		icon: <StorageIcon />,
-	},
+	// {
+	// 	title: 'servers',
+	// 	path: `/games/${gameId}/servers`,
+	// 	icon: <StorageIcon />,
+	// },
 	{
 		title: 'players',
 		path: `/games/${gameId}/players`,
