@@ -1,10 +1,10 @@
 import StorageIcon from '@mui/icons-material/Storage'
 import PersonIcon from '@mui/icons-material/Person'
-import ParaglidingIcon from '@mui/icons-material/Paragliding'
+//import ParaglidingIcon from '@mui/icons-material/Paragliding'
 import CategoryIcon from '@mui/icons-material/Category'
 import QueryStatsIcon from '@mui/icons-material/QueryStats'
 import EngineeringIcon from '@mui/icons-material/Engineering'
-import DirectionsRunIcon from '@mui/icons-material/DirectionsRun'
+//import DirectionsRunIcon from '@mui/icons-material/DirectionsRun'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 
 import { NavItem } from '../../../common'
