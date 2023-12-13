@@ -48,7 +48,6 @@ export const permissionList = [...Array(24)].map((_) => {
 });
 
 export const initScopes: Scopes = {
-	[EntityName.game]: [false, false, false, false],
 	[EntityName.user]:  [false, false, false, false],
 	[EntityName.gameServer]: [false, false, false, false],
 	[EntityName.characterType]: [false, false, false, false],
