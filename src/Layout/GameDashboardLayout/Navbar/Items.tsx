@@ -23,31 +23,31 @@ export const NavbarItems: (gameId: string) => NavItem[] = (gameId) => [
 		path: `/games/${gameId}/logging`,
 		icon: <QueryStatsIcon />,
 	},
-	{
-		title: 'servers',
-		path: `/games/${gameId}/servers`,
-		icon: <StorageIcon />,
-	},
+	// {
+	// 	title: 'servers',
+	// 	path: `/games/${gameId}/servers`,
+	// 	icon: <StorageIcon />,
+	// },
 	{
 		title: 'players',
 		path: `/games/${gameId}/players`,
 		icon: <PersonIcon />,
 	},
-	{
-		title: 'characters',
-		path: `/games/${gameId}/characters`,
-		icon: <ParaglidingIcon />,
-	},
+	// {
+	// 	title: 'characters',
+	// 	path: `/games/${gameId}/characters`,
+	// 	icon: <ParaglidingIcon />,
+	// },
 	{
 		title: 'assets',
 		path: `/games/${gameId}/assets`,
 		icon: <CategoryIcon />,
 	},
-	{
-		title: 'activities',
-		path: `/games/${gameId}/activities`,
-		icon: <DirectionsRunIcon />,
-	},
+	// {
+	// 	title: 'activities',
+	// 	path: `/games/${gameId}/activities`,
+	// 	icon: <DirectionsRunIcon />,
+	// },
 	{
 		title: 'Game Levels',
 		path: `/games/${gameId}/levels`,
