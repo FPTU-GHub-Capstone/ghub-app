@@ -1,11 +1,11 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig , CreateAxiosDefaults } from 'axios';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig , CreateAxiosDefaults, AxiosError } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { ToastOptions } from 'react-toastify';
 
 import appConfig from '../config';
-import { ACCESS_TOKEN, HttpStatusCode, RequestHeaders, httpStatusMsg } from '../common';
+import { ACCESS_TOKEN, HttpStatusCode, RequestHeaders } from '../common';
 import { HttpToast, defaultHttpToastConfig } from '../utils/httpToast';
-
 
 
 export type AxiosInitOptions = {
@@ -15,6 +15,7 @@ export type AxiosInitOptions = {
 
 const CONTENT_TYPE_JSON = 'application/json';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const toastConfig: ToastOptions = {
 	position: 'bottom-left',
 	autoClose: 2000,
@@ -24,12 +25,17 @@ const toastConfig: ToastOptions = {
 	progress: undefined,
 };
 
-class RestService {
+export class RestService {
 	private readonly _axiosInstance: AxiosInstance;
 	private _requestAuthInterceptorId: number;
 
 	constructor() {
 		this._axiosInstance = this._initializeAxios();
+		this.useAuthInterceptor();
+	}
+
+	public static getInstance() {
+		return new RestService();
 	}
 
 	private _initializeAxios(initOptions: AxiosInitOptions = {}): AxiosInstance {
@@ -42,35 +48,9 @@ class RestService {
 			},
 			...options,
 		});
-
 		axiosInstance.interceptors.response.use(
-			(response) => {
-
-				const { config } = response;
-				const { toast } = config;
-				const isShow = toast?.success?.isShow;
-				const message = toast?.success?.message;
-				if (isShow)
-					HttpToast.success(
-						config?.toast?.id ?? '',
-						message ?? 'Successfully'
-					);
-				
-				return response;
-			},
-			(error) => {
-				const { status, config } = error.response;
-				if(status == HttpStatusCode.UNAUTHORIZED) localStorage.removeItem(ACCESS_TOKEN);
-
-				const { toast } = config;
-				const isShow = toast?.error?.isShow;
-				if (!isShow) return;
-			
-				const id = config?.toast?.id ?? '';
-				HttpToast.error(id, status);
-
-				return Promise.reject(error);
-			}
+			this._createResponseInterceptor(),
+			this._createHandleErrorResponseInterceptor()
 		);
 		return axiosInstance;
 	}
@@ -82,6 +62,39 @@ class RestService {
 			[RequestHeaders.CONTENT_TYPE]: CONTENT_TYPE_JSON,
 		};
 		return { ...headers, ...additionalHeaders };
+	}
+
+	private _createResponseInterceptor() {
+		return (response: AxiosResponse) => {
+			const { config } = response;
+			const { toast } = config;
+			const isShow = toast?.success?.isShow;
+			const message = toast?.success?.message;
+			if (isShow)
+				HttpToast.success(
+					config?.toast?.id ?? '',
+					message ?? 'Successfully'
+				);
+				
+			return response;
+		};
+	}
+
+	private _createHandleErrorResponseInterceptor() {
+		return (error: AxiosError) => {
+			const { status, config } = error.response;
+			if(status == HttpStatusCode.UNAUTHORIZED) {
+				window.location.href = '/login';
+			}
+			const { toast } = config;
+			const isShow = toast?.error?.isShow;
+			if (!isShow) return;
+		
+			const id = config?.toast?.id ?? '';
+			HttpToast.error(id, status);
+
+			return Promise.reject(error);
+		};
 	}
 
 	private async _createAuthInterceptor(
@@ -166,4 +179,3 @@ class RestService {
 	}
 }
 
-export default new RestService();

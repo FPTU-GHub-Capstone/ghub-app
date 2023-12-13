@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom'
 
 
 import config from '../../config'
-import RestService from '../../services/RestService'
+import {RestService} from '../../services/RestService'
 import { Game, Level } from '../../common/types'
 import { useDialog } from '../../hooks/useDialog'
 
@@ -25,6 +25,8 @@ type GameResponse = {
 	message?: string,
 	result: Game,
 };
+
+const restSvc = RestService.getInstance()
 
 export const GameLevelPage = ({ title }: { title: string }) => {
 	const [gameLevels, setGameLevels] = useState<Level[]>([])
@@ -51,7 +53,7 @@ export const GameLevelPage = ({ title }: { title: string }) => {
 
 	const fetchGameLevels = async (inputGameId : string) => {
 		try {
-			const gameLevelResponse = await RestService.get<GameLevelResponse>(`${config.GMS_URL}/games/${inputGameId}/levels`)
+			const gameLevelResponse = await restSvc.get<GameLevelResponse>(`${config.GMS_URL}/games/${inputGameId}/levels`)
 			const gameLevelResult = gameLevelResponse.data.result
 			setGameLevels(gameLevelResult)
 			setOriginalGameLevels(gameLevelResult)
@@ -63,7 +65,7 @@ export const GameLevelPage = ({ title }: { title: string }) => {
 
 	const fetchGame = async (inputGameId : string) => {
 		try {
-			const GameResponse = await RestService.get<GameResponse>(`${config.GMS_URL}/games/${inputGameId}`)
+			const GameResponse = await restSvc.get<GameResponse>(`${config.GMS_URL}/games/${inputGameId}`)
 			const gameResult: Game = GameResponse.data.result
 			localStorage.setItem('currentGame', JSON.stringify(gameResult)) 
 		} catch (error) {
@@ -83,7 +85,7 @@ export const GameLevelPage = ({ title }: { title: string }) => {
 						'levelUpPoint': updatedGameLevel.levelUpPoint
 					}					
 					try {
-						await RestService.put(`${config.GMS_URL}/levels/${gameLevelId}`, payload)
+						await restSvc.put(`${config.GMS_URL}/levels/${gameLevelId}`, payload)
 					} catch (error) {
 						console.error(`Error updating game Level with id ${gameLevelId}:`, error)
 					}

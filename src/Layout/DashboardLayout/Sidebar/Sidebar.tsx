@@ -11,8 +11,10 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { Link, Avatar } from '@mui/material'
 
 import Logo from '../../../components/Logo'
-import { account } from '../../../mock/account'
+// import { account } from '../../../mock/account'
 import NavSection from '../../../components/NavSession'
+import { User } from '../../../common'
+import { useAppSelector } from '../../../redux/hook'
 
 import { sidebarItems } from './Items'
 
@@ -79,6 +81,8 @@ export default function Sidebar({isOpen, setIsOpen} : {
 	setIsOpen: (open) => void,
 }) {
 
+	const account: User = useAppSelector(({ auth }) => auth.currentUser)
+
 	const handleDrawerOpen = () => {
 		setIsOpen(true)
 	}
@@ -107,15 +111,15 @@ export default function Sidebar({isOpen, setIsOpen} : {
 				<Box sx={{ mb: 5, mx: 2.5, display: isOpen ? 'block' : 'none' }}>
 					<Link underline="none">
 						<StyledAccount>
-							<Avatar src={account.avatar} alt="photoURL" />
+							<Avatar src={account?.picture} alt="photoURL" />
 
 							<Box sx={{ ml: 2 }}>
 								<Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-									{`${account.firstName} ${account.lastName}`}
+									{`${account?.name ?? account?.username}`}
 								</Typography>
 
 								<Typography variant="body2" sx={{ color: 'text.secondary' }}>
-									{account.role}
+									Game Manager
 								</Typography>
 							</Box>
 						</StyledAccount>
@@ -146,9 +150,6 @@ export default function Sidebar({isOpen, setIsOpen} : {
 						}} />
 				</Box>
 			</Drawer>
-
-			
-			
 		</Box>
 	)
 }

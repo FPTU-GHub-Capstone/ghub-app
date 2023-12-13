@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React, { ElementType } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
@@ -22,6 +23,7 @@ import PricingPlan from '../pages/PricingPlan/PricingPlan'
 import { GameLevelPage } from '../pages/GameLevel'
 import LoggingLayout from '../Layout/LoggingLayout'
 import { ACCESS_TOKEN } from '../common'
+import { GameServerPage } from '../pages/GameServers'
 
 
 type AppRoute = {
@@ -41,6 +43,7 @@ export const enum PageNames {
 	GAMES = 'myProject',
 	USERS_AD = 'users',
 	PERMISSION = 'permission',
+	GAME_SERVER = 'gameServerPage',
 	ASSETS = 'assetListPage',
 	PAYMENT = 'pricingPlan',
 	USERS_GM = 'userGM',
@@ -101,6 +104,15 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 		isPrivate: true,
 		props: {
 			title: 'Permission',
+		},
+	},
+	[PageNames.GAME_SERVER]: {
+		path: '/games/:gameId/servers',
+		component: GameServerPage,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Game Servers',
 		},
 	},
 	[PageNames.ASSETS]: {
@@ -213,7 +225,7 @@ export const AppRoutes: React.FC = () => {
 			{Object.entries(APPLICATION_ROUTES).map(([name, route]) => {
 				const Layout: React.ElementType = route.layout ?? React.Fragment
 				const Component: React.ElementType = route.component
-				const isAuthenticated = localStorage.getItem(ACCESS_TOKEN) ? true : false
+				//const isAuthenticated = localStorage.getItem(ACCESS_TOKEN) ? true : false
 
 				// if (!isAuthenticated && route.isPrivate) {
 				// 	Layout = APPLICATION_ROUTES[PageNames.LOGIN].layout
@@ -222,12 +234,13 @@ export const AppRoutes: React.FC = () => {
 				// 	Layout = route.layout ?? React.Fragment
 				// 	Component = route.component
 				// }
+
 				return (
 					<Route
 						key={name}
 						path={route.path}
 						element={
-							(!isAuthenticated && route.isPrivate) ? (
+							(!localStorage.getItem(ACCESS_TOKEN) && route.isPrivate) ? (
 								<Navigate to={`${APPLICATION_ROUTES[PageNames.LOGIN].path}?redirect=${name}`} />
 							) : (
 								<Layout>

@@ -4,7 +4,6 @@ import {
 	ThemeProvider,
 } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import { DevTool } from '@hookform/devtools'
 
 import {Button as RegisterButton} from '../../../components/PublicFormButton'
 import { EmailTextField } from '../../../components/TextFields/EmailTextField'
@@ -16,7 +15,11 @@ import { AgreeTermsCheckbox } from './AgreeTermsCheckbox'
 import { RegisterInputType } from '.'
 
 
-const RegisterForm: React.FC = () => {
+type RegisterFormProps = {
+	onSubmit: (data: RegisterInputType) => any,
+}
+
+const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
 	const form = useForm<RegisterInputType>({
 		mode: 'onChange',
 		defaultValues: {
@@ -25,13 +28,9 @@ const RegisterForm: React.FC = () => {
 			agreedTerms: false,
 		}
 	})
-	const { watch, register, handleSubmit, formState, control } = form
+	const { watch, register, handleSubmit, formState } = form
 	const { errors } = formState
 	
-	const onSubmit = (data: RegisterInputType) => {
-		console.log({...data})
-	}
-
 	return (
 		<ThemeProvider theme={theme}>
 			<Box sx={{
@@ -49,7 +48,6 @@ const RegisterForm: React.FC = () => {
 				</Box>
 				<RegisterButton text='Sign up'/>
 			</Box>
-			<DevTool control={control} />
 		</ThemeProvider>
 	)
 }

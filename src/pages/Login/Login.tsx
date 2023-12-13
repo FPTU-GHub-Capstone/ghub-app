@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import React from 'react'
 import { Box, Container, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
@@ -6,17 +7,16 @@ import { Link, NavigateFunction, useNavigate } from 'react-router-dom'
 
 import config from '../../config'
 import {
-	Button as FacebookLoginBtn,
 	Button as GoogleLoginBtn,
 } from '../../components/LoginWithExternalSiteButton'
 import firebaseSvc from '../../services/FirebaseService'
-import restSvc from '../../services/RestService'
+import { RestService } from '../../services/RestService'
 
-import FacebookLogo from '/assets/icons/FacebookLogo.svg'
 import GoogleLogo from '/assets/icons/GoogleLogo.svg'
 
 import { APPLICATION_ROUTES, PageNames } from '../../routes'
 import { ACCESS_TOKEN, RequestHeaders } from '../../common'
+import { getProfile } from '../../services/AuthService'
 
 import { LoginForm } from './LoginForm'
 import * as styles from './styles'
@@ -27,10 +27,10 @@ type LoginResponse = {
 	token_type: string,
 	expires_in?: number,
 	scope?: string,
-}
+};
 
-type SupportLoginStrategies = 'facebook' | 'google' | 'password'
-type SignInFn = Fn<any, Promise<string>>
+type SupportLoginStrategies = 'facebook' | 'google' | 'password';
+type SignInFn = Fn<any, Promise<string>>;
 
 const Root = styled('div')(({ theme }) => ({
 	width: '100%',
@@ -51,26 +51,22 @@ function getSignInContext(strategy: SupportLoginStrategies): SignInFn {
 	}
 }
 
-async function wrapCallAuthorizeApi(callback: Fn) {
+async function callAuthorizeApi(signInFn: SignInFn, args: unknown[]) {
+	const restSvc = RestService.getInstance()
 	restSvc.ejectAuthInterceptor()
-	await callback()
-	restSvc.useAuthInterceptor()
-}
-
-function callAuthorizeApi(signInFn: SignInFn, args: unknown[]) {
-	return async () => {
-		const token = await signInFn.apply(firebaseSvc, args)
-		const result = await restSvc.post<LoginResponse>(
-			config.IDP_URL + '/authorize',
-			undefined,
-			{
-				headers: {
-					[RequestHeaders.AUTHORIZATION]: `Bearer ${token}`
-				},
+	const token = await signInFn.apply(firebaseSvc, args)
+	const result = await restSvc.post<LoginResponse>(
+		config.IDP_URL + '/authorize',
+		undefined,
+		{
+			headers: {
+				[RequestHeaders.AUTHORIZATION]: `Bearer ${token}`,
 			},
-		)
-		localStorage.setItem(ACCESS_TOKEN, result.data.access_token)
-	}
+		},
+	)
+	localStorage.setItem(ACCESS_TOKEN, result.data.access_token)
+	restSvc.useAuthInterceptor()
+	await getProfile()
 }
 
 function handleSignIn(
@@ -81,11 +77,12 @@ function handleSignIn(
 	return async () => {
 		const signInFn = getSignInContext(strategy)
 		try {
-			await wrapCallAuthorizeApi(callAuthorizeApi(signInFn, args))
+			await callAuthorizeApi(signInFn, args)
 			navigate(APPLICATION_ROUTES[PageNames.GAMES].path)
 		} catch (err) {
 			console.error(err)
 			navigate(APPLICATION_ROUTES[PageNames.LOGIN].path)
+			// show error, username or password not found
 		}
 	}
 }
@@ -104,26 +101,25 @@ export const Login: React.FC = () => {
 			<Container maxWidth="sm" component="section">
 				<Box sx={styles.headingBox}>
 					<Typography sx={styles.headingLogin} component="h1">
-            Welcome to GHub!
+						Welcome to GHub!
 					</Typography>
 					<Box>
 						<Typography my={2} sx={styles.descriptionLogin} component="p">
-              Please sign-in to your account and start the adventure
+							Please sign-in to your account and start the adventure
 						</Typography>
 					</Box>
 				</Box>
 
-				<LoginForm />
+				<LoginForm
+					onSubmit={(data) => {
+						const { email, password } = data
+						return handleSignIn('password', navigate, email, password)()
+					}}
+				/>
 
 				{DividerOr}
 
 				<Box component="div" sx={styles.externalLoginBox}>
-					<FacebookLoginBtn
-						text="Login with Facebook"
-						onClick={handleSignIn('facebook', navigate)}
-					>
-						<img src={FacebookLogo} alt="Facebook logo" />
-					</FacebookLoginBtn>
 					<GoogleLoginBtn
 						text="Login with Google"
 						onClick={handleSignIn('google', navigate)}
@@ -133,9 +129,9 @@ export const Login: React.FC = () => {
 				</Box>
 
 				<Typography component="div" sx={styles.newAccText}>
-          New on our platform?
+					New on our platform?
 					<Link style={styles.createAccLink} to="/register">
-            Create an account
+						Create an account
 					</Link>
 				</Typography>
 			</Container>

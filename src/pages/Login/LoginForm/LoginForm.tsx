@@ -6,7 +6,6 @@ import {
 } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { DevTool } from '@hookform/devtools'
 
 import {Button as LoginButton} from '../../../components/PublicFormButton'
 import { EmailTextField } from '../../../components/TextFields/EmailTextField'
@@ -19,7 +18,11 @@ import { RememberMeCheckbox } from './RememberMeCheckbox'
 import { LoginInputType } from '.'
 
 
-const LoginForm: React.FC = () => {
+type LoginFormProps = {
+	onSubmit: (data: LoginInputType) => any,
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
 	const form = useForm<LoginInputType>({
 		mode: 'onChange',
 		defaultValues: {
@@ -28,12 +31,8 @@ const LoginForm: React.FC = () => {
 			remembered: false,
 		}
 	})
-	const { watch, register, handleSubmit, formState, control } = form
+	const { watch, register, handleSubmit, formState } = form
 	const { errors } = formState
-	
-	const onSubmit = (data: LoginInputType) => {
-		console.log({...data})
-	}
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -61,7 +60,6 @@ const LoginForm: React.FC = () => {
 				</Box>
 				<LoginButton text='Login'/>
 			</Box>
-			<DevTool control={control} />
 		</ThemeProvider>
 	)
 }

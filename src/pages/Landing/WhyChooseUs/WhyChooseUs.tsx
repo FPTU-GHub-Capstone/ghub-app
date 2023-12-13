@@ -15,9 +15,8 @@ export const WhyChooseUs : React.FC = () => {
 			<Typography component='h2' sx={MainHeading}>
 				Why GHUB
 			</Typography>
-			<Typography textAlign='center' mb='25px'>
-				Lorem Ipsum is simply dummy text of the printing {' '}<br/>
-				and typesetting industry. 
+			<Typography textAlign='center' sx={{ maxWidth: '52vw', margin: '0 auto', marginBottom: '5px' }}>
+				GHUB redefines game management with an intuitive interface for handling game assets, characters, servers, and player accounts seamlessly. Say goodbye to complexity and effortlessly manage your game resources.
 			</Typography>
 
 			<Box component="div"
