@@ -1,6 +1,6 @@
 import { toast, ToastOptions } from 'react-toastify';
 
-import { FailureResponse, httpStatusMsg } from '../common';
+import { httpStatusMsg } from '../common';
 
 
 const config: ToastOptions = {

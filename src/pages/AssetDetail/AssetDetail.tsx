@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Box, Container, Typography } from '@mui/material'
 import { useLocation } from 'react-router'
 
-import RestService from '../../services/RestService'
+import { RestService } from '../../services/RestService'
 import { Asset, AssetType } from '../../common'
 import { Game } from '../Games/types'
 import config from '../../config'
@@ -24,7 +24,7 @@ type GameResponse = {
 	isError: boolean,
 	message: string,
 	result: Game,
-}
+};
 
 export const AssetDetail = () => {
 	const [asset, setAsset] = useState<Asset>()
@@ -36,11 +36,18 @@ export const AssetDetail = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const [,,gameId,,assetId] = location.pathname.split('/')
-				const assetResponse = await RestService.get<AssetResponse>(`${config.GMS_URL}/assets/${assetId}`)
-				const gameResponse = await RestService.get<GameResponse>(`${config.GMS_URL}/games/${gameId}`)
+				const restSvc = RestService.getInstance()
+				const [, , gameId, , assetId] = location.pathname.split('/')
+				const assetResponse = await restSvc.get<AssetResponse>(
+					`${config.GMS_URL}/assets/${assetId}`,
+				)
+				const gameResponse = await restSvc.get<GameResponse>(
+					`${config.GMS_URL}/games/${gameId}`,
+				)
 				const assetTypeId = assetResponse.data.result.assetTypeId
-				const assetTypeResponse = await RestService.get<AssetTypeResponse>(`${config.GMS_URL}/asset-types/${assetTypeId}`)
+				const assetTypeResponse = await restSvc.get<AssetTypeResponse>(
+					`${config.GMS_URL}/asset-types/${assetTypeId}`,
+				)
 
 				setAsset(assetResponse.data.result)
 				setAssetType(assetTypeResponse.data.result)
@@ -52,10 +59,9 @@ export const AssetDetail = () => {
 		fetchData()
 	}, [location.pathname])
 
-
 	return (
 		<Container>
-			{(asset && assetType && game) &&(
+			{asset && assetType && game && (
 				<>
 					<Box>
 						<Typography variant="h2">Game: {game.name}</Typography>
@@ -69,10 +75,8 @@ export const AssetDetail = () => {
 					<Box>
 						<Typography variant="h3">Asset Type: {assetType.name}</Typography>
 					</Box>
-
 				</>
 			)}
 		</Container>
 	)
 }
-

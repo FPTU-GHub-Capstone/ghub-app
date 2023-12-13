@@ -45,9 +45,23 @@ export const GameCreateForm = <T extends FieldValues>({
 					errors={errors}
 					register={register}
 					name='link'
+					label='Website of your game'
+					requiredMsg='URL is required or your URL is not valid'
+					pattern={{
+						value: URL_REGEX,
+						message: 'This is not a valid URL - And / Or it should starts with HTTP / HTTPS',
+					}}
+				/>
+				<InputField<T>
+					errors={errors}
+					register={register}
+					name='banner'
 					label='Image of your Game'
 					requiredMsg='URL is required or your URL is not valid'
-					pattern={URL_REGEX}
+					pattern={{
+						value: URL_REGEX,
+						message: 'This is not a valid URL - And / Or it should starts with HTTP / HTTPS',
+					}}
 				/>
 				<InputField<T>
 					errors={errors}
@@ -55,7 +69,10 @@ export const GameCreateForm = <T extends FieldValues>({
 					name='logo'
 					label='Game Logo'
 					requiredMsg='URL is required or your URL is not valid'
-					pattern={URL_REGEX}
+					pattern={{
+						value: URL_REGEX,
+						message: 'This is not a valid URL - And / Or it should starts with HTTP / HTTPS',
+					}}
 				/>
 				<CreateButton text='Create'/>
 			</Box>

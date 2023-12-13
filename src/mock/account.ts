@@ -3,7 +3,7 @@ import { faker } from '@faker-js/faker';
 import { User } from '../common';
 
 
-export const account: User = {
+export const account = {
 	id: faker.string.uuid(),
 	username: 'dg.panh',
 	firstName: 'Panh',

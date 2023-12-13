@@ -4,7 +4,7 @@ import { ACCESS_TOKEN, Client, EntityName, FailureResponse, RequestHeaders } fro
 import config from '../config';
 import { initScopes } from '../mock/permissions';
 
-import RestService from './RestService';
+import {RestService} from './RestService';
 
 
 const actionMapping = {
@@ -22,9 +22,10 @@ const reverseActionMapping = {
 };
 
 const token = localStorage.getItem(ACCESS_TOKEN);
+const restSvc = RestService.getInstance();
 
 export const createClient = async (requestBody: Client) => {
-	const response = await RestService.post<Client | FailureResponse>(
+	const response = await restSvc.post<Client | FailureResponse>(
 		config.IDP_URL + '/clients',
 		requestBody,
 		{
@@ -38,7 +39,7 @@ export const createClient = async (requestBody: Client) => {
 };
 
 export const updateClient = async (requestBody: Client, clientId: string) => {
-	const response = await RestService.put<Client>(
+	const response = await restSvc.put<Client>(
 		config.IDP_URL + `/clients/${clientId}`,
 		requestBody,
 		{
@@ -52,7 +53,7 @@ export const updateClient = async (requestBody: Client, clientId: string) => {
 };
 
 export const deleteClient = async (clientId: string) => {
-	const response = await RestService.delete(
+	const response = await restSvc.delete(
 		config.IDP_URL + `/clients/${clientId}`,
 		null,
 		{
