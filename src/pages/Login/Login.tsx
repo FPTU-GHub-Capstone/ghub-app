@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import React from 'react'
 import { Box, Container, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
@@ -26,10 +27,10 @@ type LoginResponse = {
 	token_type: string,
 	expires_in?: number,
 	scope?: string,
-}
+};
 
-type SupportLoginStrategies = 'facebook' | 'google' | 'password'
-type SignInFn = Fn<any, Promise<string>>
+type SupportLoginStrategies = 'facebook' | 'google' | 'password';
+type SignInFn = Fn<any, Promise<string>>;
 
 const Root = styled('div')(({ theme }) => ({
 	width: '100%',
@@ -59,7 +60,7 @@ async function callAuthorizeApi(signInFn: SignInFn, args: unknown[]) {
 		undefined,
 		{
 			headers: {
-				[RequestHeaders.AUTHORIZATION]: `Bearer ${token}`
+				[RequestHeaders.AUTHORIZATION]: `Bearer ${token}`,
 			},
 		},
 	)
@@ -81,6 +82,7 @@ function handleSignIn(
 		} catch (err) {
 			console.error(err)
 			navigate(APPLICATION_ROUTES[PageNames.LOGIN].path)
+			// show error, username or password not found
 		}
 	}
 }
@@ -108,7 +110,12 @@ export const Login: React.FC = () => {
 					</Box>
 				</Box>
 
-				<LoginForm />
+				<LoginForm
+					onSubmit={(data) => {
+						const { email, password } = data
+						return handleSignIn('password', navigate, email, password)()
+					}}
+				/>
 
 				{DividerOr}
 

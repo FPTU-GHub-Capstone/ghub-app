@@ -15,7 +15,11 @@ import { AgreeTermsCheckbox } from './AgreeTermsCheckbox'
 import { RegisterInputType } from '.'
 
 
-const RegisterForm: React.FC = () => {
+type RegisterFormProps = {
+	onSubmit: (data: RegisterInputType) => any,
+}
+
+const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit }) => {
 	const form = useForm<RegisterInputType>({
 		mode: 'onChange',
 		defaultValues: {
@@ -27,10 +31,6 @@ const RegisterForm: React.FC = () => {
 	const { watch, register, handleSubmit, formState } = form
 	const { errors } = formState
 	
-	const onSubmit = (data: RegisterInputType) => {
-		console.log({...data})
-	}
-
 	return (
 		<ThemeProvider theme={theme}>
 			<Box sx={{
