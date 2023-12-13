@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React, { ElementType } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
@@ -22,6 +23,8 @@ import PricingPlan from '../pages/PricingPlan/PricingPlan'
 import { GameLevelPage } from '../pages/GameLevel'
 import LoggingLayout from '../Layout/LoggingLayout'
 import { ACCESS_TOKEN } from '../common'
+import AdminDashboardLayout from '../Layout/AdminDashboardLayout'
+import AdminPricing from '../pages/AdminPricing'
 
 
 type AppRoute = {
@@ -38,10 +41,12 @@ export const enum PageNames {
 	FORGOT = 'forgotPassword',
 	LANDING_PAGE = 'landingPage',
 	DASHBOARD = 'dashboard',
+	ADMIN_GAMES = 'adminGamesPage',
 	GAMES = 'myProject',
 	USERS_AD = 'users',
 	PERMISSION = 'permission',
 	ASSETS = 'assetListPage',
+	ADMIN_PAYMENT = 'adminPricing',
 	PAYMENT = 'pricingPlan',
 	USERS_GM = 'userGM',
 	PLAYER = 'player',
@@ -67,6 +72,15 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 			title: 'Dashboard',
 		},
 	},
+	[PageNames.ADMIN_GAMES]: {
+		path: '/admin/games',
+		component: GamesComponent,
+		layout: AdminDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Games Project Management',
+		},
+	},
 	[PageNames.GAMES]: {
 		path: '/games',
 		component: GamesComponent,
@@ -74,6 +88,15 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 		isPrivate: true,
 		props: {
 			title: 'My Projects',
+		},
+	},
+	[PageNames.USERS_AD]: {
+		path: '/admin/users',
+		component: UsersGM,
+		layout: AdminDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Admin Users Management',
 		},
 	},
 	[PageNames.USERS_GM]: {
@@ -137,6 +160,15 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 		isPrivate: true,
 		props: {
 			title: 'Game Levels',
+		},
+	},
+	[PageNames.ADMIN_PAYMENT]: {
+		path: '/admin/pricingPlan',
+		component: AdminPricing,
+		layout: AdminDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Subscription Plan Management',
 		},
 	},
 	[PageNames.PAYMENT]: {

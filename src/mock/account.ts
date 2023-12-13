@@ -14,5 +14,21 @@ export const account: User = {
 	code: faker.string.uuid(),
 	status: true,
 	balance: 3000,
-	role: 'Game Manager'
+	role: 'GHub Admin'
+};
+
+
+
+export const accountAdmin: User = {
+	id: faker.string.uuid(),
+	username: 'daniel.ng',
+	firstName: 'Daniel',
+	lastName: 'Nguyen',
+	email: 'daniel.ng@gmail.com',
+	avatar: '/assets/images/avatars/avatar_15.jpg',
+	phone: faker.phone.number(),
+	code: faker.string.uuid(),
+	status: true,
+	balance: 3000,
+	role: 'GHub Admin'
 };
