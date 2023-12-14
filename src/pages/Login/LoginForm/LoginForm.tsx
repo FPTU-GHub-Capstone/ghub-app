@@ -19,7 +19,11 @@ import { RememberMeCheckbox } from './RememberMeCheckbox'
 import { LoginInputType } from '.'
 
 
-const LoginForm: React.FC = () => {
+type LoginFormProps = {
+	onSubmit: (data: LoginInputType) => any,
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
 	const form = useForm<LoginInputType>({
 		mode: 'onChange',
 		defaultValues: {
@@ -30,10 +34,6 @@ const LoginForm: React.FC = () => {
 	})
 	const { watch, register, handleSubmit, formState, control } = form
 	const { errors } = formState
-	
-	const onSubmit = (data: LoginInputType) => {
-		console.log({...data})
-	}
 
 	return (
 		<ThemeProvider theme={theme}>
