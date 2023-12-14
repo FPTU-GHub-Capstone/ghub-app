@@ -6,6 +6,7 @@ import {
 } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { DevTool } from '@hookform/devtools'
 
 import {Button as LoginButton} from '../../../components/PublicFormButton'
 import { EmailTextField } from '../../../components/TextFields/EmailTextField'
@@ -31,7 +32,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
 			remembered: false,
 		}
 	})
-	const { watch, register, handleSubmit, formState } = form
+	const { watch, register, handleSubmit, formState, control } = form
 	const { errors } = formState
 
 	return (
@@ -60,6 +61,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
 				</Box>
 				<LoginButton text='Login'/>
 			</Box>
+			<DevTool control={control} />
 		</ThemeProvider>
 	)
 }

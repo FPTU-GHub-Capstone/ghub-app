@@ -21,7 +21,7 @@ type Props = {
 
 // eslint-disable-next-line max-lines-per-function
 export default function GameCard({ game, index }: Props) {
-	const { id, banner, name, logo, createdAt } = game
+	const { id, link, banner, name, logo, createdAt } = game
 	const isLatestGameLarge = index === 0
 	const isLatestGame = index === 1 || index === 2
 	const navigate = useNavigate()

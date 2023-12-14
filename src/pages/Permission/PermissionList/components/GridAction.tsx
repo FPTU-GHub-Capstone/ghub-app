@@ -2,6 +2,7 @@ import { Tooltip } from '@mui/material'
 import React from 'react'
 import { Edit, Delete } from '@mui/icons-material'
 import { GridActionsCellItem } from '@mui/x-data-grid'
+import { useParams } from 'react-router-dom'
 
 import { useDialog } from '../../../../hooks/useDialog'
 import UpdatePermission from '../../PermissionDialogs/UpdateClient'
@@ -16,11 +17,12 @@ export default function GridAction({rowData}: {rowData: Client}) {
 	const [isOpenUpdate, handleOpenUpdate, handleCloseUpdate] = useDialog()
 	const [isOpenDelete, handleOpenDelete, handleCloseDelete] = useDialog()
 	const dispatch = useAppDispatch()
+	const { gameId } = useParams()
 
 	const handleDeleteClient = async() => {
 		const { status } = await deleteClient(rowData.clientId)
 		if(status == HttpStatusCode.NO_CONTENT) {
-			dispatch(clientsFetch())
+			dispatch(clientsFetch(gameId))
 			handleCloseDelete()
 		}
 	}

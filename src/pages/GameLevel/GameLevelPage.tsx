@@ -26,8 +26,6 @@ type GameResponse = {
 	result: Game,
 };
 
-const restSvc = RestService.getInstance()
-
 export const GameLevelPage = ({ title }: { title: string }) => {
 	const [gameLevels, setGameLevels] = useState<Level[]>([])
 	const [originalGameLevels, setOriginalGameLevels] = useState<Level[]>([])
