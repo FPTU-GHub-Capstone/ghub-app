@@ -1,5 +1,7 @@
 import { faker } from '@faker-js/faker';
 
+import { User } from '../common';
+
 
 export const account = {
 	id: faker.string.uuid(),
