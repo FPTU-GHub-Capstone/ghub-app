@@ -16,9 +16,9 @@ export default function DashboardLayout({ children }: Props) {
 
 	return (
 		<Styled.StyledRoot>
-			<Header isOpen={true} />
+			<Header isOpen={isOpen} isOpenGameDashboard={true} />
 
-			{/* <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} /> */}
+			<Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
 			
 			<Navbar />
 

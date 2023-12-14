@@ -19,8 +19,8 @@ export const Permission = ({title} : {title: string}) => {
 				</Typography>
 			</Stack>
 
-			<Stack mb={5} direction="row" alignItems="center" justifyContent="flex-end">
-				{/* <GamesSearch /> */}
+			<Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
+				<GamesSearch />
 				<Button 
 					variant="contained" 
 					size="large"
