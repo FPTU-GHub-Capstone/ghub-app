@@ -56,7 +56,7 @@ export default function CreateClient({ isOpenAssignDialog, handleCloseAssignDial
 			showError('Scope is required!')
 			return
 		}
-		// console.log(`@reqBody:: ${requestBody}`)
+		// console.log(``@reqBody:: ${JSON.stringify(requestBody, undefined, 4)}``)
 		const response = await createClient(requestBody)
 		if(response.status == HttpStatusCode.CREATED) {
 			setPermissionList(_.cloneDeep(initScopes))
