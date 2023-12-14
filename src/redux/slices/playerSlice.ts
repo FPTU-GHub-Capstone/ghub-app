@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { User } from '../../common';
+import { GAME_ID, User } from '../../common';
 import { RestService } from '../../services/RestService';
 import config from '../../config';
 
@@ -15,7 +15,7 @@ const initialState: PlayerState = {
 export const playersFetch = createAsyncThunk(
 	'player/playersFetch',
 	async () => {
-		const currentGameId = localStorage.getItem('gameId');
+		const currentGameId = localStorage.getItem(GAME_ID);
 		const { data } = await RestService.getInstance().get(
 			config.GMS_URL + `/games/${currentGameId}/users`,
 		);

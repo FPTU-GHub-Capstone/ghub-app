@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import _ from 'lodash'
 
-import { Client, HttpStatusCode } from '../../../common'
+import { Client, GAME_ID, HttpStatusCode } from '../../../common'
 import { generateClientId, generateClientSecret } from '../../../utils/generator'
 import { convertToArrayScope, createClient } from '../../../services/ClientService'
 import { initScopes } from '../../../mock/permissions'
@@ -46,7 +46,7 @@ export default function CreateClient({ isOpenAssignDialog, handleCloseAssignDial
 		const requestBody: Client = {
 			...data,
 			scope: convertToArrayScope(
-				localStorage.getItem('gameId'),
+				localStorage.getItem(GAME_ID),
 				permissionList,
 			),
 		}

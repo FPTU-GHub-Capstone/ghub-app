@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import _ from 'lodash'
 
-import { Client, HttpStatusCode } from '../../../common'
+import { Client, GAME_ID, HttpStatusCode } from '../../../common'
 import { initScopes } from '../../../mock/permissions'
 import { convertArrayToRecordScope, convertToArrayScope, updateClient } from '../../../services/ClientService'
 import { useAppDispatch } from '../../../redux/hook'
@@ -49,7 +49,7 @@ export default function UpdateClient({isOpenUpdate, handleCloseUpdate, data}: Pr
 		const requestBody: Client = {
 			...values,
 			scope: convertToArrayScope(
-				localStorage.getItem('gameId'),
+				localStorage.getItem(GAME_ID),
 				permissionList,
 			),
 		}
