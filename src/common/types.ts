@@ -102,3 +102,10 @@ export type ExchangeToken = {
 	expires_in: number,
 	scope: string,
 }
+
+export type UserTokenPayload = {
+	auth_time: number,
+	iat: number,
+	uid: string,
+	scp: string[],
+}

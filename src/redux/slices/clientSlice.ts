@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { Client } from '../../common';
+import { Client, GAME_ID } from '../../common';
 import { RestService } from '../../services/RestService';
 import config from '../../config';
 
@@ -8,6 +8,11 @@ import config from '../../config';
 type ClientState = {
 	clientList: Client[],
 };
+
+type GetClientByGameIdResponse = {
+	clients: Client[],
+}
+
 const initialState: ClientState = {
 	clientList: [],
 };
@@ -18,7 +23,7 @@ export const clientsFetch = createAsyncThunk(
 		const { data } = await RestService.getInstance().get(
 			config.IDP_URL + `/games/${currentGameId}/clients`,
 		);
-		return data;
+		return data.clients;
 	},
 );
 
@@ -28,7 +33,7 @@ const clientSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder.addCase(clientsFetch.fulfilled, (state, action) => {
-			state.clientList = action.payload.clients;
+			state.clientList = action.payload;
 		});
 	},
 });

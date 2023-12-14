@@ -9,7 +9,7 @@ import SvgColor from '../../../components/Svg-color'
 import Iconify from '../../../components/Iconify'
 import { useAppDispatch } from '../../../redux/hook'
 import { setCurrentGame } from '../../../redux/slices/gameSlice'
-import { Game } from '../../../common'
+import { GAME_ID, Game } from '../../../common'
 
 import * as Styled from './styles'
 
@@ -37,7 +37,7 @@ export default function GameCard({ game, index }: Props) {
 		<Grid item xs={12} sm={isLatestGameLarge ? 12 : 6} md={isLatestGameLarge ? 6 : 3}>
 			<Card sx={{ position: 'relative' }} onClick={() => {
 				dispatch(setCurrentGame(game))
-				localStorage.setItem('gameId', id)
+				localStorage.setItem(GAME_ID, id)
 				navigate(`/games/${id}/players`)
 			}}
 			>
