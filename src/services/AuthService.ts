@@ -1,11 +1,7 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import { useNavigate } from 'react-router-dom';
-
 import {
 	ACCESS_TOKEN,
 	ExchangeToken,
 	HttpStatusCode,
-	RequestHeaders,
 	User,
 } from '../common';
 import { store } from '../redux/store';

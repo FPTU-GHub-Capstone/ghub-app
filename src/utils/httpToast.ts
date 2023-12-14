@@ -59,7 +59,6 @@ export const HttpToast = {
 		);
 	},
 	error: (id: string, status: number, message?: string) => {
-
 		if (!id) return toast.error(message ?? httpStatusMsg[status], config);
 		setTimeout(
 			() =>

@@ -2,7 +2,6 @@ import { Dialog, Slide } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import _ from 'lodash'
-import { useParams } from 'react-router-dom'
 
 import { Client, GAME_ID, HttpStatusCode } from '../../../common'
 import { generateClientId, generateClientSecret } from '../../../utils/generator'
@@ -42,13 +41,12 @@ export default function CreateClient({ isOpenAssignDialog, handleCloseAssignDial
 	const { register, handleSubmit, formState: { errors }, setValue } = form
 	const [permissionList, setPermissionList] = useState(_.cloneDeep(initScopes))
 	const dispatch = useAppDispatch()
-	const { gameId } = useParams()
 
 	const onSubmit: SubmitHandler<Client> = async(data) => {
 		const requestBody: Client = {
 			...data,
 			scope: convertToArrayScope(
-				gameId,
+				localStorage.getItem(GAME_ID),
 				permissionList,
 			),
 		}
@@ -56,11 +54,12 @@ export default function CreateClient({ isOpenAssignDialog, handleCloseAssignDial
 			showError('Scope is required!')
 			return
 		}
-		// console.log(``@reqBody:: ${JSON.stringify(requestBody, undefined, 4)}``)
+		console.log(`@reqBody:: ${JSON.stringify(requestBody, undefined, 4)}`)
+
 		const response = await createClient(requestBody)
 		if(response.status == HttpStatusCode.CREATED) {
 			setPermissionList(_.cloneDeep(initScopes))
-			dispatch(clientsFetch(gameId))
+			dispatch(clientsFetch())
 			handleCloseAssignDialog()
 		}
 	}
