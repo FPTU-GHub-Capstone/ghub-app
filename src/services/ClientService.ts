@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 import { ACCESS_TOKEN, Client, EntityName, FailureResponse, RequestHeaders } from '../common';
 import config from '../config';
-import { initScopes } from '../mock/permissions';
+import { Scopes, initScopes } from '../mock/permissions';
 
 import {RestService} from './RestService';
 
@@ -66,7 +66,7 @@ export const deleteClient = async (clientId: string) => {
 	return response;
 };
 
-export const convertToArrayScope = (gameId: string, list: Record<EntityName, [boolean, boolean, boolean, boolean]>) => {
+export const convertToArrayScope = (gameId: string, list: Scopes) => {
 	const scopes: string[] = [];
 	Object.entries(list).map(([entityName, actions]) => {
 		actions.map((action, index) => {
@@ -77,8 +77,8 @@ export const convertToArrayScope = (gameId: string, list: Record<EntityName, [bo
 	return scopes;
 };
 
-export const convertArrayToRecordScope = (array: string[]) => {
-	const list: Record<EntityName, [boolean, boolean, boolean, boolean]> = _.cloneDeep(initScopes);
+export const convertArrayToRecordScope = (array: string[]): Scopes => {
+	const list: Scopes = _.cloneDeep(initScopes);
 	let permission: string[];
 	array.map((item) => {
 		permission = item.split(':');

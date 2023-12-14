@@ -58,13 +58,12 @@ export const HttpToast = {
 			1500
 		);
 	},
-	error: (id: string, status: number) => {
-
-		if (!id) return toast.error(httpStatusMsg[status], config);
+	error: (id: string, status: number, message?: string) => {
+		if (!id) return toast.error(message ?? httpStatusMsg[status], config);
 		setTimeout(
 			() =>
 				toast.update(id, {
-					render: httpStatusMsg[status],
+					render: message ?? httpStatusMsg[status],
 					type: 'error',
 					isLoading: false,
 					autoClose: 1500,

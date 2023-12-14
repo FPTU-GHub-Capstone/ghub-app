@@ -7,6 +7,7 @@ export enum RequestHeaders {
 export const ACCESS_TOKEN = 'access_token';
 
 export const enum EntityName {
+	game = 'games',
 	user = 'users',
 	gameServer = 'gameservers',
 	characterType = 'charactertypes',

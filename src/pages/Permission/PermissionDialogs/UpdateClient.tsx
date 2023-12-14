@@ -53,7 +53,7 @@ export default function UpdateClient({isOpenUpdate, handleCloseUpdate, data}: Pr
 				permissionList,
 			),
 		}
-		// console.log(`@reqBody:: ${requestBody.clientId}`)
+		console.log(`@reqBody:: ${requestBody}`)
 
 		const response = await updateClient(requestBody, data.clientId)
 		if(response.status == HttpStatusCode.SUCCESS) {
