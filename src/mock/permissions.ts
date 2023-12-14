@@ -13,7 +13,7 @@ export type PermissionBody = {
 	gameId: string,
 }
 
-type Scopes = Record<EntityName, [boolean, boolean, boolean, boolean]>;
+export type Scopes = Partial<Record<EntityName, [boolean, boolean, boolean, boolean]>>;
 
 export const permissionList = [...Array(24)].map((_) => {
 	const numOfScope = faker.number.int({ min: 3, max: 20 });
@@ -48,7 +48,6 @@ export const permissionList = [...Array(24)].map((_) => {
 });
 
 export const initScopes: Scopes = {
-	[EntityName.game]: [false, false, false, false],
 	[EntityName.user]:  [false, false, false, false],
 	[EntityName.gameServer]: [false, false, false, false],
 	[EntityName.characterType]: [false, false, false, false],

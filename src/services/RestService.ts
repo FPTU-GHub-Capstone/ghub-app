@@ -2,6 +2,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig , CreateAxiosDefaults, AxiosError } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { ToastOptions } from 'react-toastify';
+import { isArray } from 'lodash';
 
 import appConfig from '../config';
 import { ACCESS_TOKEN, HttpStatusCode, RequestHeaders } from '../common';
@@ -90,8 +91,12 @@ export class RestService {
 			const isShow = toast?.error?.isShow;
 			if (!isShow) return;
 		
+			let msg = error.response.data['message'];
+			if (isArray(msg)) {
+				msg = msg.join(', ');
+			}
 			const id = config?.toast?.id ?? '';
-			HttpToast.error(id, status);
+			HttpToast.error(id, status, msg);
 
 			return Promise.reject(error);
 		};
