@@ -22,8 +22,7 @@ type DownLoadFile = {
 	fileType: string,
 }
 
-function isHasUpdatedGamePermission(decoded: UserTokenPayload): boolean {
-	const currentGameId = localStorage.getItem(GAME_ID)
+function isHasUpdatedGamePermission(decoded: UserTokenPayload, currentGameId: string): boolean {
 	return decoded.scp.includes('games:*:update') || decoded.scp.includes(`games:${currentGameId}:update`)
 }
 
@@ -88,7 +87,7 @@ export default function GridAction({rowData: client}: {rowData: Client}) {
 				onClick={handleOpenDelete}
 				color="inherit"
 			/>
-			{isHasUpdatedGamePermission(decoded) && <GridActionsCellItem
+			{isHasUpdatedGamePermission(decoded, gameId) && <GridActionsCellItem
 				key="download"
 				icon={<Tooltip title="Download"><Download /></Tooltip>}
 				label="download"

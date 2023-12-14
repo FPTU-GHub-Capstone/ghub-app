@@ -22,6 +22,7 @@ import PricingPlan from '../pages/PricingPlan/PricingPlan'
 import { GameLevelPage } from '../pages/GameLevel'
 import LoggingLayout from '../Layout/LoggingLayout'
 import { ACCESS_TOKEN } from '../common'
+import { Team } from '../pages/Team'
 
 
 type AppRoute = {
@@ -49,7 +50,8 @@ export const enum PageNames {
 	NOT_FOUND = 'notFound',
 	SERVER_ERROR = 'serverError',
 	ASSETS_DETAILS = 'assetDetails',
-	GAME_LEVELS = 'gameLevels'
+	GAME_LEVELS = 'gameLevels',
+	TEAM = 'team',
 }
 
 type ApplicationRoutes = {
@@ -146,6 +148,15 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 		isPrivate: true,
 		props: {
 			title: 'Subscription Plan',
+		},
+	},
+	[PageNames.TEAM]: {
+		path: '/games/:gameId/team',
+		component: Team,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Team',
 		},
 	},
 

@@ -1,4 +1,4 @@
-import StorageIcon from '@mui/icons-material/Storage'
+import Diversity2Icon from '@mui/icons-material/Diversity2'
 import PersonIcon from '@mui/icons-material/Person'
 import ParaglidingIcon from '@mui/icons-material/Paragliding'
 import CategoryIcon from '@mui/icons-material/Category'
@@ -19,9 +19,14 @@ export const NavbarItems: (gameId: string) => NavItem[] = (gameId) => [
 		icon: <EngineeringIcon />,
 	},
 	{
-		title: 'logging',
+		title: 'monitor',
 		path: `/games/${gameId}/logging`,
 		icon: <QueryStatsIcon />,
+	},
+	{
+		title: 'team',
+		path: `/games/${gameId}/team`,
+		icon: <Diversity2Icon />,
 	},
 	// {
 	// 	title: 'servers',

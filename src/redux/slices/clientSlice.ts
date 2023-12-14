@@ -20,7 +20,7 @@ const initialState: ClientState = {
 export const clientsFetch = createAsyncThunk(
 	'client/clientsFetch',
 	async (currentGameId: string) => {
-		const { data } = await RestService.getInstance().get(
+		const { data } = await RestService.getInstance().get<GetClientByGameIdResponse>(
 			config.IDP_URL + `/games/${currentGameId}/clients`,
 		);
 		return data.clients;
