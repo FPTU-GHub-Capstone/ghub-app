@@ -46,13 +46,13 @@ export default function UpdateClient({isOpenUpdate, handleCloseUpdate, data}: Pr
 	const dispatch = useAppDispatch()
 
 	const onSubmit: SubmitHandler<Client> = async (values) => {
-		const requestBody: Client = ({...values, scope: convertToArrayScope(permissionList)})
+		const requestBody: Client = ({...values, scope: convertToArrayScope(data.gameId, permissionList)})
 		// console.log(`@reqBody:: ${requestBody.clientId}`)
 
 		const response = await updateClient(requestBody, data.clientId)
 		if(response.status == HttpStatusCode.SUCCESS) {
 			setPermissionList(_.cloneDeep(initScopes))
-			dispatch(clientsFetch())
+			dispatch(clientsFetch(data.gameId))
 			handleCloseUpdate()
 			showSuccess('Update successfully.')
 		}

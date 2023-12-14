@@ -1,5 +1,5 @@
 import React, { ElementType } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useParams } from 'react-router-dom'
 
 import { Dashboard as DashboardComponent } from '../pages/Dashboard'
 import { Login as LoginComponent } from '../pages/Login'
@@ -207,21 +207,11 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 }
 
 export const AppRoutes: React.FC = () => {
-
 	return (
 		<Routes>
 			{Object.entries(APPLICATION_ROUTES).map(([name, route]) => {
 				const Layout: React.ElementType = route.layout ?? React.Fragment
 				const Component: React.ElementType = route.component
-				const isAuthenticated = localStorage.getItem(ACCESS_TOKEN) ? true : false
-
-				// if (!isAuthenticated && route.isPrivate) {
-				// 	Layout = APPLICATION_ROUTES[PageNames.LOGIN].layout
-				// 	Component = APPLICATION_ROUTES[PageNames.LOGIN].component
-				// } else {
-				// 	Layout = route.layout ?? React.Fragment
-				// 	Component = route.component
-				// }
 
 				return (
 					<Route

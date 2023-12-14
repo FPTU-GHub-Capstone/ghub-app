@@ -83,6 +83,7 @@ export class RestService {
 		return (error: AxiosError) => {
 			const { status, config } = error.response;
 			if(status == HttpStatusCode.UNAUTHORIZED) {
+				localStorage.removeItem(ACCESS_TOKEN);
 				window.location.href = '/login';
 			}
 			const { toast } = config;

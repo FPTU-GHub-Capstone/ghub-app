@@ -14,8 +14,7 @@ const initialState: ClientState = {
 
 export const clientsFetch = createAsyncThunk(
 	'client/clientsFetch',
-	async () => {
-		const currentGameId = localStorage.getItem('gameId');
+	async (currentGameId: string) => {
 		const { data } = await RestService.getInstance().get(
 			config.IDP_URL + `/games/${currentGameId}/clients`,
 		);
