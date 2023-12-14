@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { ACCESS_TOKEN, Client, FailureResponse, RequestHeaders } from '../common';
+import { ACCESS_TOKEN, Client, EntityName, FailureResponse, RequestHeaders } from '../common';
 import config from '../config';
 import { Scopes, initScopes } from '../mock/permissions';
 
@@ -77,12 +77,11 @@ export const convertToArrayScope = (gameId: string, list: Scopes) => {
 	return scopes;
 };
 
-export const convertArrayToRecordScope = (array: string[]): Scopes => {
+export const convertArrayToRecordScope = (array: string[]) => {
 	const list: Scopes = _.cloneDeep(initScopes);
 	let permission: string[];
 	array.map((item) => {
 		permission = item.split(':');
-		// assets:691d7770-790f-4bbd-1219-08dbe97f23ee:create
 		if(permission[0] && permission[2]) {
 			list[permission[0]][reverseActionMapping[permission[2]]] = true;
 		}

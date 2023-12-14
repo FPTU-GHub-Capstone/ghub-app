@@ -19,3 +19,11 @@ export const createGame = async (requestBody: Game) => {
 	console.log(`@statusCode:CreateGameAPI:: ${response.data}`);
 	return response;
 };
+
+export const getCurrentGame = async (gameId: string) => {
+	const response = await RestService.getInstance().get<Game | FailureResponse>(
+		`${config.GMS_URL}/games/${gameId}`
+	);
+	console.log(`@statusCode:GetCurrentGameAPI:: ${response.data}`);
+	return response;
+};

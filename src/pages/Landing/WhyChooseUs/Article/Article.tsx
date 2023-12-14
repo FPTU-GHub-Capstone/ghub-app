@@ -14,15 +14,9 @@ export const Article: React.FC<ArticleType> = ({ title, content }) => (
 			borderRadius: '15px',
 			padding: '50px',
 			margin: '10px',
-			display: 'flex', flexDirection: 'column',
-			justifyContent: 'flex-start',
 		}}
 	>
-		<Box sx={{minHeight: '150px'}}>
-			<Typography component="h2" sx={{ fontSize: '25px' }}>{title}</Typography>
-		</Box>
-		<Box>
-			<Typography component="p" sx={{ fontSize: '15px', lineHeight: '1.8' }}>{content}</Typography>
-		</Box>
+		<Typography component="h2" mb='10px' sx={{ fontSize: '25px', marginBottom: '40px' }}>{title}</Typography>
+		<Typography component="p" sx={{ fontSize: '15px', lineHeight: '1.8' }}>{content}</Typography>
 	</Box>
 )
