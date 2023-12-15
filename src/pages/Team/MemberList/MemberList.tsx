@@ -5,10 +5,9 @@ import React, { useEffect } from 'react'
 
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
 import { useDialog } from '../../../hooks/useDialog'
-
+import { membersFetch } from '../../../redux/slices/teamSlide'
 
 import { columns } from './components/TableColumn'
-import { membersFetch } from '../../../redux/slices/teamSlide'
 
 
 export const MemberList = () => {
