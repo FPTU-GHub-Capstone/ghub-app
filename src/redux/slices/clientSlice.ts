@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { Client, GAME_ID } from '../../common';
+import { Client } from '../../common';
 import { RestService } from '../../services/RestService';
 import config from '../../config';
 

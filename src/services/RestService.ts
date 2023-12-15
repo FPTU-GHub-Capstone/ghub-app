@@ -1,6 +1,5 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig , CreateAxiosDefaults, AxiosError } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig, AxiosError } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import { ToastOptions } from 'react-toastify';
 import { isArray } from 'lodash';
 
 import appConfig from '../config';
@@ -14,16 +13,6 @@ export type AxiosInitOptions = {
 };
 
 const CONTENT_TYPE_JSON = 'application/json';
-
-const toastConfig: ToastOptions = {
-	position: 'bottom-left',
-	autoClose: 2000,
-	hideProgressBar: false,
-	closeOnClick: true,
-	draggable: true,
-	progress: undefined,
-};
-
 export class RestService {
 	private readonly _axiosInstance: AxiosInstance;
 	private _requestAuthInterceptorId: number;
@@ -80,7 +69,7 @@ export class RestService {
 	}
 
 	private _createHandleErrorResponseInterceptor() {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
+		 
 		return (error: AxiosError) => {
 			const { status, config } = error.response;
 			if(status == HttpStatusCode.UNAUTHORIZED) {

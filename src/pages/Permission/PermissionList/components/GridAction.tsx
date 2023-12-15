@@ -7,7 +7,7 @@ import { useMemo } from 'react'
 
 import { useDialog } from '../../../../hooks/useDialog'
 import UpdatePermission from '../../PermissionDialogs/UpdateClient'
-import { ACCESS_TOKEN, Client, GAME_ID, HttpStatusCode, UserTokenPayload } from '../../../../common'
+import { ACCESS_TOKEN, Client, HttpStatusCode, UserTokenPayload } from '../../../../common'
 import { deleteClient } from '../../../../services/ClientService'
 import { useAppDispatch } from '../../../../redux/hook'
 import { clientsFetch } from '../../../../redux/slices/clientSlice'

@@ -1,7 +1,4 @@
-import { useState } from 'react'
-
 import Header from '../DashboardLayout/Header'
-import Sidebar from '../DashboardLayout/Sidebar'
 
 import * as Styled from './styles'
 import Navbar from './Navbar'
@@ -12,7 +9,6 @@ type Props = {
 	children: JSX.Element,
 }
 export default function DashboardLayout({ children }: Props) {
-	const [isOpen, setIsOpen] = useState(false)
 
 	return (
 		<Styled.StyledRoot>
