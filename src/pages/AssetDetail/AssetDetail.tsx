@@ -3,8 +3,7 @@ import { Box, Container, Typography } from '@mui/material'
 import { useLocation } from 'react-router'
 
 import { RestService } from '../../services/RestService'
-import { Asset, AssetType } from '../../common'
-import { Game } from '../Games/types'
+import { Asset, AssetType, Game } from '../../common'
 import config from '../../config'
 
 
@@ -39,14 +38,14 @@ export const AssetDetail = () => {
 				const restSvc = RestService.getInstance()
 				const [, , gameId, , assetId] = location.pathname.split('/')
 				const assetResponse = await restSvc.get<AssetResponse>(
-					`${config.GMS_URL}/assets/${assetId}`,
+					`${config.GMS_URL}/games/${gameId}/assets/${assetId}`,
 				)
 				const gameResponse = await restSvc.get<GameResponse>(
 					`${config.GMS_URL}/games/${gameId}`,
 				)
 				const assetTypeId = assetResponse.data.result.assetTypeId
 				const assetTypeResponse = await restSvc.get<AssetTypeResponse>(
-					`${config.GMS_URL}/asset-types/${assetTypeId}`,
+					`${config.GMS_URL}/games/${gameId}/asset-types/${assetTypeId}`,
 				)
 
 				setAsset(assetResponse.data.result)
@@ -65,7 +64,7 @@ export const AssetDetail = () => {
 				<>
 					<Box>
 						<Typography variant="h2">Game: {game.name}</Typography>
-						<img src={game.link} alt={'Game banner'} />
+						<img src={game.banner} alt={'Game banner'} />
 					</Box>
 					<Box>
 						<Typography variant="h2">{asset.name}</Typography>

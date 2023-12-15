@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom'
 
 import config from '../../config'
 import { RestService } from '../../services/RestService'
-import { Asset, AssetType } from '../../common/types'
+import { Asset } from '../../common/types'
 import ConfirmDialog from '../../components/ConfirmDialog'
 
 import { AssetList } from './AssetList'
@@ -15,12 +15,6 @@ type AssetResponse = {
 	isError: boolean,
 	message: string,
 	result: Asset[],
-};
-
-type AssetTypeResponse = {
-	isError: boolean,
-	message: string,
-	result: AssetType[],
 };
 
 const AssetAddBtn = () => {
@@ -35,7 +29,7 @@ const AssetAddBtn = () => {
 				},
 			}}
 		>
-      Add an Asset
+		Add an Asset
 		</Button>
 	)
 }
@@ -61,7 +55,7 @@ const AssetSaveBtn = ({
 			onClick={handleOnClick}
 			disabled={Boolean(!isDataChanged)}
 		>
-      Save Current State
+		Save Current State
 		</Button>
 	)
 }
@@ -84,25 +78,12 @@ export const AssetPage = ({ title }: { title: string }) => {
 
 	const fetchAsset = async (inputGameId: string) => {
 		try {
-			const assetTypeResponse = await restSvc.get<AssetTypeResponse>(
-				`${config.GMS_URL}/asset-types`,
-			)
 			const assetResponse = await restSvc.get<AssetResponse>(
-				`${config.GMS_URL}/assets`,
+				`${config.GMS_URL}/games/${inputGameId}/assets`,
 			)
-
 			const assetResult = assetResponse.data.result
-			const assetTypeResult = assetTypeResponse.data.result
-
-			const filteredAssets = assetResult.filter((asset) => {
-				return (
-					asset.assetTypeId &&
-					assetTypeResult.some((assetType) => assetType.gameId === inputGameId && assetType.id === asset.assetTypeId)
-				)
-			})
-
-			setAssets(filteredAssets)
-			setOriginalAssets(filteredAssets)
+			setAssets(assetResult)
+			setOriginalAssets(assetResult)
 		} catch (error) {
 			console.error('Error fetching asset type data:', error)
 		}
@@ -120,7 +101,7 @@ export const AssetPage = ({ title }: { title: string }) => {
 				if (JSON.stringify(updatedAsset) !== JSON.stringify(originalAsset)) {
 					try {
 						await restSvc.put(
-							`${config.GMS_URL}/assets/${assetId}`,
+							`${config.GMS_URL}/games/${gameId}/assets/${assetId}`,
 							updatedAsset,
 						)
 					} catch (error) {
@@ -129,7 +110,7 @@ export const AssetPage = ({ title }: { title: string }) => {
 				}
 			} else {
 				try {
-					await restSvc.delete(`${config.GMS_URL}/assets/${assetId}`)
+					await restSvc.delete(`${config.GMS_URL}/games/${gameId}/assets/${assetId}`)
 				} catch (error) {
 					console.error(`Error deleting asset with id ${assetId}:`, error)
 				}

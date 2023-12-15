@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { ACCESS_TOKEN, Client, EntityName, FailureResponse, RequestHeaders } from '../common';
+import { ACCESS_TOKEN, Client, FailureResponse, RequestHeaders } from '../common';
 import config from '../config';
 import { Scopes, initScopes } from '../mock/permissions';
 

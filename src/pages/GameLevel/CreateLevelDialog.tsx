@@ -62,7 +62,7 @@ export default function CreateLevelDialog({
 	const restSvc = RestService.getInstance()
 	const handlePostData = async (data: Level[]) => {
 		try {
-			await restSvc.post(`${config.GMS_URL}/levels`, data)
+			await restSvc.post(`${config.GMS_URL}/games/${gameId}/levels`, data)
 		} catch (error) {
 			console.error('Error adding new game Level:', error)
 		}
