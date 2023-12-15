@@ -200,7 +200,7 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 		layout: GameDashboardLayout,
 		isPrivate: true,
 		props: {
-			title: 'Team',
+			title: 'Successful Payment',
 		},
 	},
 
