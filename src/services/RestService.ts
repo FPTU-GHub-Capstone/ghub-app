@@ -34,6 +34,7 @@ export class RestService {
 			toast: {
 				...defaultHttpToastConfig,
 			},
+			withCredentials: false,
 			...options,
 		});
 		axiosInstance.interceptors.response.use(
@@ -69,7 +70,6 @@ export class RestService {
 	}
 
 	private _createHandleErrorResponseInterceptor() {
-		 
 		return (error: AxiosError) => {
 			const { status, config } = error.response;
 			if(status == HttpStatusCode.UNAUTHORIZED) {

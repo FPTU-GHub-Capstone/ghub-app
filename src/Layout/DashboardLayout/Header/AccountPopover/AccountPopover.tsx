@@ -1,10 +1,10 @@
 /* eslint-disable max-lines-per-function */
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { alpha } from '@mui/material/styles'
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material'
 // mocks_
 // import { account } from '../../../../mock/account'
-import { NavigateFunction, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import { ACCESS_TOKEN, User } from '../../../../common'
 import { useAppDispatch, useAppSelector } from '../../../../redux/hook'
