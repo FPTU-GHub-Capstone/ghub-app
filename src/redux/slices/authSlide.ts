@@ -13,17 +13,6 @@ const initialState: AuthState = {
 	isAuthenticated: false,
 };
 
-export const clientsFetch = createAsyncThunk(
-	'client/clientsFetch',
-	async () => {
-		const currentGameId = localStorage.getItem('gameId');
-		const { data } = await RestService.getInstance().get(
-			config.IDP_URL + `/games/${currentGameId}/clients`,
-		);
-		return data;
-	},
-);
-
 const authSlice = createSlice({
 	name: 'auth',
 	initialState,
@@ -33,12 +22,6 @@ const authSlice = createSlice({
 			state.isAuthenticated = true;
 		},
 	},
-	// extraReducers: (builder) => {
-	// 	builder.addCase(logOut.fulfilled, (state, action) => {
-	// 		state.isAuthenticated = false;
-	// 		state.currentUser = undefined;
-	// 	});
-	// },
 });
 
 export const { setCurrentUser } = authSlice.actions;

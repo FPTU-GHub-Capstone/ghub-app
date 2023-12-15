@@ -4,6 +4,7 @@ import gameReducer from './slices/gameSlice';
 import playerReducer from './slices/playerSlice';
 import clientReducer from './slices/clientSlice';
 import authReducer from './slices/authSlide';
+import teamReducer from './slices/teamSlide';
 
 
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
 		player: playerReducer,
 		client: clientReducer,
 		auth: authReducer,
+		team: teamReducer,
 	}
 });
 

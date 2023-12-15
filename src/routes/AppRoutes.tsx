@@ -1,6 +1,5 @@
-/* eslint-disable max-lines */
 import React, { ElementType } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useParams } from 'react-router-dom'
 
 import { Dashboard as DashboardComponent } from '../pages/Dashboard'
 import { Login as LoginComponent } from '../pages/Login'
@@ -23,7 +22,7 @@ import PricingPlan from '../pages/PricingPlan/PricingPlan'
 import { GameLevelPage } from '../pages/GameLevel'
 import LoggingLayout from '../Layout/LoggingLayout'
 import { ACCESS_TOKEN } from '../common'
-import { GameServerPage } from '../pages/GameServers'
+import { Team } from '../pages/Team'
 
 
 type AppRoute = {
@@ -43,7 +42,6 @@ export const enum PageNames {
 	GAMES = 'myProject',
 	USERS_AD = 'users',
 	PERMISSION = 'permission',
-	GAME_SERVER = 'gameServerPage',
 	ASSETS = 'assetListPage',
 	PAYMENT = 'pricingPlan',
 	USERS_GM = 'userGM',
@@ -52,7 +50,8 @@ export const enum PageNames {
 	NOT_FOUND = 'notFound',
 	SERVER_ERROR = 'serverError',
 	ASSETS_DETAILS = 'assetDetails',
-	GAME_LEVELS = 'gameLevels'
+	GAME_LEVELS = 'gameLevels',
+	TEAM = 'team',
 }
 
 type ApplicationRoutes = {
@@ -106,15 +105,6 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 			title: 'Permission',
 		},
 	},
-	[PageNames.GAME_SERVER]: {
-		path: '/games/:gameId/servers',
-		component: GameServerPage,
-		layout: GameDashboardLayout,
-		isPrivate: true,
-		props: {
-			title: 'Game Servers',
-		},
-	},
 	[PageNames.ASSETS]: {
 		path: '/games/:gameId/assets',
 		component: AssetPage,
@@ -158,6 +148,15 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 		isPrivate: true,
 		props: {
 			title: 'Subscription Plan',
+		},
+	},
+	[PageNames.TEAM]: {
+		path: '/games/:gameId/team',
+		component: Team,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Team',
 		},
 	},
 
@@ -219,21 +218,11 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 }
 
 export const AppRoutes: React.FC = () => {
-
 	return (
 		<Routes>
 			{Object.entries(APPLICATION_ROUTES).map(([name, route]) => {
 				const Layout: React.ElementType = route.layout ?? React.Fragment
 				const Component: React.ElementType = route.component
-				//const isAuthenticated = localStorage.getItem(ACCESS_TOKEN) ? true : false
-
-				// if (!isAuthenticated && route.isPrivate) {
-				// 	Layout = APPLICATION_ROUTES[PageNames.LOGIN].layout
-				// 	Component = APPLICATION_ROUTES[PageNames.LOGIN].component
-				// } else {
-				// 	Layout = route.layout ?? React.Fragment
-				// 	Component = route.component
-				// }
 
 				return (
 					<Route
