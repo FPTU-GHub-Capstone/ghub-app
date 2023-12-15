@@ -1,4 +1,4 @@
-import { Box, Container, Stack, Typography, Button } from '@mui/material'
+import { Box } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import { useParams } from 'react-router-dom'
 import React, { useEffect } from 'react'
@@ -13,7 +13,6 @@ import { columns } from './components/TableColumn'
 export const MemberList = () => {
 	const dispatch = useAppDispatch()
 	const { gameId } = useParams()
-	const [isOpenAssign, handleOpenAssign, handleCloseAssign] = useDialog()
 
 	const members = useAppSelector(({ team }) => team.memberList)
 	useEffect(() => {

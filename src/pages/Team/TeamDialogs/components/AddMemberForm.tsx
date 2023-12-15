@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
 import { Box, TextField, Button, Grid, Card, Stack, Avatar, Typography, FormControlLabel, Checkbox } from '@mui/material'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
@@ -8,7 +8,6 @@ import { EMAIL_REGEX, HttpStatusCode, User } from '../../../../common'
 import { getUserByEmail } from '../../../../services/TeamService'
 import { showError } from '../../../../utils/toast'
 import { useAppDispatch, useAppSelector } from '../../../../redux/hook'
-
 import Label from '../../../../components/Label'
 import { membersFetch } from '../../../../redux/slices/teamSlide'
 
@@ -91,7 +90,7 @@ export default function AddMemberForm({members, setMembers, permission, setPermi
 			email: '',
 		}
 	})
-	const { watch, register, handleSubmit, formState, control } = form
+	const { register, handleSubmit, formState } = form
 	const { errors } = formState
 	// const members: User[] = []
 	
@@ -116,7 +115,7 @@ export default function AddMemberForm({members, setMembers, permission, setPermi
 			// members.forEach((member) => {
 			// 	if (member.email == response.data.users[0].email) return
 			// })
-			setMembers((prevMem) => [response.data.users[0]])
+			setMembers([response.data.users[0]])
 			// members.push(response.data.users[0])
 			// console.log(members[0])
 		}

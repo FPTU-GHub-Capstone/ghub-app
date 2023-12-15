@@ -1,6 +1,5 @@
 import { styled } from '@mui/material/styles'
 import { Autocomplete, InputAdornment, Popper, TextField } from '@mui/material'
-import { useState } from 'react'
 
 import Iconify from '../../../components/Iconify'
 import { Game } from '../../../common'
