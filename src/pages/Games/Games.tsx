@@ -1,5 +1,5 @@
 import { Button, Container, Grid, Stack, Typography } from '@mui/material'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import Iconify from '../../components/Iconify'
 import { useDialog } from '../../hooks/useDialog'
@@ -25,10 +25,16 @@ const SORT_OPTIONS = [
 export const Games = ({ title }: Props) => {
 	// const [games, setGames] = useState<Game[]>([])
 	const [isOpenCreate, handleOpenCreate, handleCloseCreate] = useDialog()
+	const [gameSearch, setGameSearch] = useState('')
 
 	const dispatch = useAppDispatch()
 
 	const games = useAppSelector(({ game }) => game.gameList)
+	const gameResult = games.filter((game) => {
+		if (gameSearch != '') {
+			if(game.id == gameSearch) return game
+		} else return game
+	})
 	useEffect(() => {
 		dispatch(gamesFetch())
 		// console.log(`@player:: ${players}`)
@@ -53,12 +59,12 @@ export const Games = ({ title }: Props) => {
 			</Stack>
 
 			<Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
-				<GamesSearch games={games} />
+				<GamesSearch games={games} setGameSearch={setGameSearch} />
 				<GamesSort options={SORT_OPTIONS} />
 			</Stack>
 
 			<Grid container spacing={3}>
-				{games.map((game, index) => (
+				{gameResult.map((game, index) => (
 					<GameCard key={game.id} game={game} index={index} />
 				))}
 			</Grid>

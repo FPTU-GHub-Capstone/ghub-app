@@ -4,6 +4,7 @@ import {
 } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import React, { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
 import { useAppDispatch, useAppSelector } from '../../redux/hook'
 import { playersFetch } from '../../redux/slices/playerSlice'
@@ -14,12 +15,13 @@ import { columns } from './components/TableColumn'
 export default function Player() {
 
 	const dispatch = useAppDispatch()
+	const { gameId } = useParams()
 
 	const players = useAppSelector(({ player }) => player.playerList)
 	useEffect(() => {
-		dispatch(playersFetch())
+		dispatch(playersFetch(gameId))
 		// console.log(`@player:: ${players}`)
-	}, [dispatch])
+	}, [dispatch, gameId])
 
 	return (
 		<>
