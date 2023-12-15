@@ -24,14 +24,14 @@ export const setMemberPermission = async (uid: string, scope: string[]) => {
 		config.IDP_URL + `/users/${uid}/add-scope`,
 		reqBody
 	);
-	console.log(`@statusCode:setMemberPermissionAPI:: ${JSON.stringify(response, undefined, 4)}`);
+	// console.log(`@statusCode:setMemberPermissionAPI:: ${JSON.stringify(response, undefined, 4)}`);
 	return response;
 };
 
 export const convertToArrayScope = (gameId: string, list: boolean[]) => {
 	const scopes: string[] = [];
 
-	list.map((action, index) => {
+	Object.entries(list).map(([index, action]) => {
 		if(action) scopes.push(`games:${gameId}:${actionMapping[index]}`);
 	});
 	return scopes;

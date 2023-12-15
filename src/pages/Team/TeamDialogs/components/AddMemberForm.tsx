@@ -126,7 +126,7 @@ export default function AddMemberForm({members, setMembers, permission, setPermi
 
 		permission[index] = event.target.checked
 		setPermission({...permission})
-		// console.log(permission)
+		console.log(permission)
 	}
 
 	return (

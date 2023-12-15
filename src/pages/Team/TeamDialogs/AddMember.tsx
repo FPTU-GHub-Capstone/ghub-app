@@ -26,6 +26,7 @@ export default function AddMember({ isOpenAdd, handleCloseAdd }: Props) {
 	const dispatch = useAppDispatch()
 
 	const onSubmit = async() => {
+		console.log(permission)
 		const scope = convertToArrayScope(gameId, permission)
 		const response = await setMemberPermission(members[0].uid, scope)
 		if(response.status == HttpStatusCode.SUCCESS) {
