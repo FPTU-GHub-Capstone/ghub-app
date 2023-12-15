@@ -69,7 +69,7 @@ export class RestService {
 	}
 
 	private _createHandleErrorResponseInterceptor() {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
+		 
 		return (error: AxiosError) => {
 			const { status, config } = error.response;
 			if(status == HttpStatusCode.UNAUTHORIZED) {
