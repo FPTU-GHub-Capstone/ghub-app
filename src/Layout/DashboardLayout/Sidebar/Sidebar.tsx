@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { styled, Theme, CSSObject , alpha } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import MuiDrawer from '@mui/material/Drawer'
@@ -76,6 +75,15 @@ const StyledAccount = styled('div')(({ theme }) => ({
 	backgroundColor: alpha(theme.palette.grey[500], 0.12),
 }))
 
+const Username = styled(Typography)(() => ({
+	color: 'text.primary',
+	overflow: 'hidden',
+	textOverflow: 'ellipsis',
+	whiteSpace: 'normal',
+	wordWrap: 'break-word',
+	maxWidth: '100%', // Ensure the username doesn't exceed the container's width
+}))
+
 export default function Sidebar({isOpen, setIsOpen} : {
 	isOpen: boolean,
 	setIsOpen: (open) => void,
@@ -112,12 +120,10 @@ export default function Sidebar({isOpen, setIsOpen} : {
 					<Link underline="none">
 						<StyledAccount>
 							<Avatar src={account?.picture} alt="photoURL" />
-
-							<Box sx={{ ml: 2 }}>
-								<Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
+							<Box sx={{ml: 2, flex: 1,}}>
+								<Username variant="subtitle2">
 									{`${account?.name ?? account?.username}`}
-								</Typography>
-
+								</Username>
 								<Typography variant="body2" sx={{ color: 'text.secondary' }}>
 									Game Manager
 								</Typography>

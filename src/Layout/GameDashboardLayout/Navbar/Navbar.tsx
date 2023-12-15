@@ -1,12 +1,15 @@
- 
-import * as React from 'react'
+import { useEffect, useState } from 'react'
 import { Box, Typography, Link } from '@mui/material'
 import MuiDrawer from '@mui/material/Drawer'
+import Divider from '@mui/material/Divider'
 import CssBaseline from '@mui/material/CssBaseline'
 import { styled, Theme, CSSObject, alpha } from '@mui/material/styles'
 import { useParams } from 'react-router'
 
 import NavSection from '../../../components/NavSession'
+import { RestService } from '../../../services/RestService'
+import config from '../../../config'
+import { Game } from '../../../pages/Games/types'
 import Logo from '../../../components/Logo'
 
 import { NavbarItems } from './Items'
@@ -58,9 +61,47 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 	}),
 )
 
+const GameTitle = styled(Typography)(() => ({
+	color: '#637381',
+	overflow: 'hidden',
+	textOverflow: 'ellipsis',
+	whiteSpace: 'normal',
+	wordWrap: 'break-word',
+	maxWidth: '100%', // Ensure the username doesn't exceed the container's width
+}))
+
+
+type GameResponse = {
+	isError: boolean,
+	message?: string,
+	result?: Game,
+	responseException?: {
+		exceptionMessage: string,
+	},
+};
+
+const restSvc = RestService.getInstance()
 
 export default function Navbar() {
-	const { gameId } = useParams()
+	const [game, setGame] = useState<Game>()
+	const { gameId } = useParams<{ gameId: string }>()
+	useEffect(() => {
+		fetchGame(gameId)
+	}, [gameId])
+	
+	const fetchGame = async (inputGameId : string) => {
+		try {
+			const GameResponse = await restSvc.get<GameResponse>(`${config.GMS_URL}/games/${inputGameId}`)
+			if (!GameResponse.data.isError) {
+				const gameResult: Game = GameResponse.data.result
+				setGame(gameResult)
+			} else {
+				console.log('Game Get problem')
+			}
+		} catch (error) {
+			console.error('Error fetching game Levels data:', error)
+		}
+	}
 	const navbarItem = NavbarItems(gameId)
 
 	return (
@@ -79,14 +120,14 @@ export default function Navbar() {
 						<StyledAccount>
 							<Box
 								component='img'
-								src='/assets/images/covers/cover_3.jpg'
+								src={game ? game.logo : '/assets/images/covers/cover_1.jpg'}
 								sx={{ width: 50, height: 50, cursor: 'pointer' }}
 							/>
 
-							<Box sx={{ ml: 2 }}>
-								<Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
-									Sword Art Online: Infinity Moment
-								</Typography>
+							<Box sx={{ ml: 2, flex: 1 }}>
+								<GameTitle variant="subtitle2">
+									{game ? game.name : 'Loading'}
+								</GameTitle>
 							</Box>
 						</StyledAccount>
 					</Link>
@@ -105,6 +146,8 @@ export default function Navbar() {
 					}}
 				/>
 			</Drawer>
+	
+			<Divider orientation="horizontal" flexItem />
 		</Box>
 	)
 }

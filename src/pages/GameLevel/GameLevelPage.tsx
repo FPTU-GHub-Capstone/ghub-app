@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom'
 
 
 import config from '../../config'
-import {RestService} from '../../services/RestService'
+import { RestService } from '../../services/RestService'
 import { Game, Level } from '../../common/types'
 import { useDialog } from '../../hooks/useDialog'
 
