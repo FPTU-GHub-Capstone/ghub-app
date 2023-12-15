@@ -1,6 +1,7 @@
 import { Tooltip } from '@mui/material'
 import { Edit, Delete, Download } from '@mui/icons-material'
 import { GridActionsCellItem } from '@mui/x-data-grid'
+import { useParams } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
 import { useMemo } from 'react'
 
@@ -21,8 +22,7 @@ type DownLoadFile = {
 	fileType: string,
 }
 
-function isHasUpdatedGamePermission(decoded: UserTokenPayload): boolean {
-	const currentGameId = localStorage.getItem(GAME_ID)
+function isHasUpdatedGamePermission(decoded: UserTokenPayload, currentGameId: string): boolean {
 	return decoded.scp.includes('games:*:update') || decoded.scp.includes(`games:${currentGameId}:update`)
 }
 
@@ -44,6 +44,8 @@ export default function GridAction({rowData: client}: {rowData: Client}) {
 	const [isOpenUpdate, handleOpenUpdate, handleCloseUpdate] = useDialog()
 	const [isOpenDelete, handleOpenDelete, handleCloseDelete] = useDialog()
 	const dispatch = useAppDispatch()
+	const { gameId } = useParams()
+
 	const accessToken = localStorage.getItem(ACCESS_TOKEN)
 	const decoded = useMemo<UserTokenPayload>(() => {
 		return jwtDecode(accessToken)
@@ -52,7 +54,7 @@ export default function GridAction({rowData: client}: {rowData: Client}) {
 	const handleDeleteClient = async() => {
 		const { status } = await deleteClient(client.clientId)
 		if(status == HttpStatusCode.NO_CONTENT) {
-			dispatch(clientsFetch())
+			dispatch(clientsFetch(gameId))
 			handleCloseDelete()
 		}
 	}
@@ -85,7 +87,7 @@ export default function GridAction({rowData: client}: {rowData: Client}) {
 				onClick={handleOpenDelete}
 				color="inherit"
 			/>
-			{isHasUpdatedGamePermission(decoded) && <GridActionsCellItem
+			{isHasUpdatedGamePermission(decoded, gameId) && <GridActionsCellItem
 				key="download"
 				icon={<Tooltip title="Download"><Download /></Tooltip>}
 				label="download"
