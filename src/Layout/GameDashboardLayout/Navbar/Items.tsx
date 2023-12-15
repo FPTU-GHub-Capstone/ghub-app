@@ -8,6 +8,7 @@ import HomeIcon from '@mui/icons-material/Home'
 import { Article } from '@mui/icons-material'
 //import DirectionsRunIcon from '@mui/icons-material/DirectionsRun'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
+import ReceiptIcon from '@mui/icons-material/Receipt'
 
 import { NavItem } from '../../../common'
 
@@ -39,6 +40,11 @@ export const NavbarItems: (gameId: string) => NavItem[] = (gameId) => [
 		title: 'team',
 		path: `/games/${gameId}/team`,
 		icon: <Diversity2Icon />,
+	},
+	{
+		title: 'bills',
+		path: `/games/${gameId}/bills`,
+		icon: <ReceiptIcon />,
 	},
 	{
 		title: 'servers',

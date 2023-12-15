@@ -26,7 +26,8 @@ import { GameOverview } from '../pages/GameOverview'
 import { ACCESS_TOKEN } from '../common'
 import { Team } from '../pages/Team'
 import { GameServerPage } from '../pages/GameServers'
-
+import { GameBillPage } from '../pages/GameBills'
+import PaymentSuccess from '../pages/Payment/PaymentSuccess'
 
 
 type AppRoute = {
@@ -58,6 +59,8 @@ export const enum PageNames {
 	ASSETS_DETAILS = 'assetDetails',
 	GAME_LEVELS = 'gameLevels',
 	TEAM = 'team',
+	BILLS = 'bills',
+	PAYMENT_SUCCESS = 'paymentSuccess'
 }
 
 type ApplicationRoutes = {
@@ -100,6 +103,15 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 		isPrivate: true,
 		props: {
 			title: 'Users',
+		},
+	},
+	[PageNames.BILLS]: {
+		path: '/games/:gameId/bills',
+		component: GameBillPage,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Bills',
 		},
 	},
 	[PageNames.PLAYER]: {
@@ -181,6 +193,15 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 		isPrivate: true,
 		props: {
 			title: 'Team',
+		}
+	},
+	[PageNames.PAYMENT_SUCCESS]: {
+		path: '/successPayment',
+		component: PaymentSuccess,
+		layout: null,
+		isPrivate: true,
+		props: {
+			title: 'Successful Payment',
 		},
 	},
 
