@@ -5,6 +5,7 @@ import {
 	Typography,
 } from '@mui/material'
 import { useForm } from 'react-hook-form'
+import { DevTool } from '@hookform/devtools'
 import { Link } from 'react-router-dom'
 
 import {Button as ForgotSubmitBtn} from '../../../components/PublicFormButton'
@@ -23,7 +24,7 @@ const RegisterForm: React.FC = () => {
 			email: '',
 		}
 	})
-	const { register, handleSubmit, formState } = form
+	const { register, handleSubmit, formState, control } = form
 	const { errors } = formState
 	
 	const onSubmit = (data: ForgotInputType) => {
@@ -55,6 +56,7 @@ const RegisterForm: React.FC = () => {
 				</Box>
 
 			</Box>
+			<DevTool control={control} />
 		</ThemeProvider>
 	)
 }

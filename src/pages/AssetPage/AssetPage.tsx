@@ -66,8 +66,6 @@ const AssetSaveBtn = ({
 	)
 }
 
-const restSvc = RestService.getInstance()
-
 export const AssetPage = ({ title }: { title: string }) => {
 	const [assets, setAssets] = useState<Asset[]>([])
 	const [originalAssets, setOriginalAssets] = useState<Asset[]>([])
@@ -82,6 +80,7 @@ export const AssetPage = ({ title }: { title: string }) => {
 		fetchAsset(extractedGameId)
 	}, [location.pathname])
 
+	const restSvc = RestService.getInstance()
 	const fetchAsset = async (inputGameId: string) => {
 		try {
 			const assetTypeResponse = await restSvc.get<AssetTypeResponse>(
@@ -97,7 +96,7 @@ export const AssetPage = ({ title }: { title: string }) => {
 			const filteredAssets = assetResult.filter((asset) => {
 				return (
 					asset.assetTypeId &&
-					assetTypeResult.some((assetType) => assetType.gameId === inputGameId && assetType.id === asset.assetTypeId)
+          assetTypeResult.some((assetType) => assetType.gameId === inputGameId && assetType.id === asset.assetTypeId)
 				)
 			})
 
