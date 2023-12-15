@@ -120,3 +120,13 @@ export type UserTokenPayload = {
 	uid: string,
 	scp: string[],
 }
+
+export type GameBill = {
+	_id: string,
+	gameId: string,
+	writeUnits: number,
+	readUnits: number,
+	time: string,
+	status: string,
+	__v: number,
+}
