@@ -15,7 +15,7 @@ const LoginWithExternalSiteButton: React.FC<{ onClick?: () => void, text: string
 			<Button
 				variant="outlined"
 				sx={{
-					width: '48%', height: '50px', paddingY: '10px',
+					width: '48%', height: '40px', paddingY: '10px',
 					borderRadius: '40px',  backgroundColor: '#fff',
 				}}
 				onClick={onClick}

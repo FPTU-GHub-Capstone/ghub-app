@@ -68,14 +68,10 @@ export default function CreateLevelDialog({
 		}
 	}
 
-	const onSubmit = async (data: CreateLevelInputType) => {
-		try {
-			await handlePostData(data.levels)
-			toggleChanged()
-			handleCloseCreateLevelDialog()
-		} catch (error) {
-			console.error('Error:', error)
-		}
+	const onSubmit = (data: CreateLevelInputType) => {
+		handlePostData(data.levels)
+		toggleChanged()
+		handleCloseCreateLevelDialog()
 	}
 
 	const addLevel = () => {
