@@ -24,6 +24,8 @@ import { GameLevelPage } from '../pages/GameLevel'
 import LoggingLayout from '../Layout/LoggingLayout'
 import { ACCESS_TOKEN } from '../common'
 import { GameServerPage } from '../pages/GameServers'
+import { GameBillPage } from '../pages/GameBills'
+import PaymentSuccess from '../pages/Payment/PaymentSuccess'
 
 
 type AppRoute = {
@@ -52,7 +54,9 @@ export const enum PageNames {
 	NOT_FOUND = 'notFound',
 	SERVER_ERROR = 'serverError',
 	ASSETS_DETAILS = 'assetDetails',
-	GAME_LEVELS = 'gameLevels'
+	GAME_LEVELS = 'gameLevels',
+	BILLS = 'bills',
+	PAYMENT_SUCCESS = 'paymentSuccess'
 }
 
 type ApplicationRoutes = {
@@ -86,6 +90,15 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 		isPrivate: true,
 		props: {
 			title: 'Users',
+		},
+	},
+	[PageNames.BILLS]: {
+		path: '/games/:gameId/bills',
+		component: GameBillPage,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Bills',
 		},
 	},
 	[PageNames.PLAYER]: {
@@ -158,6 +171,15 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 		isPrivate: true,
 		props: {
 			title: 'Subscription Plan',
+		},
+	},
+	[PageNames.PAYMENT_SUCCESS]: {
+		path: '/successPayment',
+		component: PaymentSuccess,
+		layout: null,
+		isPrivate: true,
+		props: {
+			title: 'Successful Payment',
 		},
 	},
 

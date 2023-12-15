@@ -6,6 +6,7 @@ import QueryStatsIcon from '@mui/icons-material/QueryStats'
 import EngineeringIcon from '@mui/icons-material/Engineering'
 //import DirectionsRunIcon from '@mui/icons-material/DirectionsRun'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
+import ReceiptIcon from '@mui/icons-material/Receipt'
 
 import { NavItem } from '../../../common'
 
@@ -22,6 +23,11 @@ export const NavbarItems: (gameId: string) => NavItem[] = (gameId) => [
 		title: 'logging',
 		path: `/games/${gameId}/logging`,
 		icon: <QueryStatsIcon />,
+	},
+	{
+		title: 'bills',
+		path: `/games/${gameId}/bills`,
+		icon: <ReceiptIcon />,
 	},
 	{
 		title: 'servers',
