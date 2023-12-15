@@ -75,3 +75,8 @@ export const httpStatusMsg = {
 	[HttpStatusCode.NOT_FOUND]: 'Resource not found!',
 	[HttpStatusCode.SERVER_ERROR]: 'Internal server error!',
 };
+
+export const enum BillStatus  {
+	PAID = 'paid',
+	PENDING = 'pending'
+}
