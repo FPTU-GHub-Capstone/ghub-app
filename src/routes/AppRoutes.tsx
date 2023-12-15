@@ -58,9 +58,9 @@ export const enum PageNames {
 	SERVER_ERROR = 'serverError',
 	ASSETS_DETAILS = 'assetDetails',
 	GAME_LEVELS = 'gameLevels',
-	TEAM = 'team',
 	BILLS = 'bills',
-	PAYMENT_SUCCESS = 'paymentSuccess'
+	PAYMENT_SUCCESS = 'paymentSuccess',
+	TEAM = 'team',
 }
 
 type ApplicationRoutes = {
