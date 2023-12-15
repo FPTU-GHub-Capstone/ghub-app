@@ -56,11 +56,6 @@ export const NavbarItems: (gameId: string) => NavItem[] = (gameId) => [
 		path: `/games/${gameId}/team`,
 		icon: <Diversity2Icon />,
 	},
-	// {
-	// 	title: 'servers',
-	// 	path: `/games/${gameId}/servers`,
-	// 	icon: <StorageIcon />,
-	// },
 	{
 		title: 'players',
 		path: `/games/${gameId}/players`,
