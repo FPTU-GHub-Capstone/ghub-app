@@ -1,9 +1,9 @@
-import { GridColDef, GridRenderCellParams, GridRowId, GridRowParams, GridValueGetterParams } from '@mui/x-data-grid'
-import { sentenceCase } from 'change-case'
+import { GridColDef, GridRenderCellParams, GridRowId, GridRowParams } from '@mui/x-data-grid'
 import { Stack, Avatar, Typography } from '@mui/material'
 import { useParams } from 'react-router-dom'
 
 import Label from '../../../../components/Label'
+
 import GridAction from './GridAction'
 
 

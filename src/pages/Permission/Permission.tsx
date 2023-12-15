@@ -1,7 +1,6 @@
 import { Button, Container, Stack, Typography } from '@mui/material'
 import React from 'react'
 
-import GamesSearch from '../Games/GamesSearch'
 import { useDialog } from '../../hooks/useDialog'
 
 import PermissionList from './PermissionList/PermissionList'

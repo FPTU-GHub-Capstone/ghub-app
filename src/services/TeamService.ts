@@ -1,4 +1,3 @@
-import { FailureResponse, User } from '../common';
 import config from '../config';
 
 import { RestService } from './RestService';

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import _ from 'lodash'
 
-import { Client, GAME_ID, HttpStatusCode } from '../../../common'
+import { Client, HttpStatusCode } from '../../../common'
 import { initScopes } from '../../../mock/permissions'
 import { convertArrayToRecordScope, convertToArrayScope, updateClient } from '../../../services/ClientService'
 import { useAppDispatch } from '../../../redux/hook'

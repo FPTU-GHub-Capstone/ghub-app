@@ -1,5 +1,5 @@
 import { Container, Stack, Typography, Button } from '@mui/material'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { useDialog } from '../../hooks/useDialog'
 

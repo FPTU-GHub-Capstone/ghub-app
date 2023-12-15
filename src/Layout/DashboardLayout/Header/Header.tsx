@@ -5,11 +5,8 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 import { bgBlur } from '../../../utils/cssStyles'
 import AccountPopover from '../../DashboardLayout/Header/AccountPopover'
 import NotificationsPopover from '../../DashboardLayout/Header/NotificationsPopover'
-import Searchbar from '../../DashboardLayout/Header/SearchBar'
 import Logo from '../../../components/Logo'
 
-
-const NAV_WIDTH = 230
 
 const HEADER_MOBILE = 64
 
@@ -22,7 +19,7 @@ interface IAppBarProps extends MuiAppBarProps {
 
 const StyledRoot = styled(MuiAppBar, {
 	shouldForwardProp: (prop) => prop !== 'open' && prop !== 'isOpenGameDashboard',
-})<IAppBarProps>(({ theme, open, isOpenGameDashboard }) => ({
+})<IAppBarProps>(({ theme }) => ({
 	...bgBlur({ color: theme.palette.background.default }),
 	boxShadow: 'none',
 	borderBottom: '0.5px solid',

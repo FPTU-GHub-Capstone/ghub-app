@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import _ from 'lodash'
 import { useParams } from 'react-router-dom'
 
-import { Client, GAME_ID, HttpStatusCode } from '../../../common'
+import { Client, HttpStatusCode } from '../../../common'
 import { generateClientId, generateClientSecret } from '../../../utils/generator'
 import { convertToArrayScope, createClient } from '../../../services/ClientService'
 import { initScopes } from '../../../mock/permissions'
