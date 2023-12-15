@@ -1,10 +1,9 @@
-import StorageIcon from '@mui/icons-material/Storage'
+import Diversity2Icon from '@mui/icons-material/Diversity2'
 import PersonIcon from '@mui/icons-material/Person'
-//import ParaglidingIcon from '@mui/icons-material/Paragliding'
 import CategoryIcon from '@mui/icons-material/Category'
 import QueryStatsIcon from '@mui/icons-material/QueryStats'
 import EngineeringIcon from '@mui/icons-material/Engineering'
-//import DirectionsRunIcon from '@mui/icons-material/DirectionsRun'
+import StorageIcon from '@mui/icons-material/Storage'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 import ReceiptIcon from '@mui/icons-material/Receipt'
 
@@ -20,7 +19,7 @@ export const NavbarItems: (gameId: string) => NavItem[] = (gameId) => [
 		icon: <EngineeringIcon />,
 	},
 	{
-		title: 'logging',
+		title: 'monitor',
 		path: `/games/${gameId}/logging`,
 		icon: <QueryStatsIcon />,
 	},
@@ -34,6 +33,16 @@ export const NavbarItems: (gameId: string) => NavItem[] = (gameId) => [
 		path: `/games/${gameId}/servers`,
 		icon: <StorageIcon />,
 	},
+	{
+		title: 'team',
+		path: `/games/${gameId}/team`,
+		icon: <Diversity2Icon />,
+	},
+	// {
+	// 	title: 'servers',
+	// 	path: `/games/${gameId}/servers`,
+	// 	icon: <StorageIcon />,
+	// },
 	{
 		title: 'players',
 		path: `/games/${gameId}/players`,

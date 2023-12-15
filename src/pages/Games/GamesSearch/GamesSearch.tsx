@@ -1,5 +1,6 @@
 import { styled } from '@mui/material/styles'
 import { Autocomplete, InputAdornment, Popper, TextField } from '@mui/material'
+import { useState } from 'react'
 
 import Iconify from '../../../components/Iconify'
 import { Game } from '../../../common'
@@ -11,9 +12,10 @@ const StyledPopper = styled((props) => <Popper open placement="bottom-start" {..
 
 type Props = {
 	games?: Array<Game>,
+	setGameSearch: React.Dispatch<React.SetStateAction<string>>,
 }
 
-export default function GameSearch({ games }: Props) {
+export default function GameSearch({ games, setGameSearch }: Props) {
 	return (
 		<Autocomplete
 			sx={{ width: 280 }}
@@ -22,7 +24,10 @@ export default function GameSearch({ games }: Props) {
 			PopperComponent={StyledPopper}
 			options={games ?? []}
 			getOptionLabel={(game) => game.name}
-			isOptionEqualToValue={(option, value) => option.id === value.id}
+			isOptionEqualToValue={(option, value) => {
+				if (option.id === value.id) setGameSearch(value.id)
+				return option.id === value.id
+			}}
 			renderOption={(props, option) => (
 				<li {...props} key={option.id}>{option.name}</li>
 			)}
@@ -36,7 +41,7 @@ export default function GameSearch({ games }: Props) {
 							<InputAdornment position="start">
 								<Iconify icon={'eva:search-fill'} sx={{ ml: 1, width: 20, height: 20, color: 'text.disabled' }} />
 							</InputAdornment>
-						),
+						)
 					}}
 				/>
 			)}
