@@ -105,7 +105,6 @@ export default function Navbar() {
 	return (
 		<Box sx={{ display: 'flex' }}>
 			<CssBaseline />
-
 			<Drawer variant="permanent" open={true}>
 				<Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
 					<Logo />
@@ -131,7 +130,6 @@ export default function Navbar() {
 						</StyledAccount>
 					</Link>
 				</Box>
-
 
 				<NavSection
 					data={myProjectsItem}

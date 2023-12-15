@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import React, { ElementType } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, useParams } from 'react-router-dom'
 
 import { Dashboard as DashboardComponent } from '../pages/Dashboard'
 import { Login as LoginComponent } from '../pages/Login'
@@ -48,7 +48,6 @@ export const enum PageNames {
 	OVERVIEW = 'overview',
 	USERS_AD = 'users',
 	PERMISSION = 'permission',
-	GAME_SERVER = 'gameServerPage',
 	ASSETS = 'assetListPage',
 	PAYMENT = 'pricingPlan',
 	USERS_GM = 'userGM',
@@ -132,15 +131,6 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 			title: 'Permission',
 		},
 	},
-	[PageNames.GAME_SERVER]: {
-		path: '/games/:gameId/servers',
-		component: GameServerPage,
-		layout: GameDashboardLayout,
-		isPrivate: true,
-		props: {
-			title: 'Game Servers',
-		},
-	},
 	[PageNames.ASSETS]: {
 		path: '/games/:gameId/assets',
 		component: AssetPage,
@@ -202,6 +192,15 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 		isPrivate: true,
 		props: {
 			title: 'Successful Payment',
+		},
+	},
+	[PageNames.TEAM]: {
+		path: '/games/:gameId/team',
+		component: Team,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Team',
 		},
 	},
 

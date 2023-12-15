@@ -3,6 +3,7 @@ import {
 	ACCESS_TOKEN,
 	ExchangeToken,
 	HttpStatusCode,
+	RequestHeaders,
 	User,
 } from '../common';
 import { store } from '../redux/store';
