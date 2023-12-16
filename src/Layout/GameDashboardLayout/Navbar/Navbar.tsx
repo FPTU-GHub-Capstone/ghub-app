@@ -12,7 +12,6 @@ import { Game } from '../../../pages/Games/types'
 import Logo from '../../../components/Logo'
 import { getCurrentGame } from '../../../services/GameService'
 import { HttpResponseGMS } from '../../../common'
-import Scrollbar from '../../../components/Scrollbar'
 
 import { NavbarItems } from './Items'
 
