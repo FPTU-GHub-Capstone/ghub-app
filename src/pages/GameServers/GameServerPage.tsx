@@ -81,14 +81,14 @@ export const GameServerPage = ({ title }: { title: string }) => {
 			if (updatedGameServer) {
 				if (JSON.stringify(updatedGameServer) !== JSON.stringify(originalServer)) {
 					try {
-						await restSvc.put(`${config.GMS_URL}/game-servers/${serverId}`, updatedGameServer)
+						await restSvc.put(`${config.GMS_URL}/games/${gameId}/game-servers/${serverId}`, updatedGameServer)
 					} catch (error) {
 						console.error(`Error updating game server with id ${serverId}:`, error)
 					}
 				}
 			} else {
 				try {
-					await restSvc.delete(`${config.GMS_URL}/game-servers/${serverId}`)
+					await restSvc.delete(`${config.GMS_URL}/games/${gameId}/game-servers/${serverId}`)
 				} catch (error) {
 					console.error(`Error deleting asset with id ${serverId}:`, error)
 				}
@@ -121,6 +121,13 @@ export const GameServerPage = ({ title }: { title: string }) => {
 					<ServerAddBtn handleOnClick={handleOpenServerAddForm} />
 				</Stack>
 
+				{gameId &&
+					<GameServerList
+						gameServers={gameServers}
+						setGameServers={handleChangeGameServer}
+						onRowUpdateCompleted={() => setUpdateRequired(true)}
+					/>
+				}
 				<GameServerList
 					gameServers={gameServers}
 					setGameServers={handleChangeGameServer}

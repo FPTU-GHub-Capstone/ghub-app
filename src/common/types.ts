@@ -68,10 +68,10 @@ export type Level = {
 	game: Game,
 	[other: string | number]: unknown,
 };
-export type HttpResponse = {
+export type HttpResponseGMS<T> = {
 	message: string,
 	isError: boolean,
-	result: Array<any> | any,
+	result: Array<T> | T,
 }
 
 export type Client = {
@@ -83,8 +83,9 @@ export type Client = {
 	[x: string | number | symbol]: any,
 }
 
-export type FailureResponse = {
+export type FailureResponseGMS = {
 	message: string,
+	isError: string,
 	responseException: Record<string, string>,
 }
 

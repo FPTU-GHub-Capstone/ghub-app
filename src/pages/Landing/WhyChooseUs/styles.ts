@@ -6,7 +6,7 @@ export const SectionStyle = Object.freeze<SxProps<Theme>>({
 	display: 'flex', 
 	flexDirection: 'column', 
 	alignItems: 'center', 
-	color: 'white' 
+	color: '#212B36' 
 });
 
 export const MainHeading =  Object.freeze<SxProps<Theme>>({ 

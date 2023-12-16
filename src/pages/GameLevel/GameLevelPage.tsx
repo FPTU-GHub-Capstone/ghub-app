@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom'
 
 
 import config from '../../config'
-import {RestService} from '../../services/RestService'
+import { RestService } from '../../services/RestService'
 import { Game, Level } from '../../common/types'
 import { useDialog } from '../../hooks/useDialog'
 
@@ -83,9 +83,9 @@ export const GameLevelPage = ({ title }: { title: string }) => {
 					const payload = {
 						'description': updatedGameLevel.description,
 						'levelUpPoint': updatedGameLevel.levelUpPoint
-					}					
+					}
 					try {
-						await restSvc.put(`${config.GMS_URL}/levels/${gameLevelId}`, payload)
+						await restSvc.put(`${config.GMS_URL}/games/${gameId}/levels/${gameLevelId}`, payload)
 					} catch (error) {
 						console.error(`Error updating game Level with id ${gameLevelId}:`, error)
 					}
@@ -121,10 +121,12 @@ export const GameLevelPage = ({ title }: { title: string }) => {
 					<LevelAddBtn handleOnClick={handleOpenLevelAddForm}/>
 				</Stack>
 
-				<GameLevelList 
-					gameLevels={gameLevels} setGameLevels={handleChangeGameLevel} 
-					onRowUpdateCompleted={() => setUpdateRequired(true)}
-				/>
+				{gameId && 
+					<GameLevelList 
+						gameLevels={gameLevels} setGameLevels={handleChangeGameLevel} 
+						onRowUpdateCompleted={() => setUpdateRequired(true)}
+					/>
+				}
 
 				{isLevelAddFormOpen &&
 					<CreateLevelDialog

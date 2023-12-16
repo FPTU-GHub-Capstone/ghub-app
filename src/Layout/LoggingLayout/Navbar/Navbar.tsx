@@ -18,7 +18,7 @@ export function Navbar() {
 	return (
 		<AppBar
 			sx={{
-				position: 'sticky',
+				position: 'absolute',
 				top: 0,
 				backgroundColor: 'primary.dark',
 				boxShadow: 'none',

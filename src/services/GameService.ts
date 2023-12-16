@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN, FailureResponse, Game, RequestHeaders } from '../common';
+import { ACCESS_TOKEN, FailureResponseGMS, Game, HttpResponseGMS, RequestHeaders } from '../common';
 import config from '../config';
 
 import { RestService } from './RestService';
@@ -7,7 +7,7 @@ import { RestService } from './RestService';
 const token = localStorage.getItem(ACCESS_TOKEN);
 
 export const createGame = async (requestBody: Game) => {
-	const response = await RestService.getInstance().post<Game | FailureResponse>(
+	const response = await RestService.getInstance().post<HttpResponseGMS<Game> | FailureResponseGMS>(
 		config.GMS_URL + '/games',
 		requestBody,
 		{
@@ -21,9 +21,13 @@ export const createGame = async (requestBody: Game) => {
 };
 
 export const getCurrentGame = async (gameId: string) => {
-	const response = await RestService.getInstance().get<Game | FailureResponse>(
+	const response = await RestService.getInstance().get<HttpResponseGMS<Game> | FailureResponseGMS>(
 		`${config.GMS_URL}/games/${gameId}`
 	);
 	console.log(`@statusCode:GetCurrentGameAPI:: ${response.data}`);
-	return response;
+	if (!response.data.isError) {
+		return response.data as HttpResponseGMS<Game>;
+	} else {
+		return response.data as FailureResponseGMS;
+	}
 };

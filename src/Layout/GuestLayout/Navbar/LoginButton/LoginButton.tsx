@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 import { useNavigate } from 'react-router-dom' 
 
@@ -18,14 +18,15 @@ const LoginButton: React.FC<{ text?: string }> = ({ text: text = '' }) => {
 			<Box sx={{ display: 'flex', justifyContent: 'right' }}>
 				<Button
 					variant="contained"
+					size='small'
 					sx={{
-						paddingY: '10px', paddingX: '45px',
+						paddingY: '10px', paddingX: '30px',
 						marginRight: '15px',
 						marginLeft: '15px',
 					}}
 					onClick={handleButtonClick}
 				>
-					<Typography sx={{ fontSize: '17px', fontWeight: '450' }}>{text}</Typography>
+					{text}
 				</Button>
 			</Box>
 		</ThemeProvider>

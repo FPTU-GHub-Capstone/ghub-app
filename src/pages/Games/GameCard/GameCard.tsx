@@ -38,7 +38,7 @@ export default function GameCard({ game, index }: Props) {
 			<Card sx={{ position: 'relative' }} onClick={() => {
 				dispatch(setCurrentGame(game))
 				localStorage.setItem(GAME_ID, id)
-				navigate(`/games/${id}/players`)
+				navigate(`/games/${id}/overview`)
 			}}
 			>
 				<Styled.CardMedia
@@ -102,7 +102,7 @@ export default function GameCard({ game, index }: Props) {
 					}}
 				>
 					<Typography gutterBottom variant="caption" sx={{ color: 'text.disabled', display: 'block' }}>
-						{fDate(new Date(createdAt))}
+						{fDate(new Date(createdAt.toString()))}
 					</Typography>
 
 					<Styled.Title

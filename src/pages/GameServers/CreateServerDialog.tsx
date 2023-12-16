@@ -45,7 +45,7 @@ export default function CreateServerDialog({
 
 	const handlePostData = async (data: CreateServerInputType) => {
 		try {
-			await restSvc.post(`${config.GMS_URL}/game-servers`, data)
+			await restSvc.post(`${config.GMS_URL}/games/${gameId}/game-servers`, data)
 			console.log('submit data',data)
 		} catch (error) {
 			console.error('Error adding new server:', error)

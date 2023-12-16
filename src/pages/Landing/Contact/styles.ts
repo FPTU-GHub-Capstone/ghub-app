@@ -15,7 +15,7 @@ export const headerBox = Object.freeze<SxProps<Theme>>({
 	flexDirection: 'column',
 	flexWrap: 'wrap',
 	alignItems: 'center',
-	paddingTop: '25px',
+	paddingTop: '50px',
 });
 
 export const heading = Object.freeze<SxProps<Theme>>({

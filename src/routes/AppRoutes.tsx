@@ -1,5 +1,6 @@
+/* eslint-disable max-lines */
 import React, { ElementType } from 'react'
-import { Navigate, Route, Routes, useParams } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { Dashboard as DashboardComponent } from '../pages/Dashboard'
 import { Login as LoginComponent } from '../pages/Login'
@@ -21,8 +22,11 @@ import { AssetDetail } from '../pages/AssetDetail'
 import PricingPlan from '../pages/PricingPlan/PricingPlan'
 import { GameLevelPage } from '../pages/GameLevel'
 import LoggingLayout from '../Layout/LoggingLayout'
+import { GameOverview } from '../pages/GameOverview'
 import { ACCESS_TOKEN } from '../common'
 import { Team } from '../pages/Team'
+import { GameServerPage } from '../pages/GameServers'
+
 
 
 type AppRoute = {
@@ -40,8 +44,10 @@ export const enum PageNames {
 	LANDING_PAGE = 'landingPage',
 	DASHBOARD = 'dashboard',
 	GAMES = 'myProject',
+	OVERVIEW = 'overview',
 	USERS_AD = 'users',
 	PERMISSION = 'permission',
+	GAME_SERVER = 'gameServerPage',
 	ASSETS = 'assetListPage',
 	PAYMENT = 'pricingPlan',
 	USERS_GM = 'userGM',
@@ -78,6 +84,15 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 			title: 'My Projects',
 		},
 	},
+	[PageNames.OVERVIEW]: {
+		path: '/games/:gameId/overview',
+		component: GameOverview,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Game Overview',
+		},
+	},
 	[PageNames.USERS_GM]: {
 		path: '/users',
 		component: UsersGM,
@@ -103,6 +118,15 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 		isPrivate: true,
 		props: {
 			title: 'Permission',
+		},
+	},
+	[PageNames.GAME_SERVER]: {
+		path: '/games/:gameId/servers',
+		component: GameServerPage,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Game Servers',
 		},
 	},
 	[PageNames.ASSETS]: {

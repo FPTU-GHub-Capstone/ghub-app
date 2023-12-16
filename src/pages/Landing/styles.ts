@@ -26,7 +26,7 @@ export const LandingHeaderSection = styled(Box)({
 	display: 'flex',
 	flexDirection: 'column',
 	alignItems: 'center',
-	color: 'white',
+	color: '#454F5B',
 	margin: '25px',
 	marginBottom: '100px',
 });
@@ -48,6 +48,6 @@ export const landingHeading = Object.freeze<SxProps<Theme>>({
 });
 
 export const landingPageStyle = Object.freeze<CSSProperties>({ 
-	backgroundColor: '#39289F', 
+	backgroundColor: '#F4F6F8', 
 	padding: '5vw' 
 });
