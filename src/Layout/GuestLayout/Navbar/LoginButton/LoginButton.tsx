@@ -18,14 +18,15 @@ const LoginButton: React.FC<{ text?: string }> = ({ text: text = '' }) => {
 			<Box sx={{ display: 'flex', justifyContent: 'right' }}>
 				<Button
 					variant="contained"
+					size='small'
 					sx={{
-						paddingY: '10px', paddingX: '45px',
+						paddingY: '10px', paddingX: '30px',
 						marginRight: '15px',
 						marginLeft: '15px',
 					}}
 					onClick={handleButtonClick}
 				>
-					<Typography sx={{ fontSize: '17px', fontWeight: '450' }}>{text}</Typography>
+					{text}
 				</Button>
 			</Box>
 		</ThemeProvider>

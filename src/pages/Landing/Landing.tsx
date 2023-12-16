@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Typography } from '@mui/material'
+import { Button, Card, Typography } from '@mui/material'
 import { Link as RouterLink } from 'react-router-dom'
 
 import { Contact } from './Contact'
@@ -28,11 +28,14 @@ export const Landing: React.FC = () => {
 							Sign In
 						</Button>
 					</BtnLayout>
-					<img
-						src={bannerImg}
-						alt="GHUB Dashboard layout"
-						width="100%"
-					/>
+					<Card variant="outlined">
+						<img
+							src={bannerImg}
+							alt="GHUB Dashboard layout"
+							width="100%"
+						/>
+					</Card>
+					
 				</LandingHeaderSection>
 
 				<WhyChooseUs />

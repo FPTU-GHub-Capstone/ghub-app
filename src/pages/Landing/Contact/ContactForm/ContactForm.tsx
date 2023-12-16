@@ -32,7 +32,7 @@ const ContactForm: React.FC = () => {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'white' }}>
+			<Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'white', paddingBottom: 10 }}>
 				<Box sx={{ display: 'flex', flexDirection: 'column', width: '70%' }} component="form" onSubmit={handleSubmit(onSubmit)}>
 					<Box sx={{ display: 'flex', justifyContent: 'space-between', color: 'white'}}>
 						<FirstNameTextField errors={errors} register={register} />
