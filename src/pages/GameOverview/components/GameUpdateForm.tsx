@@ -28,7 +28,6 @@ const GameUpdateForm = <T extends FieldValues>({ errors, register }: Props<T>) =
 				name={'logo'}
 				label={'Game logo URL'}
 				type="text"
-				requiredMsg="Logo link cannot be empty"
 				pattern={{
 					value: URL_REGEX,
 					message: 'This is not a valid URL - And / Or it should starts with HTTP / HTTPS',
@@ -41,7 +40,6 @@ const GameUpdateForm = <T extends FieldValues>({ errors, register }: Props<T>) =
 				name={'link'}
 				label={'Website link'}
 				type="text"
-				requiredMsg="Website link cannot be empty"
 				pattern={{
 					value: URL_REGEX,
 					message: 'This is not a valid URL - And / Or it should starts with HTTP / HTTPS',
@@ -54,7 +52,6 @@ const GameUpdateForm = <T extends FieldValues>({ errors, register }: Props<T>) =
 				name={'banner'}
 				label={'Banner image link'}
 				type="text"
-				requiredMsg="Banner image link cannot be empty"
 				pattern={{
 					value: URL_REGEX,
 					message: 'This is not a valid URL - And / Or it should starts with HTTP / HTTPS',
