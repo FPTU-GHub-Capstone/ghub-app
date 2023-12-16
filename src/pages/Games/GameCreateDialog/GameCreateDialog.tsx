@@ -66,9 +66,8 @@ export default function CreateGameDialog({ isOpenCreateGameDialog, handleCloseCr
 				<GameCreateForm
 					register={register}
 					errors={errors}
-					control={control}
 				/>
-				<DevTool control={control} />
+
 			</Box>
 		</Dialog>
 	)
