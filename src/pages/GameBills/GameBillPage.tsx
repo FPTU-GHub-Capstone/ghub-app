@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import { useState, useEffect } from 'react'
 import { Container, Stack, Typography, Grid } from '@mui/material'
 import { useLocation } from 'react-router-dom'
@@ -34,7 +33,7 @@ export const GameBillPage = ({ title }: { title: string }) => {
 			)
 
 			const billResult = res.data.bills
-			billResult.sort((a, b) => {
+			billResult.sort((a) => {
 				if (a.status === BillStatus.PENDING) {
 					return -1
 				}
