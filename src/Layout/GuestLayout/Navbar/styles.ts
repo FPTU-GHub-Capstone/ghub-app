@@ -11,7 +11,7 @@ export const navbarStyle = Object.freeze<CSSProperties>({
 	display: 'flex',
 	justifyContent: 'space-between',
 	alignItems: 'center',
-	backgroundColor: '#39289F',
+	backgroundColor: '#061B64',
 	zIndex: 100,
 	padding: '10px',
 });

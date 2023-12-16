@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import { useEffect, useState } from 'react'
 import { Box, Typography, Link } from '@mui/material'
 import MuiDrawer from '@mui/material/Drawer'
@@ -103,6 +104,8 @@ export default function Navbar() {
 		}
 	}
 	const navbarItem = NavbarItems(gameId)
+	const myProjectsItem = navbarItem.filter((item) => item.title === 'My Projects')
+	const gameDetailsItems = navbarItem.filter((item) => item.title !== 'My Projects')
 
 	return (
 		<Box sx={{ display: 'flex' }}>
@@ -115,7 +118,7 @@ export default function Navbar() {
 					</Typography>
 				</Box>
 
-				<Box sx={{ mb: 5, mx: 2.5, display: 'block' }}>
+				<Box sx={{ mb: 1, mx: 2.5, display: 'block' }}>
 					<Link underline="none">
 						<StyledAccount>
 							<Box
@@ -133,8 +136,23 @@ export default function Navbar() {
 					</Link>
 				</Box>
 
+
 				<NavSection
-					data={navbarItem}
+					data={myProjectsItem}
+					isOpen={true}
+					sx={{
+						paddingRight: 3,
+						'&.active': {
+							color: 'common.white',
+							bgcolor: 'primary.dark',
+							fontWeight: 'fontWeightBold',
+						},
+					}}
+				/>
+				<Divider variant='middle' sx={{borderWidth: '2px'}}/>
+
+				<NavSection
+					data={gameDetailsItems}
 					isOpen={true}
 					sx={{
 						paddingRight: 3,

@@ -48,6 +48,6 @@ export const landingHeading = Object.freeze<SxProps<Theme>>({
 });
 
 export const landingPageStyle = Object.freeze<CSSProperties>({ 
-	backgroundColor: '#39289F', 
+	backgroundColor: '#061B64', 
 	padding: '5vw' 
 });
