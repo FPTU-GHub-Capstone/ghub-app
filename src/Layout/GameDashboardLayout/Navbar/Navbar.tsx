@@ -8,10 +8,10 @@ import { styled, Theme, CSSObject, alpha } from '@mui/material/styles'
 import { useParams } from 'react-router'
 
 import NavSection from '../../../components/NavSession'
-import { RestService } from '../../../services/RestService'
-import config from '../../../config'
 import { Game } from '../../../pages/Games/types'
 import Logo from '../../../components/Logo'
+import { getCurrentGame } from '../../../services/GameService'
+import { HttpResponseGMS } from '../../../common'
 
 import { NavbarItems } from './Items'
 
@@ -71,18 +71,6 @@ const GameTitle = styled(Typography)(() => ({
 	maxWidth: '100%', // Ensure the username doesn't exceed the container's width
 }))
 
-
-type GameResponse = {
-	isError: boolean,
-	message?: string,
-	result?: Game,
-	responseException?: {
-		exceptionMessage: string,
-	},
-};
-
-const restSvc = RestService.getInstance()
-
 export default function Navbar() {
 	const [game, setGame] = useState<Game>()
 	const { gameId } = useParams<{ gameId: string }>()
@@ -92,9 +80,10 @@ export default function Navbar() {
 	
 	const fetchGame = async (inputGameId : string) => {
 		try {
-			const GameResponse = await restSvc.get<GameResponse>(`${config.GMS_URL}/games/${inputGameId}`)
-			if (!GameResponse.data.isError) {
-				const gameResult: Game = GameResponse.data.result
+			const response = await getCurrentGame(inputGameId)
+			console.log(response)
+			if (!response.isError) {
+				const gameResult: Game = (response as HttpResponseGMS<Game>).result as Game
 				setGame(gameResult)
 			} else {
 				console.log('Game Get problem')

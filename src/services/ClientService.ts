@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import { ACCESS_TOKEN, Client, FailureResponse, RequestHeaders } from '../common';
+import { ACCESS_TOKEN, Client, FailureResponseGMS, RequestHeaders } from '../common';
 import config from '../config';
 import { Scopes, initScopes } from '../mock/permissions';
 
@@ -25,7 +25,7 @@ const token = localStorage.getItem(ACCESS_TOKEN);
 const restSvc = RestService.getInstance();
 
 export const createClient = async (requestBody: Client) => {
-	const response = await restSvc.post<Client | FailureResponse>(
+	const response = await restSvc.post<Client | FailureResponseGMS>(
 		config.IDP_URL + '/clients',
 		requestBody,
 		{

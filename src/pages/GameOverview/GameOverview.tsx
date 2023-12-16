@@ -8,8 +8,9 @@ import config from '../../config'
 //import { useAppDispatch, useAppSelector } from '../../redux/hook'
 //import { playersFetch } from '../../redux/slices/playerSlice'
 import { useDialog } from '../../hooks/useDialog'
-import { Game } from '../../common'
+import { Game, HttpResponseGMS } from '../../common'
 import SnackStatus from '../../components/SnackStatus'
+import { getCurrentGame } from '../../services/GameService'
 
 import GameDetailTable from './components/GameDetailsTable'
 import DialogAPI from './components/DialogAPI'
@@ -57,9 +58,10 @@ export const GameOverview = () => {
 	
 	const fetchGame = async (inputGameId : string) => {
 		try {
-			const GameResponse = await restSvc.get<GameResponse>(`${config.GMS_URL}/games/${inputGameId}`)
-			if (!GameResponse.data.isError) {
-				const gameResult: Game = GameResponse.data.result
+			const response = await getCurrentGame(inputGameId)
+			console.log(response)
+			if (!response.isError) {
+				const gameResult: Game = (response as HttpResponseGMS<Game>).result as Game
 				setGame(gameResult)
 			} else {
 				console.log('Game Get problem')
