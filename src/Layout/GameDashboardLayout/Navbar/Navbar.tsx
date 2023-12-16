@@ -8,10 +8,9 @@ import { styled, Theme, CSSObject, alpha } from '@mui/material/styles'
 import { useParams } from 'react-router'
 
 import NavSection from '../../../components/NavSession'
-import { Game } from '../../../pages/Games/types'
 import Logo from '../../../components/Logo'
 import { getCurrentGame } from '../../../services/GameService'
-import { HttpResponseGMS } from '../../../common'
+import { Game, HttpResponseGMS } from '../../../common'
 
 import { NavbarItems } from './Items'
 

@@ -60,6 +60,29 @@ export type AssetType = {
 	deletedAt: string | null,
 };
 
+export type Activity = {
+	name: string,
+	status: number,
+	activityTypeId: string,
+	transactionId: string,
+	characterId: string,
+	id: string,
+	createdAt: string,
+	modifiedAt: string,
+	deletedAt: string | null,
+};
+
+export type ActivityType = {
+	name: string,
+	gameId: string,
+	game: any, 
+	characterId: string,
+	id: string,
+	createdAt: string,
+	modifiedAt: string,
+	deletedAt: string | null,
+};
+
 export type Level = {
 	id: string,
 	description: string,

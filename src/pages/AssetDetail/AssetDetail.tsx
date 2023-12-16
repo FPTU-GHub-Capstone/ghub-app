@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { useLocation } from 'react-router'
 
 import { RestService } from '../../services/RestService'
@@ -59,23 +59,28 @@ export const AssetDetail = () => {
 	}, [location.pathname])
 
 	return (
-		<Container>
+		<>
 			{asset && assetType && game && (
-				<>
+				<Box>
+					<Box
+						component="img"
+						sx={{ width: '100%', height: '250px', objectFit: 'cover' }}
+						alt="The house from the offer."
+						src={game.banner} 
+					/>
 					<Box>
-						<Typography variant="h2">Game: {game.name}</Typography>
-						<img src={game.banner} alt={'Game banner'} />
+						<Typography variant="h4">Game: {game.name}</Typography>
 					</Box>
 					<Box>
-						<Typography variant="h2">{asset.name}</Typography>
+						<Typography variant="h4">{asset.name}</Typography>
 						<img src={asset.image} alt={asset.name} />
 						<Typography>Description: {asset.description}</Typography>
 					</Box>
 					<Box>
-						<Typography variant="h3">Asset Type: {assetType.name}</Typography>
+						<Typography variant="h4">Asset Type: {assetType.name}</Typography>
 					</Box>
-				</>
+				</Box>
 			)}
-		</Container>
+		</>
 	)
 }
