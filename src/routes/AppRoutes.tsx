@@ -25,7 +25,7 @@ import LoggingLayout from '../Layout/LoggingLayout'
 import { GameOverview } from '../pages/GameOverview'
 import { ACCESS_TOKEN } from '../common'
 import { Team } from '../pages/Team'
-// import { GameServerPage } from '../pages/GameServers'
+import { GameServerPage } from '../pages/GameServers'
 import { GameBillPage } from '../pages/GameBills'
 import PaymentSuccess from '../pages/Payment/PaymentSuccess'
 
@@ -48,6 +48,7 @@ export const enum PageNames {
 	OVERVIEW = 'overview',
 	USERS_AD = 'users',
 	PERMISSION = 'permission',
+	GAME_SERVER = 'gameServerPage',
 	ASSETS = 'assetListPage',
 	PAYMENT = 'pricingPlan',
 	USERS_GM = 'userGM',
@@ -129,6 +130,15 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 		isPrivate: true,
 		props: {
 			title: 'Permission',
+		},
+	},
+	[PageNames.GAME_SERVER]: {
+		path: '/games/:gameId/servers',
+		component: GameServerPage,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Game Servers',
 		},
 	},
 	[PageNames.ASSETS]: {
