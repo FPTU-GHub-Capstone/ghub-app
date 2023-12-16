@@ -5,6 +5,7 @@ import 'swagger-ui-react/swagger-ui.css'
 
 import DialogHeader from '../../../components/DialogHeader'
 import swaggerJson from '../swagger.json'
+import config from '../../../config'
 
 
 function updateIdsInPaths(id: string) {
@@ -33,6 +34,10 @@ function updateIdsInPaths(id: string) {
 			updatedPaths[updatedPath] = pathDetails
 		}
 	}
+	swaggerJson.servers = [{
+		url: config.GMS_URL,
+		description: 'Production server URL'
+	}]
 
 	return {
 		...swaggerJson,

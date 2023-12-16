@@ -59,7 +59,6 @@ export const GameOverview = () => {
 	const fetchGame = async (inputGameId : string) => {
 		try {
 			const response = await getCurrentGame(inputGameId)
-			console.log(response)
 			if (!response.isError) {
 				const gameResult: Game = (response as HttpResponseGMS<Game>).result as Game
 				setGame(gameResult)
