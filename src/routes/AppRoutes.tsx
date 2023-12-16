@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import React, { ElementType } from 'react'
-import { Navigate, Route, Routes, useParams } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
 import { Dashboard as DashboardComponent } from '../pages/Dashboard'
 import { Login as LoginComponent } from '../pages/Login'
@@ -24,7 +24,7 @@ import { GameLevelPage } from '../pages/GameLevel'
 import LoggingLayout from '../Layout/LoggingLayout'
 import { ACCESS_TOKEN } from '../common'
 import { Team } from '../pages/Team'
-import { GameServerPage } from '../pages/GameServers'
+// import { GameServerPage } from '../pages/GameServers'
 import { GameBillPage } from '../pages/GameBills'
 import PaymentSuccess from '../pages/Payment/PaymentSuccess'
 

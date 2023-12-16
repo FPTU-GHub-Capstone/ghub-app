@@ -5,7 +5,6 @@ import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-import { useNavigate } from 'react-router-dom'
 
 import { BillStatus } from '../../../common'
 import config from '../../../config'
@@ -27,7 +26,6 @@ type CreatePaymentResponse = {
 const restSvc = RestService.getInstance()
 
 export default function GameCard({title, image, status}:GameCardProps) {
-	const navigate = useNavigate()
 	const handlePayBill = async () => {
 		const res = await restSvc.post<CreatePaymentResponse>(
 			`${config.IDP_URL}/payments/create-url`,
