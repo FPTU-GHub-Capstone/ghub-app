@@ -1,5 +1,4 @@
 import Diversity2Icon from '@mui/icons-material/Diversity2'
-import StorageIcon from '@mui/icons-material/Storage'
 import PersonIcon from '@mui/icons-material/Person'
 import CategoryIcon from '@mui/icons-material/Category'
 import QueryStatsIcon from '@mui/icons-material/QueryStats'
@@ -8,6 +7,7 @@ import HomeIcon from '@mui/icons-material/Home'
 import { Article } from '@mui/icons-material'
 //import DirectionsRunIcon from '@mui/icons-material/DirectionsRun'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
+import StorageIcon from '@mui/icons-material/Storage'
 
 import { NavItem } from '../../../common'
 

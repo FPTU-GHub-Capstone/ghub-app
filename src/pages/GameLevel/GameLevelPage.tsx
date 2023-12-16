@@ -53,7 +53,9 @@ export const GameLevelPage = ({ title }: { title: string }) => {
 
 	const fetchGameLevels = async (inputGameId : string) => {
 		try {
-			const gameLevelResponse = await restSvc.get<GameLevelResponse>(`${config.GMS_URL}/games/${inputGameId}/levels`)
+			const gameLevelResponse = await restSvc.get<GameLevelResponse>(
+				`${config.GMS_URL}/games/${inputGameId}/levels`
+			)
 			const gameLevelResult = gameLevelResponse.data.result
 			setGameLevels(gameLevelResult)
 			setOriginalGameLevels(gameLevelResult)
@@ -85,7 +87,9 @@ export const GameLevelPage = ({ title }: { title: string }) => {
 						'levelUpPoint': updatedGameLevel.levelUpPoint
 					}
 					try {
-						await restSvc.put(`${config.GMS_URL}/games/${gameId}/levels/${gameLevelId}`, payload)
+						await restSvc.put(
+							`${config.GMS_URL}/games/${gameId}/levels/${gameLevelId}`, payload
+						)
 					} catch (error) {
 						console.error(`Error updating game Level with id ${gameLevelId}:`, error)
 					}
