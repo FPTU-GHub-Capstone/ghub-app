@@ -106,9 +106,9 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 		},
 	},
 	[PageNames.BILLS]: {
-		path: '/games/:gameId/bills',
+		path: '/billing',
 		component: GameBillPage,
-		layout: GameDashboardLayout,
+		layout: DashboardLayout,
 		isPrivate: true,
 		props: {
 			title: 'Bills',
