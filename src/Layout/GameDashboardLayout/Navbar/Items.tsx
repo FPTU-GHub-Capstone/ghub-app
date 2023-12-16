@@ -16,7 +16,7 @@ import { NavItem } from '../../../common'
 
 export const NavbarItems: (gameId: string) => NavItem[] = (gameId) => [
 	{
-		title: 'My Projects',
+		title: 'Back to My Projects',
 		path: '/games/',
 		icon: <HomeIcon />,
 	},

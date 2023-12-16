@@ -12,6 +12,7 @@ import { Game } from '../../../pages/Games/types'
 import Logo from '../../../components/Logo'
 import { getCurrentGame } from '../../../services/GameService'
 import { HttpResponseGMS } from '../../../common'
+import Scrollbar from '../../../components/Scrollbar'
 
 import { NavbarItems } from './Items'
 
@@ -71,6 +72,11 @@ const GameTitle = styled(Typography)(() => ({
 	maxWidth: '100%', // Ensure the username doesn't exceed the container's width
 }))
 
+const renderName = (name: string) => {
+	if(name.length > 25) return `${name.substring(0, 24)}...`
+	else return name
+}
+
 export default function Navbar() {
 	const [game, setGame] = useState<Game>()
 	const { gameId } = useParams<{ gameId: string }>()
@@ -93,12 +99,13 @@ export default function Navbar() {
 		}
 	}
 	const navbarItem = NavbarItems(gameId)
-	const myProjectsItem = navbarItem.filter((item) => item.title === 'My Projects')
-	const gameDetailsItems = navbarItem.filter((item) => item.title !== 'My Projects')
+	const myProjectsItem = navbarItem.filter((item) => item.title === 'Back to My Projects')
+	const gameDetailsItems = navbarItem.filter((item) => item.title !== 'Back to My Projects')
 
 	return (
 		<Box sx={{ display: 'flex' }}>
 			<CssBaseline />
+
 			<Drawer variant="permanent" open={true}>
 				<Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
 					<Logo />
@@ -118,7 +125,7 @@ export default function Navbar() {
 
 							<Box sx={{ ml: 2, flex: 1 }}>
 								<GameTitle variant="subtitle2">
-									{game ? game.name : 'Loading'}
+									{game ? renderName(game.name) : 'Loading'}
 								</GameTitle>
 							</Box>
 						</StyledAccount>
@@ -138,7 +145,7 @@ export default function Navbar() {
 						},
 					}}
 				/>
-				<Divider variant='middle' sx={{borderWidth: '2px'}}/>
+				<Divider variant='middle'/>
 
 				<NavSection
 					data={gameDetailsItems}
@@ -153,8 +160,7 @@ export default function Navbar() {
 					}}
 				/>
 			</Drawer>
-	
-			<Divider orientation="horizontal" flexItem />
+			
 		</Box>
 	)
 }
