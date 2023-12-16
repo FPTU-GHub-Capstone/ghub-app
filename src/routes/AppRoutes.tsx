@@ -194,15 +194,6 @@ export const APPLICATION_ROUTES: ApplicationRoutes  = {
 			title: 'Successful Payment',
 		},
 	},
-	[PageNames.TEAM]: {
-		path: '/games/:gameId/team',
-		component: Team,
-		layout: GameDashboardLayout,
-		isPrivate: true,
-		props: {
-			title: 'Successful Payment',
-		},
-	},
 
 	// Public Route
 	[PageNames.LOGIN]: {
