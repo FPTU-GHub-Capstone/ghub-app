@@ -1,14 +1,16 @@
 /* eslint-disable max-lines-per-function */
-import { useState, useEffect } from 'react'
-import { Button, Container, Stack, Typography } from '@mui/material'
-import { useLocation } from 'react-router-dom'
+import { useState, useEffect, useCallback } from 'react'
+import { Container, Stack, Typography } from '@mui/material'
+import { useParams } from 'react-router-dom'
 
 import config from '../../config'
 import { RestService } from '../../services/RestService'
-import { Asset } from '../../common/types'
-import ConfirmDialog from '../../components/ConfirmDialog'
+import { Asset, AssetType, HttpResponseGMS } from '../../common/types'
+import { useDialog } from '../../hooks/useDialog'
 
 import { AssetList } from './AssetList'
+import { AssetAddBtn } from './components/AssetAddBtn'
+import CreateAssetDialog from './CreateAssetDialog'
 
 
 type AssetResponse = {
@@ -17,64 +19,27 @@ type AssetResponse = {
 	result: Asset[],
 };
 
-const AssetAddBtn = () => {
-	return (
-		<Button
-			variant="contained"
-			size="large"
-			sx={{
-				backgroundColor: 'primary.light',
-				'&:hover': {
-					backgroundColor: 'primary.main',
-				},
-			}}
-		>
-		Add an Asset
-		</Button>
-	)
-}
-
-const AssetSaveBtn = ({
-	handleOnClick,
-	isDataChanged,
-}: {
-	handleOnClick: () => void,
-	isDataChanged: boolean,
-}) => {
-	return (
-		<Button
-			variant="contained"
-			size="large"
-			sx={{
-				backgroundColor: 'secondary.light',
-				'&:hover': {
-					backgroundColor: 'secondary.main',
-				},
-				marginLeft: '10px',
-			}}
-			onClick={handleOnClick}
-			disabled={Boolean(!isDataChanged)}
-		>
-		Save Current State
-		</Button>
-	)
-}
-
 const restSvc = RestService.getInstance()
 
 export const AssetPage = ({ title }: { title: string }) => {
 	const [assets, setAssets] = useState<Asset[]>([])
+	const [assetTypes, setAssetTypes] = useState<AssetType[]>([])
 	const [originalAssets, setOriginalAssets] = useState<Asset[]>([])
-	const [gameId, setGameId] = useState<string | null>(null)
-	const [isConfirmOpen, setConfirmOpen] = useState(false)
-	const location = useLocation()
+	const [isAssetAddFormOpen, handleOpenAssetAddForm, handleCloseAssetAddForm] = useDialog()
+	const [isChanged, setChanged] = useState(0)
+	const [isUpdateRequired, setUpdateRequired] = useState(false)
+	const {gameId} = useParams()
 
 	useEffect(() => {
-		const pathSegments = location.pathname.split('/')
-		const extractedGameId = pathSegments[pathSegments.indexOf('games') + 1]
-		setGameId(extractedGameId)
-		fetchAsset(extractedGameId)
-	}, [location.pathname])
+		fetchAsset(gameId)
+		fetchAssetTypes(gameId)
+	}, [gameId])
+
+	useEffect(() => {
+		if (isChanged > 0) {
+			fetchAsset(gameId)
+		}
+	}, [isChanged, gameId])
 
 	const fetchAsset = async (inputGameId: string) => {
 		try {
@@ -89,12 +54,21 @@ export const AssetPage = ({ title }: { title: string }) => {
 		}
 	}
 
-	const handleConfirm = async () => {
-		setConfirmOpen(false)
+	const fetchAssetTypes = async (inputGameId: string) => {
+		try {
+			const assetTypesResponse = await restSvc.get<HttpResponseGMS<AssetType>>(
+				`${config.GMS_URL}/games/${inputGameId}/asset-types`
+			)
+			const assetTypesResult = assetTypesResponse.data.result as AssetType[]
+			setAssetTypes(assetTypesResult)
+		} catch (error) {
+			console.error('Error fetching asset type data:', error)
+		}
+	}
 
+	const updateAsset = useCallback(async () => {
 		for (const originalAsset of originalAssets) {
 			const assetId = originalAsset.id
-
 			const updatedAsset = assets.find((asset) => asset.id === assetId)
 
 			if (updatedAsset) {
@@ -117,13 +91,18 @@ export const AssetPage = ({ title }: { title: string }) => {
 			}
 		}
 		fetchAsset(gameId)
-	}
+	}, [originalAssets, assets, gameId])
+
+	useEffect(() => {
+		if (isUpdateRequired) {
+			updateAsset()
+			setUpdateRequired(false)
+		}
+	}, [ isUpdateRequired, updateAsset ])
 
 	const handleChangeAsset = (newAsset: Asset[]) => {
 		setAssets(newAsset)
 	}
-	const isDataChanged =
-    JSON.stringify(assets) !== JSON.stringify(originalAssets) ? true : false
 
 	return (
 		<>
@@ -139,28 +118,29 @@ export const AssetPage = ({ title }: { title: string }) => {
 					</Typography>
 				</Stack>
 
-				<Stack
-					mb={5}
-					direction="row"
-					alignItems="center"
-					justifyContent="flex-end"
-				>
-					<AssetAddBtn />
-					<AssetSaveBtn
-						handleOnClick={() => setConfirmOpen(true)}
-						isDataChanged={isDataChanged}
-					/>
+				<Stack mb={5} direction="row" alignItems="center" justifyContent="flex-end">
+					<AssetAddBtn handleOnClick={handleOpenAssetAddForm}/>
 				</Stack>
 
-				<AssetList assets={assets} setAssets={handleChangeAsset} />
+				{gameId &&
+					<AssetList 
+						assets={assets} 
+						setAssets={handleChangeAsset} 
+						onRowUpdateCompleted={() => setUpdateRequired(true)}
+					/>
+				}
 
-				<ConfirmDialog
-					open={isConfirmOpen}
-					title="Confirm Save Data"
-					message="Are you sure you want to save current state of Assets ?"
-					onCancel={() => setConfirmOpen(false)}
-					onConfirm={handleConfirm}
-				/>
+				{isAssetAddFormOpen && 
+					<CreateAssetDialog
+						isOpenCreateAssetTypeDialog={isAssetAddFormOpen}
+						handleCloseAssetTypeAddForm={handleCloseAssetAddForm}
+						toggleChanged={() => {
+							console.log('toggle Changed')
+							setChanged(isChanged + 1)
+						}}
+						assetTypeData={assetTypes}
+					/>
+				}
 			</Container>
 		</>
 	)

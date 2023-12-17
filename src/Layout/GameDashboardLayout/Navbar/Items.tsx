@@ -4,7 +4,7 @@ import CategoryIcon from '@mui/icons-material/Category'
 import QueryStatsIcon from '@mui/icons-material/QueryStats'
 import EngineeringIcon from '@mui/icons-material/Engineering'
 import HomeIcon from '@mui/icons-material/Home'
-import WalletIcon from '@mui/icons-material/Wallet';
+import WalletIcon from '@mui/icons-material/Wallet'
 import { Article } from '@mui/icons-material'
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'

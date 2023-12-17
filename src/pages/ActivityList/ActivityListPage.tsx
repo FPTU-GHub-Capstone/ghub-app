@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import { useState, useEffect } from 'react'
 import { Container, Stack, Typography } from '@mui/material'
 import { useParams } from 'react-router-dom'

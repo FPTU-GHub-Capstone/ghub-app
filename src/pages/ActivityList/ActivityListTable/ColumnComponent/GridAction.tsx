@@ -1,11 +1,7 @@
-/* eslint-disable max-lines-per-function */
-// GridAction.tsx
-
 import React from 'react'
 import { GridActionsCellItem, GridRowId } from '@mui/x-data-grid'
 import { Visibility } from '@mui/icons-material'
 import { useLocation, useNavigate } from 'react-router'
-
 
 
 interface IGridActionProps {

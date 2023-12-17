@@ -115,8 +115,8 @@ export const WalletCategoryPage = ({ title }: { title: string }) => {
 
 				{isWalletCategoryAddFormOpen && 
 					<CreateWalletCategoryDialog
-					isOpenCreateWalletCategoryDialog={isWalletCategoryAddFormOpen}
-					handleCloseWalletCategoryAddForm={handleCloseWalletCategoryAddForm}
+						isOpenCreateWalletCategoryDialog={isWalletCategoryAddFormOpen}
+						handleCloseWalletCategoryAddForm={handleCloseWalletCategoryAddForm}
 						toggleChanged={() => {
 							console.log('toggle Changed')
 							setChanged(isChanged + 1)

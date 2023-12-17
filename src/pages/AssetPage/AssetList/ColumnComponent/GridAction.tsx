@@ -4,33 +4,32 @@
 import React from 'react'
 import { GridActionsCellItem, GridRowId, GridRowModes, GridRowModesModel } from '@mui/x-data-grid'
 import { Edit, Delete, Visibility, Cancel, Save } from '@mui/icons-material'
-import { useLocation, useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
 
 import { Asset } from '../../../../common/types'
 
 
 interface IGridActionProps {
 	id: GridRowId;
+	gameId: string;
 	isInEditMode: boolean;
 	assets: Asset[];
 	setAssets: (newAsset: Asset[]) => void;
 	rowModesModel: GridRowModesModel;
 	setRowModesModel: React.Dispatch<React.SetStateAction<GridRowModesModel>>;
-	newRowIds: Set<GridRowId>;
-	setNewRowIds: React.Dispatch<React.SetStateAction<Set<GridRowId>>>;
+	onRowUpdateCompleted: () => void;
 }
 
 const GridAction: React.FC<IGridActionProps> = ({
 	id,
+	gameId,
 	isInEditMode,
 	assets,
 	setAssets,
 	rowModesModel,
 	setRowModesModel,
-	newRowIds,
-	setNewRowIds,
+	onRowUpdateCompleted,
 }) => {
-	const location = useLocation()
 	const navigate = useNavigate()
 
 	const handleEditClick = () => {
@@ -43,6 +42,7 @@ const GridAction: React.FC<IGridActionProps> = ({
 
 	const handleDeleteClick = () => {
 		setAssets(assets.filter((row) => row.id !== id))
+		onRowUpdateCompleted()
 	}
 
 	const handleCancelClick = () => {
@@ -50,15 +50,10 @@ const GridAction: React.FC<IGridActionProps> = ({
 			...rowModesModel,
 			[id]: { mode: GridRowModes.View, ignoreModifications: true },
 		})
-
-		if (newRowIds.has(id)) {
-			setAssets(assets.filter((row) => row.id !== id))
-			setNewRowIds((prev) => new Set([...prev].filter((prevId) => prevId !== id)))
-		}
 	}
 
 	const handleVisibilityClick = () => {
-		const assetDetailsUrl = `${location.pathname}/${id}`
+		const assetDetailsUrl = `/games/${gameId}/assets/${id}`
 		navigate(assetDetailsUrl)
 	}
 
