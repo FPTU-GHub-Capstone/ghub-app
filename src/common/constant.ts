@@ -78,5 +78,10 @@ export const httpStatusMsg = {
 
 export const enum BillStatus  {
 	PAID = 'paid',
-	PENDING = 'pending'
+	PENDING = 'pending',
+	OVERDUE = 'overdue',
 }
+
+export const WU_PRICE = 0.005;
+export const RU_PRICE = 0.001;
+export const USD_TO_VND = 24275;

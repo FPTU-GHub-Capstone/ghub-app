@@ -1,11 +1,16 @@
 import { styled } from '@mui/material/styles'
-import { Box, Stack, Toolbar, Typography } from '@mui/material'
+import { Badge, BadgeProps, Box, IconButton, Stack, Toolbar, Tooltip, Typography } from '@mui/material'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
+import ReceiptIcon from '@mui/icons-material/Receipt'
+import { useNavigate } from 'react-router'
+import { useEffect } from 'react'
 
 import { bgBlur } from '../../../utils/cssStyles'
 import AccountPopover from '../../DashboardLayout/Header/AccountPopover'
-import NotificationsPopover from '../../DashboardLayout/Header/NotificationsPopover'
 import Logo from '../../../components/Logo'
+import { useAppDispatch, useAppSelector } from '../../../redux/hook'
+import { billsFetch } from '../../../redux/slices/billSlide'
+import { BillStatus } from '../../../common'
 
 
 const HEADER_MOBILE = 64
@@ -34,15 +39,33 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 	},
 }))
 
+const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+	'& .MuiBadge-badge': {
+		right: 0,
+		top: 7,
+		border: `2px solid ${theme.palette.background.paper}`,
+		padding: '0 4px',
+	},
+}))
+
 
 export default function Header({ isOpen }: {
-	isOpen: boolean, 
+	isOpen: boolean,
 }) {
+	const navigate = useNavigate()
+	const dispatch = useAppDispatch()
+	const bills = useAppSelector(({ bill }) => bill.billList)
+	const needToPay = bills.filter((bill) => (bill.status === BillStatus.PENDING || bill.status === BillStatus.OVERDUE))
+
+	useEffect(() => {
+		dispatch(billsFetch())
+	}, [dispatch])
+
 	return (
 		<StyledRoot open={isOpen}>
 			<StyledToolbar>
 
-				<Box sx={{display: isOpen ? 'none' : 'inline-flex' }}>
+				<Box sx={{ display: isOpen ? 'none' : 'inline-flex' }}>
 					<Logo />
 					<Typography variant='h4' sx={{ color: 'text.secondary', ml: 2, display: 'block' }}>
 						GHub
@@ -54,11 +77,21 @@ export default function Header({ isOpen }: {
 					direction="row"
 					alignItems="center"
 					spacing={{
-						xs: 0.5,
-						sm: 1,
+						xs: 1,
+						sm: 1.5,
 					}}
 				>
-					<NotificationsPopover />
+					{/* <NotificationsPopover /> */}
+
+					<IconButton sx={{ width: 42, height: 42 }} onClick={() => navigate('/billing')}>
+						<StyledBadge badgeContent={needToPay.length} color="error" >
+							<Tooltip title='Billing'>
+								<ReceiptIcon sx={{ width: 30, height: 35 }} />
+							</Tooltip>
+						</StyledBadge>
+					</IconButton>
+
+
 					<AccountPopover />
 				</Stack>
 			</StyledToolbar>
