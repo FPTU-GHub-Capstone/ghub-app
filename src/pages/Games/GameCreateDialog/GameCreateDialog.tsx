@@ -1,6 +1,5 @@
 import { Box, Dialog } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import { DevTool } from '@hookform/devtools'
 
 
 import { Game, HttpStatusCode } from '../../../common'
@@ -35,7 +34,7 @@ export default function CreateGameDialog({ isOpenCreateGameDialog, handleCloseCr
 			banner: ''
 		}
 	})
-	const { register, handleSubmit, formState, control } = form
+	const { register, handleSubmit, formState } = form
 	const { errors } = formState
 	const dispatch = useAppDispatch()
 

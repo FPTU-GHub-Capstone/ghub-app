@@ -18,6 +18,7 @@ export type Game = {
 	logo?: string,
 	link?: string,
 	banner?: string,
+	createdAt: string,
 	[other: string | number]: unknown,
 };
 

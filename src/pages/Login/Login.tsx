@@ -64,7 +64,6 @@ async function callAuthorizeApi(signInFn: SignInFn, args: unknown[]) {
 		},
 	)
 	localStorage.setItem(ACCESS_TOKEN, result.data.access_token)
-	restSvc.useAuthInterceptor()
 	await getProfile()
 }
 

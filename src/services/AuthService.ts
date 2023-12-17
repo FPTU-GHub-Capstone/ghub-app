@@ -12,10 +12,9 @@ import config from '../config';
 import { RestService } from './RestService';
 
 
-const restSvc = RestService.getInstance();
 
 export const getProfile = async () => {
-	const { data, status } = await restSvc.get<User>(
+	const { data, status } = await RestService.getInstance().get<User>(
 		`${config.IDP_URL}/profile`,
 	);
 
@@ -24,7 +23,7 @@ export const getProfile = async () => {
 };
 
 export const exchangeToken = async () => {
-	const { data, status } = await restSvc.post<ExchangeToken>(
+	const { data, status } = await RestService.getInstance().post<ExchangeToken>(
 		`${config.IDP_URL}/oauth/token/exchange`,
 	);
 

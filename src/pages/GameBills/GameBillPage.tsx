@@ -114,7 +114,7 @@ export const GameBillPage = ({ title }: { title: string }) => {
 				{gameBills && gameBills.length > 0 ? (
 					<Stack>
 						<Grid container spacing={4}>
-							{gameBills.map((bill) => {
+							{gameBills.map((bill, index) => {
 								const foundGame = games.find((game) => game.id === bill.gameId)
 
 								return (
@@ -124,7 +124,7 @@ export const GameBillPage = ({ title }: { title: string }) => {
 											image={
 												foundGame
 													? foundGame.banner
-													: 'https://loremflickr.com/640/480'
+													: `/assets/images/covers/cover_${(index % 23) + 1 }.jpg`
 											}
 											status={bill.status}
 											readUnit={bill.readUnits}
