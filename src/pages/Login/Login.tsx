@@ -13,9 +13,9 @@ import { RestService } from '../../services/RestService'
 
 import GoogleLogo from '/assets/icons/GoogleLogo.svg'
 
-import { APPLICATION_ROUTES, PageNames } from '../../routes'
 import { ACCESS_TOKEN, RequestHeaders } from '../../common'
 import { getProfile } from '../../services/AuthService'
+import { PRIVATE_ROUTES, PUBLIC_ROUTES, PageNames } from '../../routes/Routes'
 
 import { LoginForm } from './LoginForm'
 import * as styles from './styles'
@@ -76,10 +76,10 @@ function handleSignIn(
 		const signInFn = getSignInContext(strategy)
 		try {
 			await callAuthorizeApi(signInFn, args)
-			navigate(APPLICATION_ROUTES[PageNames.GAMES].path)
+			navigate(PRIVATE_ROUTES[PageNames.GAMES].path)
 		} catch (err) {
 			console.error(err)
-			navigate(APPLICATION_ROUTES[PageNames.LOGIN].path)
+			navigate(PUBLIC_ROUTES[PageNames.LOGIN].path)
 			// show error, username or password not found
 		}
 	}

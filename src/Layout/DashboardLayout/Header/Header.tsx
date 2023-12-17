@@ -11,6 +11,7 @@ import Logo from '../../../components/Logo'
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
 import { billsFetch } from '../../../redux/slices/billSlide'
 import { BillStatus } from '../../../common'
+import { PRIVATE_ROUTES, PageNames } from '../../../routes/Routes'
 
 
 const HEADER_MOBILE = 64
@@ -65,7 +66,9 @@ export default function Header({ isOpen }: {
 		<StyledRoot open={isOpen}>
 			<StyledToolbar>
 
-				<Box sx={{ display: isOpen ? 'none' : 'inline-flex' }}>
+				<Box sx={{ display: isOpen ? 'none' : 'inline-flex' }} 
+					onClick={() => navigate(PRIVATE_ROUTES[PageNames.GAMES].path)}
+				>
 					<Logo />
 					<Typography variant='h4' sx={{ color: 'text.secondary', ml: 2, display: 'block' }}>
 						GHub
@@ -83,7 +86,10 @@ export default function Header({ isOpen }: {
 				>
 					{/* <NotificationsPopover /> */}
 
-					<IconButton sx={{ width: 42, height: 42 }} onClick={() => navigate('/billing')}>
+					<IconButton 
+						sx={{ width: 42, height: 42 }} 
+						onClick={() => navigate(PRIVATE_ROUTES[PageNames.BILLS].path)}
+					>
 						<StyledBadge badgeContent={needToPay.length} color="error" >
 							<Tooltip title='Billing'>
 								<ReceiptIcon sx={{ width: 30, height: 35 }} />

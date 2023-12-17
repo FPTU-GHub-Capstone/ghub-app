@@ -9,7 +9,7 @@ import { Button as GoogleSignupBtn } from '../../components/LoginWithExternalSit
 import GoogleLogo from '/assets/icons/GoogleLogo.svg'
 
 import firebaseSvc from '../../services/FirebaseService'
-import { APPLICATION_ROUTES, PageNames } from '../../routes'
+import { PUBLIC_ROUTES, PageNames } from '../../routes/Routes'
 
 import { RegisterForm, RegisterInputType } from './RegisterForm'
 import * as styles from './styles'
@@ -33,10 +33,10 @@ function handleSignUp(data: RegisterInputType, navigate: NavigateFunction) {
 	return async () => {
 		try {
 			firebaseSvc.signUpWithEmailAndPassword(data.email, data.password)
-			navigate(APPLICATION_ROUTES[PageNames.LOGIN].path)
+			navigate(PUBLIC_ROUTES[PageNames.LOGIN].path)
 		} catch (err) {
 			console.error(err)
-			navigate(APPLICATION_ROUTES[PageNames.REGISTER].path)
+			navigate(PUBLIC_ROUTES[PageNames.REGISTER].path)
 			// show error
 		}
 	}

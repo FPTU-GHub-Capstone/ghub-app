@@ -10,6 +10,7 @@ import { GameBill } from '../../common/types'
 import { useAppDispatch, useAppSelector } from '../../redux/hook'
 import { BillStatus } from '../../common'
 import { billsFetch } from '../../redux/slices/billSlide'
+import { gamesFetch } from '../../redux/slices/gameSlice'
 
 import GameCard from './GameBillCard/Card'
 
@@ -31,12 +32,12 @@ export const GameBillPage = ({ title }: { title: string }) => {
 	const bills = useAppSelector(({ bill }) => bill.billList)
 	const dispatch = useAppDispatch()
 	const [selectedBills, setSelectedBills] = useState<string[]>([])
-	const gameBills = [...bills].sort((a) => {
-		if (a.status === BillStatus.PENDING) {
-			return -1
-		}
-		return 1
-	})
+	// const gameBills = [...bills].sort((a) => {
+	// 	if (a.status === BillStatus.PENDING) {
+	// 		return -1
+	// 	}
+	// 	return 1
+	// })
 
 	const handlePayAllBills = async () => {
 		const res = await restSvc.post<CreatePaymentResponse>(
@@ -47,23 +48,30 @@ export const GameBillPage = ({ title }: { title: string }) => {
 	}
 
 	const handleSelectBill = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const selectGameId = event.target.name
-		const gameIdList = [...selectedBills]
+		const selectBillId = event.target.name
+		const billIdList = [...selectedBills]
 
 		if(event.target.checked) {
-			gameIdList.push(selectGameId)
-			setSelectedBills(gameIdList)
+			billIdList.push(selectBillId)
+			setSelectedBills(billIdList)
 		} 
-		else setSelectedBills(gameIdList.filter((gameId) => gameId !== selectGameId))
+		else setSelectedBills(billIdList.filter((billId) => billId !== selectBillId))
 	}
 
 	const handlePaySelectedBill = async() => {
 		console.log(selectedBills)
+		
+		const res = await restSvc.post<CreatePaymentResponse>(
+			`${config.IDP_URL}/payments/create-url`,
+			{bills: selectedBills}
+		)
+		const paymentUrl = res.data.url
+		window.location.href = paymentUrl
 	}
 
 	useEffect(() => {
 		dispatch(billsFetch())
-		
+		dispatch(gamesFetch())
 	}, [dispatch])
 
 	return (
@@ -116,10 +124,10 @@ export const GameBillPage = ({ title }: { title: string }) => {
 					</Stack>
 				</Stack>
 
-				{gameBills && gameBills.length > 0 ? (
+				{bills && bills.length > 0 ? (
 					<Stack>
 						<Grid container spacing={4}>
-							{gameBills.map((bill, index) => {
+							{bills.map((bill, index) => {
 								const foundGame = games.find((game) => game.id === bill.gameId)
 
 								return (
@@ -134,7 +142,7 @@ export const GameBillPage = ({ title }: { title: string }) => {
 											status={bill.status}
 											readUnit={bill.readUnits}
 											writeUnit={bill.writeUnits}
-											gameId={bill.gameId}
+											billId={bill._id}
 											handleSelectBill={handleSelectBill}
 										/>
 									</Grid>

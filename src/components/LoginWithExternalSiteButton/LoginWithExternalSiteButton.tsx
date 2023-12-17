@@ -14,6 +14,7 @@ const LoginWithExternalSiteButton: React.FC<{ onClick?: () => void, text: string
 		<ThemeProvider theme={theme}>
 			<Button
 				variant="outlined"
+				fullWidth
 				sx={{
 					width: '48%', height: '50px', paddingY: '10px',
 					borderRadius: '40px',  backgroundColor: '#fff',

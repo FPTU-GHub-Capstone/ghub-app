@@ -23,7 +23,7 @@ type GameCardProps = {
 	status: string,
 	readUnit: number,
 	writeUnit: number,
-	gameId: string,
+	billId: string,
 	handleSelectBill: (event: React.ChangeEvent<HTMLInputElement>) => void,
 }
 
@@ -43,7 +43,7 @@ const statusLabelColor = {
 
 const restSvc = RestService.getInstance()
 
-export default function GameCard({ title, image, status, readUnit, writeUnit, gameId, handleSelectBill }: GameCardProps) {
+export default function GameCard({ title, image, status, readUnit, writeUnit, billId, handleSelectBill }: GameCardProps) {
 	const BILL_INFO = [
 		{ number: readUnit, icon: 'eva:eye-fill' },
 		{ number: writeUnit, icon: 'jam:write-f' },
@@ -82,7 +82,7 @@ export default function GameCard({ title, image, status, readUnit, writeUnit, ga
 						))}
 					</Info>
 
-					<Label color={statusLabelColor[status]} sx={{ paddingY: 2, paddingX: 3 }}>{status}</Label>
+					<Label color={statusLabelColor[status]} sx={{ paddingY: 2, paddingX: 3 }}>{status.toLocaleUpperCase()}</Label>
 				</Stack>
 
 
@@ -113,7 +113,7 @@ export default function GameCard({ title, image, status, readUnit, writeUnit, ga
 							control={
 								<Checkbox
 									color='success'
-									name={gameId}
+									name={billId}
 									sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
 									onChange={handleSelectBill}
 								/>}
