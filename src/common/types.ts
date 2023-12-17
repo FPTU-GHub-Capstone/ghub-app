@@ -92,6 +92,17 @@ export type Level = {
 	game: Game,
 	[other: string | number]: unknown,
 };
+
+export type WalletCategory = {
+	name: string,
+	gameId: string,
+	id: string,
+	createdAt: string,
+	modifiedAt: string,
+	deletedAt: string | null,
+};
+
+
 export type HttpResponseGMS<T> = {
 	message: string,
 	isError: boolean,
