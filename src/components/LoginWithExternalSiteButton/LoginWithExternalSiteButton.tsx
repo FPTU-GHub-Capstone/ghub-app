@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Typography } from '@mui/material'
+import { Button, Stack, Typography } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 
 import { theme } from './styles'
@@ -14,17 +14,21 @@ const LoginWithExternalSiteButton: React.FC<{ onClick?: () => void, text: string
 		<ThemeProvider theme={theme}>
 			<Button
 				variant="outlined"
+				fullWidth
 				sx={{
-					width: '48%', height: '50px', paddingY: '10px',
+					width: '100%', height: '50px', paddingY: '10px',
 					borderRadius: '40px',  backgroundColor: '#fff',
 				}}
 				onClick={onClick}
 			>
 				<div style={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', width: '90%', }} >
-					{children}
-					<Typography sx={{ fontSize: '14px', fontWeight: '400', fontFamily: 'Roboto', color: '#333333', }} >
-						{text}
-					</Typography>
+					<Stack direction="row" spacing={2}>
+						{children}
+						<Typography sx={{ fontSize: '18px', fontWeight: '500', fontFamily: 'Roboto', color: 'grey.800', }} >
+							{text}
+						</Typography>
+					</Stack>
+					
 				</div>
 			</Button>
 		</ThemeProvider>

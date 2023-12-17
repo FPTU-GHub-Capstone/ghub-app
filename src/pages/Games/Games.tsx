@@ -5,6 +5,7 @@ import Iconify from '../../components/Iconify'
 import { useDialog } from '../../hooks/useDialog'
 import { useAppDispatch, useAppSelector } from '../../redux/hook'
 import { gamesFetch } from '../../redux/slices/gameSlice'
+import { billsFetch } from '../../redux/slices/billSlide'
 
 import GamesSearch from './GamesSearch'
 import GamesSort from './GamesSort'
@@ -18,7 +19,6 @@ type Props = {
 
 const SORT_OPTIONS = [
 	{ value: 'latest', label: 'Latest' },
-	{ value: 'popular', label: 'Popular' },
 	{ value: 'oldest', label: 'Oldest' },
 ]
 
@@ -37,6 +37,7 @@ export const Games = ({ title }: Props) => {
 	})
 	useEffect(() => {
 		dispatch(gamesFetch())
+		dispatch(billsFetch())
 		// console.log(`@player:: ${players}`)
 	}, [dispatch])
 	

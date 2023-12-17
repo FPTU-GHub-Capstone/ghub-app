@@ -5,6 +5,7 @@ import playerReducer from './slices/playerSlice';
 import clientReducer from './slices/clientSlice';
 import authReducer from './slices/authSlide';
 import teamReducer from './slices/teamSlide';
+import billReducer from './slices/billSlide';
 
 
 export const store = configureStore({
@@ -14,6 +15,7 @@ export const store = configureStore({
 		client: clientReducer,
 		auth: authReducer,
 		team: teamReducer,
+		bill: billReducer,
 	}
 });
 

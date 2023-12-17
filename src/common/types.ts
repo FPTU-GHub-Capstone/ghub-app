@@ -18,6 +18,7 @@ export type Game = {
 	logo?: string,
 	link?: string,
 	banner?: string,
+	createdAt: string,
 	[other: string | number]: unknown,
 };
 
@@ -120,4 +121,14 @@ export type UserTokenPayload = {
 	iat: number,
 	uid: string,
 	scp: string[],
+}
+
+export type GameBill = {
+	_id: string,
+	gameId: string,
+	writeUnits: number,
+	readUnits: number,
+	time: string,
+	status: string,
+	__v: number,
 }

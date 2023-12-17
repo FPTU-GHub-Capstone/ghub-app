@@ -29,7 +29,7 @@ export const externalLoginBox = Object.freeze<SxProps<Theme>>({
 
 
 export const newAccText= Object.freeze<SxProps<Theme>>({
-	display: 'flex', justifyContent: 'center', fontWeight: '400', paddingTop: '15px'
+	display: 'flex', justifyContent: 'center', fontWeight: '400', paddingTop: '15px', paddingBottom: '50px'
 });
 
 

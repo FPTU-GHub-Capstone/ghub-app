@@ -12,7 +12,6 @@ import { Game } from '../../../pages/Games/types'
 import Logo from '../../../components/Logo'
 import { getCurrentGame } from '../../../services/GameService'
 import { HttpResponseGMS } from '../../../common'
-import Scrollbar from '../../../components/Scrollbar'
 
 import { NavbarItems } from './Items'
 
@@ -105,7 +104,6 @@ export default function Navbar() {
 	return (
 		<Box sx={{ display: 'flex' }}>
 			<CssBaseline />
-
 			<Drawer variant="permanent" open={true}>
 				<Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
 					<Logo />
@@ -131,7 +129,6 @@ export default function Navbar() {
 						</StyledAccount>
 					</Link>
 				</Box>
-
 
 				<NavSection
 					data={myProjectsItem}

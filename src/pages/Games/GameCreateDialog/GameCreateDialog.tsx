@@ -66,6 +66,7 @@ export default function CreateGameDialog({ isOpenCreateGameDialog, handleCloseCr
 					register={register}
 					errors={errors}
 				/>
+
 			</Box>
 		</Dialog>
 	)

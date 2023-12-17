@@ -1,11 +1,17 @@
 import { styled } from '@mui/material/styles'
-import { Box, Stack, Toolbar, Typography } from '@mui/material'
+import { Badge, BadgeProps, Box, IconButton, Stack, Toolbar, Tooltip, Typography } from '@mui/material'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
+import { useNavigate } from 'react-router'
+import { useEffect } from 'react'
 
 import { bgBlur } from '../../../utils/cssStyles'
 import AccountPopover from '../../DashboardLayout/Header/AccountPopover'
-import NotificationsPopover from '../../DashboardLayout/Header/NotificationsPopover'
 import Logo from '../../../components/Logo'
+import { useAppDispatch, useAppSelector } from '../../../redux/hook'
+import { billsFetch } from '../../../redux/slices/billSlide'
+import { BillStatus } from '../../../common'
+import { PRIVATE_ROUTES, PageNames } from '../../../routes/Routes'
+import Iconify from '../../../components/Iconify'
 
 
 const HEADER_MOBILE = 64
@@ -34,15 +40,35 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 	},
 }))
 
+const StyledBadge = styled(Badge)<BadgeProps>(() => ({
+	'& .MuiBadge-badge': {
+		right: 2,
+		top: 7,
+		// border: `2px solid ${theme.palette.background.paper}`,
+		// padding: '0 4px',
+	},
+}))
+
 
 export default function Header({ isOpen }: {
-	isOpen: boolean, 
+	isOpen: boolean,
 }) {
+	const navigate = useNavigate()
+	const dispatch = useAppDispatch()
+	const bills = useAppSelector(({ bill }) => bill.billList)
+	const needToPay = bills.filter((bill) => (bill.status === BillStatus.PENDING || bill.status === BillStatus.OVERDUE))
+
+	useEffect(() => {
+		dispatch(billsFetch())
+	}, [dispatch])
+
 	return (
 		<StyledRoot open={isOpen}>
 			<StyledToolbar>
 
-				<Box sx={{display: isOpen ? 'none' : 'inline-flex' }}>
+				<Box sx={{ display: isOpen ? 'none' : 'inline-flex' }} 
+					onClick={() => navigate(PRIVATE_ROUTES[PageNames.GAMES].path)}
+				>
 					<Logo />
 					<Typography variant='h4' sx={{ color: 'text.secondary', ml: 2, display: 'block' }}>
 						GHub
@@ -54,11 +80,27 @@ export default function Header({ isOpen }: {
 					direction="row"
 					alignItems="center"
 					spacing={{
-						xs: 0.5,
-						sm: 1,
+						xs: 1,
+						sm: 2,
 					}}
 				>
-					<NotificationsPopover />
+					{/* <NotificationsPopover /> */}
+
+					<IconButton 
+						sx={{ width: 42, height: 42 }} 
+						onClick={() => navigate(PRIVATE_ROUTES[PageNames.BILLS].path)}
+					>
+						<Tooltip title='Billing'>
+							<StyledBadge badgeContent={needToPay.length} color="error" >
+							
+								<Iconify icon="la:file-invoice-dollar" sx={{ width: 35, height: 35 }} />
+								{/* <ReceiptIcon sx={{ width: 30, height: 35 }} /> */}
+							
+							</StyledBadge>
+						</Tooltip>
+					</IconButton>
+
+
 					<AccountPopover />
 				</Stack>
 			</StyledToolbar>

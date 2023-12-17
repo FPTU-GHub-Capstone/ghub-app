@@ -68,7 +68,7 @@ export class RestService {
 		};
 	}
 
-	private _createHandleErrorResponseInterceptor() {
+	private _createHandleErrorResponseInterceptor() { 
 		return (error: AxiosError) => {
 			const { status, config } = error.response;
 			if(status == HttpStatusCode.UNAUTHORIZED) {
@@ -95,6 +95,7 @@ export class RestService {
 		request: InternalAxiosRequestConfig
 	): Promise<InternalAxiosRequestConfig> {
 		const accessToken = await this._getToken();
+		console.log(accessToken);
 		request.headers = request.headers ?? <AxiosRequestHeaders>{};
 		request.headers[RequestHeaders.CORRELATION_ID] = uuidv4();
 		request.headers[RequestHeaders.AUTHORIZATION] = `Bearer ${accessToken}`;
