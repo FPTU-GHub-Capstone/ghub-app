@@ -60,7 +60,7 @@ export default function PaymentSuccess() {
 						Your Payment is Successful!
 					</Typography>
 					<Typography variant='body2'>The payment has been done successfully. Thanks for being there with us.</Typography>
-					<Typography variant='subtitle2'>Redirect to login page after {countdown} seconds.</Typography>
+					<Typography variant='subtitle2'>Redirect to My Projects page after {countdown} seconds.</Typography>
 				</BoxWrapper>
 				<Img height='300' alt='error-illustration' src='/assets/images/pages/404.png' />
 			</Box>
