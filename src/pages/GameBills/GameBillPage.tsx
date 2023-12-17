@@ -8,6 +8,7 @@ import { RestService } from '../../services/RestService'
 import { useAppDispatch, useAppSelector } from '../../redux/hook'
 import { billsFetch } from '../../redux/slices/billSlide'
 import { gamesFetch } from '../../redux/slices/gameSlice'
+import { BillStatus } from '../../common'
 
 import GameCard from './GameBillCard/Card'
 
@@ -48,19 +49,19 @@ export const GameBillPage = ({ title }: { title: string }) => {
 		const selectBillId = event.target.name
 		const billIdList = [...selectedBills]
 
-		if(event.target.checked) {
+		if (event.target.checked) {
 			billIdList.push(selectBillId)
 			setSelectedBills(billIdList)
-		} 
+		}
 		else setSelectedBills(billIdList.filter((billId) => billId !== selectBillId))
 	}
 
-	const handlePaySelectedBill = async() => {
+	const handlePaySelectedBill = async () => {
 		console.log(selectedBills)
 
 		const res = await restSvc.post<CreatePaymentResponse>(
 			`${config.IDP_URL}/payments/create-url`,
-			{bills: selectedBills}
+			{ bills: selectedBills }
 		)
 		const paymentUrl = res.data.url
 		window.location.href = paymentUrl
@@ -85,35 +86,41 @@ export const GameBillPage = ({ title }: { title: string }) => {
 							{title}
 						</Typography>
 						<Typography variant="body1" sx={{ color: 'text.secondary' }}>
-						Please pay your bills by the end of the 5th of every month
+							Please pay your bills by the end of the 5th of every month
 						</Typography>
 					</Stack>
 
 					<Stack direction="row" spacing={2}>
-						<Button 
-							variant="contained" 
+						<Button
+							variant="contained"
 							size="large"
-							sx={{ 
+							disabled={
+								bills.filter((bill) => (
+									bill.status == BillStatus.OVERDUE || bill.status == BillStatus.PENDING
+								)).length == 0 ? true : false
+							}
+							sx={{
 								backgroundColor: 'secondary.light',
 								'&:hover': {
 									backgroundColor: 'secondary.main',
 								}
-							}} 
+							}}
 							onClick={handlePayAllBills}
 						>
-						Pay all bills
+							Pay all bills
 						</Button>
-						<Button 
-							variant="outlined" 
+						<Button
+							variant="outlined"
 							size="large"
-							sx={{ 
+							disabled={selectedBills?.length == 0 ? true : false}
+							sx={{
 								color: 'secondary.main',
 								borderColor: 'secondary.main',
 								'&:hover': {
 									borderColor: '#fff',
 									backgroundColor: 'secondary.lighter',
 								}
-							}} 
+							}}
 							onClick={handlePaySelectedBill}
 						>
 							Pay selected bills {`(${selectedBills?.length ?? '0'})`}
@@ -134,7 +141,7 @@ export const GameBillPage = ({ title }: { title: string }) => {
 											image={
 												foundGame
 													? foundGame.banner
-													: `/assets/images/covers/cover_${(index % 23) + 1 }.jpg`
+													: `/assets/images/covers/cover_${(index % 23) + 1}.jpg`
 											}
 											status={bill.status}
 											readUnit={bill.readUnits}
@@ -148,7 +155,7 @@ export const GameBillPage = ({ title }: { title: string }) => {
 						</Grid>
 					</Stack>
 				) : (
-					<>...loading</>
+					<Typography variant='body2'>Your billing is currently empty</Typography>
 				)}
 			</Container>
 		</>
