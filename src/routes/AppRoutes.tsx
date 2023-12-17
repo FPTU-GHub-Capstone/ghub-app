@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 import React from 'react'
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 

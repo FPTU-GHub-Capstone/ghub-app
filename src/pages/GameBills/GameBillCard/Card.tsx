@@ -4,14 +4,11 @@ import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { styled } from '@mui/system'
 import { Box, Checkbox, FormControlLabel, FormGroup, Stack } from '@mui/material'
 
 import { BillStatus, RU_PRICE, USD_TO_VND, WU_PRICE } from '../../../common'
-import config from '../../../config'
-import { RestService } from '../../../services/RestService'
 import Iconify from '../../../components/Iconify'
 import { fCurrency, fShortenNumber } from '../../../utils/formatNumber'
 import Label from '../../../components/Label'
@@ -40,8 +37,6 @@ const statusLabelColor = {
 	[BillStatus.PAID]: 'success',
 	[BillStatus.PENDING]: 'warning',
 }
-
-const restSvc = RestService.getInstance()
 
 export default function GameCard({ title, image, status, readUnit, writeUnit, billId, handleSelectBill }: GameCardProps) {
 	const BILL_INFO = [

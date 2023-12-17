@@ -1,7 +1,6 @@
 import { styled } from '@mui/material/styles'
 import { Badge, BadgeProps, Box, IconButton, Stack, Toolbar, Tooltip, Typography } from '@mui/material'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
-import ReceiptIcon from '@mui/icons-material/Receipt'
 import { useNavigate } from 'react-router'
 import { useEffect } from 'react'
 
@@ -12,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hook'
 import { billsFetch } from '../../../redux/slices/billSlide'
 import { BillStatus } from '../../../common'
 import { PRIVATE_ROUTES, PageNames } from '../../../routes/Routes'
+import Iconify from '../../../components/Iconify'
 
 
 const HEADER_MOBILE = 64
@@ -40,12 +40,12 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 	},
 }))
 
-const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+const StyledBadge = styled(Badge)<BadgeProps>(() => ({
 	'& .MuiBadge-badge': {
-		right: 0,
+		right: 2,
 		top: 7,
-		border: `2px solid ${theme.palette.background.paper}`,
-		padding: '0 4px',
+		// border: `2px solid ${theme.palette.background.paper}`,
+		// padding: '0 4px',
 	},
 }))
 
@@ -81,7 +81,7 @@ export default function Header({ isOpen }: {
 					alignItems="center"
 					spacing={{
 						xs: 1,
-						sm: 1.5,
+						sm: 2,
 					}}
 				>
 					{/* <NotificationsPopover /> */}
@@ -90,11 +90,14 @@ export default function Header({ isOpen }: {
 						sx={{ width: 42, height: 42 }} 
 						onClick={() => navigate(PRIVATE_ROUTES[PageNames.BILLS].path)}
 					>
-						<StyledBadge badgeContent={needToPay.length} color="error" >
-							<Tooltip title='Billing'>
-								<ReceiptIcon sx={{ width: 30, height: 35 }} />
-							</Tooltip>
-						</StyledBadge>
+						<Tooltip title='Billing'>
+							<StyledBadge badgeContent={needToPay.length} color="error" >
+							
+								<Iconify icon="la:file-invoice-dollar" sx={{ width: 35, height: 35 }} />
+								{/* <ReceiptIcon sx={{ width: 30, height: 35 }} /> */}
+							
+							</StyledBadge>
+						</Tooltip>
 					</IconButton>
 
 

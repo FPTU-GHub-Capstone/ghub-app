@@ -1,23 +1,20 @@
 /* eslint-disable max-lines-per-function */
 import { useState, useEffect } from 'react'
 import { Container, Stack, Typography, Grid, Button } from '@mui/material'
-import { useLocation } from 'react-router-dom'
 import _ from 'lodash'
 
 import config from '../../config'
 import { RestService } from '../../services/RestService'
-import { GameBill } from '../../common/types'
 import { useAppDispatch, useAppSelector } from '../../redux/hook'
-import { BillStatus } from '../../common'
 import { billsFetch } from '../../redux/slices/billSlide'
 import { gamesFetch } from '../../redux/slices/gameSlice'
 
 import GameCard from './GameBillCard/Card'
 
 
-type GameBillResponse = {
-	bills: GameBill[],
-};
+// type GameBillResponse = {
+// 	bills: GameBill[],
+// };
 
 type CreatePaymentResponse = {
 	url: string,
@@ -60,7 +57,7 @@ export const GameBillPage = ({ title }: { title: string }) => {
 
 	const handlePaySelectedBill = async() => {
 		console.log(selectedBills)
-		
+
 		const res = await restSvc.post<CreatePaymentResponse>(
 			`${config.IDP_URL}/payments/create-url`,
 			{bills: selectedBills}
