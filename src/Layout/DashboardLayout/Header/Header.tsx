@@ -58,7 +58,7 @@ export default function Header({ isOpen }: {
 	const needToPay = bills.filter((bill) => (bill.status === BillStatus.PENDING || bill.status === BillStatus.OVERDUE))
 
 	useEffect(() => {
-		// dispatch(billsFetch())
+		dispatch(billsFetch())
 	}, [dispatch])
 
 	return (

@@ -43,9 +43,9 @@ const statusLabelColor = {
 
 const restSvc = RestService.getInstance()
 
-export default function GameCard({title, image, status, readUnit, writeUnit, gameId, handleSelectBill}:GameCardProps) {
+export default function GameCard({ title, image, status, readUnit, writeUnit, gameId, handleSelectBill }: GameCardProps) {
 	const BILL_INFO = [
-		{ number:  readUnit, icon: 'eva:eye-fill' },
+		{ number: readUnit, icon: 'eva:eye-fill' },
 		{ number: writeUnit, icon: 'jam:write-f' },
 	]
 
@@ -56,7 +56,7 @@ export default function GameCard({title, image, status, readUnit, writeUnit, gam
 				image={image}
 				title={title}
 			/>
-		
+
 			<CardContent>
 				<Typography gutterBottom variant="h5" component="div">
 					{title}
@@ -82,9 +82,9 @@ export default function GameCard({title, image, status, readUnit, writeUnit, gam
 						))}
 					</Info>
 
-					<Label color={statusLabelColor[status]} sx={{paddingY: 2, paddingX: 3}}>{status}</Label>
+					<Label color={statusLabelColor[status]} sx={{ paddingY: 2, paddingX: 3 }}>{status}</Label>
 				</Stack>
-				
+
 
 				<Stack
 					direction="row"
@@ -103,24 +103,25 @@ export default function GameCard({title, image, status, readUnit, writeUnit, gam
 					</Typography>
 				</Stack>
 
-				
-				
+
+
 			</CardContent>
 			<CardActions>
 				<FormGroup>
-					<FormControlLabel 
-						control={
-							<Checkbox 
-								color='success'
-								name={gameId}
-								sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }} 
-								onChange={handleSelectBill}
-							/>} 
-						label="Added to your pay list" 
-						disabled={status === BillStatus.PAID} 
-						labelPlacement="end"
-						sx={{marginRight: 'auto', paddingX: 1}}
-					/>
+					{status !== BillStatus.PAID &&
+						<FormControlLabel
+							control={
+								<Checkbox
+									color='success'
+									name={gameId}
+									sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
+									onChange={handleSelectBill}
+								/>}
+							label="Added to your pay list"
+							disabled={status === BillStatus.PAID}
+							labelPlacement="end"
+							sx={{ marginRight: 'auto', paddingX: 1 }}
+						/>}
 				</FormGroup>
 				{/* {status === BillStatus.PENDING ? <Button size="large" >Pay now</Button> : <Typography >Paid</Typography>} */}
 			</CardActions>

@@ -26,11 +26,17 @@ type CreatePaymentResponse = {
 const restSvc = RestService.getInstance()
 
 export const GameBillPage = ({ title }: { title: string }) => {
-	const [gameBills, setGameBills] = useState<GameBill[]>([])
+	// const [gameBills, setGameBills] = useState<GameBill[]>([])
 	const games = useAppSelector(({ game }) => game.gameList)
 	const bills = useAppSelector(({ bill }) => bill.billList)
 	const dispatch = useAppDispatch()
 	const [selectedBills, setSelectedBills] = useState<string[]>([])
+	const gameBills = [...bills].sort((a) => {
+		if (a.status === BillStatus.PENDING) {
+			return -1
+		}
+		return 1
+	})
 
 	const handlePayAllBills = async () => {
 		const res = await restSvc.post<CreatePaymentResponse>(
@@ -57,14 +63,7 @@ export const GameBillPage = ({ title }: { title: string }) => {
 
 	useEffect(() => {
 		dispatch(billsFetch())
-		const billResult = [...bills]
-		billResult.sort((a) => {
-			if (a.status === BillStatus.PENDING) {
-				return -1
-			}
-			return 1
-		})
-		setGameBills(billResult)
+		
 	}, [dispatch])
 
 	return (

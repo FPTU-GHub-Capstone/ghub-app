@@ -88,7 +88,7 @@ export default function GameCard({ game, index }: Props) {
 						}}
 					/>
 
-					<Styled.Cover alt={name} src={`/assets/images/covers/cover_${(index % 23) + 1 }.jpg` || banner} />
+					<Styled.Cover alt={name} src={banner || `/assets/images/covers/cover_${(index % 23) + 1 }.jpg`} />
 				</Styled.CardMedia>
 
 				<CardContent
