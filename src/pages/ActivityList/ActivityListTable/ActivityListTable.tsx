@@ -47,7 +47,7 @@ const ActivityListTable: React.FC<IActivityListTableProps> = ({ activities, setA
 	const columns: GridColDef<Activity, Activity>[] = [
 		{ field: 'name', headerName: 'Name', flex: 3, editable: true },
 		{ field: 'status', headerName: 'Status', flex: 3, editable: true },
-		{ field: 'createdAt', headerName: 'Status', flex: 3, editable: false,
+		{ field: 'createdAt', headerName: 'Creation Date', flex: 3, editable: false,
 			renderCell: (params: GridRenderCellParams<Activity, Activity>) => (
 				<Typography>{fDate(new Date(params ? params.row.createdAt : null))}</Typography>
 			)
