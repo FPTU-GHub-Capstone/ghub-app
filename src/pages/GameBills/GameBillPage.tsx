@@ -30,7 +30,7 @@ export const GameBillPage = ({ title }: { title: string }) => {
 	const games = useAppSelector(({ game }) => game.gameList)
 	const bills = useAppSelector(({ bill }) => bill.billList)
 	const dispatch = useAppDispatch()
-	const [selectedBills, setSelectedBills] = useState<string[]>()
+	const [selectedBills, setSelectedBills] = useState<string[]>([])
 
 	const handlePayAllBills = async () => {
 		const res = await restSvc.post<CreatePaymentResponse>(
@@ -42,16 +42,22 @@ export const GameBillPage = ({ title }: { title: string }) => {
 
 	const handleSelectBill = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const selectGameId = event.target.name
-		const gameIdList = _.cloneDeep(selectedBills)
+		const gameIdList = [...selectedBills]
 
-		if(event.target.checked) setSelectedBills([...gameIdList, selectGameId])
+		if(event.target.checked) {
+			gameIdList.push(selectGameId)
+			setSelectedBills(gameIdList)
+		} 
 		else setSelectedBills(gameIdList.filter((gameId) => gameId !== selectGameId))
+	}
+
+	const handlePaySelectedBill = async() => {
 		console.log(selectedBills)
 	}
 
 	useEffect(() => {
 		dispatch(billsFetch())
-		const billResult = _.cloneDeep(bills)
+		const billResult = [...bills]
 		billResult.sort((a) => {
 			if (a.status === BillStatus.PENDING) {
 				return -1
@@ -59,7 +65,7 @@ export const GameBillPage = ({ title }: { title: string }) => {
 			return 1
 		})
 		setGameBills(billResult)
-	}, [dispatch, bills])
+	}, [dispatch])
 
 	return (
 		<>
@@ -104,7 +110,7 @@ export const GameBillPage = ({ title }: { title: string }) => {
 									backgroundColor: 'secondary.lighter',
 								}
 							}} 
-							onClick={handlePayAllBills}
+							onClick={handlePaySelectedBill}
 						>
 							Pay selected bills {`(${selectedBills?.length ?? '0'})`}
 						</Button>
@@ -138,7 +144,7 @@ export const GameBillPage = ({ title }: { title: string }) => {
 						</Grid>
 					</Stack>
 				) : (
-					<></>
+					<>...loading</>
 				)}
 			</Container>
 		</>
