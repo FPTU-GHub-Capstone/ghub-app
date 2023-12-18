@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Box } from '@mui/material'
+import { useParams } from 'react-router'
 
-import pusherSvc from '../../services/PusherService'
+import { PusherService } from '../../services/PusherService'
 import config from '../../config'
 
 import LogTable from './LogTable'
@@ -16,35 +17,18 @@ const TerminalQuery = () => {
 	)
 }
 
+
 export const Logging: React.FC = () => {
 	const [logs, setLogs] = useState<LogEntry[]>([])
+	const { gameId } = useParams<{ gameId: string }>()
+	const pusherSvc = PusherService.getInstance()
 
 	useEffect(() => {
-		const mode: string = 'THUAN_DEV  '
-		if (mode != 'THUAN_DEV ') {
-			pusherSvc.bindEvent(config.BIND_INSERTED_EVENT, (log: unknown) => {
-				setLogs(logs.concat(log as LogEntry))
-			})
-			
-			return () => {
-				pusherSvc.unbindEvent(config.BIND_INSERTED_EVENT)
-			}
-		} else {
-			const interval = setInterval(() => {
-				const lastElement = logs[logs.length - 1]
-				const currentTimestamp = new Date() 
-	
-				const newEntry = {
-					...lastElement,
-					UtcTimeStamp: currentTimestamp.toISOString(),
-					_id: (Number(lastElement._id) + 1).toString(), 
-				}
-				const newData = logs.concat(newEntry)
-				setLogs(newData)
-			}, 5000) 
-			return () => {
-				clearInterval(interval)
-			}
+		pusherSvc.bindEvent(gameId, config.BIND_INSERTED_EVENT, (log: unknown) => {
+			setLogs(logs.concat(log as LogEntry))
+		})
+		return () => {
+			pusherSvc.unbindEvent(config.BIND_INSERTED_EVENT)
 		}
 	}, [logs])
 

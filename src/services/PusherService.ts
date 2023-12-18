@@ -5,18 +5,22 @@ import config from '../config';
 
 type HandleEventCallback = (...args: unknown[]) => any
 
-class PusherService {
+export class PusherService {
 	private readonly _pusher: Pusher;
-	private readonly _channel: Channel;
+	private _channel: Channel;
 
 	constructor() {
 		this._pusher = new Pusher(config.PUSHER_APP_KEY, {
 			cluster: config.PUSHER_CLUSTER,
 		});
-		this._channel = this._pusher.subscribe(config.PUSHER_CHANNEL);
 	}
 
-	public bindEvent(event: string, callback: HandleEventCallback, context?: any): void {
+	public static getInstance() {
+		return new PusherService();
+	}
+
+	public bindEvent(gameId: string, event: string, callback: HandleEventCallback, context?: any): void {
+		this._channel = this._pusher.subscribe(`${config.PUSHER_CHANNEL}-${gameId}`);
 		this._channel.bind(event, callback, context);
 		// this._channel.bind(config.VITE_PUSHER_BIND_INSERTED_EVENT, (data: any) => {
 		// 	console.log('start inserted');
@@ -27,7 +31,6 @@ class PusherService {
 
 	public unbindEvent(event: string): void {
 		this._channel.unbind(event);
+		this._channel.unsubscribe();
 	}
 }
-
-export default new PusherService();
