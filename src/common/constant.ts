@@ -82,6 +82,16 @@ export const enum BillStatus  {
 	OVERDUE = 'overdue',
 }
 
+export const enum UserRole {
+	ADMIN = 'admin',
+	USER = 'user',
+}
+
+export const enum PaymentStatus {
+	INITIAL = 'Initial',
+	SUCCESS = 'Success',
+}
+
 export const WU_PRICE = 0.005;
 export const RU_PRICE = 0.001;
 export const USD_TO_VND = 24275;

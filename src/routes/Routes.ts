@@ -23,9 +23,13 @@ import LoggingLayout from '../Layout/LoggingLayout';
 import { GameOverview } from '../pages/GameOverview';
 import { Team } from '../pages/Team';
 import { GameServerPage } from '../pages/GameServers';
-import { GameBillPage } from '../pages/GameBills';
 import PaymentSuccess from '../pages/Payment/PaymentSuccess';
 import PaymentFailed from '../pages/Payment/PaymentFailed';
+import AdminLayout from '../Layout/AdminLayout';
+import Sales from '../pages/Sales';
+import { BillingPage } from '../pages/Billing';
+import { GameBillPage } from '../pages/Admin/GameBills';
+import GameManagers from '../pages/Admin/GameManagers/GameManagers';
 
 
 type AppRoute = {
@@ -58,6 +62,9 @@ export const enum PageNames {
 	TEAM = 'team',
 	GAME_LEVELS = 'gameLevels',
 	BILLS = 'bills',
+	GAME_BILLS = 'gameBills',
+	SALES = 'sales',
+	ADMIN = 'admin',
 	PAYMENT_SUCCESS = 'paymentSuccess',
 	PAYMENT_FAILED = 'paymentFailed',
 }
@@ -106,11 +113,20 @@ export const PRIVATE_ROUTES: ApplicationRoutes  = {
 	},
 	[PageNames.BILLS]: {
 		path: '/billing',
-		component: GameBillPage,
+		component: BillingPage,
 		layout: DashboardLayout,
 		isPrivate: true,
 		props: {
-			title: 'Bills',
+			title: 'Billing',
+		},
+	},
+	[PageNames.GAME_BILLS]: {
+		path: '/games/:gameId/bills',
+		component: GameBillPage,
+		layout: AdminLayout,
+		isPrivate: true,
+		props: {
+			title: 'Game Bills',
 		},
 	},
 	[PageNames.PLAYER]: {
@@ -210,6 +226,24 @@ export const PRIVATE_ROUTES: ApplicationRoutes  = {
 		isPrivate: true,
 		props: {
 			title: 'Payment Failed',
+		},
+	},
+	[PageNames.ADMIN]: {
+		path: '/games/:gameId/admin/managers',
+		component: GameManagers,
+		layout: AdminLayout,
+		isPrivate: true,
+		props: {
+			title: 'Game Managers',
+		},
+	},
+	[PageNames.SALES]: {
+		path: '/admin/sales',
+		component: Sales,
+		layout: DashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Sales',
 		},
 	},
 
