@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Box } from '@mui/material'
 import { DataGrid, GridColDef, GridEventListener, GridRowEditStopReasons, GridRowId, GridRowModel, GridRowModes, GridRowModesModel, GridRowParams } from '@mui/x-data-grid'
 import PropTypes from 'prop-types'
+import { useParams } from 'react-router-dom'
 
 import { Asset } from '../../../common/types'
 
@@ -11,18 +12,15 @@ import GridAction from './ColumnComponent/GridAction'
 interface IAssetListProps {
 	assets: Asset[];
 	setAssets: (newAsset: Asset[]) => void;
+	onRowUpdateCompleted: () => void;
 }
 
 const rowHeight = 50
 
-const AssetList: React.FC<IAssetListProps> = ({ assets, setAssets }) => {
+const AssetList: React.FC<IAssetListProps> = ({ assets, setAssets, onRowUpdateCompleted }) => {
 	const [rowModesModel, setRowModesModel] = useState<GridRowModesModel>({})
-	const [newRowIds, setNewRowIds] = useState<Set<GridRowId>>(new Set())
-
-	useEffect(() => {
-		setNewRowIds(new Set())
-	}, [assets])
-
+	const { gameId } = useParams()
+	
 	const handleRowModesModelChange = (newRowModesModel: GridRowModesModel) => {
 		setRowModesModel(newRowModesModel)
 	}
@@ -36,9 +34,7 @@ const AssetList: React.FC<IAssetListProps> = ({ assets, setAssets }) => {
 	const processRowUpdate = (newRow: GridRowModel<Asset>) => {
 		const updatedRow = { ...newRow }
 		const updatedAssets = assets.map((row) => (row.id === newRow.id ? updatedRow : row))
-		if (newRowIds.has(newRow.id)) {
-			setNewRowIds((prev) => new Set([...prev].filter((prevId) => prevId !== newRow.id)))
-		}
+		onRowUpdateCompleted()
 		setAssets(updatedAssets)
 		return updatedRow
 	}
@@ -55,10 +51,10 @@ const AssetList: React.FC<IAssetListProps> = ({ assets, setAssets }) => {
 		
 				return [
 					<GridAction
-						key="save" id={id} isInEditMode={isInEditMode}
+						key="save" id={id} isInEditMode={isInEditMode} gameId={gameId}
 						assets={assets} setAssets={setAssets}
 						rowModesModel={rowModesModel} setRowModesModel={setRowModesModel}
-						newRowIds={newRowIds} setNewRowIds={setNewRowIds}
+						onRowUpdateCompleted={onRowUpdateCompleted}
 					/>,
 				]
 			},
@@ -89,6 +85,7 @@ const AssetList: React.FC<IAssetListProps> = ({ assets, setAssets }) => {
 AssetList.propTypes = {
 	assets: PropTypes.array.isRequired,
 	setAssets: PropTypes.func.isRequired,
+	onRowUpdateCompleted: PropTypes.func.isRequired,
 }
 
 export default AssetList

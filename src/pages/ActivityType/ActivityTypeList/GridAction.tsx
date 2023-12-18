@@ -1,36 +1,29 @@
-/* eslint-disable max-lines-per-function */
-// GridAction.tsx
-
 import React from 'react'
 import { GridActionsCellItem, GridRowId, GridRowModes, GridRowModesModel } from '@mui/x-data-grid'
-import { Edit, Delete, Visibility, Cancel, Save } from '@mui/icons-material'
-import { useNavigate } from 'react-router'
+import { Edit, Delete, Cancel, Save } from '@mui/icons-material'
 
-import { Asset } from '../../../../common/types'
+import {  ActivityType } from '../../../common'
 
 
 interface IGridActionProps {
 	id: GridRowId;
-	gameId: string;
 	isInEditMode: boolean;
-	assets: Asset[];
-	setAssets: (newAsset: Asset[]) => void;
+	activityTypes: ActivityType[];
+	setActivityTypes: (newActivityTypes: ActivityType[]) => void;
+	onRowUpdateCompleted: () => void;
 	rowModesModel: GridRowModesModel;
 	setRowModesModel: React.Dispatch<React.SetStateAction<GridRowModesModel>>;
-	onRowUpdateCompleted: () => void;
 }
 
 const GridAction: React.FC<IGridActionProps> = ({
 	id,
-	gameId,
 	isInEditMode,
-	assets,
-	setAssets,
+	activityTypes,
+	setActivityTypes,
+	onRowUpdateCompleted,
 	rowModesModel,
 	setRowModesModel,
-	onRowUpdateCompleted,
 }) => {
-	const navigate = useNavigate()
 
 	const handleEditClick = () => {
 		setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } })
@@ -41,7 +34,7 @@ const GridAction: React.FC<IGridActionProps> = ({
 	}
 
 	const handleDeleteClick = () => {
-		setAssets(assets.filter((row) => row.id !== id))
+		setActivityTypes(activityTypes.filter((row) => row.id !== id))
 		onRowUpdateCompleted()
 	}
 
@@ -50,11 +43,6 @@ const GridAction: React.FC<IGridActionProps> = ({
 			...rowModesModel,
 			[id]: { mode: GridRowModes.View, ignoreModifications: true },
 		})
-	}
-
-	const handleVisibilityClick = () => {
-		const assetDetailsUrl = `/games/${gameId}/assets/${id}`
-		navigate(assetDetailsUrl)
 	}
 
 	return (
@@ -79,14 +67,6 @@ const GridAction: React.FC<IGridActionProps> = ({
 				</>
 			) : (
 				<>
-					<GridActionsCellItem
-						key="view"
-						icon={<Visibility />}
-						label="View"
-						className="textPrimary"
-						onClick={handleVisibilityClick}
-						color="inherit"
-					/>
 					<GridActionsCellItem
 						key="edit"
 						icon={<Edit />}

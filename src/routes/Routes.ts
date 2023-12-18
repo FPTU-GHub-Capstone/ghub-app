@@ -23,13 +23,18 @@ import LoggingLayout from '../Layout/LoggingLayout';
 import { GameOverview } from '../pages/GameOverview';
 import { Team } from '../pages/Team';
 import { GameServerPage } from '../pages/GameServers';
-import PaymentSuccess from '../pages/Payment/PaymentSuccess';
-import PaymentFailed from '../pages/Payment/PaymentFailed';
-import AdminLayout from '../Layout/AdminLayout';
-import Sales from '../pages/Sales';
+import GameManagers from '../pages/Admin/GameManagers/GameManagers';
+import { AssetTypePage } from '../pages/AssetType';
+import { ActivityListPage } from '../pages/ActivityList';
+import { ActivityDetail } from '../pages/ActivityDetail';
+import { ActivityTypePage } from '../pages/ActivityType';
+import { WalletCategoryPage } from '../pages/WalletCategory';
 import { BillingPage } from '../pages/Billing';
 import { GameBillPage } from '../pages/Admin/GameBills';
-import GameManagers from '../pages/Admin/GameManagers/GameManagers';
+import AdminLayout from '../Layout/AdminLayout';
+import PaymentSuccess from '../pages/Payment/PaymentSuccess';
+import PaymentFailed from '../pages/Payment/PaymentFailed';
+import Sales from '../pages/Sales';
 
 
 type AppRoute = {
@@ -67,6 +72,12 @@ export const enum PageNames {
 	ADMIN = 'admin',
 	PAYMENT_SUCCESS = 'paymentSuccess',
 	PAYMENT_FAILED = 'paymentFailed',
+	ACTIVITY = 'activity',
+	ACTIVITY_DETAILS = 'activityDetails',
+	ACTIVITY_TYPES = 'activityTypes',
+	//ACTIVITY_TYPES_DETAILS = 'activityTypesDetails',
+	ASSETS_TYPES = 'assetType',
+	WALLET_CATEGORY = 'walletCategory',
 }
 
 type ApplicationRoutes = {
@@ -172,6 +183,51 @@ export const PRIVATE_ROUTES: ApplicationRoutes  = {
 		isPrivate: true,
 		props: {
 			title: 'Asset Detail Page',
+		},
+	},
+	[PageNames.ASSETS_TYPES]: {
+		path: '/games/:gameId/assetTypes',
+		component: AssetTypePage,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Asset Type Page',
+		},
+	},
+	[PageNames.ACTIVITY]: {
+		path: '/games/:gameId/activities',
+		component: ActivityListPage,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Activities Page',
+		},
+	},
+	[PageNames.ACTIVITY_DETAILS]: {
+		path: '/games/:gameId/activities/:activityId',
+		component: ActivityDetail,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Activity Details',
+		},
+	},
+	[PageNames.ACTIVITY_TYPES]: {
+		path: '/games/:gameId/activitiesTypes',
+		component: ActivityTypePage,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Activities Page',
+		},
+	},
+	[PageNames.WALLET_CATEGORY]: {
+		path: '/games/:gameId/walletCategory',
+		component: WalletCategoryPage,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Wallet Category',
 		},
 	},
 	[PageNames.LOGGING]: {

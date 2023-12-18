@@ -128,11 +128,6 @@ export const GameServerPage = ({ title }: { title: string }) => {
 						onRowUpdateCompleted={() => setUpdateRequired(true)}
 					/>
 				}
-				<GameServerList
-					gameServers={gameServers}
-					setGameServers={handleChangeGameServer}
-					onRowUpdateCompleted={() => setUpdateRequired(true)}
-				/>
 
 				{isServerAddFormOpen && 
 					<CreateServerDialog

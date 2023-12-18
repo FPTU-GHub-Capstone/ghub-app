@@ -60,6 +60,29 @@ export type AssetType = {
 	deletedAt: string | null,
 };
 
+export type Activity = {
+	name: string,
+	status: number,
+	activityTypeId: string,
+	transactionId: string,
+	characterId: string,
+	id: string,
+	createdAt: string,
+	modifiedAt: string,
+	deletedAt: string | null,
+};
+
+export type ActivityType = {
+	name: string,
+	gameId: string,
+	game: any, 
+	characterId: string,
+	id: string,
+	createdAt: string,
+	modifiedAt: string,
+	deletedAt: string | null,
+};
+
 export type Level = {
 	id: string,
 	description: string,
@@ -69,6 +92,17 @@ export type Level = {
 	game: Game,
 	[other: string | number]: unknown,
 };
+
+export type WalletCategory = {
+	name: string,
+	gameId: string,
+	id: string,
+	createdAt: string,
+	modifiedAt: string,
+	deletedAt: string | null,
+};
+
+
 export type HttpResponseGMS<T> = {
 	message: string,
 	isError: boolean,
@@ -83,6 +117,20 @@ export type Client = {
 	scope: string[] | string,
 	[x: string | number | symbol]: any,
 }
+
+export type Character = {
+	currentProperty: string,
+	pointReward: number,
+	userId: string,
+	characterTypeId: string,
+	gameServerId: string,
+	id: string,
+	createdAt: string,
+	modifiedAt: string,
+	deletedAt: string | null,
+};
+
+
 
 export type FailureResponseGMS = {
 	message: string,

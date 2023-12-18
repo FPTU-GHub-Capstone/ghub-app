@@ -4,8 +4,9 @@ import CategoryIcon from '@mui/icons-material/Category'
 import QueryStatsIcon from '@mui/icons-material/QueryStats'
 import EngineeringIcon from '@mui/icons-material/Engineering'
 import HomeIcon from '@mui/icons-material/Home'
+import WalletIcon from '@mui/icons-material/Wallet'
 import { Article } from '@mui/icons-material'
-//import DirectionsRunIcon from '@mui/icons-material/DirectionsRun'
+import DirectionsRunIcon from '@mui/icons-material/DirectionsRun'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 import StorageIcon from '@mui/icons-material/Storage'
 
@@ -60,14 +61,29 @@ export const NavbarItems: (gameId: string) => NavItem[] = (gameId) => [
 		path: `/games/${gameId}/assets`,
 		icon: <CategoryIcon />,
 	},
-	// {
-	// 	title: 'activities',
-	// 	path: `/games/${gameId}/activities`,
-	// 	icon: <DirectionsRunIcon />,
-	// },
+	{
+		title: 'asset types',
+		path: `/games/${gameId}/assetTypes`,
+		icon: <CategoryIcon />,
+	},
+	{
+		title: 'activities',
+		path: `/games/${gameId}/activities`,
+		icon: <DirectionsRunIcon />,
+	},
+	{
+		title: 'activities types',
+		path: `/games/${gameId}/activitiesTypes`,
+		icon: <DirectionsRunIcon />,
+	},
 	{
 		title: 'Game Levels',
 		path: `/games/${gameId}/levels`,
 		icon: <ArrowUpwardIcon />,
+	},
+	{
+		title: 'Wallet Category',
+		path: `/games/${gameId}/walletCategory`,
+		icon: <WalletIcon />,
 	},
 ]
