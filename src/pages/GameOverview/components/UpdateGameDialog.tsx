@@ -45,7 +45,7 @@ export default function UpdateGameDialog({
 			gameId: gameId,
 		},
 	})
-	const { register, handleSubmit, formState } = form
+	const { register, handleSubmit, formState, setValue } = form
 	const { errors } = formState
 
 	const handlePutData = async (data: GameUpdateInputType) => {
@@ -77,7 +77,7 @@ export default function UpdateGameDialog({
 					handleCloseDialog={handleCloseUpdateGameDialog}
 				/>
 
-				<GameUpdateForm<GameUpdateInputType> errors={errors} register={register}/>
+				<GameUpdateForm<GameUpdateInputType> errors={errors} register={register} setValue={setValue}/>
 			</Box>
 		</Drawer>
 	)

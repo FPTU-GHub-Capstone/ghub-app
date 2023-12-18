@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Box } from '@mui/material'
-import { DataGrid, GridColDef, GridEventListener, GridRowEditStopReasons, GridRowId, GridRowModel, GridRowModes, GridRowModesModel, GridRowParams } from '@mui/x-data-grid'
+import { Box, Link, Stack } from '@mui/material'
+import { DataGrid, GridColDef, GridEventListener, GridRenderCellParams, GridRowEditStopReasons, GridRowId, GridRowModel, GridRowModes, GridRowModesModel, GridRowParams } from '@mui/x-data-grid'
 import PropTypes from 'prop-types'
 import { useParams } from 'react-router-dom'
 
@@ -40,6 +40,14 @@ const AssetList: React.FC<IAssetListProps> = ({ assets, setAssets, onRowUpdateCo
 	}
 
 	const columns: GridColDef<Asset, Asset>[] = [
+		{ 
+			field: 'image', 
+			headerName: 'Image',
+			flex: 2,
+			renderCell: (params: GridRenderCellParams<any>) => (
+				<Link href={params.row.image}>View Image</Link>
+			)
+		},
 		{ field: 'name', headerName: 'Name', flex: 3, editable: true },
 		{ field: 'description', headerName: 'Description', flex: 7, editable: true },
 		{
