@@ -72,6 +72,11 @@ export const NavbarItems: (gameId: string) => NavItem[] = (gameId) => [
 		icon: <DirectionsRunIcon />,
 	},
 	{
+		title: 'activities types',
+		path: `/games/${gameId}/activitiesTypes`,
+		icon: <DirectionsRunIcon />,
+	},
+	{
 		title: 'Game Levels',
 		path: `/games/${gameId}/levels`,
 		icon: <ArrowUpwardIcon />,

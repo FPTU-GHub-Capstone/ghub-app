@@ -118,6 +118,20 @@ export type Client = {
 	[x: string | number | symbol]: any,
 }
 
+export type Character = {
+	currentProperty: string,
+	pointReward: number,
+	userId: string,
+	characterTypeId: string,
+	gameServerId: string,
+	id: string,
+	createdAt: string,
+	modifiedAt: string,
+	deletedAt: string | null,
+};
+
+
+
 export type FailureResponseGMS = {
 	message: string,
 	isError: string,

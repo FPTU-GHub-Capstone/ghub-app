@@ -9,7 +9,7 @@ import { styled } from '@mui/material/styles'
 import { Game } from '../../../common'
 
 
-const excludedProps: string[] = ['deletedAt', 'attributeGroups', 'activityTypes']
+const excludedProps: string[] = ['deletedAt', 'attributeGroups', 'activityTypes', 'monthlyReadUnits']
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
