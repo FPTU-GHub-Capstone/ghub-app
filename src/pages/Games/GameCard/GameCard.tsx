@@ -7,9 +7,9 @@ import { fDate } from '../../../utils/formatTime'
 import { fShortenNumber } from '../../../utils/formatNumber'
 import SvgColor from '../../../components/Svg-color'
 import Iconify from '../../../components/Iconify'
-import { useAppDispatch } from '../../../redux/hook'
+import { useAppDispatch, useAppSelector } from '../../../redux/hook'
 import { setCurrentGame } from '../../../redux/slices/gameSlice'
-import { GAME_ID, Game } from '../../../common'
+import { GAME_ID, Game, UserRole } from '../../../common'
 
 import * as Styled from './styles'
 
@@ -26,6 +26,8 @@ export default function GameCard({ game, index }: Props) {
 	const isLatestGame = index === 1 || index === 2
 	const navigate = useNavigate()
 	const dispatch = useAppDispatch()
+	const currentUser = useAppSelector(({ auth }) => auth.currentUser)
+	const userRole = useAppSelector(({ auth }) => auth.role)
 	
 	const GAME_INFO = [
 		{ number: faker.number.int({ min: 0, max: 100000 }), icon: 'eva:message-circle-fill' },
@@ -38,7 +40,12 @@ export default function GameCard({ game, index }: Props) {
 			<Card sx={{ position: 'relative' }} onClick={() => {
 				dispatch(setCurrentGame(game))
 				localStorage.setItem(GAME_ID, id)
-				navigate(`/games/${id}/overview`)
+				if(currentUser !== null && userRole === UserRole.ADMIN){
+					navigate(`/games/${id}/admin/managers`)
+				}
+				else {
+					navigate(`/games/${id}/overview`)
+				}
 			}}
 			>
 				<Styled.CardMedia
@@ -112,8 +119,9 @@ export default function GameCard({ game, index }: Props) {
 						sx={{
 							...(isLatestGameLarge && { typography: 'h5', height: 60 }),
 							...((isLatestGameLarge || isLatestGame) && {
-								color: 'common.white',
+								color: 'common.white',							
 							}),
+							cursor: 'pointer'
 						}}
 					>
 						{name}

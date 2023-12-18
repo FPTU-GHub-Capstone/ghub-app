@@ -7,9 +7,11 @@ import config from '../../config';
 
 type BillState = {
 	billList: GameBill[],
+	gameBillList: GameBill[],
 };
 const initialState: BillState = {
 	billList: [],
+	gameBillList: []
 };
 
 export const billsFetch = createAsyncThunk(
@@ -22,6 +24,16 @@ export const billsFetch = createAsyncThunk(
 	},
 );
 
+export const gameBillsFetch = createAsyncThunk(
+	'bill/gameBillsFetch',
+	async (gameId: string)  => {
+		const { data } = await RestService.getInstance().get<{bills: GameBill[]}>(
+			`${config.IDP_URL}/bills?gameId=${gameId}`,
+		);
+		return data.bills;
+	},
+);
+
 const billSlice = createSlice({
 	name: 'bill',
 	initialState,
@@ -29,6 +41,9 @@ const billSlice = createSlice({
 	extraReducers: (builder) => {
 		builder.addCase(billsFetch.fulfilled, (state, action) => {
 			state.billList = action.payload;
+		});
+		builder.addCase(gameBillsFetch.fulfilled, (state, action) => {
+			state.gameBillList = action.payload;
 		});
 	},
 });

@@ -1,5 +1,14 @@
 import { styled } from '@mui/material/styles'
-import { Badge, BadgeProps, Box, IconButton, Stack, Toolbar, Tooltip, Typography } from '@mui/material'
+import {
+	Badge,
+	BadgeProps,
+	Box,
+	IconButton,
+	Stack,
+	Toolbar,
+	Tooltip,
+	Typography,
+} from '@mui/material'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 import { useNavigate } from 'react-router'
 import { useEffect } from 'react'
@@ -9,7 +18,7 @@ import AccountPopover from '../../DashboardLayout/Header/AccountPopover'
 import Logo from '../../../components/Logo'
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
 import { billsFetch } from '../../../redux/slices/billSlide'
-import { BillStatus } from '../../../common'
+import { BillStatus, UserRole } from '../../../common'
 import { PRIVATE_ROUTES, PageNames } from '../../../routes/Routes'
 import Iconify from '../../../components/Iconify'
 
@@ -24,12 +33,13 @@ interface IAppBarProps extends MuiAppBarProps {
 }
 
 const StyledRoot = styled(MuiAppBar, {
-	shouldForwardProp: (prop) => prop !== 'open' && prop !== 'isOpenGameDashboard',
+	shouldForwardProp: (prop) =>
+		prop !== 'open' && prop !== 'isOpenGameDashboard',
 })<IAppBarProps>(({ theme }) => ({
 	...bgBlur({ color: theme.palette.background.default }),
 	boxShadow: 'none',
 	borderBottom: '0.5px solid',
-	borderColor: '#DFE3E8'
+	borderColor: '#DFE3E8',
 }))
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
@@ -49,14 +59,16 @@ const StyledBadge = styled(Badge)<BadgeProps>(() => ({
 	},
 }))
 
-
-export default function Header({ isOpen }: {
-	isOpen: boolean,
-}) {
+export default function Header({ isOpen }: { isOpen: boolean }) {
 	const navigate = useNavigate()
 	const dispatch = useAppDispatch()
 	const bills = useAppSelector(({ bill }) => bill.billList)
-	const needToPay = bills.filter((bill) => (bill.status === BillStatus.PENDING || bill.status === BillStatus.OVERDUE))
+	const currentUser = useAppSelector(({ auth }) => auth.currentUser)
+	const userRole = useAppSelector(({ auth }) => auth.role)
+	const needToPay = bills.filter(
+		(bill) =>
+			bill.status === BillStatus.PENDING || bill.status === BillStatus.OVERDUE,
+	)
 
 	useEffect(() => {
 		dispatch(billsFetch())
@@ -65,13 +77,16 @@ export default function Header({ isOpen }: {
 	return (
 		<StyledRoot open={isOpen}>
 			<StyledToolbar>
-
-				<Box sx={{ display: isOpen ? 'none' : 'inline-flex' }} 
+				<Box
+					sx={{ display: isOpen ? 'none' : 'inline-flex' }}
 					onClick={() => navigate(PRIVATE_ROUTES[PageNames.GAMES].path)}
 				>
 					<Logo />
-					<Typography variant='h4' sx={{ color: 'text.secondary', ml: 2, display: 'block' }}>
-						GHub
+					<Typography
+						variant="h4"
+						sx={{ color: 'text.secondary', ml: 2, display: 'block' }}
+					>
+            GHub
 					</Typography>
 				</Box>
 				<Box sx={{ flexGrow: 1 }} />
@@ -85,21 +100,37 @@ export default function Header({ isOpen }: {
 					}}
 				>
 					{/* <NotificationsPopover /> */}
-
-					<IconButton 
-						sx={{ width: 42, height: 42 }} 
-						onClick={() => navigate(PRIVATE_ROUTES[PageNames.BILLS].path)}
-					>
-						<Tooltip title='Billing'>
-							<StyledBadge badgeContent={needToPay.length} color="error" >
-							
-								<Iconify icon="la:file-invoice-dollar" sx={{ width: 35, height: 35 }} />
-								{/* <ReceiptIcon sx={{ width: 30, height: 35 }} /> */}
-							
-							</StyledBadge>
-						</Tooltip>
-					</IconButton>
-
+					{currentUser != null && userRole === UserRole.ADMIN ? (
+						<IconButton
+							sx={{ width: 42, height: 42 }}
+							onClick={() => navigate(PRIVATE_ROUTES[PageNames.SALES].path)}
+						>
+							<Tooltip title="Sales">
+								<StyledBadge  color="error">
+									<Iconify
+										icon="akar-icons:statistic-up"
+										sx={{ width: 35, height: 35 }}
+									/>
+									{/* <ReceiptIcon sx={{ width: 30, height: 35 }} /> */}
+								</StyledBadge>
+							</Tooltip>
+						</IconButton>
+					) : (
+						<IconButton
+							sx={{ width: 42, height: 42 }}
+							onClick={() => navigate(PRIVATE_ROUTES[PageNames.BILLS].path)}
+						>
+							<Tooltip title="Billing">
+								<StyledBadge badgeContent={needToPay.length} color="error">
+									<Iconify
+										icon="la:file-invoice-dollar"
+										sx={{ width: 35, height: 35 }}
+									/>
+									{/* <ReceiptIcon sx={{ width: 30, height: 35 }} /> */}
+								</StyledBadge>
+							</Tooltip>
+						</IconButton>
+					)}
 
 					<AccountPopover />
 				</Stack>

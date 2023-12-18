@@ -26,7 +26,11 @@ const MENU_OPTIONS: {
 		icon: 'eva:person-fill',
 		path: '/profile',
 	},
-	
+	{
+		label: 'Billing',
+		icon: 'eva:settings-2-fill',
+		path: '/billing',
+	},
 ]
 
 export default function AccountPopover() {

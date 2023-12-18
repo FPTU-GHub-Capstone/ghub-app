@@ -106,6 +106,7 @@ export type User = {
 	scope: string,
 	name?: string,
 	username?: string,
+	status?: boolean,
 	[x: string | number | symbol]: any,
 }
 

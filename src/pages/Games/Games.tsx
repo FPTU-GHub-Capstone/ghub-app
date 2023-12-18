@@ -6,6 +6,7 @@ import { useDialog } from '../../hooks/useDialog'
 import { useAppDispatch, useAppSelector } from '../../redux/hook'
 import { gamesFetch } from '../../redux/slices/gameSlice'
 import { billsFetch } from '../../redux/slices/billSlide'
+import { UserRole } from '../../common'
 
 import GamesSearch from './GamesSearch'
 import GamesSort from './GamesSort'
@@ -28,7 +29,7 @@ export const Games = ({ title }: Props) => {
 	const [gameSearch, setGameSearch] = useState('')
 
 	const dispatch = useAppDispatch()
-
+	const userRole = useAppSelector(({ auth }) => auth.role)
 	const games = useAppSelector(({ game }) => game.gameList)
 	const gameResult = games.filter((game) => {
 		if (gameSearch != '') {
@@ -48,7 +49,7 @@ export const Games = ({ title }: Props) => {
 
 	return (
 		<Container>
-			<Stack direction="row" alignItems="center" justifyContent="space-between" mb={3}>
+			{userRole === UserRole.USER ? <Stack direction="row" alignItems="center" justifyContent="space-between" mb={3}>
 				<Typography variant="h4" gutterBottom>
 					{title}
 				</Typography>
@@ -57,7 +58,7 @@ export const Games = ({ title }: Props) => {
 				>
 					New Game
 				</Button>
-			</Stack>
+			</Stack> : <></>}
 
 			<Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
 				<GamesSearch games={games} setGameSearch={setGameSearch} />
