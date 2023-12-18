@@ -28,6 +28,8 @@ jobs:
           envkey_VITE_PUSHER_BIND_INSERTED_EVENT: ${{ secrets.VITE_PUSHER_BIND_INSERTED_EVENT }}
           envkey_VITE_IDP_URL                   : ${{ secrets.VITE_IDP_URL }}
           envkey_VITE_GMS_URL                   : ${{ secrets.VITE_GMS_URL }}
+          envkey_VITE_CLOUDINARY_CLOUDNAME      : ${{ secrets.VITE_CLOUDINARY_CLOUDNAME }}
+          envkey_VITE_CLOUDINARY_UPLOADPRESET   : ${{ secrets.VITE_CLOUDINARY_UPLOADPRESET }}
           file_name                       : .env
           fail_on_empty                   : true
       - name: Confirm env file
