@@ -41,7 +41,7 @@ export default function UpdateGameDialog({
 			name: currentGame.name,
 			logo: currentGame.logo,
 			link: currentGame.link,
-			banner: currentGame.link, //change to banner later, when API is done have banner
+			banner: currentGame.banner, //change to banner later, when API is done have banner
 			gameId: gameId,
 		},
 	})

@@ -5,6 +5,7 @@ import { useParams } from 'react-router'
 import DialogHeader from '../../components/DialogHeader'
 import { RestService }from '../../services/RestService'
 import config from '../../config'
+import { Game } from '../../common'
 
 import WalletCategoryAddForm from './components/WalletCategoryForm'
 
@@ -15,6 +16,7 @@ type Props = {
 	isOpenCreateWalletCategoryDialog: boolean,
 	handleCloseWalletCategoryAddForm: () => void,
 	toggleChanged: () => void,
+	currentGame: Game,
 };
 
 export type CreateWalletCategoryInputType = {
@@ -26,6 +28,7 @@ export default function CreateWalletCategoryDialog({
 	isOpenCreateWalletCategoryDialog,
 	handleCloseWalletCategoryAddForm,
 	toggleChanged,
+	currentGame,
 }: Props) {
 	const { gameId } = useParams()
 
@@ -68,7 +71,11 @@ export default function CreateWalletCategoryDialog({
 					handleCloseDialog={handleCloseWalletCategoryAddForm}
 				/>
 
-				<WalletCategoryAddForm<CreateWalletCategoryInputType> errors={errors} register={register} />
+				<WalletCategoryAddForm<CreateWalletCategoryInputType> 
+					errors={errors} 
+					register={register} 
+					currentGame={currentGame}
+				/>
 			</Box>
 		</Drawer>
 	)

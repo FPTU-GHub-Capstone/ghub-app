@@ -30,6 +30,7 @@ const restSvc = RestService.getInstance()
 
 export const GameLevelPage = ({ title }: { title: string }) => {
 	const [gameLevels, setGameLevels] = useState<Level[]>([])
+	const [game, setGame] = useState<Game>()
 	const [originalGameLevels, setOriginalGameLevels] = useState<Level[]>([])
 	const [gameId, setGameId] = useState<string | null>(null)
 	const [isLevelAddFormOpen, handleOpenLevelAddForm, handleCloseLevelAddForm] = useDialog()
@@ -69,7 +70,7 @@ export const GameLevelPage = ({ title }: { title: string }) => {
 		try {
 			const GameResponse = await restSvc.get<GameResponse>(`${config.GMS_URL}/games/${inputGameId}`)
 			const gameResult: Game = GameResponse.data.result
-			localStorage.setItem('currentGame', JSON.stringify(gameResult)) 
+			setGame(gameResult)
 		} catch (error) {
 			console.error('Error fetching game Levels data:', error)
 		}
@@ -138,6 +139,7 @@ export const GameLevelPage = ({ title }: { title: string }) => {
 						handleCloseCreateLevelDialog={handleCloseLevelAddForm}
 						toggleChanged={() => setChanged(isChanged + 1)}
 						currentLevelCap={gameLevels.length}
+						currentGame={game}
 					/>
 				}
 			</Container>

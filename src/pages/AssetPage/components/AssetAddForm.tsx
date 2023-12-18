@@ -25,6 +25,7 @@ type Props<T extends FieldValues> = {
 	control: Control<T, any>,
 	assetTypeData: AssetType[],
 	setValue: UseFormSetValue<CreateAssetInputType>,
+	currentGame: Game,
 };
 
 const AssetAddForm = <T extends FieldValues>({
@@ -32,12 +33,11 @@ const AssetAddForm = <T extends FieldValues>({
 	register,
 	assetTypeData,
 	control,
-	setValue
+	setValue,
+	currentGame
 }: Props<T>) => {
-	const getLocalGame = localStorage.getItem('currentGame')
 	const [urlLogo, setUrlLogo] = useState()
 	const [error, updateError] = useState()
-	const localGame: Game | null = getLocalGame ? JSON.parse(getLocalGame) : null
 	function handleOnUploadImage(err, result, widget) {
 		if (err) {
 			updateError(err)
@@ -54,7 +54,7 @@ const AssetAddForm = <T extends FieldValues>({
 		<Box sx={{ margin: '10px' }}>
 			<Stack sx={{ marginY: '20px' }}>
 				<TextField
-					value={localGame.name}
+					value={currentGame? currentGame.name: ''}
 					label={'Game Name'}
 					type="text"
 					disabled
@@ -62,7 +62,7 @@ const AssetAddForm = <T extends FieldValues>({
 				/>
 				<TextField
 					name={'gameId'}
-					value={localGame.id}
+					value={currentGame? currentGame.id: ''}
 					label={'Game Id'}
 					type="text"
 					disabled

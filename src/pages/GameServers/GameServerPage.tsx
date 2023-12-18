@@ -30,6 +30,7 @@ const restSvc = RestService.getInstance()
 export const GameServerPage = ({ title }: { title: string }) => {
 	const [gameServers, setGameServers] = useState<GameServer[]>([])
 	const [originalGameServers, setOriginalGameServers] = useState<GameServer[]>([])
+	const [ game, setGame ] = useState<Game>()
 	const [gameId, setGameId] = useState<string | null>(null)
 	const [isServerAddFormOpen, handleOpenServerAddForm, handleCloseServerAddForm] = useDialog()
 	const [isChanged, setChanged] = useState(0)
@@ -67,7 +68,7 @@ export const GameServerPage = ({ title }: { title: string }) => {
 		try {
 			const gameResponse = await restSvc.get<GameResponse>(`${config.GMS_URL}/games/${inputGameId}`)
 			const gameResult: Game = gameResponse.data.result
-			localStorage.setItem('currentGame', JSON.stringify(gameResult))
+			setGame(gameResult)
 		} catch (error) {
 			console.error('Error fetching game data:', error)
 		}
@@ -137,6 +138,7 @@ export const GameServerPage = ({ title }: { title: string }) => {
 							console.log('toggle Changed')
 							setChanged(isChanged + 1)
 						}}
+						currentGame={game}
 					/>
 				}
 			</Container>

@@ -18,6 +18,7 @@ const restSvc = RestService.getInstance()
 export const WalletCategoryPage = ({ title }: { title: string }) => {
 	const [walletCategories, setWalletCategories] = useState<WalletCategory[]>([])
 	const [originalWalletCategories, setOriginalWalletCategories] = useState<WalletCategory[]>([])
+	const [ game, setGame ] = useState<Game>()
 	const [isWalletCategoryAddFormOpen, handleOpenWalletCategoryAddForm, handleCloseWalletCategoryAddForm] = useDialog()
 	const [isChanged, setChanged] = useState(0)
 	const [isUpdateRequired, setUpdateRequired] = useState(false)
@@ -51,7 +52,7 @@ export const WalletCategoryPage = ({ title }: { title: string }) => {
 		try {
 			const gameResponse = await restSvc.get<HttpResponseGMS<Game>>(`${config.GMS_URL}/games/${inputGameId}`)
 			const gameResult: Game = gameResponse.data.result as Game
-			localStorage.setItem('currentGame', JSON.stringify(gameResult))
+			setGame(gameResult)
 		} catch (error) {
 			console.error('Error fetching game data:', error)
 		}
@@ -121,6 +122,7 @@ export const WalletCategoryPage = ({ title }: { title: string }) => {
 							console.log('toggle Changed')
 							setChanged(isChanged + 1)
 						}}
+						currentGame={game}
 					/>
 				}
 			</Container>
