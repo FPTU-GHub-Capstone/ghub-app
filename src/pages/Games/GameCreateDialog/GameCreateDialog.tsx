@@ -34,7 +34,7 @@ export default function CreateGameDialog({ isOpenCreateGameDialog, handleCloseCr
 			banner: ''
 		}
 	})
-	const { register, handleSubmit, formState } = form
+	const { register, handleSubmit, formState, setValue } = form
 	const { errors } = formState
 	const dispatch = useAppDispatch()
 
@@ -65,6 +65,7 @@ export default function CreateGameDialog({ isOpenCreateGameDialog, handleCloseCr
 				<GameCreateForm
 					register={register}
 					errors={errors}
+					setValue={setValue}
 				/>
 
 			</Box>

@@ -11,10 +11,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.11.2",
+    "@cloudinary/url-gen": "^1.14.0",
     "@emotion/react": "~11.11.1",
     "@emotion/styled": "~11.11.0",
     "@faker-js/faker": "~8.1.0",
     "@fontsource/roboto": "~5.0.8",
+    "@heroicons/react": "2.0.18",
     "@iconify/react": "~4.1.1",
     "@mui/icons-material": "~5.14.9",
     "@mui/lab": "~5.0.0-alpha.152",
@@ -23,6 +26,7 @@
     "@mui/x-data-grid": "~6.16.2",
     "@mui/x-tree-view": "~6.17.0",
     "@reduxjs/toolkit": "~1.9.5",
+    "apexcharts": "3.44.2",
     "axios": "~1.5.0",
     "change-case": "~4.1.2",
     "crypto-js": "~4.2.0",
@@ -30,9 +34,12 @@
     "firebase": "~10.4.0",
     "jwt-decode": "~4.0.0",
     "lodash": "~4.17.21",
+    "moment": "2.29.4",
+    "next": "14.0.4",
     "numeral": "~2.0.6",
     "pusher-js": "~8.3.0",
     "react": "~18.2.0",
+    "react-apexcharts": "1.4.1",
     "react-dom": "~18.2.0",
     "react-hook-form": "~7.46.2",
     "react-redux": "~8.1.2",
@@ -41,12 +48,7 @@
     "simplebar-react": "~3.2.4",
     "styled-components": "~6.0.8",
     "swagger-ui-react": "~5.10.5",
-    "uuid": "~9.0.1",
-    "moment": "2.29.4",
-    "next": "14.0.4",
-    "react-apexcharts": "1.4.1",
-    "@heroicons/react": "2.0.18",
-    "apexcharts": "3.44.2"
+    "uuid": "~9.0.1"
   },
   "devDependencies": {
     "@hookform/devtools": "~4.3.1",

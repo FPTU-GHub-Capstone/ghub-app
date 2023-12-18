@@ -45,11 +45,10 @@ export default function CreateAssetDialog({
 			gameId: gameId,
 		},
 	})
-	const { register, handleSubmit, formState, control } = form
+	const { register, handleSubmit, formState, control, setValue } = form
 	const { errors } = formState
 
 	const handlePostData = async (data: CreateAssetInputType) => {
-		console.log(data)
 		try {
 			await restSvc.post(`${config.GMS_URL}/games/${gameId}/assets`, data)
 			console.log('submit data',data)
@@ -67,13 +66,12 @@ export default function CreateAssetDialog({
 			console.error('Error submitting:', error)
 		}
 	}
-	
 
 	return (
 		<Drawer anchor='right' open={isOpenCreateAssetTypeDialog} onClose={handleCloseAssetTypeAddForm}>
 			<Box component='form' onSubmit={handleSubmit(onSubmit)}>
 				<DialogHeader
-					titleDialog='Create neww Asset'
+					titleDialog='Create new Asset'
 					titleBtn='Save'
 					handleCloseDialog={handleCloseAssetTypeAddForm}
 				/>
@@ -83,6 +81,7 @@ export default function CreateAssetDialog({
 					register={register} 
 					control={control}
 					assetTypeData={assetTypeData}
+					setValue={setValue}
 				/>
 			</Box>
 		</Drawer>
