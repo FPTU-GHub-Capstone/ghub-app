@@ -14,6 +14,7 @@ import { clientsFetch } from '../../../../redux/slices/clientSlice'
 import ConfirmDialog from '../../../../components/ConfirmDialog'
 import { RestService } from '../../../../services/RestService'
 import config from '../../../../config'
+import { showSuccess } from '../../../../utils/toast'
 
 
 type DownLoadFile = {
@@ -54,6 +55,7 @@ export default function GridAction({rowData: client}: {rowData: Client}) {
 	const handleDeleteClient = async() => {
 		const { status } = await deleteClient(client.clientId)
 		if(status == HttpStatusCode.NO_CONTENT) {
+			showSuccess('Scope has been deleted.')
 			dispatch(clientsFetch(gameId))
 			handleCloseDelete()
 		}

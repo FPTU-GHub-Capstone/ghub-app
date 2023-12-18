@@ -49,7 +49,7 @@ export const Games = ({ title }: Props) => {
 
 	return (
 		<Container>
-			{userRole ? <Stack direction="row" alignItems="center" justifyContent="space-between" mb={3}>
+			{userRole === UserRole.USER ? <Stack direction="row" alignItems="center" justifyContent="space-between" mb={3}>
 				<Typography variant="h4" gutterBottom>
 					{title}
 				</Typography>

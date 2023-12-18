@@ -7,6 +7,9 @@ import authReducer from './slices/authSlide';
 import teamReducer from './slices/teamSlide';
 import billReducer from './slices/billSlide';
 import userReducer from './slices/userSlide';
+import characterTypeReducer from './slices/characterTypeSlide';
+
+
 
 
 export const store = configureStore({
@@ -17,7 +20,8 @@ export const store = configureStore({
 		auth: authReducer,
 		team: teamReducer,
 		bill: billReducer,
-		user: userReducer
+		user: userReducer,
+		characterType: characterTypeReducer,
 	}
 });
 

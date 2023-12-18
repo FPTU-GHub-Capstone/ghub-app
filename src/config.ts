@@ -14,4 +14,7 @@ export default {
 	BIND_INSERTED_EVENT: import.meta.env.VITE_PUSHER_BIND_INSERTED_EVENT,
 	CLOUDINARY_CLOUDNAME: import.meta.env.VITE_CLOUDINARY_CLOUDNAME,
 	CLOUDINARY_UPLOADPRESET: import.meta.env.VITE_CLOUDINARY_UPLOADPRESET,
+
+	WU_PRICE: parseFloat(import.meta.env.VITE_WU_PRICE),
+	USD_TO_VND: parseFloat(import.meta.env.VITE_USD_TO_VND),
 };

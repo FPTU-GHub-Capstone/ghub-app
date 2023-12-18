@@ -44,7 +44,7 @@ export const columns: GridColDef[] = [
 		headerName: 'Status',
 		flex: 1,
 		renderCell: (params: GridRenderCellParams<any>) => (
-			<Label color={(params?.row.status === 0 && 'error') || 'success'}>{sentenceCase(params?.row.status == 0 ? 'banned' : 'active')}</Label>
+			<Label color={(params?.row.status === 0 && 'error') || 'success'}>{sentenceCase(params?.row.status != 0 ? 'banned' : 'active')}</Label>
 		),
 	},
 	{

@@ -23,18 +23,19 @@ import LoggingLayout from '../Layout/LoggingLayout';
 import { GameOverview } from '../pages/GameOverview';
 import { Team } from '../pages/Team';
 import { GameServerPage } from '../pages/GameServers';
+import PaymentSuccess from '../pages/Payment/PaymentSuccess';
+import PaymentFailed from '../pages/Payment/PaymentFailed';
+import AdminLayout from '../Layout/AdminLayout';
+import Sales from '../pages/Sales';
+import { BillingPage } from '../pages/Billing';
+import { GameBillPage } from '../pages/Admin/GameBills';
 import GameManagers from '../pages/Admin/GameManagers/GameManagers';
+import CharacterType from '../pages/CharacterType';
 import { AssetTypePage } from '../pages/AssetType';
 import { ActivityListPage } from '../pages/ActivityList';
 import { ActivityDetail } from '../pages/ActivityDetail';
 import { ActivityTypePage } from '../pages/ActivityType';
 import { WalletCategoryPage } from '../pages/WalletCategory';
-import { BillingPage } from '../pages/Billing';
-import { GameBillPage } from '../pages/Admin/GameBills';
-import AdminLayout from '../Layout/AdminLayout';
-import PaymentSuccess from '../pages/Payment/PaymentSuccess';
-import PaymentFailed from '../pages/Payment/PaymentFailed';
-import Sales from '../pages/Sales';
 
 
 type AppRoute = {
@@ -78,6 +79,7 @@ export const enum PageNames {
 	//ACTIVITY_TYPES_DETAILS = 'activityTypesDetails',
 	ASSETS_TYPES = 'assetType',
 	WALLET_CATEGORY = 'walletCategory',
+	CHARACTER_TYPE = 'characterType',
 }
 
 type ApplicationRoutes = {
@@ -300,6 +302,16 @@ export const PRIVATE_ROUTES: ApplicationRoutes  = {
 		isPrivate: true,
 		props: {
 			title: 'Sales',
+		},
+	},
+
+	[PageNames.CHARACTER_TYPE]: {
+		path: '/games/:gameId/characterType',
+		component: CharacterType,
+		layout: GameDashboardLayout,
+		isPrivate: true,
+		props: {
+			title: 'Character Class',
 		},
 	},
 

@@ -9,6 +9,7 @@ import { createGame } from '../../../services/GameService'
 import { useAppDispatch } from '../../../redux/hook'
 import { exchangeToken } from '../../../services/AuthService'
 import { gamesFetch } from '../../../redux/slices/gameSlice'
+import { showSuccess } from '../../../utils/toast'
 
 import { GameCreateForm } from './GameCreateForm'
 
@@ -44,6 +45,7 @@ export default function CreateGameDialog({ isOpenCreateGameDialog, handleCloseCr
 
 		if(response.status == HttpStatusCode.CREATED) {
 			await exchangeToken()
+			showSuccess('Game has been created successfully!')
 			dispatch(gamesFetch())
 			handleCloseCreateGameDialog()
 		}

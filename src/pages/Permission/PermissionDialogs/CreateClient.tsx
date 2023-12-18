@@ -10,7 +10,7 @@ import { convertToArrayScope, createClient } from '../../../services/ClientServi
 import { initScopes } from '../../../mock/permissions'
 import { useAppDispatch } from '../../../redux/hook'
 import { clientsFetch } from '../../../redux/slices/clientSlice'
-import { showError } from '../../../utils/toast'
+import { showError, showSuccess } from '../../../utils/toast'
 
 import ClientForm from './components/ClientForm'
 import Header from './components/Header'
@@ -59,6 +59,7 @@ export default function CreateClient({ isOpenAssignDialog, handleCloseAssignDial
 		// console.log(``@reqBody:: ${JSON.stringify(requestBody, undefined, 4)}``)
 		const response = await createClient(requestBody)
 		if(response.status == HttpStatusCode.CREATED) {
+			showSuccess('Scope has been created successfully!')
 			setPermissionList(_.cloneDeep(initScopes))
 			dispatch(clientsFetch(gameId))
 			handleCloseAssignDialog()

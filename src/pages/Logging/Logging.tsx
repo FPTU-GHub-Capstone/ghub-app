@@ -30,7 +30,7 @@ export const Logging: React.FC = () => {
 		return () => {
 			pusherSvc.unbindEvent(config.BIND_INSERTED_EVENT)
 		}
-	}, [logs])
+	}, [pusherSvc, gameId, logs])
 
 
 	return (
