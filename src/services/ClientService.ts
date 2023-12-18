@@ -8,14 +8,14 @@ import {RestService} from './RestService';
 
 
 const actionMapping = {
-	0: 'read',
+	0: 'get',
 	1: 'create',
 	2: 'update',
 	3: 'delete',
 };
 
 const reverseActionMapping = {
-	'read': 0,
+	'get': 0,
 	'create': 1,
 	'update': 2,
 	'delete': 3,
