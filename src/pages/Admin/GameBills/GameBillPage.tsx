@@ -1,13 +1,10 @@
 /* eslint-disable max-lines-per-function */
 import { useState, useEffect } from 'react'
-import { Container, Stack, Typography, Grid, Button } from '@mui/material'
+import { Container, Stack, Typography, Grid } from '@mui/material'
 import _ from 'lodash'
 
-import config from '../../../config'
-import { RestService } from '../../../services/RestService'
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
 import {  gameBillsFetch } from '../../../redux/slices/billSlide'
-import { BillStatus } from '../../../common'
 
 import GameCard from './GameBillCard/Card'
 
@@ -15,13 +12,6 @@ import GameCard from './GameBillCard/Card'
 // type GameBillResponse = {
 // 	bills: GameBill[],
 // };
-
-type CreatePaymentResponse = {
-	url: string,
-	status: number,
-};
-
-const restSvc = RestService.getInstance()
 
 export const GameBillPage = ({ title }: { title: string }) => {
 	// const [gameBills, setGameBills] = useState<GameBill[]>([])
@@ -36,13 +26,6 @@ export const GameBillPage = ({ title }: { title: string }) => {
 	// 	return 1
 	// })
 
-	const handlePayAllBills = async () => {
-		const res = await restSvc.post<CreatePaymentResponse>(
-			`${config.IDP_URL}/payments/create-url`,
-		)
-		const paymentUrl = res.data.url
-		window.location.href = paymentUrl
-	}
 
 	const handleSelectBill = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const selectBillId = event.target.name
@@ -55,22 +38,11 @@ export const GameBillPage = ({ title }: { title: string }) => {
 		else setSelectedBills(billIdList.filter((billId) => billId !== selectBillId))
 	}
 
-	const handlePaySelectedBill = async () => {
-		console.log(selectedBills)
-
-		const res = await restSvc.post<CreatePaymentResponse>(
-			`${config.IDP_URL}/payments/create-url`,
-			{ bills: selectedBills }
-		)
-		const paymentUrl = res.data.url
-		window.location.href = paymentUrl
-	}
-
 	useEffect(() => {
 		const pathSegments = location.pathname.split('/')
 		const extractedGameId = pathSegments[pathSegments.indexOf('games') + 1]
 		dispatch(gameBillsFetch(extractedGameId))
-	}, [location.pathname])
+	}, [dispatch])
 
 	return (
 		<>

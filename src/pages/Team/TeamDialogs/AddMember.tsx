@@ -8,6 +8,7 @@ import { HttpStatusCode, User } from '../../../common'
 import { convertToArrayScope, setMemberPermission } from '../../../services/TeamService'
 import { useAppDispatch } from '../../../redux/hook'
 import { membersFetch } from '../../../redux/slices/teamSlide'
+import { showSuccess } from '../../../utils/toast'
 
 import AddMemberForm from './components/AddMemberForm'
 
@@ -30,6 +31,7 @@ export default function AddMember({ isOpenAdd, handleCloseAdd }: Props) {
 		const scope = convertToArrayScope(gameId, permission)
 		const response = await setMemberPermission(members[0].uid, scope)
 		if(response.status == HttpStatusCode.SUCCESS) {
+			showSuccess('Added a new member')
 			dispatch(membersFetch(gameId))
 			handleCloseAdd()
 		}

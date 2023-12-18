@@ -6,6 +6,7 @@ import EngineeringIcon from '@mui/icons-material/Engineering'
 import HomeIcon from '@mui/icons-material/Home'
 import WalletIcon from '@mui/icons-material/Wallet'
 import { Article } from '@mui/icons-material'
+import ParaglidingIcon from '@mui/icons-material/Paragliding'
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 import StorageIcon from '@mui/icons-material/Storage'
@@ -45,6 +46,11 @@ export const NavbarItems: (gameId: string) => NavItem[] = (gameId) => [
 		title: 'servers',
 		path: `/games/${gameId}/servers`,
 		icon: <StorageIcon />,
+	},
+	{
+		title: 'character class',
+		path: `/games/${gameId}/characterType`,
+		icon: <ParaglidingIcon />,
 	},
 	{
 		title: 'players',

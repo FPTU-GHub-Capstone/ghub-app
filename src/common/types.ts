@@ -181,3 +181,13 @@ export type GameBill = {
 	status: string,
 	__v: number,
 }
+
+export type BaseProperty = Record<string, string | number | string[] | number[] | object[] | Record<any, any>>
+
+export type CharacterType = {
+	id?: string,
+	name: string,
+	description: string,
+	baseProperties: BaseProperty,
+	[x: string | number | symbol]: any,
+}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Container, Box, Stack, Typography } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import React, { useState, useEffect } from 'react'
@@ -10,10 +11,9 @@ import { columns } from './components/TableColumn'
 
 
 export default function GameManagers({ title }: { title: string }) {
-	const { gameId } = useParams()
+
 	const [pathGameId, setPathGameId] = useState<string | null>(null)
 	const gameUsers = useAppSelector(({ user }) => user.userList)
-	const currentGameId = useAppSelector(({ game }) => game.currentGame.id)
 	const dispatch = useAppDispatch()
 	// useEffect(() => {
 	// 	dispatch(usersFetch(currentGameId))
@@ -24,7 +24,7 @@ export default function GameManagers({ title }: { title: string }) {
 		const extractedGameId = pathSegments[pathSegments.indexOf('games') + 1]
 		setPathGameId(extractedGameId)
 		dispatch(usersFetch(extractedGameId))
-	}, [location.pathname])
+	}, [dispatch])
 
 	return (
 		<>

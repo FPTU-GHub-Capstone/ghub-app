@@ -48,7 +48,12 @@
     "simplebar-react": "~3.2.4",
     "styled-components": "~6.0.8",
     "swagger-ui-react": "~5.10.5",
-    "uuid": "~9.0.1"
+    "uuid": "~9.0.1",
+    "moment": "2.29.4",
+    "next": "14.0.4",
+    "react-apexcharts": "1.4.1",
+    "@heroicons/react": "2.0.18",
+    "apexcharts": "3.44.2"
   },
   "devDependencies": {
     "@hookform/devtools": "~4.3.1",

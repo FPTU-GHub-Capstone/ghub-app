@@ -5,12 +5,13 @@ import MuiDrawer from '@mui/material/Drawer'
 import Divider from '@mui/material/Divider'
 import CssBaseline from '@mui/material/CssBaseline'
 import { styled, Theme, CSSObject, alpha } from '@mui/material/styles'
-import { useParams } from 'react-router'
+import { useParams, useNavigate } from 'react-router'
 
 import NavSection from '../../../components/NavSession'
 import Logo from '../../../components/Logo'
 import { getCurrentGame } from '../../../services/GameService'
 import { Game, HttpResponseGMS } from '../../../common'
+import { PRIVATE_ROUTES, PageNames } from '../../../routes/Routes'
 
 import { NavbarItems } from './Items'
 
@@ -78,6 +79,7 @@ const renderName = (name: string) => {
 export default function Navbar() {
 	const [game, setGame] = useState<Game>()
 	const { gameId } = useParams<{ gameId: string }>()
+	const navigate = useNavigate()
 	useEffect(() => {
 		fetchGame(gameId)
 	}, [gameId])
@@ -104,7 +106,9 @@ export default function Navbar() {
 		<Box sx={{ display: 'flex' }}>
 			<CssBaseline />
 			<Drawer variant="permanent" open={true}>
-				<Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
+				<Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}
+					onClick={() => navigate(PRIVATE_ROUTES[PageNames.GAMES].path)}
+				>
 					<Logo />
 					<Typography variant='h4' sx={{ color: 'text.secondary', ml: 2, display: 'block' }}>
 						GHub

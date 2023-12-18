@@ -27,19 +27,19 @@ export const columns: GridColDef[] = [
 	{
 		field: 'uid',
 		headerName: 'User ID',
-		flex: 2,
+		flex: 1.5,
 	},
 	{
 		field: 'name',
 		headerName: 'Full Name',
-		flex: 1.5,
+		flex: 2,
 		valueGetter: (params: GridValueGetterParams) =>
 			`${params?.row.name}`
 	},
 	{
 		field: 'email',
 		headerName: 'Email',
-		flex: 2,
+		flex: 2.5,
 	},
 	{
 		field: 'status',
@@ -50,7 +50,7 @@ export const columns: GridColDef[] = [
 		),
 	},
 	{
-		field: 'actions', headerName: 'Action', flex: 2,
+		field: 'actions', headerName: 'Action', flex: 1,
 		type: 'actions',
 		getActions: (params: GridRowParams) => {
 			const id = params.id as GridRowId

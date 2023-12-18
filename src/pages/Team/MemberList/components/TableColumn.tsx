@@ -56,7 +56,7 @@ export const columns: GridColDef[] = [
 		getActions: (params: GridRowParams) => {
 			const id = params.id as GridRowId
 			return [
-				<GridAction key={id} />,
+				<GridAction key={id} rowData={params.row} />,
 			]
 		},
 	},

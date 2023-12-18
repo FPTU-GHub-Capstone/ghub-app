@@ -30,8 +30,10 @@ jobs:
           envkey_VITE_GMS_URL                   : ${{ secrets.VITE_GMS_URL }}
           envkey_VITE_CLOUDINARY_CLOUDNAME      : ${{ secrets.VITE_CLOUDINARY_CLOUDNAME }}
           envkey_VITE_CLOUDINARY_UPLOADPRESET   : ${{ secrets.VITE_CLOUDINARY_UPLOADPRESET }}
-          file_name                       : .env
-          fail_on_empty                   : true
+          envkey_VITE_WU_PRICE                  : ${{ secrets.VITE_WU_PRICE }}
+          envkey_VITE_USD_TO_VND                : ${{ secrets.VITE_USD_TO_VND }}
+          file_name                             : .env
+          fail_on_empty                         : true
       - name: Confirm env file
         run: cat .env
       - name: Install

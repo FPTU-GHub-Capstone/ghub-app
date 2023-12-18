@@ -8,10 +8,11 @@ import Typography from '@mui/material/Typography'
 import { styled } from '@mui/system'
 import { Box, Checkbox, FormControlLabel, FormGroup, Stack } from '@mui/material'
 
-import { BillStatus, RU_PRICE, USD_TO_VND, WU_PRICE } from '../../../common'
+import { BillStatus } from '../../../common'
 import Iconify from '../../../components/Iconify'
 import { fCurrency, fShortenNumber } from '../../../utils/formatNumber'
 import Label from '../../../components/Label'
+import config from '../../../config'
 
 
 type GameCardProps = {
@@ -88,12 +89,12 @@ export default function GameCard({ title, image, status, readUnit, writeUnit, bi
 					mb={3}
 				>
 					<Typography variant="h3" color="primary.main" marginTop={3}>
-						{fCurrency(readUnit * RU_PRICE + writeUnit * WU_PRICE)}
+						{fCurrency(writeUnit * config.WU_PRICE)}
 						<span style={{ fontSize: '15px', color: 'text.secondary' }}>$</span>
 					</Typography>
 
 					<Typography variant="h3" color="secondary.main" marginTop={3}>
-						{fCurrency((readUnit * RU_PRICE + writeUnit * WU_PRICE) * USD_TO_VND)}
+						{fCurrency((writeUnit * config.WU_PRICE) * config.USD_TO_VND)}
 						<span style={{ fontSize: '15px', color: 'text.secondary' }}>vnd</span>
 					</Typography>
 				</Stack>

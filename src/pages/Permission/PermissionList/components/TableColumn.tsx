@@ -17,7 +17,7 @@ export const columns: GridColDef[] = [
 		renderCell: (params: GridRenderCellParams<any>) => {
 			const scopeArr = (params?.row.scope as string).split(' ')
 			return (
-				<Box height='100%' width='100%' overflow='auto' alignItems='center' justifyItems='center' style={{ whiteSpace: 'normal' }}>
+				<Box height='100%' width='100%' pt={2} overflow='auto' display="flex" flexDirection="column" justifyContent="center">
 					{scopeArr.map((item, index) => <Typography key={index}>{item}</Typography>)}
 				</Box>
 			)

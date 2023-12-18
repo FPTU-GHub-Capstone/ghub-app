@@ -2,7 +2,7 @@ import { styled } from '@mui/material/styles';
 
 
 const APP_BAR_MOBILE = 64;
-const APP_BAR_DESKTOP = 70;
+const APP_BAR_DESKTOP = 92;
 
 export const StyledRoot = styled('div')({
 	display: 'flex',
@@ -16,10 +16,8 @@ export const Main = styled('div')(({ theme }) => ({
 	minHeight: '100%',
 	paddingTop: APP_BAR_MOBILE + 24,
 	paddingBottom: theme.spacing(10),
-	marginLeft: theme.spacing(15),
-	marginRight: theme.spacing(15),
 	[theme.breakpoints.up('lg')]: {
-		paddingTop: APP_BAR_DESKTOP + 30,
+		paddingTop: APP_BAR_DESKTOP,
 		paddingLeft: theme.spacing(2),
 		paddingRight: theme.spacing(2),
 	},
