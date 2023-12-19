@@ -1,6 +1,5 @@
 import { alpha } from '@mui/material/styles'
 import { Box, Card, Grid, Typography, CardContent } from '@mui/material'
-import { faker } from '@faker-js/faker'
 import { useNavigate } from 'react-router-dom'
 
 import { fDate } from '../../../utils/formatTime'

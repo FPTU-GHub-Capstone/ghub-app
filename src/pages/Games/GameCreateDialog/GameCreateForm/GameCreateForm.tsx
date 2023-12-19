@@ -1,10 +1,8 @@
 /* eslint-disable max-lines-per-function */
 import {
 	Box,
-	Button,
 	Card,
 	Container,
-	Paper,
 	Stack,
 	ThemeProvider,
 	Typography,
