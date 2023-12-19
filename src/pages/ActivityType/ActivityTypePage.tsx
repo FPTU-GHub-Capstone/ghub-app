@@ -19,6 +19,7 @@ export const ActivityTypePage = ({ title }: { title: string }) => {
 	const [activityTypes, setActivityTypes] = useState<ActivityType[]>([])
 	const [originalActivityTypes, setOriginalActivityTypes] = useState<ActivityType[]>([])
 	const [gameCharactersData, setGameCharactersData] = useState<Character[]>([])
+	const [ game, setGame ] = useState<Game>()
 	const [isActivityTypeAddFormOpen, handleOpenActivityTypeAddForm, handleCloseActivityTypeeAddForm] = useDialog()
 	const [isChanged, setChanged] = useState(0)
 	const [isUpdateRequired, setUpdateRequired] = useState(false)
@@ -53,7 +54,7 @@ export const ActivityTypePage = ({ title }: { title: string }) => {
 		try {
 			const gameResponse = await restSvc.get<HttpResponseGMS<Game>>(`${config.GMS_URL}/games/${inputGameId}`)
 			const gameResult: Game = gameResponse.data.result as Game
-			localStorage.setItem('currentGame', JSON.stringify(gameResult))
+			setGame(gameResult)
 		} catch (error) {
 			console.error('Error fetching game data:', error)
 		}
@@ -137,6 +138,7 @@ export const ActivityTypePage = ({ title }: { title: string }) => {
 							setChanged(isChanged + 1)
 						}}
 						gameCharactersData={gameCharactersData}
+						currentGame={game}
 					/>
 				}
 			</Container>

@@ -8,23 +8,21 @@ import { Game, URL_REGEX } from '../../../common'
 type Props<T extends FieldValues> = {
 	errors: FieldErrors<T>, 
 	register: UseFormRegister<T>,
+	currentGame: Game,
 };
 
-const ServerAddForm = <T extends FieldValues>({ errors, register }: Props<T>) => {
-	const getLocalGame = localStorage.getItem('currentGame')
-	const localGame: Game | null = getLocalGame ? JSON.parse(getLocalGame) : null
-
+const ServerAddForm = <T extends FieldValues>({ errors, register, currentGame }: Props<T>) => {
 	return (
 		<Box sx={{ margin: '10px' }}>
 			<Stack sx={{ marginY: '20px' }}>
 				<TextField
-					name={'Non-func game name'} value={localGame.name}
+					name={'Non-func game name'} value={currentGame? currentGame.name: ''}
 					label={'Game Name'}
 					type="text" disabled
 					sx={{ width: 700, marginRight: '15px' }}
 				/>
 				<TextField
-					name={'Non-func game ID'} value={localGame.id}
+					name={'Non-func game ID'} value={currentGame? currentGame.id: ''}
 					label={'Game Id'}
 					type="text" disabled
 					sx={{ width: 700, marginRight: '15px', marginTop: '15px' }}

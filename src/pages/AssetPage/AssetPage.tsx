@@ -5,8 +5,9 @@ import { useParams } from 'react-router-dom'
 
 import config from '../../config'
 import { RestService } from '../../services/RestService'
-import { Asset, AssetType, HttpResponseGMS } from '../../common/types'
+import { Asset, AssetType, Game, HttpResponseGMS } from '../../common/types'
 import { useDialog } from '../../hooks/useDialog'
+import { getCurrentGame } from '../../services/GameService'
 
 import { AssetList } from './AssetList'
 import { AssetAddBtn } from './components/AssetAddBtn'
@@ -25,6 +26,7 @@ export const AssetPage = ({ title }: { title: string }) => {
 	const [assets, setAssets] = useState<Asset[]>([])
 	const [assetTypes, setAssetTypes] = useState<AssetType[]>([])
 	const [originalAssets, setOriginalAssets] = useState<Asset[]>([])
+	const [ game, setGame ] = useState<Game>()
 	const [isAssetAddFormOpen, handleOpenAssetAddForm, handleCloseAssetAddForm] = useDialog()
 	const [isChanged, setChanged] = useState(0)
 	const [isUpdateRequired, setUpdateRequired] = useState(false)
@@ -33,6 +35,7 @@ export const AssetPage = ({ title }: { title: string }) => {
 	useEffect(() => {
 		fetchAsset(gameId)
 		fetchAssetTypes(gameId)
+		fetchGame(gameId)
 	}, [gameId])
 
 	useEffect(() => {
@@ -40,6 +43,21 @@ export const AssetPage = ({ title }: { title: string }) => {
 			fetchAsset(gameId)
 		}
 	}, [isChanged, gameId])
+
+	const fetchGame = async (inputGameId: string) => {
+		try {
+			const response = await getCurrentGame(inputGameId)
+			if (!response.isError) {
+				const gameResult: Game = (response as HttpResponseGMS<Game>)
+					.result as Game
+				setGame(gameResult)
+			} else {
+				console.log('Game Get problem')
+			}
+		} catch (error) {
+			console.error('Error fetching game data:', error)
+		}
+	}
 
 	const fetchAsset = async (inputGameId: string) => {
 		try {
@@ -130,7 +148,7 @@ export const AssetPage = ({ title }: { title: string }) => {
 					/>
 				}
 
-				{isAssetAddFormOpen && 
+				{isAssetAddFormOpen && game &&
 					<CreateAssetDialog
 						isOpenCreateAssetTypeDialog={isAssetAddFormOpen}
 						handleCloseAssetTypeAddForm={handleCloseAssetAddForm}
@@ -139,6 +157,7 @@ export const AssetPage = ({ title }: { title: string }) => {
 							setChanged(isChanged + 1)
 						}}
 						assetTypeData={assetTypes}
+						currentGame={game}
 					/>
 				}
 			</Container>

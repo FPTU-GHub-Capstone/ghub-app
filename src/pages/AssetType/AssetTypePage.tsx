@@ -7,6 +7,7 @@ import config from '../../config'
 import { RestService } from '../../services/RestService'
 import { AssetType, Game, HttpResponseGMS } from '../../common/types'
 import { useDialog } from '../../hooks/useDialog'
+import { getCurrentGame } from '../../services/GameService'
 
 import { AssetTypeList } from './AssetTypeList'
 import { AssetTypeAddBtn } from './components/AssetTypeAddBtn' // Updated import for clarity
@@ -18,6 +19,7 @@ const restSvc = RestService.getInstance()
 export const AssetTypePage = ({ title }: { title: string }) => {
 	const [assetTypes, setAssetTypes] = useState<AssetType[]>([])
 	const [originalAssetTypes, setOriginalAssetTypes] = useState<AssetType[]>([])
+	const [ game, setGame ] = useState<Game>()
 	const [isAssetTypeAddFormOpen, handleOpenAssetTypeAddForm, handleCloseAssetTypeAddForm] = useDialog()
 	const [isChanged, setChanged] = useState(0)
 	const [isUpdateRequired, setUpdateRequired] = useState(false)
@@ -49,13 +51,19 @@ export const AssetTypePage = ({ title }: { title: string }) => {
 
 	const fetchGame = async (inputGameId: string) => {
 		try {
-			const gameResponse = await restSvc.get<HttpResponseGMS<Game>>(`${config.GMS_URL}/games/${inputGameId}`)
-			const gameResult: Game = gameResponse.data.result as Game
-			localStorage.setItem('currentGame', JSON.stringify(gameResult))
+			const response = await getCurrentGame(inputGameId)
+			if (!response.isError) {
+				const gameResult: Game = (response as HttpResponseGMS<Game>)
+					.result as Game
+				setGame(gameResult)
+			} else {
+				console.log('Game Get problem')
+			}
 		} catch (error) {
 			console.error('Error fetching game data:', error)
 		}
 	}
+
 
 	const updateAssetTypes = useCallback(async () => {
 		for (const originalAssetType of originalAssetTypes) {
@@ -113,7 +121,7 @@ export const AssetTypePage = ({ title }: { title: string }) => {
 					/>
 				}
 
-				{isAssetTypeAddFormOpen && 
+				{isAssetTypeAddFormOpen && game &&
 					<CreateAssetTypeDialog
 						isOpenCreateAssetTypeDialog={isAssetTypeAddFormOpen}
 						handleCloseAssetTypeAddForm={handleCloseAssetTypeAddForm}
@@ -121,6 +129,7 @@ export const AssetTypePage = ({ title }: { title: string }) => {
 							console.log('toggle Changed')
 							setChanged(isChanged + 1)
 						}}
+						currentGame={game}
 					/>
 				}
 			</Container>

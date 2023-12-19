@@ -5,6 +5,7 @@ import { useParams } from 'react-router'
 import DialogHeader from '../../components/DialogHeader'
 import { RestService }from '../../services/RestService'
 import config from '../../config'
+import { Game } from '../../common'
 
 import ServerAddForm from './components/ServerAddForm'
 
@@ -15,6 +16,7 @@ type Props = {
 	isOpenCreateServerDialog: boolean,
 	handleCloseCreateServerDialog: () => void,
 	toggleChanged: () => void,
+	currentGame: Game,
 };
 
 export type CreateServerInputType = {
@@ -28,6 +30,7 @@ export default function CreateServerDialog({
 	isOpenCreateServerDialog,
 	handleCloseCreateServerDialog,
 	toggleChanged,
+	currentGame,
 }: Props) {
 	const { gameId } = useParams()
 
@@ -72,7 +75,11 @@ export default function CreateServerDialog({
 					handleCloseDialog={handleCloseCreateServerDialog}
 				/>
 
-				<ServerAddForm<CreateServerInputType> errors={errors} register={register} />
+				<ServerAddForm<CreateServerInputType> 
+					errors={errors} 
+					register={register} 
+					currentGame={currentGame}
+				/>
 			</Box>
 		</Drawer>
 	)

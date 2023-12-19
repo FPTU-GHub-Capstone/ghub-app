@@ -5,7 +5,7 @@ import { useParams } from 'react-router'
 import DialogHeader from '../../components/DialogHeader'
 import { RestService }from '../../services/RestService'
 import config from '../../config'
-import { Character } from '../../common'
+import { Character, Game } from '../../common'
 
 import ActivityTypeAddForm from './components/ActivityTypeForm'
 
@@ -17,6 +17,7 @@ type Props = {
 	handleCloseActivityTypeAddForm: () => void,
 	toggleChanged: () => void,
 	gameCharactersData: Character[],
+	currentGame: Game,
 };
 
 export type CreateActivityTypeInputType = {
@@ -30,6 +31,7 @@ export default function CreateActivityTypeDialog({
 	handleCloseActivityTypeAddForm,
 	toggleChanged,
 	gameCharactersData,
+	currentGame,
 }: Props) {
 	const { gameId } = useParams()
 
@@ -78,6 +80,7 @@ export default function CreateActivityTypeDialog({
 					register={register} 
 					control={control}
 					gameCharactersData={gameCharactersData}
+					currentGame={currentGame}
 				/>
 			</Box>
 		</Drawer>

@@ -13,6 +13,7 @@ type Props<T extends FieldValues> = {
 	removeLevel: (index: number) => void,
 	addLevel: () => void,
 	currentLevelCap: number,
+	currentGame: Game,
 };
 
 const LevelAddForm = <T extends FieldValues>({ 
@@ -21,22 +22,20 @@ const LevelAddForm = <T extends FieldValues>({
 	register,
 	removeLevel,
 	addLevel,
-	currentLevelCap
+	currentLevelCap,
+	currentGame,
 }: Props<T>) => {
-	const getLocalGame = localStorage.getItem('currentGame')
-	const localGame: Game | null = getLocalGame ? JSON.parse(getLocalGame) : null
-
 	return (
 		<Box sx={{ margin: '10px' }}>
 			<Stack sx={{ marginY: '20px' }}>
 				<TextField
-					name={'Non-func game name'} value={localGame.name}
+					name={'Non-func game name'} value={currentGame? currentGame.name: ''}
 					label={'Game Name'}
 					type="text" disabled
 					sx={{ width: 700, marginRight: '15px' }}
 				/>
 				<TextField
-					name={'Non-func game ID'} value={localGame.id}
+					name={'Non-func game ID'} value={currentGame? currentGame.id: ''}
 					label={'Game Id'}
 					type="text" disabled
 					sx={{ width: 700, marginRight: '15px', marginTop: '15px' }}

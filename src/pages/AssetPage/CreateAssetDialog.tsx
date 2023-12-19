@@ -5,7 +5,7 @@ import { useParams } from 'react-router'
 import DialogHeader from '../../components/DialogHeader'
 import { RestService }from '../../services/RestService'
 import config from '../../config'
-import { AssetType } from '../../common'
+import { AssetType, Game } from '../../common'
 
 import AssetAddForm from './components/AssetAddForm'
 
@@ -17,6 +17,7 @@ type Props = {
 	handleCloseAssetTypeAddForm: () => void,
 	toggleChanged: () => void,
 	assetTypeData: AssetType[],
+	currentGame: Game,
 };
 
 export type CreateAssetInputType = {
@@ -32,6 +33,7 @@ export default function CreateAssetDialog({
 	handleCloseAssetTypeAddForm,
 	toggleChanged,
 	assetTypeData,
+	currentGame,
 }: Props) {
 	const { gameId } = useParams()
 
@@ -82,6 +84,7 @@ export default function CreateAssetDialog({
 					control={control}
 					assetTypeData={assetTypeData}
 					setValue={setValue}
+					currentGame={currentGame}
 				/>
 			</Box>
 		</Drawer>

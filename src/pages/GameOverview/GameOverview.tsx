@@ -129,20 +129,6 @@ export const GameOverview = () => {
 						<Typography variant='h5'>Project Details</Typography>
 						<GameDetailTable game={game} />
 					</Box>
-
-					<Box sx={{marginTop: '25px'}}>
-						<Typography variant='h5'>Your players statistic</Typography>
-						<Typography>Numbers of players: </Typography>
-						<Typography>Numbers of banned players</Typography>
-					</Box>
-
-					<Box sx={{marginTop: '25px'}}>
-						<Typography variant='h5'>Your characters statistic</Typography>
-					</Box>
-
-					<Box sx={{marginTop: '25px'}}>
-						<Typography variant='h5'>Most recent game activities</Typography>
-					</Box>
 				</Container>
 				<DialogAPI
 					isOpenAPIDialog={isApiDialogOpen}

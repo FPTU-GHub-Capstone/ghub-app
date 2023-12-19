@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router'
 
 import DialogHeader from '../../components/DialogHeader'
-import { Level } from '../../common'
+import { Game, Level } from '../../common'
 import { RestService } from '../../services/RestService'
 import config from '../../config'
 
@@ -17,6 +17,7 @@ type Props = {
 	handleCloseCreateLevelDialog: () => void,
 	toggleChanged: () => void,
 	currentLevelCap: number,
+	currentGame: Game,
 };
 
 function generateRandomId(): string {
@@ -44,6 +45,7 @@ export default function CreateLevelDialog({
 	handleCloseCreateLevelDialog,
 	toggleChanged,
 	currentLevelCap,
+	currentGame,
 }: Props) {
 	const { gameId } = useParams()
 	const [levels, setLevels] = useState<Level[]>([
@@ -119,6 +121,7 @@ export default function CreateLevelDialog({
 					errors={errors}
 					register={register}
 					currentLevelCap={currentLevelCap}
+					currentGame={currentGame}
 				/>
 			</Box>
 		</Drawer>
