@@ -4,6 +4,7 @@ import {
 	ExchangeToken,
 	HttpStatusCode,
 	User,
+	UserTokenPayload,
 } from '../common';
 import { store } from '../redux/store';
 import { setCurrentUser } from '../redux/slices/authSlide';
@@ -29,4 +30,12 @@ export const exchangeToken = async () => {
 
 	if (status == HttpStatusCode.CREATED)
 		localStorage.setItem(ACCESS_TOKEN, data.access_token);
+};
+
+export const isHasUpdatedGamePermission = (decoded: UserTokenPayload, currentGameId: string): boolean => {
+	return decoded.scp.includes('games:*:update') || decoded.scp.includes(`games:${currentGameId}:update`);
+};
+
+export const isHasDeleteGamePermission = (decoded: UserTokenPayload, currentGameId: string): boolean => {
+	return decoded.scp.includes('games:*:update') || decoded.scp.includes(`games:${currentGameId}:delete`);
 };

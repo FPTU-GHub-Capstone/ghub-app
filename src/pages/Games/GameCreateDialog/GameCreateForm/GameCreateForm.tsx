@@ -1,7 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import {
 	Box,
-	Button,
+	Card,
 	Container,
 	Stack,
 	ThemeProvider,
@@ -9,6 +9,7 @@ import {
 } from '@mui/material'
 import { FieldErrors, FieldValues, UseFormRegister, UseFormSetValue } from 'react-hook-form'
 import { useState } from 'react'
+import { FileUpload } from '@mui/icons-material'
 
 import { Button as CreateButton } from '../../../../components/PublicFormButton'
 import InputField from '../../../../components/TextFields/InputField'
@@ -83,12 +84,12 @@ export const GameCreateForm = <T extends FieldValues>({
 					pattern={{
 						value: URL_REGEX,
 						message:
-              'This is not a valid URL - And / Or it should starts with HTTP / HTTPS',
+							'This is not a valid URL - And / Or it should starts with HTTP / HTTPS',
 					}}
 				/>
 				<Typography variant='h6'>Game Banner</Typography>
 				<InputField<T>
-					sx={{visibility: 'hidden'}}
+					sx={{ visibility: 'hidden' }}
 					type="hidden"
 					errors={errors}
 					register={register}
@@ -97,7 +98,7 @@ export const GameCreateForm = <T extends FieldValues>({
 					pattern={{
 						value: URL_REGEX,
 						message:
-              'This is not a valid URL - And / Or it should starts with HTTP / HTTPS',
+							'This is not a valid URL - And / Or it should starts with HTTP / HTTPS',
 					}}
 				/>
 				<Container>
@@ -107,7 +108,31 @@ export const GameCreateForm = <T extends FieldValues>({
 								e.preventDefault()
 								open()
 							}
-							return <Button onClick={handleOnClick}>Upload a Game Banner</Button>
+							return (
+								<Box textAlign='center' sx={{ width: 100 }}>
+									<Card variant='outlined' onClick={handleOnClick}
+										sx={{ height: 100, width: 100, cursor: 'pointer' }}
+									>
+										<div>
+											<FileUpload
+												htmlColor="#a7a7a7"
+												sx={{
+													width: '100%',
+													height: 'auto',
+												}}
+											/>
+										</div>
+									</Card>
+									<Typography
+										variant="body2"
+										sx={{
+											color: 'grey.600',
+										}}
+									>
+										Upload image
+									</Typography>
+								</Box>
+							)
 						}}
 					</CloudinaryUploadWidget>
 
@@ -123,7 +148,7 @@ export const GameCreateForm = <T extends FieldValues>({
 				</Container>
 				<Typography variant='h6'>Game Logo</Typography>
 				<InputField<T>
-					sx={{visibility: 'hidden'}}
+					sx={{ visibility: 'hidden' }}
 					type="hidden"
 					errors={errors}
 					register={register}
@@ -132,7 +157,7 @@ export const GameCreateForm = <T extends FieldValues>({
 					pattern={{
 						value: URL_REGEX,
 						message:
-              'This is not a valid URL - And / Or it should starts with HTTP / HTTPS',
+							'This is not a valid URL - And / Or it should starts with HTTP / HTTPS',
 					}}
 				/>
 				<Container>
@@ -142,7 +167,31 @@ export const GameCreateForm = <T extends FieldValues>({
 								e.preventDefault()
 								open()
 							}
-							return <Button onClick={handleOnClick}>Upload a Game Logo</Button>
+							return (
+								<Box textAlign='center' sx={{ width: 100 }}>
+									<Card variant='outlined' onClick={handleOnClick}
+										sx={{ height: 100, width: 100, cursor: 'pointer' }}
+									>
+										<div>
+											<FileUpload
+												htmlColor="#a7a7a7"
+												sx={{
+													width: '100%',
+													height: 'auto',
+												}}
+											/>
+										</div>
+									</Card>
+									<Typography
+										variant="body2"
+										sx={{
+											color: 'grey.600',
+										}}
+									>
+										Upload image
+									</Typography>
+								</Box>
+							)
 						}}
 					</CloudinaryUploadWidget>
 

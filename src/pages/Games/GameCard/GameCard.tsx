@@ -1,6 +1,5 @@
 import { alpha } from '@mui/material/styles'
 import { Box, Card, Grid, Typography, CardContent } from '@mui/material'
-import { faker } from '@faker-js/faker'
 import { useNavigate } from 'react-router-dom'
 
 import { fDate } from '../../../utils/formatTime'
@@ -21,7 +20,7 @@ type Props = {
 
 // eslint-disable-next-line max-lines-per-function
 export default function GameCard({ game, index }: Props) {
-	const { id, banner, name, logo, createdAt } = game
+	const { id, banner, name, logo, createdAt, monthlyWriteUnits, monthlyReadUnits } = game
 	const isLatestGameLarge = index === 0
 	const isLatestGame = index === 1 || index === 2
 	const navigate = useNavigate()
@@ -30,9 +29,8 @@ export default function GameCard({ game, index }: Props) {
 	const userRole = useAppSelector(({ auth }) => auth.role)
 	
 	const GAME_INFO = [
-		{ number: faker.number.int({ min: 0, max: 100000 }), icon: 'eva:message-circle-fill' },
-		{ number:  faker.number.int({ min: 0, max: 100000000 }), icon: 'eva:eye-fill' },
-		{ number: faker.number.int({ min: 0, max: 100000 }), icon: 'eva:share-fill' },
+		{ number: monthlyReadUnits, icon: 'eva:eye-fill' },
+		{ number: monthlyWriteUnits, icon: 'jam:write-f' },
 	]
 
 	return (

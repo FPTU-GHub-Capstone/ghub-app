@@ -6,8 +6,6 @@ import {
 	UseFormRegister,
 	UseFormSetValue,
 } from 'react-hook-form'
-import { Cloudinary } from '@cloudinary/url-gen'
-import { AdvancedImage, responsive, placeholder } from '@cloudinary/react'
 import { useState } from 'react'
 
 import InputField from '../../../components/TextFields/InputField'

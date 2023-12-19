@@ -1,7 +1,11 @@
 import { Button, Container, Stack, Typography } from '@mui/material'
-import React from 'react'
+import React, { useMemo } from 'react'
+import { jwtDecode } from 'jwt-decode'
+import { useParams } from 'react-router-dom'
 
 import { useDialog } from '../../hooks/useDialog'
+import { ACCESS_TOKEN, UserTokenPayload } from '../../common'
+import { isHasUpdatedGamePermission } from '../../services/AuthService'
 
 import PermissionList from './PermissionList/PermissionList'
 import CreateClient from './PermissionDialogs/CreateClient'
@@ -9,6 +13,11 @@ import CreateClient from './PermissionDialogs/CreateClient'
 
 export const Permission = ({title} : {title: string}) => {
 	const [isOpenAssign, handleOpenAssign, handleCloseAssign] = useDialog()
+	const { gameId } = useParams()
+	const accessToken = localStorage.getItem(ACCESS_TOKEN)
+	const decoded = useMemo<UserTokenPayload>(() => {
+		return jwtDecode(accessToken)
+	}, [accessToken])
 
 	return (
 		<Container>
@@ -30,6 +39,7 @@ export const Permission = ({title} : {title: string}) => {
 						}
 					}} 
 					onClick={handleOpenAssign}
+					disabled={!isHasUpdatedGamePermission(decoded, gameId)}
 				>
 					Create Client
 				</Button>

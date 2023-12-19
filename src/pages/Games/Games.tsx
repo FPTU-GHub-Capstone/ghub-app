@@ -9,7 +9,6 @@ import { billsFetch } from '../../redux/slices/billSlide'
 import { UserRole } from '../../common'
 
 import GamesSearch from './GamesSearch'
-import GamesSort from './GamesSort'
 import GameCard from './GameCard'
 import CreateGameDialog from './GameCreateDialog/GameCreateDialog'
 
@@ -18,10 +17,10 @@ type Props = {
 	title: string,
 }
 
-const SORT_OPTIONS = [
-	{ value: 'latest', label: 'Latest' },
-	{ value: 'oldest', label: 'Oldest' },
-]
+// const SORT_OPTIONS = [
+// 	{ value: 'latest', label: 'Latest' },
+// 	{ value: 'oldest', label: 'Oldest' },
+// ]
 
 export const Games = ({ title }: Props) => {
 	// const [games, setGames] = useState<Game[]>([])
@@ -62,7 +61,7 @@ export const Games = ({ title }: Props) => {
 
 			<Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
 				<GamesSearch games={games} setGameSearch={setGameSearch} />
-				<GamesSort options={SORT_OPTIONS} />
+				{/* <GamesSort options={SORT_OPTIONS} /> */}
 			</Stack>
 
 			<Grid container spacing={3}>

@@ -30,7 +30,7 @@ export const useRevenue = () => {
 		};
 		fetPayments();
 		
-	},[]);
+	},[resetService]);
 
 	return {revenue, revenueList};
 };

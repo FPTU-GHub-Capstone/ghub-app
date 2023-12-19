@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
 	FieldErrors,
 	UseFormGetValues,
@@ -17,7 +17,6 @@ import {
 	Typography,
 } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
-import AddIcon from '@mui/icons-material/Add'
 
 import { CharacterType } from '../../../../common'
 import InputField from '../../../../components/TextFields/InputField'
@@ -53,7 +52,6 @@ const RenderBaseProperty = ({
 		formState: { errors },
 		setValue,
 		getValues,
-		watch,
 	} = property
 
 	const addProperty = () => {

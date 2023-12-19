@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import { Box, Button, Container, Stack, TextField, Typography } from '@mui/material'
+import { Box, Card, Container, Stack, TextField, Typography } from '@mui/material'
 import {
 	Control,
 	FieldErrors,
@@ -8,6 +8,7 @@ import {
 	UseFormSetValue,
 } from 'react-hook-form'
 import { useState } from 'react'
+import { FileUpload } from '@mui/icons-material'
 
 import InputField from '../../../components/TextFields/InputField'
 import { AssetType, Game, URL_REGEX } from '../../../common'
@@ -52,7 +53,7 @@ const AssetAddForm = <T extends FieldValues>({
 	return (
 		<Box sx={{ margin: '10px' }}>
 			<Stack sx={{ marginY: '20px' }}>
-				<TextField				
+				<TextField
 					value={localGame.name}
 					label={'Game Name'}
 					type="text"
@@ -78,7 +79,7 @@ const AssetAddForm = <T extends FieldValues>({
 				sx={{ width: 700, marginRight: '15px' }}
 			/>
 			<br />
-	
+
 			<InputField<T>
 				errors={errors}
 				register={register}
@@ -104,7 +105,7 @@ const AssetAddForm = <T extends FieldValues>({
 				sx={{ width: 700, marginRight: '15px' }}
 			/>
 			<Typography variant="h6">Asset Image</Typography>
-			<InputField<T>			
+			<InputField<T>
 				// type="hidden"
 				errors={errors}
 				register={register}
@@ -114,7 +115,7 @@ const AssetAddForm = <T extends FieldValues>({
 				pattern={{
 					value: URL_REGEX,
 					message:
-            'This is not a valid URL - And / Or it should starts with HTTP / HTTPS',
+						'This is not a valid URL - And / Or it should starts with HTTP / HTTPS',
 				}}
 				sx={{ width: 700, marginRight: '15px', visibility: 'hidden' }}
 			/>
@@ -125,7 +126,31 @@ const AssetAddForm = <T extends FieldValues>({
 							e.preventDefault()
 							open()
 						}
-						return <Button onClick={handleOnClick}>Upload a Game Logo</Button>
+						return (
+							<Box textAlign='center' sx={{ width: 100 }}>
+								<Card variant='outlined' onClick={handleOnClick}
+									sx={{ height: 100, width: 100, cursor: 'pointer' }}
+								>
+									<div>
+										<FileUpload
+											htmlColor="#a7a7a7"
+											sx={{
+												width: '100%',
+												height: 'auto',
+											}}
+										/>
+									</div>
+								</Card>
+								<Typography
+									variant="body2"
+									sx={{
+										color: 'grey.600',
+									}}
+								>
+									Upload image
+								</Typography>
+							</Box>
+						)
 					}}
 				</CloudinaryUploadWidget>
 

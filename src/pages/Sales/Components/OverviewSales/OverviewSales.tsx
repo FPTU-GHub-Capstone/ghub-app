@@ -11,7 +11,7 @@ export const OverviewSales = (props) => {
 	const chartOptions = useChartOptions()
 
 	return (
-		<Card sx={sx}>
+		<Card sx={sx} variant="outlined">
 			<CardContent>
 				<Chart
 					height={350}
