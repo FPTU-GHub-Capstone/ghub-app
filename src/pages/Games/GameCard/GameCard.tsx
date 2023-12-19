@@ -1,5 +1,5 @@
 import { alpha } from '@mui/material/styles'
-import { Box, Card, Grid, Typography, CardContent } from '@mui/material'
+import { Box, Card, Grid, Typography, CardContent, Stack } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 import { fDate } from '../../../utils/formatTime'
@@ -9,6 +9,8 @@ import Iconify from '../../../components/Iconify'
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
 import { setCurrentGame } from '../../../redux/slices/gameSlice'
 import { GAME_ID, Game, UserRole } from '../../../common'
+import { showError } from '../../../utils/toast'
+import Label from '../../../components/Label'
 
 import * as Styled from './styles'
 
@@ -20,16 +22,15 @@ type Props = {
 
 // eslint-disable-next-line max-lines-per-function
 export default function GameCard({ game, index }: Props) {
-	const { id, banner, name, logo, createdAt, monthlyWriteUnits, monthlyReadUnits } = game
+	const { id, banner, name, logo, createdAt, monthlyWriteUnits, isActive } = game
 	const isLatestGameLarge = index === 0
 	const isLatestGame = index === 1 || index === 2
 	const navigate = useNavigate()
 	const dispatch = useAppDispatch()
 	const currentUser = useAppSelector(({ auth }) => auth.currentUser)
 	const userRole = useAppSelector(({ auth }) => auth.role)
-	
+
 	const GAME_INFO = [
-		{ number: monthlyReadUnits, icon: 'eva:eye-fill' },
 		{ number: monthlyWriteUnits, icon: 'jam:write-f' },
 	]
 
@@ -38,11 +39,13 @@ export default function GameCard({ game, index }: Props) {
 			<Card sx={{ position: 'relative' }} onClick={() => {
 				dispatch(setCurrentGame(game))
 				localStorage.setItem(GAME_ID, id)
-				if(currentUser !== null && userRole === UserRole.ADMIN){
+				if (currentUser !== null && userRole === UserRole.ADMIN) {
 					navigate(`/games/${id}/admin/managers`)
 				}
-				else {
+				else if (currentUser !== null && userRole === UserRole.USER && isActive) {
 					navigate(`/games/${id}/overview`)
+				} else {
+					showError('The game has been inactive. Please pay bills to continue.')
 				}
 			}}
 			>
@@ -93,7 +96,7 @@ export default function GameCard({ game, index }: Props) {
 						}}
 					/>
 
-					<Styled.Cover alt={name} src={banner || `/assets/images/covers/cover_${(index % 23) + 1 }.jpg`} />
+					<Styled.Cover alt={name} src={banner || `/assets/images/covers/cover_${(index % 23) + 1}.jpg`} />
 				</Styled.CardMedia>
 
 				<CardContent
@@ -117,7 +120,7 @@ export default function GameCard({ game, index }: Props) {
 						sx={{
 							...(isLatestGameLarge && { typography: 'h5', height: 60 }),
 							...((isLatestGameLarge || isLatestGame) && {
-								color: 'common.white',							
+								color: 'common.white',
 							}),
 							cursor: 'pointer'
 						}}
@@ -125,7 +128,12 @@ export default function GameCard({ game, index }: Props) {
 						{name}
 					</Styled.Title>
 
-					<Styled.Info>
+					<Stack
+						direction="row"
+						alignItems="center"
+						justifyContent="space-between"
+					>
+						{!isActive && <Label color='error' sx={{ paddingY: 2, paddingX: 3 }}>Inactive</Label>}
 						{GAME_INFO.map((info, infoIndex) => (
 							<Box
 								key={infoIndex}
@@ -142,7 +150,8 @@ export default function GameCard({ game, index }: Props) {
 								<Typography variant="caption">{fShortenNumber(info.number as number)}</Typography>
 							</Box>
 						))}
-					</Styled.Info>
+						
+					</Stack>
 				</CardContent>
 			</Card>
 		</Grid>
