@@ -35,7 +35,7 @@ function updateIdsInPaths(id: string) {
 		}
 	}
 	swaggerJson.servers = [{
-		url: config.GMS_URL,
+		url: config.GMS_URL.split('/gms')[0],
 		description: 'Production server URL'
 	}]
 

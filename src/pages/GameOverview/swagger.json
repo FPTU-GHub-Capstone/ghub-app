@@ -11,7 +11,7 @@
     }
   ],
   "paths": {
-    "/games/{id}/login": {
+    "/gms/games/{id}/login": {
       "post": {
         "tags": [
           "Auth"
@@ -42,7 +42,7 @@
         }
       }
     },
-    "/games/{id}/register": {
+    "/gms/games/{id}/register": {
       "post": {
         "tags": [
           "Auth"
@@ -73,7 +73,38 @@
         }
       }
     },
-    "/games": {
+    "/idp/oauth/token": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OauthRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OauthRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OauthRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/gms/games": {
       "post": {
         "tags": [
           "Games"
@@ -114,7 +145,7 @@
         }
       }
     },
-    "/games/{id}": {
+    "/gms/games/{id}": {
       "put": {
         "tags": [
           "Games"
@@ -198,7 +229,7 @@
         }
       }
     },
-    "/games/{id}/count-record": {
+    "/gms/games/{id}/count-record": {
       "get": {
         "tags": [
           "Games"
@@ -221,7 +252,7 @@
         }
       }
     },
-    "/games/{id}/wallet-categories": {
+    "/gms/games/{id}/wallet-categories": {
       "get": {
         "tags": [
           "Wallet Categories"
@@ -284,7 +315,7 @@
         }
       }
     },
-    "/games/{id}/wallet-categories/{walletCategoryId}": {
+    "/gms/games/{id}/wallet-categories/{walletCategoryId}": {
       "get": {
         "tags": [
           "Wallet Categories"
@@ -395,7 +426,7 @@
         }
       }
     },
-    "/games/{id}/wallets": {
+    "/gms/games/{id}/wallets": {
       "get": {
         "tags": [
           "Wallets"
@@ -458,7 +489,7 @@
         }
       }
     },
-    "/games/{id}/wallets/{walletId}": {
+    "/gms/games/{id}/wallets/{walletId}": {
       "get": {
         "tags": [
           "Wallets"
@@ -569,7 +600,7 @@
         }
       }
     },
-    "/games/{id}/activities": {
+    "/gms/games/{id}/activities": {
       "get": {
         "tags": [
           "Activities"
@@ -632,7 +663,7 @@
         }
       }
     },
-    "/games/{id}/activities/{activityId}": {
+    "/gms/games/{id}/activities/{activityId}": {
       "get": {
         "tags": [
           "Activities"
@@ -743,7 +774,7 @@
         }
       }
     },
-    "/games/{id}/activity-types": {
+    "/gms/games/{id}/activity-types": {
       "get": {
         "tags": [
           "Activities Types"
@@ -806,7 +837,7 @@
         }
       }
     },
-    "/games/{id}/activity-types/{activityTypeId}": {
+    "/gms/games/{id}/activity-types/{activityTypeId}": {
       "get": {
         "tags": [
           "Activities Types"
@@ -917,7 +948,7 @@
         }
       }
     },
-    "/games/{id}/asset-attributes": {
+    "/gms/games/{id}/asset-attributes": {
       "get": {
         "tags": [
           "Asset Attributes"
@@ -980,7 +1011,7 @@
         }
       }
     },
-    "/games/{id}/asset-attributes/{assetAttributeId}": {
+    "/gms/games/{id}/asset-attributes/{assetAttributeId}": {
       "get": {
         "tags": [
           "Asset Attributes"
@@ -1091,7 +1122,7 @@
         }
       }
     },
-    "/games/{id}/assets": {
+    "/gms/games/{id}/assets": {
       "get": {
         "tags": [
           "Assets"
@@ -1154,7 +1185,7 @@
         }
       }
     },
-    "/games/{id}/assets/{assetId}": {
+    "/gms/games/{id}/assets/{assetId}": {
       "get": {
         "tags": [
           "Assets"
@@ -1265,7 +1296,7 @@
         }
       }
     },
-    "/games/{id}/asset-types": {
+    "/gms/games/{id}/asset-types": {
       "get": {
         "tags": [
           "Asset Types"
@@ -1328,7 +1359,7 @@
         }
       }
     },
-    "/games/{id}/asset-types/{assetTypeId}": {
+    "/gms/games/{id}/asset-types/{assetTypeId}": {
       "get": {
         "tags": [
           "Asset Types"
@@ -1439,7 +1470,7 @@
         }
       }
     },
-    "/games/{id}/attribute-groups": {
+    "/gms/games/{id}/attribute-groups": {
       "get": {
         "tags": [
           "Attribute Groups"
@@ -1502,7 +1533,7 @@
         }
       }
     },
-    "/games/{id}/attribute-groups/{attributeGroupId}": {
+    "/gms/games/{id}/attribute-groups/{attributeGroupId}": {
       "get": {
         "tags": [
           "Attribute Groups"
@@ -1613,7 +1644,7 @@
         }
       }
     },
-    "/games/{id}/character-assets": {
+    "/gms/games/{id}/character-assets": {
       "get": {
         "tags": [
           "Character Assets"
@@ -1676,7 +1707,7 @@
         }
       }
     },
-    "/games/{id}/character-assets/{characterAssetId}": {
+    "/gms/games/{id}/character-assets/{characterAssetId}": {
       "get": {
         "tags": [
           "Character Assets"
@@ -1787,7 +1818,7 @@
         }
       }
     },
-    "/games/{id}/character-attributes": {
+    "/gms/games/{id}/character-attributes": {
       "get": {
         "tags": [
           "Character Attributes"
@@ -1850,7 +1881,7 @@
         }
       }
     },
-    "/games/{id}/character-attributes/{characterAttributeId}": {
+    "/gms/games/{id}/character-attributes/{characterAttributeId}": {
       "get": {
         "tags": [
           "Character Attributes"
@@ -1961,7 +1992,7 @@
         }
       }
     },
-    "/games/{id}/characters": {
+    "/gms/games/{id}/characters": {
       "get": {
         "tags": [
           "Characters"
@@ -2024,7 +2055,7 @@
         }
       }
     },
-    "/games/{id}/characters/{characterId}": {
+    "/gms/games/{id}/characters/{characterId}": {
       "get": {
         "tags": [
           "Characters"
@@ -2135,7 +2166,7 @@
         }
       }
     },
-    "/games/{id}/character-types": {
+    "/gms/games/{id}/character-types": {
       "get": {
         "tags": [
           "Character Types"
@@ -2198,7 +2229,7 @@
         }
       }
     },
-    "/games/{id}/character-types/{characterTypeId}": {
+    "/gms/games/{id}/character-types/{characterTypeId}": {
       "get": {
         "tags": [
           "Character Types"
@@ -2309,7 +2340,7 @@
         }
       }
     },
-    "/games/{id}/game-servers": {
+    "/gms/games/{id}/game-servers": {
       "get": {
         "tags": [
           "Game Servers"
@@ -2372,7 +2403,7 @@
         }
       }
     },
-    "/games/{id}/game-servers/{gameServerId}": {
+    "/gms/games/{id}/game-servers/{gameServerId}": {
       "get": {
         "tags": [
           "Game Servers"
@@ -2483,7 +2514,7 @@
         }
       }
     },
-    "/games/{id}/level-progreses": {
+    "/gms/games/{id}/level-progreses": {
       "get": {
         "tags": [
           "Level Progress"
@@ -2546,7 +2577,7 @@
         }
       }
     },
-    "/games/{id}/level-progreses/{levelProgressId}": {
+    "/gms/games/{id}/level-progreses/{levelProgressId}": {
       "get": {
         "tags": [
           "Level Progress"
@@ -2657,7 +2688,7 @@
         }
       }
     },
-    "/games/{id}/levels": {
+    "/gms/games/{id}/levels": {
       "get": {
         "tags": [
           "Levels"
@@ -2729,7 +2760,7 @@
         }
       }
     },
-    "/games/{id}/levels/{levelId}": {
+    "/gms/games/{id}/levels/{levelId}": {
       "get": {
         "tags": [
           "Levels"
@@ -2840,7 +2871,7 @@
         }
       }
     },
-    "/games/{id}/payments": {
+    "/gms/games/{id}/payments": {
       "get": {
         "tags": [
           "Payments"
@@ -2903,7 +2934,7 @@
         }
       }
     },
-    "/games/{id}/payments/{paymentId}": {
+    "/gms/games/{id}/payments/{paymentId}": {
       "get": {
         "tags": [
           "Payments"
@@ -3014,7 +3045,7 @@
         }
       }
     },
-    "/games/{id}/transactions": {
+    "/gms/games/{id}/transactions": {
       "get": {
         "tags": [
           "Transactions"
@@ -3077,7 +3108,7 @@
         }
       }
     },
-    "/games/{id}/transactions/{transactionId}": {
+    "/gms/games/{id}/transactions/{transactionId}": {
       "get": {
         "tags": [
           "Transactions"
@@ -3188,7 +3219,7 @@
         }
       }
     },
-    "/games/{id}/users": {
+    "/gms/games/{id}/users": {
       "get": {
         "tags": [
           "Users"
@@ -3251,7 +3282,7 @@
         }
       }
     },
-    "/games/{id}/users/{userId}": {
+    "/gms/games/{id}/users/{userId}": {
       "get": {
         "tags": [
           "Users"
@@ -3362,7 +3393,7 @@
         }
       }
     },
-    "/games/{id}/users/{userId}/delete-game": {
+    "/gms/games/{id}/users/{userId}/delete-game": {
       "delete": {
         "tags": [
           "Users"
@@ -3394,7 +3425,7 @@
         }
       }
     },
-    "/users/{id}/characters": {
+    "/gms/users/{id}/characters": {
       "get": {
         "tags": [
           "Users"
@@ -3417,7 +3448,7 @@
         }
       }
     },
-    "/users/{id}/games": {
+    "/gms/users/{id}/games": {
       "get": {
         "tags": [
           "Users"
@@ -3440,7 +3471,7 @@
         }
       }
     },
-    "/users/{id}/payments": {
+    "/gms/users/{id}/payments": {
       "get": {
         "tags": [
           "Users"
@@ -3999,10 +4030,38 @@
         "type": "object",
         "properties": {
           "username": {
-            "minLength": 1,
+            "minLength": 6,
             "type": "string"
           },
           "password": {
+            "minLength": 6,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "OauthRequest": {
+        "required": [
+          "grant_type",
+          "client_id",
+          "client_secret",
+          "scope"
+        ],
+        "type": "object",
+        "properties": {
+          "grant_type": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "client_id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "client_secret": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "scope": {
             "minLength": 1,
             "type": "string"
           }
@@ -4017,11 +4076,11 @@
         "type": "object",
         "properties": {
           "username": {
-            "minLength": 1,
+            "minLength": 6,
             "type": "string"
           },
           "password": {
-            "minLength": 1,
+            "minLength": 6,
             "type": "string"
           },
           "reenterPassword": {
