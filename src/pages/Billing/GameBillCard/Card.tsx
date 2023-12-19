@@ -41,7 +41,6 @@ const statusLabelColor = {
 
 export default function GameCard({ title, image, status, readUnit, writeUnit, billId, handleSelectBill }: GameCardProps) {
 	const BILL_INFO = [
-		{ number: readUnit, icon: 'eva:eye-fill' },
 		{ number: writeUnit, icon: 'jam:write-f' },
 	]
 
