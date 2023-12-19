@@ -62,7 +62,7 @@ export const Games = ({ title }: Props) => {
 
 			<Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
 				<GamesSearch games={games} setGameSearch={setGameSearch} />
-				<GamesSort options={SORT_OPTIONS} />
+				{/* <GamesSort options={SORT_OPTIONS} /> */}
 			</Stack>
 
 			<Grid container spacing={3}>

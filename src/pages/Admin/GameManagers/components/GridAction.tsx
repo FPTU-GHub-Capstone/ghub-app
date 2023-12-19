@@ -4,18 +4,19 @@ import { Button } from '@mui/material'
 
 import { RestService } from '../../../../services/RestService'
 import config from '../../../../config'
-import { useAppDispatch } from '../../../../redux/hook'
+import { useAppDispatch, useAppSelector } from '../../../../redux/hook'
 import { usersFetch } from '../../../../redux/slices/userSlide'
 import { useDialog } from '../../../../hooks/useDialog'
 import { showSuccess } from '../../../../utils/toast'
 import ConfirmDialog from '../../../../components/ConfirmDialog'
-import { HttpStatusCode } from '../../../../common'
+import { HttpStatusCode, User } from '../../../../common'
 
 
 const resetService = RestService.getInstance()
 export default function GridAction({ row }: any) {
 	const dispatch = useAppDispatch()
 	const [isOpenUpdate, handleOpenUpdate, handleCloseUpdate] = useDialog()
+	const account: User = useAppSelector(({ auth }) => auth.currentUser)
 
 	const fetchUsers = async () => {
 		const pathSegments = location.pathname.split('/')
@@ -48,6 +49,7 @@ export default function GridAction({ row }: any) {
 			<Button
 				color={row.status === undefined || !row.status ? 'success' : 'error'}
 				onClick={handleOpenUpdate}
+				disabled={row.uid == account.uid}
 			>
 				{row.status === undefined || !row.status ? 'Active' : 'Inactive'}
 			</Button>

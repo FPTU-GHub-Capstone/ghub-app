@@ -15,19 +15,16 @@ import ConfirmDialog from '../../../../components/ConfirmDialog'
 import { RestService } from '../../../../services/RestService'
 import config from '../../../../config'
 import { showSuccess } from '../../../../utils/toast'
+import { isHasDeleteGamePermission, isHasUpdatedGamePermission } from '../../../../services/AuthService'
 
 
 type DownLoadFile = {
-	data: string, 
-	fileName: string, 
+	data: string,
+	fileName: string,
 	fileType: string,
 }
 
-function isHasUpdatedGamePermission(decoded: UserTokenPayload, currentGameId: string): boolean {
-	return decoded.scp.includes('games:*:update') || decoded.scp.includes(`games:${currentGameId}:update`)
-}
-
-function downloadFile({ data, fileName, fileType }: DownLoadFile){
+function downloadFile({ data, fileName, fileType }: DownLoadFile) {
 	const blob = new Blob([data], { type: fileType })
 	const a = document.createElement('a')
 	a.download = fileName
@@ -41,7 +38,7 @@ function downloadFile({ data, fileName, fileType }: DownLoadFile){
 	a.remove()
 }
 
-export default function GridAction({rowData: client}: {rowData: Client}) {
+export default function GridAction({ rowData: client }: { rowData: Client }) {
 	const [isOpenUpdate, handleOpenUpdate, handleCloseUpdate] = useDialog()
 	const [isOpenDelete, handleOpenDelete, handleCloseDelete] = useDialog()
 	const dispatch = useAppDispatch()
@@ -51,17 +48,17 @@ export default function GridAction({rowData: client}: {rowData: Client}) {
 	const decoded = useMemo<UserTokenPayload>(() => {
 		return jwtDecode(accessToken)
 	}, [accessToken])
-	
-	const handleDeleteClient = async() => {
+
+	const handleDeleteClient = async () => {
 		const { status } = await deleteClient(client.clientId)
-		if(status == HttpStatusCode.NO_CONTENT) {
+		if (status == HttpStatusCode.NO_CONTENT) {
 			showSuccess('Scope has been deleted.')
 			dispatch(clientsFetch(gameId))
 			handleCloseDelete()
 		}
 	}
 
-	const handleDownLoadClient = async() => {
+	const handleDownLoadClient = async () => {
 		const privateClient = await RestService.getInstance().get<Client>(
 			`${config.IDP_URL}/clients/${client.clientId}`
 		)
@@ -82,13 +79,17 @@ export default function GridAction({rowData: client}: {rowData: Client}) {
 				onClick={handleOpenUpdate}
 				color="inherit"
 			/>
-			<GridActionsCellItem
-				key="delete"
-				icon={<Tooltip title="Delete"><Delete /></Tooltip>}
-				label="Delete"
-				onClick={handleOpenDelete}
-				color="inherit"
-			/>
+			
+			{isHasDeleteGamePermission(decoded, gameId) &&
+				<GridActionsCellItem
+					key="delete"
+					icon={<Tooltip title="Delete"><Delete /></Tooltip>}
+					label="Delete"
+					onClick={handleOpenDelete}
+					color="inherit"
+				/>
+			}
+
 			{isHasUpdatedGamePermission(decoded, gameId) && <GridActionsCellItem
 				key="download"
 				icon={<Tooltip title="Download"><Download /></Tooltip>}
@@ -97,15 +98,15 @@ export default function GridAction({rowData: client}: {rowData: Client}) {
 				color="inherit"
 			/>}
 
-			{isOpenUpdate && 
-				<UpdatePermission 
+			{isOpenUpdate &&
+				<UpdatePermission
 					data={client}
 					isOpenUpdate={isOpenUpdate}
 					handleCloseUpdate={handleCloseUpdate}
 				/>
 			}
 
-			<ConfirmDialog 
+			<ConfirmDialog
 				open={isOpenDelete}
 				title="Delete Client"
 				message="Are you sure? Do yo really want to delete this client. This

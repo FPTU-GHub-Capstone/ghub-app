@@ -8,7 +8,7 @@ export const OverviewRevenue = (props) => {
 	const {  sx, value } = props
 
 	return (
-		<Card sx={sx}>
+		<Card sx={sx} variant="outlined">
 			<CardContent>
 				<Stack
 					alignItems="flex-start"

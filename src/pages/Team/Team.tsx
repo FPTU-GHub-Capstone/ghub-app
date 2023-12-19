@@ -5,14 +5,11 @@ import { useParams } from 'react-router-dom'
 
 import { useDialog } from '../../hooks/useDialog'
 import { ACCESS_TOKEN, UserTokenPayload } from '../../common'
+import { isHasUpdatedGamePermission } from '../../services/AuthService'
 
 import AddMember from './TeamDialogs/AddMember'
 import { MemberList } from './MemberList'
 
-
-function isHasUpdatedGamePermission(decoded: UserTokenPayload, currentGameId: string): boolean {
-	return decoded.scp.includes('games:*:update') || decoded.scp.includes(`games:${currentGameId}:update`)
-}
 
 export const Team = ({title} : {title: string}) => {
 	const [isOpenAdd, handleOpenAdd, handleCloseAdd] = useDialog()
